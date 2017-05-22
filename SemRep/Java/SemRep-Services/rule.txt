@@ -1,0 +1,3 @@
+@prefix pre: <http://jena.hpl.hp.com/prefix#>.
+[rule1: (?f pre:father ?a) (?u pre:brother ?f) -> (?u pre:uncle ?a)]
+[rule2: (?f pre:Dokumentation ?a) -> (?f pre:Lastenheft)]
