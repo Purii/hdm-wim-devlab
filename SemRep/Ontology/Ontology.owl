@@ -97,7 +97,10 @@
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_arbeitet_an_Projekt
-:Person_arbeitet_an_Projekt rdf:type owl:ObjectProperty .
+:Person_arbeitet_an_Projekt rdf:type owl:ObjectProperty ;
+                            owl:inverseOf :Projekt_hat_Projektmitglied ;
+                            rdfs:domain :Person ;
+                            rdfs:range :Projekt .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_gehoert_zu_Abteilung
@@ -130,13 +133,6 @@
 :Person_hat_zuletzt_verwendet_Dokument rdf:type owl:ObjectProperty ;
                                        rdfs:domain :Person ;
                                        rdfs:range :Dokument .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#Person_ist_in_Projekt
-:Person_ist_in_Projekt rdf:type owl:ObjectProperty ;
-                       owl:inverseOf :Projekt_hat_Projektmitglied ;
-                       rdfs:domain :Person ;
-                       rdfs:range :Projekt .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_ruft_Dokument_auf
@@ -310,13 +306,6 @@
                  rdfs:subPropertyOf :dataProperty_Person ;
                  rdfs:domain :Person ;
                  rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#Person_Rolle
-:Person_Rolle rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf :dataProperty_Person ;
-              rdfs:domain :Person ;
-              rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_Vorname
@@ -584,13 +573,11 @@
                   :Person_gehoert_zu_Abteilung :IT-Abteilung ;
                   :Person_hat_Dokument_verfasst :Kostenaufstellung ;
                   :Person_hat_zuletzt_verwendet_Dokument :Kostenaufstellung ;
-                  :Person_ist_in_Projekt :HighNet ;
                   :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                             :Kostenaufstellung ;
                   :Person_Email "bjconcepts.de@gmail.com"^^xsd:string ;
                   :Person_ID "3"^^xsd:string ;
                   :Person_Nachname "Zimmermann"^^xsd:string ;
-                  :Person_Rolle "Entwickler"^^xsd:string ;
                   :Person_Vorname "Björn"^^xsd:string .
 
 
@@ -632,7 +619,6 @@
               :Person_Email "donald.trump@starcars.com"^^xsd:string ;
               :Person_ID "7"^^xsd:string ;
               :Person_Nachname "Trump"^^xsd:string ;
-              :Person_Rolle "Chief Financial Officer (CFO)"^^xsd:string ;
               :Person_Vorname "Donald"^^xsd:string .
 
 
@@ -679,7 +665,6 @@
                  :Person_Email "haruki.murakami@starcars.com"^^xsd:string ;
                  :Person_ID "5"^^xsd:string ;
                  :Person_Nachname "Murakami"^^xsd:string ;
-                 :Person_Rolle "Projektleiter"^^xsd:string ;
                  :Person_Vorname "Haruki"^^xsd:string .
 
 
@@ -704,13 +689,11 @@
 :Ivan_Kurtovic rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
                :Person_gehoert_zu_Abteilung :IT-Abteilung ;
-               :Person_ist_in_Projekt :HighNet ;
                :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                          :Kostenplanung ;
                :Person_Email "ivankurtovic2016@gmail.com"^^xsd:string ;
                :Person_ID "4"^^xsd:string ;
                :Person_Nachname "Kurtovic"^^xsd:string ;
-               :Person_Rolle "Entwickler"^^xsd:string ;
                :Person_Vorname "Ivan"^^xsd:string .
 
 
@@ -771,27 +754,25 @@
                           :Externer_Mitarbeiter ;
                  :Person_gehoert_zu_Abteilung :IT-Abteilung ;
                  :Person_hat_Projektrolle :Entwickler ;
-                 :Person_ist_in_Projekt :HighNet ;
                  :Person_ruft_Dokument_auf :Aufgabenliste ,
                                            :KickOff_HighNet ;
                  :Person_Email "kristjan.alliaj@gmail.com"^^xsd:string ;
                  :Person_ID "2"^^xsd:string ;
                  :Person_Nachname "Alliaj"^^xsd:string ;
-                 :Person_Rolle "Entwickler"^^xsd:string ;
                  :Person_Vorname "Kristjan"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier
 :Lisa_Meier rdf:type owl:NamedIndividual ,
                      :Externer_Mitarbeiter ;
+            :Person_arbeitet_an_Projekt :HighNet ;
             :Person_gehoert_zu_Abteilung :IT-Abteilung ;
+            :Person_hat_Dokument_verfasst :KickOff_HighNet ;
             :Person_hat_Projektrolle :Projektmitarbeiter ;
-            :Person_ist_in_Projekt :HighNet ;
             :Person_ruft_Dokument_auf :KickOff_HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
             :Person_Nachname "Meier"^^xsd:string ;
-            :Person_Rolle "Projektmitarbeiter"^^xsd:string ;
             :Person_Vorname "Lisa"^^xsd:string .
 
 
@@ -799,14 +780,12 @@
 :Mateos_Alliaj rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
                :Person_gehoert_zu_Abteilung :IT-Abteilung ;
-               :Person_ist_in_Projekt :HighNet ;
                :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                          :Meilensteine ,
                                          :Projektplanung ;
                :Person_Email "mateos.alliaj@gmail.com"^^xsd:string ;
                :Person_ID "1"^^xsd:string ;
                :Person_Nachname "Alliaj"^^xsd:string ;
-               :Person_Rolle "Entwickler"^^xsd:string ;
                :Person_Vorname "Mateos"^^xsd:string .
 
 
