@@ -301,6 +301,13 @@
            rdfs:range xsd:string .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#Person_Mitarbeiter
+:Person_Mitarbeiter rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :dataProperty_Person ;
+                    rdfs:domain :Person ;
+                    rdfs:range xsd:string .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_Nachname
 :Person_Nachname rdf:type owl:DatatypeProperty ;
                  rdfs:subPropertyOf :dataProperty_Person ;
@@ -440,22 +447,12 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Externe_Abteilung
 :Externe_Abteilung rdf:type owl:Class ;
-                   owl:equivalentClass [ owl:intersectionOf ( :Externe_Abteilung
-                                                              :Externes_Unternehmen
-                                                            ) ;
-                                         rdf:type owl:Class
-                                       ] ;
                    rdfs:subClassOf :Abteilung ;
                    owl:disjointWith :Interne_Abteilung .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter
 :Externer_Mitarbeiter rdf:type owl:Class ;
-                      owl:equivalentClass [ owl:intersectionOf ( :Externer_Mitarbeiter
-                                                                 :Externes_Unternehmen
-                                                               ) ;
-                                            rdf:type owl:Class
-                                          ] ;
                       rdfs:subClassOf :Person ;
                       owl:disjointWith :Interner_Mitarbeiter .
 
@@ -471,21 +468,11 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung
 :Interne_Abteilung rdf:type owl:Class ;
-                   owl:equivalentClass [ owl:intersectionOf ( :Eigenes_Unternehmen
-                                                              :Interne_Abteilung
-                                                            ) ;
-                                         rdf:type owl:Class
-                                       ] ;
                    rdfs:subClassOf :Abteilung .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter
 :Interner_Mitarbeiter rdf:type owl:Class ;
-                      owl:equivalentClass [ owl:intersectionOf ( :Eigenes_Unternehmen
-                                                                 :Interner_Mitarbeiter
-                                                               ) ;
-                                            rdf:type owl:Class
-                                          ] ;
                       rdfs:subClassOf :Person .
 
 
@@ -570,13 +557,16 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann
 :Björn_Zimmermann rdf:type owl:NamedIndividual ,
                            :Externer_Mitarbeiter ;
+                  :Person_arbeitet_an_Projekt :HighNet ;
                   :Person_gehoert_zu_Abteilung :IT-Abteilung ;
                   :Person_hat_Dokument_verfasst :Kostenaufstellung ;
+                  :Person_hat_Projektrolle :Entwickler ;
                   :Person_hat_zuletzt_verwendet_Dokument :Kostenaufstellung ;
                   :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                             :Kostenaufstellung ;
                   :Person_Email "bjconcepts.de@gmail.com"^^xsd:string ;
                   :Person_ID "3"^^xsd:string ;
+                  :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
                   :Person_Nachname "Zimmermann"^^xsd:string ;
                   :Person_Vorname "Björn"^^xsd:string .
 
@@ -618,6 +608,7 @@
               :Person_ruft_Dokument_auf :KickOff_HighNet ;
               :Person_Email "donald.trump@starcars.com"^^xsd:string ;
               :Person_ID "7"^^xsd:string ;
+              :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
               :Person_Nachname "Trump"^^xsd:string ;
               :Person_Vorname "Donald"^^xsd:string .
 
@@ -660,10 +651,12 @@
                           :Interner_Mitarbeiter ;
                  :Person_gehoert_zu_Abteilung :Forschung_und_Entwicklung ;
                  :Person_hat_Dokument_verfasst :Projektplanung ;
+                 :Person_hat_Projektrolle :Projektmitarbeiter ;
                  :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                            :Projektplanung ;
                  :Person_Email "haruki.murakami@starcars.com"^^xsd:string ;
                  :Person_ID "5"^^xsd:string ;
+                 :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
                  :Person_Nachname "Murakami"^^xsd:string ;
                  :Person_Vorname "Haruki"^^xsd:string .
 
@@ -688,11 +681,15 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic
 :Ivan_Kurtovic rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
+               :Person_arbeitet_an_Projekt :HighNet ;
                :Person_gehoert_zu_Abteilung :IT-Abteilung ;
+               :Person_hat_Dokument_verfasst :Kostenplanung ;
+               :Person_hat_Projektrolle :Entwickler ;
                :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                          :Kostenplanung ;
                :Person_Email "ivankurtovic2016@gmail.com"^^xsd:string ;
                :Person_ID "4"^^xsd:string ;
+               :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
                :Person_Nachname "Kurtovic"^^xsd:string ;
                :Person_Vorname "Ivan"^^xsd:string .
 
@@ -752,12 +749,15 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj
 :Kristjan_Alliaj rdf:type owl:NamedIndividual ,
                           :Externer_Mitarbeiter ;
+                 :Person_arbeitet_an_Projekt :HighNet ;
                  :Person_gehoert_zu_Abteilung :IT-Abteilung ;
+                 :Person_hat_Dokument_verfasst :Aufgabenliste ;
                  :Person_hat_Projektrolle :Entwickler ;
                  :Person_ruft_Dokument_auf :Aufgabenliste ,
                                            :KickOff_HighNet ;
                  :Person_Email "kristjan.alliaj@gmail.com"^^xsd:string ;
                  :Person_ID "2"^^xsd:string ;
+                 :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
                  :Person_Nachname "Alliaj"^^xsd:string ;
                  :Person_Vorname "Kristjan"^^xsd:string .
 
@@ -772,6 +772,7 @@
             :Person_ruft_Dokument_auf :KickOff_HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
+            :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
             :Person_Nachname "Meier"^^xsd:string ;
             :Person_Vorname "Lisa"^^xsd:string .
 
@@ -779,12 +780,18 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj
 :Mateos_Alliaj rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
+               :Person_arbeitet_an_Projekt :HighNet ;
                :Person_gehoert_zu_Abteilung :IT-Abteilung ;
+               :Person_hat_Dokument_verfasst :Meilensteine ,
+                                             :Projektplanung ;
+               :Person_hat_Projektrolle :Entwickler ,
+                                        :Projektleiter ;
                :Person_ruft_Dokument_auf :KickOff_HighNet ,
                                          :Meilensteine ,
                                          :Projektplanung ;
                :Person_Email "mateos.alliaj@gmail.com"^^xsd:string ;
                :Person_ID "1"^^xsd:string ;
+               :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
                :Person_Nachname "Alliaj"^^xsd:string ;
                :Person_Vorname "Mateos"^^xsd:string .
 

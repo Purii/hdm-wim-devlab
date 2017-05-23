@@ -27,15 +27,20 @@ public class TokenizerInterface {
 	}
 
 	public static void setArrayDemoData() {
-		inputArray[0] = "6";
+		inputArray[0] = "4";
 		inputArray[1] = "activities";
 		inputArray[2] = "HighNet";
 		inputArray[3] = "project";
 	}
 
+	/*
+	PersonArray - x
+	ProjektArray - leer/Alternative b
+	DokumentArray - x
+	*/
+	
 	public static ArrayList<String> getDocumentMetaData() {
 
-		System.out.println(inputArray[0]);
 		String filePath = "src/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 		try {
@@ -44,24 +49,27 @@ public class TokenizerInterface {
 			ontologyModel.read(fileReader, null, "TTL");
 
 			for (int y = 0; y < inputArray.length; y++) {
-				
-			
-			String sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " 
-					+ "SELECT ?Person ?ID ?Vorname ?Nachname ?mail ?Projekt "
-					+ "?Projektrolle ?Abteilung "
-					+ "?Dokument ?Aufruf "
-					+ "WHERE { " 
+							
+			String sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+					+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+					+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>" 
+					+ "SELECT DISTINCT ?Person ?ID ?Klasse ?Vorname ?Nachname ?mail ?Status ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf "
+					+ "WHERE { "
+					+ "?Person a ?Klasse . "
 					+ "?Person ontology:Person_ID ?ID . "
 					+ "?Person ontology:Person_Vorname ?Vorname . "
 					+ "?Person ontology:Person_Nachname ?Nachname . "
 					+ "?Person ontology:Person_Email ?mail . "
+					+ "?Person ontology:Person_Mitarbeiter ?Status ."
 					+ "?Person ontology:Person_arbeitet_an_Projekt ?Projekt . "
 					+ "?Person ontology:Person_hat_Projektrolle ?Projektrolle . "
 					+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
 					+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
 					+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
+					//+ "?individual rdf:type ontology:Externer_Mitarbeiter . "
+					// Eingrenzung auf userID
 					+ "?Person ontology:Person_ID '"
-					+ inputArray[y].toString() + "' " 
+					+ inputArray[y].toString() + "' ." 
 					+ "}";
 
 			// Initialisierung und Ausführung einer SPARQL-Query
@@ -83,8 +91,12 @@ public class TokenizerInterface {
 	
 						indexOfToSplitCharacter = rdfNode.toString().indexOf("#");
 						splitResult = rdfNode.toString().substring(indexOfToSplitCharacter + 1);
+						
+						if (splitResult == "NamedIndividual") {
+							break;
+						}
 	
-						System.out.println(splitResult);
+						System.out.println(results + ": " +splitResult);
 					}
 					System.out.print("\n");
 				}

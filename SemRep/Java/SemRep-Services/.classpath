@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/appengine-api-1.0-sdk-1.9.18.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/appengine-api-labs.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/appengine-endpoints-deps.jar"/>
@@ -17,7 +17,7 @@
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/commons-csv-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/commons-io-2.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/commons-lang3-3.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/datanucleus-api-jdo-3.1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/datanucleus-api-jpa-3.1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/datanucleus-appengine-2.1.2.jar"/>
@@ -49,26 +49,26 @@
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/jsr107cache-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/jta-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/libthrift-0.9.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/slf4j-api-1.7.21.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/slf4j-log4j12-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/slf4j-log4j12-1.7.21.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/github/SemantischeRepresentation/Java/SemantischeRepresentation/war/WEB-INF/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/jena-2.6.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/commons-logging-1.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/icu4j-3.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/iri-0.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/log4j-1.2.17.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/slf4j-api-1.7.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/slf4j-log4j12-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/Downloads/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/Downloads/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/Users/mateo_alliaj/Downloads/slf4j-log4j12-1.7.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/mateo_alliaj/Downloads/xercesImpl-2.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/icu4j-3.8.jar"/>
-	<classpathentry kind="lib" path="lib/iri-0.5.jar"/>
-	<classpathentry kind="lib" path="lib/jena-2.6.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/icu4j-3.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/iri-0.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jena-2.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/xercesImpl-2.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
