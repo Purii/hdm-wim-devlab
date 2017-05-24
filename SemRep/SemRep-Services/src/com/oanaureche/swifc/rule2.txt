@@ -1,0 +1,4 @@
+@prefix : <http://www.semanticweb.org/sem-rep/ontology#> .
+### [rule1: (?f :father ?a) (?u :brother ?f) -> (?u :uncle ?a)]
+[rule1: (?f :Dokument_verfasst_von_Person ?a) (?u :Projekt_hat_Dokument ?f) -> (?u :Projekt_hat_Mitarbeiter ?a)]
+### Meilensteine Dokument_verfasst_von_Person Mateos_Alliaj & HighNet Projekt_hat_Dokument Meilensteine -> (HighNet Projekt_hat_Mitarbeiter Mateos_Alliaj)

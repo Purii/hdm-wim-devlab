@@ -23,9 +23,10 @@ public class ReasonWithRules {
   // TODO Auto-generated method stub
     
   Model instances = ModelFactory.createDefaultModel();
-  instances.read ("file:dataset.txt","N3");
-  Reasoner reasoner = new  
-                    GenericRuleReasoner(Rule.rulesFromURL("file:rule.txt"));
+  //instances.read ("file:dataset.txt","N3");
+  instances.read ("file:dataset2.txt","N3"); 
+  Reasoner reasoner = new GenericRuleReasoner(Rule.rulesFromURL("file:rule2.txt"));
+                    //GenericRuleReasoner(Rule.rulesFromURL("file:rule.txt"));
   reasoner.setDerivationLogging(true);
   InfModel inf = ModelFactory.createInfModel(reasoner, instances); 
   
