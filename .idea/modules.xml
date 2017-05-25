@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hdm-wim-devlab.iml" filepath="$PROJECT_DIR$/.idea/hdm-wim-devlab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Event/Event.iml" filepath="$PROJECT_DIR$/Event/Event.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SemRep/SemRep-Services/SemRep-Services.iml" filepath="$PROJECT_DIR$/SemRep/SemRep-Services/SemRep-Services.iml" />
     </modules>
   </component>
 </project>
