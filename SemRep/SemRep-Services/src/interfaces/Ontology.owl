@@ -854,7 +854,8 @@
                 :Dokument_verfasst_von_Person :Mateos_Alliaj ;
                 :Dok_Erstelldatum "2017-04-12T17:33:00"^^xsd:dateTime ;
                 :Dok_ID "1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM"^^xsd:string ;
-                :Dok_Keywords "Projekt, Planung, ProjektPlanung, Plan, Projektplan"^^xsd:string ;
+                :Dok_Keywords "Projekt, Planung, ProjektPlanung, Plan, Projektplan"^^xsd:string ,
+                              "Test"^^xsd:string ;
                 :Dok_Name "Projektplanung"^^xsd:string ;
                 :Dok_Typ "Google Docs"^^xsd:string ;
                 :Dok_URL "https://docs.google.com/document/d/1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM/edit"^^xsd:string ;

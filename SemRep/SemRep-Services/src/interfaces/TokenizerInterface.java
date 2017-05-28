@@ -19,6 +19,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
+import businessObjects.Dokument;
 import businessObjects.Person;
 
 public class TokenizerInterface {
@@ -36,9 +37,9 @@ public class TokenizerInterface {
 
 	public static void setArrayDemoData() {
 		inputArray[0] = "6";
-		inputArray[1] = "activities";
-		inputArray[2] = "HighNet";
-		inputArray[3] = "project";
+		inputArray[1] = "Aufgaben";
+		inputArray[2] = "KickOff";
+		inputArray[3] = "Meilensteine";
 	}
 
 	/*
@@ -54,17 +55,18 @@ public class TokenizerInterface {
 		HashMap<String, String> dokumentHashMap = null;
 		richTokenHashMap = new HashMap<String, String>();
 		personArrayList = new ArrayList<String>();
-		Person person = null;
+		Person personObj = null;
+		Dokument dokumentObj = null;
 
 		try {
 			File file = new File(filePath);
 			FileReader fileReader = new FileReader(file);
 			ontologyModel.read(fileReader, null, "TTL");
 
-			//initialisiere Variablen
-			//sparql
+			// initialisiere Variablen
+			// sparql
 			String sparql = "";
-			//person
+			// person
 			String personStr = "";
 			String idStr = "";
 			String klasseStr = "";
@@ -76,13 +78,9 @@ public class TokenizerInterface {
 			String abteilungStr = "";
 			String dokumentStr = "";
 			String aufrufStr = "";
-			//dokument
-			String dok_Str = ""; 
+			// dokument
+			String dok_Str = "";
 			String dok_KlasseStr = "";
-			String dok_VerfasserStr = "";
-			String dok_PhaseStr = "";
-			String dok_kategorieStr = "";
-			String dok_ProjektStr = ""; 
 			String dok_NameStr = "";
 			String dok_IDStr = "";
 			String dok_URLStr = "";
@@ -91,9 +89,13 @@ public class TokenizerInterface {
 			String dok_KeywordsStr = "";
 			String dok_VersionStr = "";
 			String dok_TypStr = "";
-			
+			String dok_VerfasserStr = "";
+			String dok_PhaseStr = "";
+			String dok_kategorieStr = "";
+			String dok_ProjektStr = "";
+
 			// initalisiere HashMap
-			//person
+			// person
 			personHashMap = new HashMap<String, String>();
 			personHashMap.put("Person", "");
 			personHashMap.put("ID", "");
@@ -106,13 +108,15 @@ public class TokenizerInterface {
 			personHashMap.put("Abteilung", "");
 			personHashMap.put("Dokumente", "");
 			personHashMap.put("Aufrufe", "");
-			
-			//initialisiere Objekte
-			//person
-			person = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
+
+			// initialisiere Objekte
+			// person
+			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
 					projektrolleStr, abteilungStr, dokumentStr, aufrufStr);
-			//dokument
-			
+			// dokument
+			dokumentObj = new Dokument(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
+					dok_UpdatedatumStr, dok_KeywordsStr, dok_VersionStr, dok_TypStr, dok_VerfasserStr, dok_PhaseStr,
+					dok_kategorieStr, dok_ProjektStr);
 
 			for (int y = 0; y < inputArray.length; y++) {
 
@@ -129,32 +133,28 @@ public class TokenizerInterface {
 							+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
 							+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
 							+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
-							// + "?individual rdf:type
-							// ontology:Externer_Mitarbeiter . "
 							// Eingrenzung auf userID
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
-
-					
 
 				} else {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-							+ "SELECT DISTINCT ?Klasse ?Person ?ID ?Vorname ?Nachname ?mail ?Status ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf "
-							+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
-							+ "?Person ontology:Person_Vorname ?Vorname . "
-							+ "?Person ontology:Person_Nachname ?Nachname . " + "?Person ontology:Person_Email ?mail . "
-							+ "?Person ontology:Person_Mitarbeiter ?Status ."
-							+ "?Person ontology:Person_arbeitet_an_Projekt ?Projekt . "
-							+ "?Person ontology:Person_hat_Projektrolle ?Projektrolle . "
-							+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
-							+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
-							+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
-							// + "?individual rdf:type
-							// ontology:Externer_Mitarbeiter . "
-							// Eingrenzung auf userID
-							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
+							+ "SELECT DISTINCT ?Dokument ?Klasse ?Verfasser ?Phase ?Dokumentkategorie "
+							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
+							+ "?Dok_Version ?Dok_Typ " + "WHERE { " + "?Dokument a ?Klasse . "
+							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
+							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
+							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
+							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
+							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
+							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
+							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
+							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
+							// Eingrenzung auf keyword
+							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
 
 				}
 
@@ -207,57 +207,57 @@ public class TokenizerInterface {
 									case "Person":
 										personStr = splitResult;
 										personHashMap.put("Person", personStr);
-										person.setPerson(personStr);
+										personObj.setPerson(personStr);
 										break;
 									case "ID":
 										idStr = splitResult;
 										personHashMap.put("ID", idStr);
-										person.setId(idStr);
+										personObj.setId(idStr);
 										break;
 									case "Klasse":
 										klasseStr = splitResult;
 										personHashMap.put("Klasse", klasseStr);
-										person.setKlasse(klasseStr);
+										personObj.setKlasse(klasseStr);
 										break;
 									case "Vorname":
 										vornameStr = splitResult;
 										personHashMap.put("Vorname", vornameStr);
-										person.setVorname(vornameStr);
+										personObj.setVorname(vornameStr);
 										break;
 									case "Nachname":
 										nachnameStr = splitResult;
 										personHashMap.put("Nachname", nachnameStr);
-										person.setNachname(nachnameStr);
+										personObj.setNachname(nachnameStr);
 										break;
 									case "Mail":
 										mailStr = splitResult;
 										personHashMap.put("Mail", mailStr);
-										person.setMail(mailStr);
+										personObj.setMail(mailStr);
 										break;
 									case "Projekt":
 										projektStr = splitResult;
 										personHashMap.put("Projekt", projektStr);
-										person.setPerson_arbeitet_an_Projekt(projektStr);
+										personObj.setPerson_arbeitet_an_Projekt(projektStr);
 										break;
 									case "Projektrolle":
 										projektrolleStr = splitResult;
 										personHashMap.put("Projektrolle", projektrolleStr);
-										person.setPerson_hat_Projektrolle(projektrolleStr);
+										personObj.setPerson_hat_Projektrolle(projektrolleStr);
 										break;
 									case "Abteilung":
 										abteilungStr = splitResult;
 										personHashMap.put("Abteilung", abteilungStr);
-										person.setPerson_gehoert_zu_Abteilung(abteilungStr);
+										personObj.setPerson_gehoert_zu_Abteilung(abteilungStr);
 										break;
 									case "Dokument":
 										dokumentStr = splitResult;
 										personHashMap.put("Dokumente", dokumentStr);
-										person.setPerson_hat_Dokument_verfasst(dokumentStr);
+										personObj.setPerson_hat_Dokument_verfasst(dokumentStr);
 										break;
 									case "Aufruf":
 										aufrufStr = splitResult;
 										personHashMap.put("Aufrufe", aufrufStr);
-										person.setPerson_ruft_Dokument_auf(aufrufStr);
+										personObj.setPerson_ruft_Dokument_auf(aufrufStr);
 										break;
 									}
 
@@ -270,21 +270,22 @@ public class TokenizerInterface {
 									switch (results) {
 									case "Dokument":
 										dokumentStr = splitResult;
-										if (!dokumentStr.equals(person.getPerson_hat_Dokument_verfasst().toString())) {
+										if (!dokumentStr
+												.equals(personObj.getPerson_hat_Dokument_verfasst().toString())) {
 											personHashMap.put("Dokumente",
 													personHashMap.get("Dokumente") + ", " + dokumentStr);
-											System.out.println(person.getPerson_hat_Dokument_verfasst().toString());
-											person.setPerson_hat_Dokument_verfasst(
-													person.getPerson_hat_Dokument_verfasst() + ", " + dokumentStr);
+											System.out.println(personObj.getPerson_hat_Dokument_verfasst().toString());
+											personObj.setPerson_hat_Dokument_verfasst(
+													personObj.getPerson_hat_Dokument_verfasst() + ", " + dokumentStr);
 										}
 										break;
 									case "Aufruf":
 										aufrufStr = splitResult;
-										if (!aufrufStr.equals(person.getPerson_ruft_Dokument_auf())) {
+										if (!aufrufStr.equals(personObj.getPerson_ruft_Dokument_auf())) {
 											personHashMap.put("Aufrufe",
 													personHashMap.get("Aufrufe") + ", " + aufrufStr);
-											person.setPerson_ruft_Dokument_auf(
-													person.getPerson_ruft_Dokument_auf() + ", " + aufrufStr);
+											personObj.setPerson_ruft_Dokument_auf(
+													personObj.getPerson_ruft_Dokument_auf() + ", " + aufrufStr);
 										}
 										break;
 									}
@@ -318,13 +319,14 @@ public class TokenizerInterface {
 		 */
 
 		richTokenHashMap.put("Person",
-				"Person=" + person.getPerson() + ", " + "ID=" + person.getId() + ", " + "Klasse=" + person.getKlasse() + ", "
-						+ "Vorname=" + person.vorname + ", " + "Nachname=" + person.nachname + ", " + "Mail="
-						+ person.mail + ", " + "Person_arbeitet_an_Projekt=" + person.person_arbeitet_an_Projekt + ", "
-						+ "Person_hat_Projektrolle=" + person.person_hat_Projektrolle + ", "
-						+ "Person_gehoert_zu_Abteilung=" + person.person_gehoert_zu_Abteilung + ", "
-						+ "Person_hat_Dokument_verfasst=" + person.person_hat_Dokument_verfasst + ", "
-						+ "Person_ruft_Dokument_auf=" + person.person_ruft_Dokument_auf);
+				"Person=" + personObj.getPerson() + ", " + "ID=" + personObj.getId() + ", " + "Klasse="
+						+ personObj.getKlasse() + ", " + "Vorname=" + personObj.vorname + ", " + "Nachname="
+						+ personObj.nachname + ", " + "Mail=" + personObj.mail + ", " + "Person_arbeitet_an_Projekt="
+						+ personObj.person_arbeitet_an_Projekt + ", " + "Person_hat_Projektrolle="
+						+ personObj.person_hat_Projektrolle + ", " + "Person_gehoert_zu_Abteilung="
+						+ personObj.person_gehoert_zu_Abteilung + ", " + "Person_hat_Dokument_verfasst="
+						+ personObj.person_hat_Dokument_verfasst + ", " + "Person_ruft_Dokument_auf="
+						+ personObj.person_ruft_Dokument_auf);
 
 		System.out.println(richTokenHashMap.get("Person"));
 
