@@ -35,7 +35,7 @@ public class TokenizerInterface {
 	}
 
 	public static void setArrayDemoData() {
-		inputArray[0] = "4";
+		inputArray[0] = "6";
 		inputArray[1] = "activities";
 		inputArray[2] = "HighNet";
 		inputArray[3] = "project";
@@ -51,6 +51,7 @@ public class TokenizerInterface {
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 
 		HashMap<String, String> personHashMap = null;
+		HashMap<String, String> dokumentHashMap = null;
 		richTokenHashMap = new HashMap<String, String>();
 		personArrayList = new ArrayList<String>();
 		Person person = null;
@@ -60,8 +61,10 @@ public class TokenizerInterface {
 			FileReader fileReader = new FileReader(file);
 			ontologyModel.read(fileReader, null, "TTL");
 
+			//initialisiere Variablen
+			//sparql
 			String sparql = "";
-
+			//person
 			String personStr = "";
 			String idStr = "";
 			String klasseStr = "";
@@ -73,14 +76,49 @@ public class TokenizerInterface {
 			String abteilungStr = "";
 			String dokumentStr = "";
 			String aufrufStr = "";
+			//dokument
+			String dok_Str = ""; 
+			String dok_KlasseStr = "";
+			String dok_VerfasserStr = "";
+			String dok_PhaseStr = "";
+			String dok_kategorieStr = "";
+			String dok_ProjektStr = ""; 
+			String dok_NameStr = "";
+			String dok_IDStr = "";
+			String dok_URLStr = "";
+			String dok_erstelldatumStr = "";
+			String dok_UpdatedatumStr = "";
+			String dok_KeywordsStr = "";
+			String dok_VersionStr = "";
+			String dok_TypStr = "";
+			
+			// initalisiere HashMap
+			//person
+			personHashMap = new HashMap<String, String>();
+			personHashMap.put("Person", "");
+			personHashMap.put("ID", "");
+			personHashMap.put("Klasse", "");
+			personHashMap.put("Vorname", "");
+			personHashMap.put("Nachname", "");
+			personHashMap.put("Mail", "");
+			personHashMap.put("Projekt", "");
+			personHashMap.put("Projektrolle", "");
+			personHashMap.put("Abteilung", "");
+			personHashMap.put("Dokumente", "");
+			personHashMap.put("Aufrufe", "");
+			
+			//initialisiere Objekte
+			//person
+			person = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
+					projektrolleStr, abteilungStr, dokumentStr, aufrufStr);
+			//dokument
+			
 
 			for (int y = 0; y < inputArray.length; y++) {
 
 				if (y == 0) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-							+ "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
 							+ "SELECT DISTINCT ?Person ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Status ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf "
 							+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
 							+ "?Person ontology:Person_Vorname ?Vorname . "
@@ -96,23 +134,7 @@ public class TokenizerInterface {
 							// Eingrenzung auf userID
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
 
-					// initalisiere HashMap
-					personHashMap = new HashMap<String, String>();
-
-					personHashMap.put("Person", "");
-					personHashMap.put("ID", "");
-					personHashMap.put("Klasse", "");
-					personHashMap.put("Vorname", "");
-					personHashMap.put("Nachname", "");
-					personHashMap.put("Mail", "");
-					personHashMap.put("Projekt", "");
-					personHashMap.put("Projektrolle", "");
-					personHashMap.put("Abteilung", "");
-					personHashMap.put("Dokumente", "");
-					personHashMap.put("Aufrufe", "");
-
-					person = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
-							projektrolleStr, abteilungStr, dokumentStr, aufrufStr);
+					
 
 				} else {
 
