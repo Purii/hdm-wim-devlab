@@ -19,11 +19,14 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
+import businessObjects.Person;
+
 public class TokenizerInterface {
 
 	public static String[] inputArray = new String[4];
-	public static HashMap<String, String> personHashMap;
-	public static ArrayList<String> list = new ArrayList<String>();
+
+	public static ArrayList<String> personArrayList = null;
+	public static HashMap<String, String> richTokenHashMap = null;
 
 	public static void main(String[] args) {
 
@@ -46,11 +49,16 @@ public class TokenizerInterface {
 
 		String filePath = "src/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+
+		HashMap<String, String> personHashMap = null;
+		richTokenHashMap = new HashMap<String, String>();
+		personArrayList = new ArrayList<String>();
+		Person person = null;
+
 		try {
 			File file = new File(filePath);
 			FileReader fileReader = new FileReader(file);
 			ontologyModel.read(fileReader, null, "TTL");
-			personHashMap = new HashMap<String, String>();
 
 			String sparql = "";
 
@@ -89,6 +97,8 @@ public class TokenizerInterface {
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
 
 					// initalisiere HashMap
+					personHashMap = new HashMap<String, String>();
+
 					personHashMap.put("Person", "");
 					personHashMap.put("ID", "");
 					personHashMap.put("Klasse", "");
@@ -100,6 +110,9 @@ public class TokenizerInterface {
 					personHashMap.put("Abteilung", "");
 					personHashMap.put("Dokumente", "");
 					personHashMap.put("Aufrufe", "");
+
+					person = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
+							projektrolleStr, abteilungStr, dokumentStr, aufrufStr);
 
 				} else {
 
@@ -156,92 +169,105 @@ public class TokenizerInterface {
 							} else {
 
 								// einmaliges befüllen der nachfolgenden Werte
-								if (((personHashMap.get("Person") == "") == true) || ((personHashMap.get("ID") == "") == true)
-										|| ((personHashMap.get("Klasse") == "") == true) || ((personHashMap.get("Vorname") == "") == true)
-										|| ((personHashMap.get("Nachname") == "") == true) || ((personHashMap.get("Mail") == "") == true)
+								if (((personHashMap.get("Person") == "") == true)
+										|| ((personHashMap.get("ID") == "") == true)
+										|| ((personHashMap.get("Klasse") == "") == true)
+										|| ((personHashMap.get("Vorname") == "") == true)
+										|| ((personHashMap.get("Nachname") == "") == true)
+										|| ((personHashMap.get("Mail") == "") == true)
 										|| ((personHashMap.get("Projekt") == "") == true)
 										|| ((personHashMap.get("Projektrolle") == "") == true)
 										|| ((personHashMap.get("Abteilung") == "") == true)
 										|| ((personHashMap.get("Dokumente") == "") == true)
 										|| ((personHashMap.get("Aufrufe") == "") == true)) {
 
-									// //iteriere durch die HashMap
-									// for (String key : personHashMap.keySet())
-									// {
-									//
-									// System.out.println("key: " + key + "
-									// value: " + personHashMap.get(key));
-									//
-									// }
-
-									
 									switch (results) {
 									case "Person":
 										personStr = splitResult;
 										personHashMap.put("Person", personStr);
+										person.setPerson(personStr);
 										break;
 									case "ID":
 										idStr = splitResult;
 										personHashMap.put("ID", idStr);
+										person.setId(idStr);
 										break;
 									case "Klasse":
 										klasseStr = splitResult;
 										personHashMap.put("Klasse", klasseStr);
+										person.setKlasse(klasseStr);
 										break;
 									case "Vorname":
 										vornameStr = splitResult;
 										personHashMap.put("Vorname", vornameStr);
+										person.setVorname(vornameStr);
 										break;
 									case "Nachname":
 										nachnameStr = splitResult;
 										personHashMap.put("Nachname", nachnameStr);
+										person.setNachname(nachnameStr);
 										break;
 									case "Mail":
 										mailStr = splitResult;
 										personHashMap.put("Mail", mailStr);
+										person.setMail(mailStr);
 										break;
 									case "Projekt":
 										projektStr = splitResult;
 										personHashMap.put("Projekt", projektStr);
+										person.setPerson_arbeitet_an_Projekt(projektStr);
 										break;
 									case "Projektrolle":
 										projektrolleStr = splitResult;
 										personHashMap.put("Projektrolle", projektrolleStr);
+										person.setPerson_hat_Projektrolle(projektrolleStr);
 										break;
 									case "Abteilung":
 										abteilungStr = splitResult;
 										personHashMap.put("Abteilung", abteilungStr);
+										person.setPerson_gehoert_zu_Abteilung(abteilungStr);
 										break;
 									case "Dokument":
 										dokumentStr = splitResult;
 										personHashMap.put("Dokumente", dokumentStr);
+										person.setPerson_hat_Dokument_verfasst(dokumentStr);
 										break;
 									case "Aufruf":
 										aufrufStr = splitResult;
 										personHashMap.put("Aufrufe", aufrufStr);
+										person.setPerson_ruft_Dokument_auf(aufrufStr);
 										break;
 									}
 
 								}
 								// befülle dynamische Anzahl der Dokumente und
 								// Aufrufe
-								else if (((personHashMap.get("Dokumente") == "") == false) || ((personHashMap.get("Aufrufe") != "") == false)) {
+								else if (((personHashMap.get("Dokumente") == "") == false)
+										|| ((personHashMap.get("Aufrufe") == "") == false)) {
 
 									switch (results) {
 									case "Dokument":
 										dokumentStr = splitResult;
-										personHashMap.put("Dokumente",
-												personHashMap.get("Dokumente") + ", " + dokumentStr);
+										if (!dokumentStr.equals(person.getPerson_hat_Dokument_verfasst().toString())) {
+											personHashMap.put("Dokumente",
+													personHashMap.get("Dokumente") + ", " + dokumentStr);
+											System.out.println(person.getPerson_hat_Dokument_verfasst().toString());
+											person.setPerson_hat_Dokument_verfasst(
+													person.getPerson_hat_Dokument_verfasst() + ", " + dokumentStr);
+										}
 										break;
 									case "Aufruf":
 										aufrufStr = splitResult;
-										personHashMap.put("Aufrufe", personHashMap.get("Aufrufe") + ", " + aufrufStr);
+										if (!aufrufStr.equals(person.getPerson_ruft_Dokument_auf())) {
+											personHashMap.put("Aufrufe",
+													personHashMap.get("Aufrufe") + ", " + aufrufStr);
+											person.setPerson_ruft_Dokument_auf(
+													person.getPerson_ruft_Dokument_auf() + ", " + aufrufStr);
+										}
 										break;
 									}
-									
-								}
 
-								//System.out.println(results + ": " + splitResult);
+								}
 
 							}
 
@@ -249,10 +275,8 @@ public class TokenizerInterface {
 
 					}
 
-					//System.out.print("\n");
-
 				}
-				 
+
 				queryExecution.close();
 
 			}
@@ -261,13 +285,27 @@ public class TokenizerInterface {
 			System.out.println(e.getMessage());
 		}
 
-		//iteriere durch die HashMap
-		for (String key : personHashMap.keySet()) {
-		
-			System.out.println("key: " + key + " value: " + personHashMap.get(key));
-		
-		}
-		
+		/*
+		 * //iteriere durch die HashMap for (String key :
+		 * personHashMap.keySet()) {
+		 * 
+		 * System.out.println("key: " + key + " value: " +
+		 * personHashMap.get(key));
+		 * 
+		 * }
+		 */
+
+		richTokenHashMap.put("Person",
+				"Person=" + person.getPerson() + ", " + "ID=" + person.getId() + ", " + "Klasse=" + person.getKlasse() + ", "
+						+ "Vorname=" + person.vorname + ", " + "Nachname=" + person.nachname + ", " + "Mail="
+						+ person.mail + ", " + "Person_arbeitet_an_Projekt=" + person.person_arbeitet_an_Projekt + ", "
+						+ "Person_hat_Projektrolle=" + person.person_hat_Projektrolle + ", "
+						+ "Person_gehoert_zu_Abteilung=" + person.person_gehoert_zu_Abteilung + ", "
+						+ "Person_hat_Dokument_verfasst=" + person.person_hat_Dokument_verfasst + ", "
+						+ "Person_ruft_Dokument_auf=" + person.person_ruft_Dokument_auf);
+
+		System.out.println(richTokenHashMap.get("Person"));
+
 		return null;
 
 	}
