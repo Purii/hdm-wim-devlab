@@ -1,4 +1,4 @@
-package businessObjects;
+package semRepServices.businessObjects;
 
 public class Person {
 

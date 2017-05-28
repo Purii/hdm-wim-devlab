@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.oanaureche.swifc.Rechteck;
+import semRepServices.reasoner.Rechteck;
  
 public class RechteckTest {
     

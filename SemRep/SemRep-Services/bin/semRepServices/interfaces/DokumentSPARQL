@@ -1,0 +1,21 @@
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
+SELECT DISTINCT ?Dokument ?Klasse ?Verfasser ?Phase ?Dokumentkategorie ?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords ?Dok_Version ?Dok_Typ
+WHERE { 
+?Dokument a ?Klasse . 
+?Dokument ontology:Dok_Name ?Dok_Name .
+?Dokument ontology:Dok_ID ?Dok_ID .
+?Dokument ontology:Dok_URL ?Dok_URL .
+?Dokument ontology:Dok_Erstelldatum ?Erstelldatum .
+?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum .
+?Dokument ontology:Dok_Keywords ?Dok_Keywords .
+?Dokument ontology:Dok_Version ?Dok_Version .
+?Dokument ontology:Dok_Typ ?Dok_Typ .
+?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser .
+?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase .
+?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie .
+?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt .
+
+
+?Dokument ontology:Dok_Keywords 'Aufgaben' .
+
+}

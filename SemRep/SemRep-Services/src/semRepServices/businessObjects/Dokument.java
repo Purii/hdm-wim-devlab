@@ -1,4 +1,4 @@
-package businessObjects;
+package semRepServices.businessObjects;
 
 public class Dokument {
 
@@ -36,6 +36,23 @@ public class Dokument {
 		this.dok_VersionStr = dok_VersionStr;
 		this.dok_TypStr = dok_TypStr;
 
+	}
+	
+	public void flushDokumentObjekt(){
+		setDok_Str("");
+		setDok_KlasseStr("");
+		setDok_erstelldatumStr("");
+		setDok_IDStr("");
+		setDok_KeywordsStr("");
+		setDok_NameStr("");
+		setDok_TypStr("");
+		setDok_UpdatedatumStr("");
+		setDok_URLStr("");
+		setDok_VersionStr("");
+		setDokument_gehoert_zu_Phase("");
+		setDokument_gehoert_zu_Projekt("");
+		setDokument_hat_Dokumentenkategorie("");
+		setDokument_verfasst_von_Person("");
 	}
 
 	public String getDok_Str() {

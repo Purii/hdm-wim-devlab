@@ -1,4 +1,4 @@
-package interfaces;
+package semRepServices.interfaces;
 
 import java.io.File;
 import java.io.FileReader;
@@ -19,8 +19,8 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
-import businessObjects.Dokument;
-import businessObjects.Person;
+import semRepServices.businessObjects.Dokument;
+import semRepServices.businessObjects.Person;
 
 public class TokenizerInterface {
 
@@ -48,7 +48,7 @@ public class TokenizerInterface {
 
 	public static ArrayList<String> getDocumentMetaData() {
 
-		String filePath = "src/interfaces/Ontology.owl";
+		String filePath = "src/semRepServices/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 
 		HashMap<String, String> personHashMap = null;
@@ -142,6 +142,10 @@ public class TokenizerInterface {
 							+ "SELECT DISTINCT ?Dokument ?Klasse ?Verfasser ?Phase ?Dokumentkategorie "
 							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
 							+ "?Dok_Version ?Dok_Typ " + "WHERE { " + "?Dokument a ?Klasse . "
+							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
+							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
 							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
 							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
 							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
@@ -149,10 +153,6 @@ public class TokenizerInterface {
 							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
 							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
 							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
-							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
 							// Eingrenzung auf keyword
 							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
 
@@ -170,6 +170,8 @@ public class TokenizerInterface {
 				String splitResult = "";
 				int indexOfToSplitCharacter;
 
+				List<String> splitKeywordsList = null;
+
 				// Ergebniswerte werden für Konsolendarstellung aufbereitet
 				outerloop: for (@SuppressWarnings("unused")
 				int i = 0; resultSet.hasNext() == true; i++) {
@@ -181,7 +183,8 @@ public class TokenizerInterface {
 						indexOfToSplitCharacter = rdfNode.toString().indexOf("#");
 						splitResult = rdfNode.toString().substring(indexOfToSplitCharacter + 1);
 
-						// befülle HashMap, wenn die userID durchlaufen wird
+						// Person: Befülle HashMap, wenn die userID durchlaufen
+						// wird
 						if (y == 0) {
 
 							if (results.equals("Klasse") && splitResult.equals("NamedIndividual")) {
@@ -270,23 +273,191 @@ public class TokenizerInterface {
 									switch (results) {
 									case "Dokument":
 										dokumentStr = splitResult;
-										if (!dokumentStr
-												.equals(personObj.getPerson_hat_Dokument_verfasst().toString())) {
+										splitKeywordsList = Arrays.asList(
+												personObj.getPerson_hat_Dokument_verfasst().toString().split(", "));
+
+										if (splitKeywordsList.contains(dokumentStr)) {
+
+											break;
+
+										} else {
+											
 											personHashMap.put("Dokumente",
 													personHashMap.get("Dokumente") + ", " + dokumentStr);
-											System.out.println(personObj.getPerson_hat_Dokument_verfasst().toString());
 											personObj.setPerson_hat_Dokument_verfasst(
 													personObj.getPerson_hat_Dokument_verfasst() + ", " + dokumentStr);
+											break;
 										}
-										break;
 									case "Aufruf":
 										aufrufStr = splitResult;
-										if (!aufrufStr.equals(personObj.getPerson_ruft_Dokument_auf())) {
+										splitKeywordsList = Arrays
+												.asList(personObj.getPerson_ruft_Dokument_auf().toString().split(", "));
+
+										if (splitKeywordsList.contains(aufrufStr)) {
+
+											break;
+
+										} else {
+											
 											personHashMap.put("Aufrufe",
 													personHashMap.get("Aufrufe") + ", " + aufrufStr);
 											personObj.setPerson_ruft_Dokument_auf(
 													personObj.getPerson_ruft_Dokument_auf() + ", " + aufrufStr);
+											break;
 										}
+		
+									}
+
+								}
+
+							}
+							// Dokument Keywords
+						} else {
+
+							// einmaliges befüllen der nachfolgenden Werte
+							if (((dokumentObj.getDok_Str() == "") == true)
+									|| ((dokumentObj.getDok_KlasseStr() == "") == true)
+									|| ((dokumentObj.getDok_NameStr() == "") == true)
+									|| ((dokumentObj.getDok_IDStr() == "") == true)
+									|| ((dokumentObj.getDok_URLStr() == "") == true)
+									|| ((dokumentObj.getDok_erstelldatumStr() == "") == true)
+									|| ((dokumentObj.getDok_UpdatedatumStr() == "") == true)
+									|| ((dokumentObj.getDok_KeywordsStr() == "") == true)
+									|| ((dokumentObj.getDok_VersionStr() == "") == true)
+									|| ((dokumentObj.getDok_TypStr() == "") == true)
+									|| ((dokumentObj.getDokument_verfasst_von_Person() == "") == true)
+									|| ((dokumentObj.getDokument_gehoert_zu_Phase() == "") == true)
+									|| ((dokumentObj.getDokument_hat_Dokumentenkategorie() == "") == true)
+									|| ((dokumentObj.getDokument_gehoert_zu_Projekt() == "") == true)) {
+
+								switch (results) {
+								case "Dokument":
+									dok_Str = splitResult;
+									dokumentObj.setDok_Str(dok_Str);
+									break;
+								case "Klasse":
+									dok_KlasseStr = splitResult;
+									dokumentObj.setDok_KlasseStr(dok_KlasseStr);
+									break;
+								case "Verfasser":
+									dok_VerfasserStr = splitResult;
+									dokumentObj.setDokument_verfasst_von_Person(dok_VerfasserStr);
+									break;
+								case "Phase":
+									dok_PhaseStr = splitResult;
+									dokumentObj.setDokument_gehoert_zu_Phase(dok_PhaseStr);
+									break;
+								case "Dokumentkategorie":
+									dok_kategorieStr = splitResult;
+									dokumentObj.setDokument_hat_Dokumentenkategorie(dok_kategorieStr);
+									break;
+								case "Projekt":
+									dok_ProjektStr = splitResult;
+									dokumentObj.setDokument_gehoert_zu_Projekt(dok_ProjektStr);
+									break;
+								case "Dok_Name":
+									dok_NameStr = splitResult;
+									dokumentObj.setDok_NameStr(dok_NameStr);
+									break;
+								case "Dok_ID":
+									dok_IDStr = splitResult;
+									dokumentObj.setDok_IDStr(dok_IDStr);
+									break;
+								case "Dok_URL":
+									dok_URLStr = splitResult;
+									dokumentObj.setDok_URLStr(dok_URLStr);
+									break;
+								case "Erstelldatum":
+									dok_erstelldatumStr = rdfNode.toString().substring(0,
+											rdfNode.toString().indexOf("^^"));
+									dokumentObj.setDok_erstelldatumStr(dok_erstelldatumStr);
+									break;
+								case "Dok_Updatedatum":
+									dok_UpdatedatumStr = rdfNode.toString().substring(0,
+											rdfNode.toString().indexOf("^^"));
+									dokumentObj.setDok_UpdatedatumStr(dok_UpdatedatumStr);
+									break;
+								case "Dok_Keywords":
+									dok_KeywordsStr = splitResult;
+									dokumentObj.setDok_KeywordsStr(dok_KeywordsStr);
+									break;
+								case "Dok_Version":
+									dok_VersionStr = rdfNode.toString().substring(0, rdfNode.toString().indexOf("^^"));
+									dokumentObj.setDok_VersionStr(dok_VersionStr);
+									break;
+								case "Dok_Typ":
+									dok_TypStr = splitResult;
+									dokumentObj.setDok_TypStr(dok_TypStr);
+									break;
+								}
+
+							}
+							// befülle dynamische Anzahl der Dokumente und
+							// Aufrufe
+							else if (((dokumentObj.getDokument_verfasst_von_Person() == "") == false)
+									|| ((dokumentObj.getDokument_hat_Dokumentenkategorie() == "") == false)
+									|| ((dokumentObj.getDokument_gehoert_zu_Projekt() == "") == false)
+									|| ((dokumentObj.getDok_KeywordsStr() == "") == false)) {
+
+								switch (results) {
+								case "Verfasser":
+									dok_VerfasserStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											dokumentObj.getDokument_verfasst_von_Person().toString().split(", "));
+
+									if (splitKeywordsList.contains(dok_VerfasserStr)) {
+
+										break;
+
+									} else {
+
+										dokumentObj.setDokument_verfasst_von_Person(
+												dokumentObj.getDokument_verfasst_von_Person() + ", " + dok_VerfasserStr);
+										break;
+									}
+								case "Dokumentkategorie":
+									dok_kategorieStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											dokumentObj.getDokument_hat_Dokumentenkategorie().toString().split(", "));
+
+									if (splitKeywordsList.contains(dok_kategorieStr)) {
+
+										break;
+
+									} else {
+
+										dokumentObj.setDokument_hat_Dokumentenkategorie(
+												dokumentObj.getDokument_hat_Dokumentenkategorie() + ", " + dok_kategorieStr);
+										break;
+									}
+								case "Projekt":
+									dok_ProjektStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											dokumentObj.getDokument_gehoert_zu_Projekt().toString().split(", "));
+
+									if (splitKeywordsList.contains(dok_ProjektStr)) {
+
+										break;
+
+									} else {
+
+										dokumentObj.setDokument_gehoert_zu_Projekt(
+												dokumentObj.getDokument_gehoert_zu_Projekt() + ", " + dok_ProjektStr);
+										break;
+									}
+								case "Dok_Keywords":
+									dok_KeywordsStr = splitResult;
+									splitKeywordsList = Arrays
+											.asList(dokumentObj.getDok_KeywordsStr().toString().split(", "));
+
+									if (splitKeywordsList.contains(dok_KeywordsStr)) {
+
+										break;
+
+									} else {
+
+										dokumentObj.setDok_KeywordsStr(
+												dokumentObj.getDok_KeywordsStr() + ", " + dok_KeywordsStr);
 										break;
 									}
 
@@ -299,6 +470,39 @@ public class TokenizerInterface {
 					}
 
 				}
+				
+				//bei Person
+				if (y == 0) {
+					
+					richTokenHashMap.put("Person",
+							"Person=" + personObj.getPerson() + ", " + "ID=" + personObj.getId() + ", " + "Klasse="
+									+ personObj.getKlasse() + ", " + "Vorname=" + personObj.vorname + ", " + "Nachname="
+									+ personObj.nachname + ", " + "Mail=" + personObj.mail + ", " + "Person_arbeitet_an_Projekt="
+									+ personObj.person_arbeitet_an_Projekt + ", " + "Person_hat_Projektrolle="
+									+ personObj.person_hat_Projektrolle + ", " + "Person_gehoert_zu_Abteilung="
+									+ personObj.person_gehoert_zu_Abteilung + ", " + "Person_hat_Dokument_verfasst="
+									+ personObj.person_hat_Dokument_verfasst + ", " + "Person_ruft_Dokument_auf="
+									+ personObj.person_ruft_Dokument_auf);
+
+				//bei Dokumenten
+				} else {
+					
+					richTokenHashMap.put("Dokument_" + y, "Dokument_" + y + "=" + dokumentObj.getDok_Str() + ", "
+							+ "Klasse=" + dokumentObj.getDok_KlasseStr() + ", " + "Dok_Name="
+							+ dokumentObj.getDok_NameStr() + ", " + "Dok_ID=" + dokumentObj.getDok_IDStr() + ", "
+							+ "Dok_URL=" + dokumentObj.getDok_URLStr() + ", " + "Dok_Erstelldatum="
+							+ dokumentObj.getDok_erstelldatumStr() + ", " + "Dok_Updatedatum="
+							+ dokumentObj.getDok_UpdatedatumStr() + ", " + "Dok_Keywords="
+							+ dokumentObj.getDok_KeywordsStr() + ", " + "Dok_Version=" + dokumentObj.getDok_VersionStr()
+							+ ", " + "Dok_Typ=" + dokumentObj.getDok_TypStr() + ", " + "Dokument_verfasst_von_Person="
+							+ dokumentObj.getDokument_verfasst_von_Person() + ", " + "Dokument_gehoert_zu_Phase="
+							+ dokumentObj.getDokument_gehoert_zu_Phase() + ", " + "Dokument_hat_Dokumentenkategorie="
+							+ dokumentObj.getDokument_hat_Dokumentenkategorie() + ", " + "Dokument_gehoert_zu_Projekt="
+							+ dokumentObj.getDokument_gehoert_zu_Projekt());
+
+					dokumentObj.flushDokumentObjekt();
+					
+				}
 
 				queryExecution.close();
 
@@ -308,27 +512,15 @@ public class TokenizerInterface {
 			System.out.println(e.getMessage());
 		}
 
-		/*
-		 * //iteriere durch die HashMap for (String key :
-		 * personHashMap.keySet()) {
-		 * 
-		 * System.out.println("key: " + key + " value: " +
-		 * personHashMap.get(key));
-		 * 
-		 * }
-		 */
+		final String setBoldText = "\033[0;1m";
+		//drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+			System.out.println(key + ": " + richTokenHashMap.get(key));
+		}
 
-		richTokenHashMap.put("Person",
-				"Person=" + personObj.getPerson() + ", " + "ID=" + personObj.getId() + ", " + "Klasse="
-						+ personObj.getKlasse() + ", " + "Vorname=" + personObj.vorname + ", " + "Nachname="
-						+ personObj.nachname + ", " + "Mail=" + personObj.mail + ", " + "Person_arbeitet_an_Projekt="
-						+ personObj.person_arbeitet_an_Projekt + ", " + "Person_hat_Projektrolle="
-						+ personObj.person_hat_Projektrolle + ", " + "Person_gehoert_zu_Abteilung="
-						+ personObj.person_gehoert_zu_Abteilung + ", " + "Person_hat_Dokument_verfasst="
-						+ personObj.person_hat_Dokument_verfasst + ", " + "Person_ruft_Dokument_auf="
-						+ personObj.person_ruft_Dokument_auf);
-
-		System.out.println(richTokenHashMap.get("Person"));
+//		System.out.println(richTokenHashMap.get("Dokument_1"));
+//		System.out.println(richTokenHashMap.get("Dokument_2"));
+//		System.out.println(richTokenHashMap.get("Dokument_3"));
 
 		return null;
 

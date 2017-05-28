@@ -1,4 +1,4 @@
-package com.oanaureche.swifc;
+package semRepServices.reasoner;
 
 public class Rechteck {
 	  private int a;
