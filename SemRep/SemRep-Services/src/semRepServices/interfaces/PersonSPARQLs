@@ -46,21 +46,20 @@ WHERE {
 }
 
 PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-SELECT DISTINCT ?Person ?ID ?Vorname ?Nachname ?mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Klasse
+SELECT DISTINCT ?Person ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok
 WHERE {
-?Person ontology:Person_ID ?ID .
+?Person a ?Klasse .
+?Person ontology:Person_ID ?ID . 							
 ?Person ontology:Person_Vorname ?Vorname .
 ?Person ontology:Person_Nachname ?Nachname .
-?Person ontology:Person_Email ?mail .
+?Person ontology:Person_Email ?Mail .
 ?Person ontology:Person_arbeitet_an_Projekt ?Projekt .
 ?Person ontology:Person_hat_Projektrolle ?Projektrolle .
 ?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung .
 ?Person ontology:Person_hat_Dokument_verfasst ?Dokument .
 ?Person ontology:Person_ruft_Dokument_auf ?Aufruf .
-?individual rdf:type ontology:Person .
+?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok .
 
-?Person ontology:Person_ID "6"
+?Person ontology:Person_ID "1" .
 }

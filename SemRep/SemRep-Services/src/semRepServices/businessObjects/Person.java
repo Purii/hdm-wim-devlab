@@ -13,10 +13,11 @@ public class Person {
 	public String person_gehoert_zu_Abteilung;
 	public String person_hat_Dokument_verfasst;
 	public String person_ruft_Dokument_auf;
+	public String person_favorisiert_Dokument;
 
 	public Person(String person, String id, String klasse, String vorname, String nachname, String mail,
 			String person_arbeitet_an_Projekt, String person_hat_Projektrolle, String person_gehoert_zu_Abteilung,
-			String person_hat_Dokument_verfasst, String person_ruft_Dokument_auf) {
+			String person_hat_Dokument_verfasst, String person_ruft_Dokument_auf, String person_favorisiert_Dokument) {
 		this.person = person;
 		this.id = id;
 		this.klasse = klasse;
@@ -28,6 +29,7 @@ public class Person {
 		this.person_gehoert_zu_Abteilung = person_gehoert_zu_Abteilung;
 		this.person_hat_Dokument_verfasst = person_hat_Dokument_verfasst;
 		this.person_ruft_Dokument_auf = person_ruft_Dokument_auf;
+		this.person_favorisiert_Dokument = person_favorisiert_Dokument;
 	}
 
 	public String getPerson() {
@@ -116,6 +118,14 @@ public class Person {
 
 	public void setPerson_ruft_Dokument_auf(String person_ruft_Dokument_auf) {
 		this.person_ruft_Dokument_auf = person_ruft_Dokument_auf;
+	}
+
+	public String getPerson_favorisiert_Dokument() {
+		return person_favorisiert_Dokument;
+	}
+
+	public void setPerson_favorisiert_Dokument(String person_favorisiert_Dokument) {
+		this.person_favorisiert_Dokument = person_favorisiert_Dokument;
 	}
 	
 	

@@ -2,25 +2,26 @@ package semRepServices.businessObjects;
 
 public class Dokument {
 
-	public String dok_Str = "";
-	public String dok_KlasseStr = "";
-	public String dok_NameStr = "";
-	public String dok_IDStr = "";
-	public String dok_URLStr = "";
-	public String dok_erstelldatumStr = "";
-	public String dok_UpdatedatumStr = "";
-	public String dok_KeywordsStr = "";
-	public String dok_VersionStr = "";
-	public String dok_TypStr = "";
-	public String dokument_verfasst_von_Person = "";
-	public String dokument_gehoert_zu_Phase = "";
-	public String dokument_hat_Dokumentenkategorie = "";
-	public String dokument_gehoert_zu_Projekt = "";
+	public String dok_Str;
+	public String dok_KlasseStr;
+	public String dok_NameStr;
+	public String dok_IDStr;
+	public String dok_URLStr;
+	public String dok_erstelldatumStr;
+	public String dok_UpdatedatumStr;
+	public String dok_KeywordsStr;
+	public String dok_VersionStr;
+	public String dok_TypStr;
+	public String dokument_verfasst_von_Person;
+	public String dokument_gehoert_zu_Phase;
+	public String dokument_hat_Dokumentenkategorie;
+	public String dokument_gehoert_zu_Projekt;
+	public String dokument_favorisiert_von_Person;
 
 	public Dokument(String dok_Str, String dok_KlasseStr, String dok_NameStr, String dok_IDStr, String dok_URLStr,
 			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_KeywordsStr, String dok_VersionStr,
 			String dok_TypStr, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
-			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt) {
+			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt, String dokument_favorisiert_von_Person) {
 		this.dok_Str = dok_Str;
 		this.dok_KlasseStr = dok_KlasseStr;
 		this.dokument_verfasst_von_Person = dokument_verfasst_von_Person;
@@ -35,7 +36,7 @@ public class Dokument {
 		this.dok_KeywordsStr = dok_KeywordsStr;
 		this.dok_VersionStr = dok_VersionStr;
 		this.dok_TypStr = dok_TypStr;
-
+		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;		
 	}
 	
 	public void flushDokumentObjekt(){
@@ -53,6 +54,7 @@ public class Dokument {
 		setDokument_gehoert_zu_Projekt("");
 		setDokument_hat_Dokumentenkategorie("");
 		setDokument_verfasst_von_Person("");
+		setDokument_favorisiert_von_Person("");
 	}
 
 	public String getDok_Str() {
@@ -166,5 +168,15 @@ public class Dokument {
 	public void setDokument_gehoert_zu_Projekt(String dokument_gehoert_zu_Projekt) {
 		this.dokument_gehoert_zu_Projekt = dokument_gehoert_zu_Projekt;
 	}
+
+	public String getDokument_favorisiert_von_Person() {
+		return dokument_favorisiert_von_Person;
+	}
+
+	public void setDokument_favorisiert_von_Person(String dokument_favorisiert_von_Person) {
+		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
+	}
+	
+	
 
 }
