@@ -12,6 +12,6 @@
 
 ### Google PubSub
 
-Zugriff auf die Funktionen Senden & Empfangen kann über einen [GitHub Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden (Google Account benötigt).
-
-Topics können nicht selbst angelegt werden, sondern müssen ebenfalls über einen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden.
+* Zugriff auf die Funktionen Senden & Empfangen kann über einen [GitHub Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden (Google Account benötigt).
+* Topics können nicht selbst angelegt werden, sondern müssen ebenfalls über einen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden.
+* Für PubSub wird eine [ausführliche Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) bereitgestellt. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html)
