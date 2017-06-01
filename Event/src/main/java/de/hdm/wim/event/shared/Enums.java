@@ -1,5 +1,11 @@
 package de.hdm.wim.event.shared;
 
+import org.spark_project.jetty.client.Origin;
+
+import java.util.Random;
+
+import static io.netty.util.CharsetUtil.values;
+
 /**
  * Created by ben on 17/04/2017.
  */
@@ -8,10 +14,10 @@ public class Enums {
 	/**
 	 * Source of event
 	 */
-	public class EventSource{
+	public static class EventSource{
 		public static final String speechTokenization 		= "speech-tokenization";
 		public static final String event 					= "event";
-		public static final String machineLearning 		= "machine-learning";
+		public static final String machineLearning 			= "machine-learning";
 		public static final String userInterface 			= "user-interface";
 		public static final String semanticRepresentation	= "semantic-representation";
 	}
@@ -31,7 +37,7 @@ public class Enums {
 	/**
 	 * Event types.
 	 */
-	public class EventType {
+	public static class EventType {
 		public static final String action 	= "action";
 		public static final String request 	= "request";
 		public static final String user 	= "user";
@@ -47,4 +53,6 @@ public class Enums {
 	public class Subscription {
 		public static final String subscriptionTopic1 = "subscription-topic-1";
 	}
+
+
 }
