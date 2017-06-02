@@ -1,0 +1,4 @@
+org.eclipse.jdt.core.compiler.codegen.lambda.genericSignature=generate
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
+org.eclipse.jdt.core.compiler.compliance=1.8
+org.eclipse.jdt.core.compiler.source=1.8
