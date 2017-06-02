@@ -33,7 +33,7 @@ public class TokenEvent{
     /**
      * Instantiates a new Token event.
      */
-    public TokenEvent(){};
+    public TokenEvent(){}
 
     /**
      * Gets sender.
@@ -77,8 +77,8 @@ public class TokenEvent{
             TokenEvent other = (TokenEvent) obj;
 
             return other.canEquals(this) && super.equals(other)
-                    && _token == other._token
-                    && _sender == other._sender
+                    && _token.equals(other._token)
+                    && _sender.equals(other._sender)
                     && _messageId == other._messageId;
         } else {
             return false;

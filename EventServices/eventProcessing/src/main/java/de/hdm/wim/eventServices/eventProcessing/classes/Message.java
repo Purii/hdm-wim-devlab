@@ -12,7 +12,7 @@ public class Message {
     /**
      * The Tokens.
      */
-    private List<String> _tokens = new ArrayList<String>();
+    private List<String> _tokens = new ArrayList<>();
     /**
      * The Sender.
      */

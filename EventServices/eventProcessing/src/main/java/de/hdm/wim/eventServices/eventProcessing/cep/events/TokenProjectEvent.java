@@ -74,8 +74,8 @@ public class TokenProjectEvent extends TokenEvent {
             TokenProjectEvent other = (TokenProjectEvent) obj;
 
             return other.canEquals(this) && super.equals(other)
-                    && _projectName == other._projectName
-                    && _tokens == other._tokens;
+                    && _projectName.equals(other._projectName)
+                    && _tokens.equals(other._tokens);
         } else {
             return false;
         }

@@ -13,11 +13,11 @@ public class Chat {
     private LocalDateTime chatStart;
     private LocalDateTime chatEnd;
 
-    private List<Participant> participants = new ArrayList<Participant>();
+    private List<Participant> participants = new ArrayList<>();
     /**
      * The Messages.
      */
-    public List<MessageEvent> messages = new ArrayList<MessageEvent>();
+    public List<MessageEvent> messages = new ArrayList<>();
 
     /**
      * Gets chat start.

@@ -117,7 +117,7 @@ public class ComplexTokenEvent {
     private LocalTime relatedToTime;
 
     /** The topics. */
-    private ArrayList<String> topics = new ArrayList<String>();
+    private ArrayList<String> topics = new ArrayList<>();
 
     /**
      * Custom toString method

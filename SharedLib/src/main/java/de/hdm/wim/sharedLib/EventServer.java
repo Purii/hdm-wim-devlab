@@ -56,7 +56,7 @@ public class EventServer {
 			try (
 				ServerSocket serverSocket   = new ServerSocket(PORT);
 				Socket clientSocket         = serverSocket.accept();
-				PrintWriter out             = new PrintWriter(clientSocket.getOutputStream(), true);
+				PrintWriter out             = new PrintWriter(clientSocket.getOutputStream(), true)
 			)
 			{
 				while (true) {

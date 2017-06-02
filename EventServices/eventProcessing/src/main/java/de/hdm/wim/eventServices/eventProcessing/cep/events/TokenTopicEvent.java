@@ -74,8 +74,8 @@ public class TokenTopicEvent extends TokenEvent {
             TokenTopicEvent other = (TokenTopicEvent) obj;
 
             return other.canEquals(this) && super.equals(other)
-                    && _topic == other._topic
-                    && _tokens == other._tokens;
+                    && _topic.equals(other._topic)
+                    && _tokens.equals(other._tokens);
         } else {
             return false;
         }

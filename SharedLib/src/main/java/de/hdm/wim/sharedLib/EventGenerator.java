@@ -12,7 +12,7 @@ public class EventGenerator {
 	 * Instantiates a new Event generator.
 	 *
 	 */
-	public EventGenerator() {
+	protected EventGenerator() {
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class EventGenerator {
     }
 
 
-	public String getRandomEventType(){
+	private String getRandomEventType(){
     	int i = random.nextInt(6);
 
 		switch (i) {
@@ -50,7 +50,7 @@ public class EventGenerator {
 	}
 
 
-	public String getRandomEventSource(){
+	private String getRandomEventSource(){
 		int i = random.nextInt(5);
 
 		switch (i) {
