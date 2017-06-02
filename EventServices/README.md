@@ -9,3 +9,7 @@ docker run -t -p 8081:8081 flink local
 # Detached mode
 docker run -d -p 8081:8081 flink local
 ```
+
+## Run
+
+damit `RunFlink` ausgeführt werden kann, muss vorher das die jar `sharedLib` mit `mvn clean install` gebaut werden. Der command muss in dem Verzeichnis ausgeführt werden. Danach im Verzeichnis `eventProcessing` `mvn clean package` ausführen und dann `RunFlink`ausführen.
