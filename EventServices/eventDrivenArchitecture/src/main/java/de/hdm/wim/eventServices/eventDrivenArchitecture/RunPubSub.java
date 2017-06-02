@@ -5,7 +5,7 @@ import com.google.pubsub.v1.Topic;
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.PublishHelper;
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.SubscriptionHelper;
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.TopicHelper;
-import de.hdm.wim.sharedLib.Enums;
+import de.hdm.wim.sharedLib.Constants;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -17,7 +17,7 @@ public class RunPubSub {
 
 	private static final Logger _logger 	= Logger.getLogger(RunPubSub.class);
 	private static final String _projectId	= ServiceOptions.getDefaultProjectId();
-	private static String _testTopic 		= Enums.Topic.topic1;
+	private static String _testTopic 		= Constants.Topic.topic1;
 	private static String _subscriptionId   = "my-test-subscription-for-test-topic-1";
 
 	public static void main(String[] args) throws Exception {

@@ -1,9 +1,19 @@
 package de.hdm.wim.sharedLib;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by ben on 17/04/2017.
  */
-public class Enums {
+public class Constants {
+
+
+	public static class AttributeKey{
+		public static final String eventSource 	= "EventSource";
+		public static final String eventType	= "EventType";
+	}
 
 	/**
 	 * Source of event
@@ -14,6 +24,15 @@ public class Enums {
 		public static final String machineLearning 			= "machine-learning";
 		public static final String userInterface 			= "user-interface";
 		public static final String semanticRepresentation	= "semantic-representation";
+
+		// for message generator only
+		public static final List<String> list = Arrays.asList(
+			speechTokenization,
+			event,
+			machineLearning,
+			userInterface,
+			semanticRepresentation
+		);
 	}
 
     /**
@@ -38,6 +57,16 @@ public class Enums {
 		public static final String feedback	= "feedback";
 		public static final String time		= "time";
 		public static final String date		= "date";
+
+		// for message generator only
+		public static final List<String> list = Arrays.asList(
+			action,
+			request,
+			user,
+			feedback,
+			time,
+			date
+		);
 	}
 
 	public class WeekDays {
