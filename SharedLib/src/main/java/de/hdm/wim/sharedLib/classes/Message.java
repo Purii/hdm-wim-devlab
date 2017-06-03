@@ -48,7 +48,7 @@ public class Message {
 		this.attributes = attributes;
 	}
 
-	public Message generate(){
+	public static Message generate(){
 
 		Helper helper 			= new Helper();
 		Hashtable attributes 	= new Hashtable();
