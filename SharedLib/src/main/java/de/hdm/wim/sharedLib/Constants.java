@@ -39,12 +39,21 @@ public class Constants {
      * Topic
 	 * Format: "my-test-topic-x"
      */
-    public class Topic {
+    public static class Topic {
 		public static final String topic1 	= "topic-1";
 		public static final String topic2 	= "topic-2";
 		public static final String topic3 	= "topic-3";
 		public static final String topic4 	= "topic-4";
 		public static final String topic5	= "topic-5";
+
+		// for message generator only
+		public static final List<String> list = Arrays.asList(
+			topic1,
+			topic2,
+			topic3,
+			topic4,
+			topic5
+		);
     }
 
 	/**
