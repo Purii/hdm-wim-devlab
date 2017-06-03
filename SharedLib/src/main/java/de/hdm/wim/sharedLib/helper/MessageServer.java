@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 2/06/2017. *
+ * Created by ben on 2/06/2017.
  * this class is only for testing purposes!
  */
 public class MessageServer {

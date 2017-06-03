@@ -1,6 +1,5 @@
 package de.hdm.wim.sharedLib.helper;
 
-import de.hdm.wim.sharedLib.Constants.Topic;
 import java.util.List;
 import java.util.Random;
 
@@ -9,10 +8,19 @@ import java.util.Random;
  */
 public class Helper {
 
+	/**
+	 * Instantiates a new Helper.
+	 */
 	public Helper(){}
 
 	private final Random random	= new Random();
 
+	/**
+	 * Get random string from list.
+	 *
+	 * @param list the list
+	 * @return the string
+	 */
 	public String getRandomStringFromList(List<String> list){
 		int index = random.nextInt(list.size());
 

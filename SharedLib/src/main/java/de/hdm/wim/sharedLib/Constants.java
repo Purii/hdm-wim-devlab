@@ -95,6 +95,4 @@ public class Constants {
 	public class Subscription {
 		public static final String subscriptionTopic1 = "subscription-topic-1";
 	}
-
-
 }
