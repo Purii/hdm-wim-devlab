@@ -14,7 +14,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 2/06/2017.
+ * Created by ben on 2/06/2017. *
+ * this class is only for testing purposes!
  */
 public class MessageServer {
 
@@ -35,13 +36,12 @@ public class MessageServer {
 	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
 		BlockingQueue<String> messageQueue  = new ArrayBlockingQueue<>(100);
-		MessageGenerator msgg   			= new MessageGenerator();
 		int id 								= 0;
 
 		SERVER_EXECUTOR.execute(new SteamingServer(messageQueue));
 
 		while (true) {
-            PubSubMessage message   = msgg.GenerateMessage("blubb",Integer.toString(id));
+            PubSubMessage message   = PubSubMessage.generate("blubb",Integer.toString(id));
             Gson gson               = new Gson();
 
             messageQueue.put(gson.toJson(message));

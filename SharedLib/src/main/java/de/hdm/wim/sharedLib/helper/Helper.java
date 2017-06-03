@@ -1,5 +1,6 @@
 package de.hdm.wim.sharedLib.helper;
 
+import de.hdm.wim.sharedLib.Constants.Topic;
 import java.util.List;
 import java.util.Random;
 
