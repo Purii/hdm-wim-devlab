@@ -63,6 +63,8 @@ function drawSuggestion(daten) {
 
 function addTab(id, name) {
 
+
+
     document.getElementById('suggestion'+id).onclick = function () {
 
         document.getElementById("listOfTabs").innerHTML +=    '<button class="tablinks vorschlag" onclick="openCity(event, \'London\')">'+name.toString() +' id: ' + id +'</button>';
