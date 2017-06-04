@@ -1,0 +1,13 @@
+# [START appyaml]
+runtime: java
+env: flex
+
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+
+# [START env_variables]
+env_variables:
+  PUBSUB_VERIFICATION_TOKEN: secretToken123
+# [END env_variables]
+# [END appyaml]
