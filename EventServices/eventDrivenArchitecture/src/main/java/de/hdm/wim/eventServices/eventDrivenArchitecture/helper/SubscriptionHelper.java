@@ -80,6 +80,11 @@ public class SubscriptionHelper {
 				PushConfig.getDefaultInstance(),
 				10
 			);
+
+			/*PushConfig pushConfig = PushConfig.newBuilder().setPushEndpoint("").build();
+			pushConfig.*/
+
+
 			_logger.info("Successfully created subscription: " + subscriptionId);
 
 			return subscription;
