@@ -1,6 +1,5 @@
 package de.hdm.wim.sharedLib;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,6 +44,13 @@ public class Constants {
 		public static final String topic3 	= "topic-3";
 		public static final String topic4 	= "topic-4";
 		public static final String topic5	= "topic-5";
+
+		public static final String topicEvent 	= "topic-event";
+		public static final String topicSemRep 	= "topic-semRep";
+		public static final String topicML		= "topic-ml";
+		public static final String topicGui 	= "topic-gui";
+
+		public static final String pushTest 	= "topic-push-test-123";
 
 		// for message generator only
 		public static final List<String> list = Arrays.asList(
@@ -94,5 +100,10 @@ public class Constants {
 	 */
 	public class Subscription {
 		public static final String subscriptionTopic1 = "subscription-topic-1";
+	}
+
+
+	public class Config {
+		public static final String secretToken = "secretToken123";
 	}
 }
