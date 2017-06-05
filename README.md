@@ -7,7 +7,7 @@
 
 * Jede Gruppe hat ein eigenes Verzeichnis.
 * Jede Gruppe stellt einen oder mehrere Microservices bereit. Jede Gruppe ist damit selbst für die eigene Systemumgebung verantwortlich.
-* Entwickelt wird eine Event Driven Architecture. Die Kommunikation findet über Events statt.
+* Entwickelt wird eine Event Driven Architecture. Die Kommunikation findet über Messages statt.
 * Diese Events werden mittels [Google PubSub](https://cloud.google.com/pubsub/docs/overview) übermittelt.
 
 ### Google PubSub
