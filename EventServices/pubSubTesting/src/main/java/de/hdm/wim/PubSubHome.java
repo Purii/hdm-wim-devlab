@@ -26,6 +26,7 @@ public class PubSubHome {
 			sb.append("<tr>");
 			sb.append("<td>" + message.getMessageId() + "</td>");
 			sb.append("<td>" + message.getData() + "</td>");
+			sb.append("<td>" + message.getTopic() + "</td>");
 			sb.append("<td>" + message.getPublishTime() + "</td>");
 			sb.append("</tr>");
 		}

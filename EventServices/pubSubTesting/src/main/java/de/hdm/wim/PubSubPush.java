@@ -44,10 +44,11 @@ public class PubSubPush extends HttpServlet {
 // [END pubsub_appengine_flex_push]
 
 	private Message getMessage(HttpServletRequest request) throws IOException {
-		String requestBody = request.getReader().lines().collect(Collectors.joining("\n"));
-		JsonElement jsonRoot = jsonParser.parse(requestBody);
-		String messageStr = jsonRoot.getAsJsonObject().get("message").toString();
-		Message message = gson.fromJson(messageStr, Message.class);
+		String requestBody 		= request.getReader().lines().collect(Collectors.joining("\n"));
+		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
+		String messageStr 		= jsonRoot.getAsJsonObject().get("message").toString();
+		Message message 		= gson.fromJson(messageStr, Message.class);
+
 		// decode from base64
 		String decoded = decode(message.getData());
 		message.setData(decoded);

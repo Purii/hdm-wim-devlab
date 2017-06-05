@@ -36,6 +36,10 @@ public class MessageRepositoryImpl implements MessageRepository {
 			messageEntityBuilder = messageEntityBuilder.set("data", message.getData());
 		}
 
+		if (message.getTopic() != null) {
+			messageEntityBuilder = messageEntityBuilder.set("topic", message.getData());
+		}
+
 		if (message.getPublishTime() != null) {
 			messageEntityBuilder = messageEntityBuilder.set("publishTime", message.getPublishTime());
 		}
@@ -56,11 +60,16 @@ public class MessageRepositoryImpl implements MessageRepository {
 
 		List<Message> messages = new ArrayList<>();
 		while (results.hasNext()) {
-			Entity entity = results.next();
+			Entity entity 	= results.next();
 			Message message = new Message(entity.getString("messageId"));
+
 			String data = entity.getString("data");
 			if (data != null) {
 				message.setData(data);
+			}
+			String topic = entity.getString("topic");
+			if (topic != null) {
+				message.setTopic(topic);
 			}
 			String publishTime = entity.getString("publishTime");
 			if (publishTime != null) {

@@ -9,6 +9,7 @@ public class Message {
 	private String messageId;
 	private String publishTime;
 	private String data;
+	private String topic;
 
 	public Message(String messageId) {
 		this.messageId = messageId;
@@ -36,5 +37,13 @@ public class Message {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
 	}
 }

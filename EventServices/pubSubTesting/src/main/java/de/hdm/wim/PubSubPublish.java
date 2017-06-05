@@ -26,9 +26,12 @@ public class PubSubPublish extends HttpServlet {
 		throws IOException, ServletException {
 		Publisher publisher = this.publisher;
 		try {
-			String topicId = Constants.Topic.pushTest;
 
 			// create a publisher on the topic
+			String topicId = req.getParameter("topic");
+			if(topicId.isEmpty())
+				topicId = Constants.Topic.pushTest;
+
 			if (publisher == null) {
 				publisher = Publisher.defaultBuilder(
 					TopicName.create(ServiceOptions.getDefaultProjectId(), topicId))
