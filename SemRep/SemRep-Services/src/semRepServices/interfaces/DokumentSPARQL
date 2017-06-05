@@ -1,5 +1,5 @@
 PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
-SELECT DISTINCT ?Dokument ?Klasse ?Verfasser ?Phase ?Dokumentkategorie ?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords ?Dok_Version ?Dok_Typ ?Favorisiert_Von
+SELECT DISTINCT ?Klasse ?Dokument ?Verfasser ?Phase ?Dokumentkategorie ?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords ?Dok_Version ?Dok_Typ ?Favorisiert_Von
 WHERE { 
 ?Dokument a ?Klasse . 
 ?Dokument ontology:Dok_Name ?Dok_Name .
