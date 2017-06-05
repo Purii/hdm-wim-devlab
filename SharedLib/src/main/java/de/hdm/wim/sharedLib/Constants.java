@@ -8,7 +8,9 @@ import java.util.List;
  */
 public class Constants {
 
-
+	/**
+	 * Keys for the message attributes
+	 */
 	public static class AttributeKey{
 		public static final String eventSource 	= "EventSource";
 		public static final String eventType	= "EventType";
@@ -102,8 +104,8 @@ public class Constants {
 		public static final String subscriptionTopic1 = "subscription-topic-1";
 	}
 
-
 	public class Config {
-		public static final String secretToken = "secretToken123";
+		public static final String secretToken 			= "secretToken123";
+		public static final String localPublishEndpoint = "http://localhost:8080/pubsub/publish";
 	}
 }
