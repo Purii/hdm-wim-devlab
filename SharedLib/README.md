@@ -6,7 +6,7 @@ library für Klassen, die von allen Gruppen genutzt werden.
 
 ### Message
 
-Eine Message, die an PubSub gesendet wird. Sie enthält `data`, `topic` und `attributes`
+Eine Message, die an PubSub gesendet wird. Sie enthält `data`, `topic` und `attributes`. `data` ist der payload und `topic` ist die topic unter der die Message auf PubSub veröffentlicht wird.
 
 ### PubSubMessage
 
@@ -36,3 +36,24 @@ Der MessageServer dient der Simulation von eintreffenden PubSubMessages. Standar
 Mithilfe von `telnet localhost port` kann man die eintreffenden PubSubMessages sehen.
 
 ### PublishHelper
+
+Mit Hilfe des PublishHelpers, werden Messages an PubSub übermittelt.
+
+Beispiel:
+
+```
+public static void main(String[] args) throws Exception {
+    int i            = 1;
+    PublishHelper ph = new PublishHelper();
+
+    while (i <= 100) {
+        Message message = Message.generate( "blubb_" + i, Topic.pushTest );
+        
+        ph.Publish(message);
+
+        Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+
+        i++;
+    }
+}
+```
