@@ -93,7 +93,7 @@ public class Message {
 	 *
 	 * @return the message
 	 */
-	public static Message generate(){
+	public static Message generate(String data){
 
 		Helper helper 			= new Helper();
 		Hashtable attributes 	= new Hashtable();
@@ -109,8 +109,35 @@ public class Message {
 		);
 
 		return new Message(
-			"test",
+			data,
 			helper.getRandomStringFromList(Topic.list),
+			attributes
+		);
+	}
+
+	/**
+	 * Generate message.
+	 *
+	 * @return the message
+	 */
+	public static Message generate(String data, String topic){
+
+		Helper helper 			= new Helper();
+		Hashtable attributes 	= new Hashtable();
+
+		attributes.put(
+			AttributeKey.eventSource,
+			helper.getRandomStringFromList(EventSource.list)
+		);
+
+		attributes.put(
+			AttributeKey.eventType,
+			helper.getRandomStringFromList(EventType.list)
+		);
+
+		return new Message(
+			data,
+			topic,
 			attributes
 		);
 	}
