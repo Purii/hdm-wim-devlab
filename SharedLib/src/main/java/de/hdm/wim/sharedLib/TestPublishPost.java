@@ -4,18 +4,21 @@ import de.hdm.wim.sharedLib.Constants.Topic;
 import de.hdm.wim.sharedLib.classes.Message;
 import de.hdm.wim.sharedLib.helper.PublishHelper;
 import java.util.concurrent.TimeUnit;
+import org.apache.log4j.Logger;
 
 /**
  * Created by ben on 5/06/2017.
+ *
+ * Publishes the generated messages via POST
  */
 public class TestPublishPost {
 	private static final long _messagePeriodSeconds = 1;
 
 	public static void main(String[] args) throws Exception {
-		int id 				= 0;
+		int id 				= 1;
 		PublishHelper ph 	= new PublishHelper();
 
-		while (id <= 1) {
+		while (id <= 2) {
 			Message message   = Message.generate("blubb_"+id, Topic.pushTest);
 
 			ph.Publish(message);
