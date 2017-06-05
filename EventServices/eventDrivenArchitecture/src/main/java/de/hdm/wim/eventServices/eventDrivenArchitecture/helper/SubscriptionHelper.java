@@ -119,12 +119,12 @@ public class SubscriptionHelper {
 	/**
 	 * Create subscriber.
 	 *
-	 * @param subscriptionId the subscription id
+	 * @param subscriptionName the subscription id
 	 * @throws Exception the exception
 	 */
-	public void createSubscriber(String subscriptionId) throws Exception{
+	public void createSubscriber(SubscriptionName subscriptionName) throws Exception{
 
-		SubscriptionName subscriptionName = SubscriptionName.create(_projectId, subscriptionId);
+		//SubscriptionName subscriptionName = SubscriptionName.create(_projectId, subscriptionId);
 
 		ExecutorProvider executorProvider =	InstantiatingExecutorProvider.newBuilder()
 												.setExecutorThreadCount(1)

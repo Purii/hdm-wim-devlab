@@ -1,6 +1,7 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture;
 
 import com.google.cloud.ServiceOptions;
+import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.Topic;
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.PublishHelper;
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.SubscriptionHelper;
@@ -17,8 +18,8 @@ public class RunPubSub {
 
 	private static final Logger _logger 	= Logger.getLogger(RunPubSub.class);
 	private static final String _projectId	= ServiceOptions.getDefaultProjectId();
-	private static String _testTopic 		= Constants.Topic.topic1;
-	private static String _subscriptionId   = "my-test-subscription-for-test-topic-1";
+	private static String _testTopic 		= Constants.Topic.pushTest;
+	private static String _subscriptionId   = "test-subscription";
 
 	public static void main(String[] args) throws Exception {
 
@@ -32,8 +33,8 @@ public class RunPubSub {
 
 		// create subscription.
 		// IMPORTANT: do this before you publish messages, otherwise messages might get lost
-		SubscriptionHelper sh = new SubscriptionHelper(_projectId);
-		sh.createSubscriptionIfNotExists(topic.getNameAsTopicName(), _subscriptionId);
+		SubscriptionHelper sh 		= new SubscriptionHelper(_projectId);
+		Subscription subscription 	= sh.createSubscriptionIfNotExists(topic.getNameAsTopicName(), _subscriptionId);
 
 		_logger.info("test2");
 
@@ -43,6 +44,6 @@ public class RunPubSub {
 		ph.publishMessages(messages, topic.getNameAsTopicName());
 
 		// create a subscriber which uses the subscription to listen to messages of the specified topic
-		sh.createSubscriber(_subscriptionId);
+		sh.createSubscriber(subscription.getNameAsSubscriptionName());
 	}
 }
