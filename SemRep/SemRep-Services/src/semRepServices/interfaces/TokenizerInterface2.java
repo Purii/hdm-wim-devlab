@@ -18,10 +18,9 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
 import semRepServices.businessObjects.Dokument;
-import semRepServices.businessObjects.Dokument1;
 import semRepServices.businessObjects.Person;
 
-public class TokenizerInterface {
+public class TokenizerInterface2 {
 
 	public static String[] inputArray = null;
 	public static ArrayList<String> personArrayList = null;
@@ -53,9 +52,9 @@ public class TokenizerInterface {
 
 	public static void setArrayDemoDataSzenario3() {
 		inputArray = new String[4];
-		inputArray[0] = "6";
+		inputArray[0] = "2";
 		//inputArray[1] = "activities concerning the HighNet project"; (context: [Projektdokumente])
-		inputArray[1] = "milestone";
+		inputArray[1] = "Aufgaben";
 		inputArray[2] = "KickOff";
 		inputArray[3] = "Meilensteine";
 		
@@ -75,8 +74,7 @@ public class TokenizerInterface {
 		richTokenHashMap = new HashMap<String, String>();
 		personArrayList = new ArrayList<String>();
 		Person personObj = null;
-		Dokument1 dokumentObj = null;
-		int arrayLength = inputArray.length;
+		Dokument dokumentObj = null;
 
 		try {
 			File file = new File(filePath);
@@ -138,9 +136,9 @@ public class TokenizerInterface {
 			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
 					projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 			// dokument
-			dokumentObj = new Dokument1(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
-					dok_UpdatedatumStr, dok_KeywordsStr, dok_VersionStr, dok_TypStr, dok_VerfasserStr, dok_PhaseStr,
-					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString);
+			dokumentObj = new Dokument(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
+					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_VerfasserStr, dok_PhaseStr,
+					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString, dok_Kontext, dok_KeywordsStr);
 
 			for (int y = 0; y < inputArray.length; y++) {
 
@@ -164,6 +162,31 @@ public class TokenizerInterface {
 				} if (y == 1 && y == (inputArray.length - 1)) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dok_Keywords ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
+							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum "
+							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " 					
+							+ "WHERE { " 
+							+ "?Dokument a ?Klasse . "
+							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
+							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
+							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
+							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
+							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
+							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
+							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
+							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
+							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
+							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
+							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
+							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[y].toString() + " . "
+							+ "}";
+
+					//Kontext plus keywords
+				} if (y > 1) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
 							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
 							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " 					
@@ -185,30 +208,9 @@ public class TokenizerInterface {
 							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
 							// Eingrenzung auf keyword
 							//+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
-							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[y].toString() + " . "
+							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[1].toString() + " . "
+							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " ."
 							+ "}";
-
-					//Kontext plus keywords
-				} if (y > 1) {
-
-					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Klasse ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
-							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
-							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " + "WHERE { " + "?Dokument a ?Klasse . "
-							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
-							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
-							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
-							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
-							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
-							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
-							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
-							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von ."
-							// Eingrenzung auf keyword
-							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
 
 				}
 
@@ -459,14 +461,15 @@ public class TokenizerInterface {
 									|| ((dokumentObj.getDok_URLStr() == "") == true)
 									|| ((dokumentObj.getDok_erstelldatumStr() == "") == true)
 									|| ((dokumentObj.getDok_UpdatedatumStr() == "") == true)
-									|| ((dokumentObj.getDok_KeywordsStr() == "") == true)
 									|| ((dokumentObj.getDok_VersionStr() == "") == true)
 									|| ((dokumentObj.getDok_TypStr() == "") == true)
 									|| ((dokumentObj.getDokument_verfasst_von_Person() == "") == true)
 									|| ((dokumentObj.getDokument_gehoert_zu_Phase() == "") == true)
 									|| ((dokumentObj.getDokument_hat_Dokumentenkategorie() == "") == true)
 									|| ((dokumentObj.getDokument_gehoert_zu_Projekt() == "") == true)
-									|| ((dokumentObj.getDokument_favorisiert_von_Person() == "") == true)) {
+									|| ((dokumentObj.getDokument_favorisiert_von_Person() == "") == true)
+									|| ((dokumentObj.getDokument_hat_Keyword() == "") == true)
+									|| ((dokumentObj.getDokument_hat_Kontext() == "") == true)) {
 
 								switch (results) {
 								case "Dokument":
@@ -517,7 +520,7 @@ public class TokenizerInterface {
 									break;
 								case "Dok_Keywords":
 									dok_KeywordsStr = splitResult;
-									dokumentObj.setDok_KeywordsStr(dok_KeywordsStr);
+									dokumentObj.setDokument_hat_Keyword(dok_KeywordsStr);
 									break;
 								case "Dok_Version":
 									dok_VersionStr = rdfNode.toString().substring(0, rdfNode.toString().indexOf("^^"));
@@ -531,6 +534,10 @@ public class TokenizerInterface {
 									dok_favorisiertVonString = splitResult;
 									dokumentObj.setDokument_favorisiert_von_Person(dok_favorisiertVonString);
 									break;
+								case "Kontext":
+									dok_Kontext = splitResult;
+									dokumentObj.setDokument_hat_Kontext(dok_Kontext);
+									break;
 								}
 
 							}
@@ -539,9 +546,10 @@ public class TokenizerInterface {
 							else if (((dokumentObj.getDokument_verfasst_von_Person() == "") == false)
 									|| ((dokumentObj.getDokument_hat_Dokumentenkategorie() == "") == false)
 									|| ((dokumentObj.getDokument_gehoert_zu_Projekt() == "") == false)
-									|| ((dokumentObj.getDok_KeywordsStr() == "") == false)
+									|| ((dokumentObj.getDokument_hat_Keyword() == "") == false)
 									|| ((dokumentObj.getDok_KlasseStr() == "") == false)
-									|| ((dokumentObj.getDokument_favorisiert_von_Person() == "") == false)) {
+									|| ((dokumentObj.getDokument_favorisiert_von_Person() == "") == false)
+									|| ((dokumentObj.getDokument_hat_Kontext() == "") == false)) {
 
 								switch (results) {
 								case "Klasse":
@@ -609,7 +617,7 @@ public class TokenizerInterface {
 								case "Dok_Keywords":
 									dok_KeywordsStr = splitResult;
 									splitKeywordsList = Arrays
-											.asList(dokumentObj.getDok_KeywordsStr().toString().split(", "));
+											.asList(dokumentObj.getDokument_hat_Keyword().toString().split(", "));
 
 									if (splitKeywordsList.contains(dok_KeywordsStr)) {
 
@@ -617,8 +625,8 @@ public class TokenizerInterface {
 
 									} else {
 
-										dokumentObj.setDok_KeywordsStr(
-												dokumentObj.getDok_KeywordsStr() + ", " + dok_KeywordsStr);
+										dokumentObj.setDokument_hat_Keyword(
+												dokumentObj.getDokument_hat_Keyword() + ", " + dok_KeywordsStr);
 										break;
 									}
 								case "Favorisiert_Von":
@@ -635,6 +643,21 @@ public class TokenizerInterface {
 										dokumentObj.setDokument_favorisiert_von_Person(
 												dokumentObj.getDokument_favorisiert_von_Person() + ", "
 														+ dok_favorisiertVonString);
+										break;
+									}
+								case "Kontext":
+									dok_Kontext = splitResult;
+									splitKeywordsList = Arrays
+											.asList(dokumentObj.getDokument_hat_Kontext().toString().split(", "));
+
+									if (splitKeywordsList.contains(dok_Kontext)) {
+
+										break;
+
+									} else {
+
+										dokumentObj.setDokument_hat_Kontext(
+												dokumentObj.getDokument_hat_Kontext() + ", " + dok_Kontext);
 										break;
 									}
 
@@ -669,14 +692,15 @@ public class TokenizerInterface {
 							+ dokumentObj.getDok_NameStr() + ", " + "Dok_ID=" + dokumentObj.getDok_IDStr() + ", "
 							+ "Dok_URL=" + dokumentObj.getDok_URLStr() + ", " + "Dok_Erstelldatum="
 							+ dokumentObj.getDok_erstelldatumStr() + ", " + "Dok_Updatedatum="
-							+ dokumentObj.getDok_UpdatedatumStr() + ", " + "Dok_Keywords="
-							+ dokumentObj.getDok_KeywordsStr() + ", " + "Dok_Version=" + dokumentObj.getDok_VersionStr()
+							+ dokumentObj.getDok_UpdatedatumStr() + ", " + "Dok_Version=" + dokumentObj.getDok_VersionStr()
 							+ ", " + "Dok_Typ=" + dokumentObj.getDok_TypStr() + ", " + "Dokument_verfasst_von_Person="
 							+ dokumentObj.getDokument_verfasst_von_Person() + ", " + "Dokument_gehoert_zu_Phase="
 							+ dokumentObj.getDokument_gehoert_zu_Phase() + ", " + "Dokument_hat_Dokumentenkategorie="
 							+ dokumentObj.getDokument_hat_Dokumentenkategorie() + ", " + "Dokument_gehoert_zu_Projekt="
 							+ dokumentObj.getDokument_gehoert_zu_Projekt() + ", " + "Dokument_favorisiert_von_Person="
-							+ dokumentObj.getDokument_favorisiert_von_Person());
+							+ dokumentObj.getDokument_favorisiert_von_Person() + ", " + "Dok_Keywords="
+							+ dokumentObj.getDokument_hat_Keyword() + ", " + "Kontext="
+							+ dokumentObj.getDokument_hat_Kontext());
 
 					dokumentObj.flushDokumentObjekt();
 

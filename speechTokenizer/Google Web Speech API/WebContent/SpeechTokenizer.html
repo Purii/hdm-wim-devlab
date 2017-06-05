@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/SpeechAPI.css">
+    <title>Speech Tokenizer (Web Speech API)</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="JS JSON/JSON.js" charset="utf-8"></script>
+	<script type="text/javascript" src="JS SpeechAPI/SpeechAPI.js" charset="utf-8" async></script>
+	
+
+</head>
+<body>
+<center><img src="logohdm.jpg" alt="Logo" height="250" width="300"></center>
+
+<h1 class="center" id="headline">Speech Tokenizer</h1>
+<div id="info">
+  <p id="info_start">Klicke auf das Mikrofon und beginne zu Sprechen.</p>
+  <p id="info_speak_now">Spreche jetzt.</p>
+  <p id="info_no_speech">Spracheingabe wurde nicht gefunden. Möglicherweise sollten Sie nochmals ihre 
+    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+      Mikrofon Einstellungen überprüfen</a>.</p>
+  <p id="info_no_microphone" style="display:none">
+    Kein Mikrofon wurde gefunden. Stellen Sie sicher, dass ein 
+    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+    Mikrofon installiert ist und die Mikrofoneinstellungen</a> richtig eingestellt wurden </p>
+  <p id="info_allow">Klicken Sie auf den Schaltfläche "Zulassen", um ihr Mikrofon zu aktivieren.</p>
+  <p id="info_denied">Die Benutzung des Mikrofons wurde verweigert</p>
+  <p id="info_blocked">Die Benutzung des Mikrofons ist gesperrt. Um die Sperrung aufzuheben, gehen Sie zu
+    chrome://settings/contentExceptions#media-stream</p>
+  <p id="info_upgrade">Web Speech API wird von diesem Browser nicht unterstützt.
+     Upgraden auf<a href="//www.google.com/chrome">Chrome</a>
+     Version 25 oder höher.</p>
+	 
+</div>
+<div class="right">
+  <button id="start_button" onclick="startButton(event)">
+    <img id="start_img" src="css/mic.gif" alt="Start"></button>
+</div>
+<div id="results">   
+  <span id="final_span" class="final"></span>
+  <span id="interim_span" class="interim"></span>
+  
+  <p>
+</div>
+</body>
+</html>
