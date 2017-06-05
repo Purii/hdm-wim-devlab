@@ -16,7 +16,7 @@ public class Helper {
 	private final Random random	= new Random();
 
 	/**
-	 * Get random string from list.
+	 * Get random string from list of String.
 	 *
 	 * @param list the list
 	 * @return the string

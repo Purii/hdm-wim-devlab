@@ -1,4 +1,4 @@
-package de.hdm.wim.sharedLib;
+package de.hdm.wim.sharedLib.helper;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.classes.PubSubMessage;
