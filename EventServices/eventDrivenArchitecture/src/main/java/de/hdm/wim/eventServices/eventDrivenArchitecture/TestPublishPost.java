@@ -11,18 +11,18 @@ import java.util.concurrent.TimeUnit;
  * Publishes the generated messages via POST
  */
 public class TestPublishPost {
-	private static final long _messagePeriodSeconds = 1;
+	private static final long MESSAGE_PERIOD_SECONDS = 1;
 
 	public static void main(String[] args) throws Exception {
 		int i 				= 1;
 		PublishHelper ph 	= new PublishHelper();
 
 		while (i <= 2) {
-			Message message   = Message.generate("blubb_"+i, Topic.pushTest);
+			Message message   = Message.generate("blubb_"+i, Topic.PUSH_TEST);
 
 			ph.Publish(message);
 
-			Thread.sleep(TimeUnit.SECONDS.toMillis(_messagePeriodSeconds));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
 			i++;
 		}

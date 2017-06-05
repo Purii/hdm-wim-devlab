@@ -6,17 +6,16 @@ import com.google.cloud.pubsub.spi.v1.Publisher;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * Created by ben on 23/04/2017.
  */
 public class PublishHelperOld {
 
-	private static final Logger _logger = Logger.getLogger(PublishHelperOld.class);
+	private static final Logger LOGGER = Logger.getLogger(PublishHelperOld.class);
 
 	/**
 	 * Publish a message.
@@ -48,7 +47,7 @@ public class PublishHelperOld {
 			List<String> messageIds = ApiFutures.allAsList(messageIdFutures).get();
 
 			for (String messageId : messageIds) {
-				_logger.info("published with message ID: " + messageId);
+				LOGGER.info("published with message ID: " + messageId);
 			}
 
 			if (publisher != null) {
@@ -91,7 +90,7 @@ public class PublishHelperOld {
 			List<String> messageIds = ApiFutures.allAsList(messageIdFutures).get();
 
 			for (String messageId : messageIds) {
-				_logger.info("published with message ID: " + messageId);
+				LOGGER.info("published with message ID: " + messageId);
 			}
 
 			if (publisher != null) {

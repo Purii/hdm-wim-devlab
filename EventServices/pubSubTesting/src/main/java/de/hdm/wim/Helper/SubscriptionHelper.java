@@ -120,7 +120,7 @@ public class SubscriptionHelper {
 			_pushEndpoint 						= String.format(
 													"https://%s.appspot.com/pubsub/push?token=%s&topic=%s",
 													_projectId,
-													Config.secretToken,
+													Config.SECRET_TOKEN,
 													topicName.getTopic()
 			                                      );
 			SubscriptionName subscriptionName 	= SubscriptionName.create(_projectId, subscriptionId);

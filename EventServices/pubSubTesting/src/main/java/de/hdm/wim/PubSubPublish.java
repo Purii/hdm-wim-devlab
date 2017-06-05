@@ -30,7 +30,7 @@ public class PubSubPublish extends HttpServlet {
 			// create a publisher on the topic
 			String topicId = req.getParameter("topic");
 			if(topicId.isEmpty())
-				topicId = Constants.Topic.pushTest;
+				topicId = Constants.Topic.PUSH_TEST;
 
 			if (publisher == null) {
 				publisher = Publisher.defaultBuilder(

@@ -91,6 +91,7 @@ public class Message {
 	/**
 	 * Generate message.
 	 *
+	 * @param data the data
 	 * @return the message
 	 */
 	public static Message generate(String data){
@@ -99,12 +100,12 @@ public class Message {
 		Hashtable attributes 	= new Hashtable();
 
 		attributes.put(
-			AttributeKey.eventSource,
+			AttributeKey.EVENT_SOURCE,
 			helper.getRandomStringFromList(EventSource.list)
 		);
 
 		attributes.put(
-			AttributeKey.eventType,
+			AttributeKey.EVENT_TYPE,
 			helper.getRandomStringFromList(EventType.list)
 		);
 
@@ -118,6 +119,8 @@ public class Message {
 	/**
 	 * Generate message.
 	 *
+	 * @param data the data
+	 * @param topic the topic
 	 * @return the message
 	 */
 	public static Message generate(String data, String topic){
@@ -126,19 +129,15 @@ public class Message {
 		Hashtable attributes 	= new Hashtable();
 
 		attributes.put(
-			AttributeKey.eventSource,
+			AttributeKey.EVENT_SOURCE,
 			helper.getRandomStringFromList(EventSource.list)
 		);
 
 		attributes.put(
-			AttributeKey.eventType,
+			AttributeKey.EVENT_TYPE,
 			helper.getRandomStringFromList(EventType.list)
 		);
 
-		return new Message(
-			data,
-			topic,
-			attributes
-		);
+		return new Message(data, topic, attributes);
 	}
 }

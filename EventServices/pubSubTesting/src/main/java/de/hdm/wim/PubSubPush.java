@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ben on 4/06/2017.
  */
 // [START pubsub_appengine_flex_push]
-@WebServlet(value = "/pubsub/push")
+@WebServlet(name = "Push with PubSub" ,value = "/pubsub/push")
 public class PubSubPush extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
-		String pubsubVerificationToken = Constants.Config.secretToken;
+		String pubsubVerificationToken = Constants.Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter("token").compareTo(pubsubVerificationToken) != 0) {

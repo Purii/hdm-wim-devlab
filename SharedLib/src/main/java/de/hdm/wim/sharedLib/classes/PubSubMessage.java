@@ -118,20 +118,15 @@ public class PubSubMessage {
 		Hashtable attributes 	= new Hashtable();
 
 		attributes.put(
-			AttributeKey.eventSource,
+			AttributeKey.EVENT_SOURCE,
 			helper.getRandomStringFromList(EventSource.list)
 		);
 
 		attributes.put(
-			AttributeKey.eventType,
+			AttributeKey.EVENT_TYPE,
 			helper.getRandomStringFromList(EventType.list)
 		);
 
-		return new PubSubMessage(
-			data,
-			id,
-			LocalDateTime.now(),
-			attributes
-		);
+		return new PubSubMessage(data, id, LocalDateTime.now(), attributes);
 	}
 }

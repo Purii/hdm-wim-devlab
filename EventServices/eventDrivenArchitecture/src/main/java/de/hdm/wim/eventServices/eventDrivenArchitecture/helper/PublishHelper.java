@@ -1,6 +1,6 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
-import static de.hdm.wim.sharedLib.Constants.Config.localPublishEndpoint;
+import static de.hdm.wim.sharedLib.Constants.Config.LOCAL_PUBLISH_ENDPOINT;
 
 import de.hdm.wim.sharedLib.classes.Message;
 import java.net.HttpURLConnection;
@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
  */
 public class PublishHelper {
 
-	private static String _request 		= localPublishEndpoint;
-	private static final Logger _logger = Logger.getLogger(PublishHelper.class);
+	private static String ENDPOINT		= LOCAL_PUBLISH_ENDPOINT;
+	private static final Logger LOGGER 	= Logger.getLogger(PublishHelper.class);
 
 	/**
 	 * Instantiates a new Publish helper.
@@ -29,7 +29,7 @@ public class PublishHelper {
 	 * @param request the request
 	 */
 	public PublishHelper(String request){
-		this._request 	= request;
+		this.ENDPOINT = request;
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class PublishHelper {
 
 	private static void sendPost(Map<String,Object> params) throws Exception{
 		URL url;
-		HttpURLConnection conn = null;
+		HttpURLConnection conn;
 
 		//build request url
 		StringBuilder postData = new StringBuilder();
@@ -63,12 +63,12 @@ public class PublishHelper {
 			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
 		}
 
-		_logger.info("postData: " + postData);
+		LOGGER.info("postData: " + postData);
 
 		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
 		// set up connection
-		url  = new URL(_request);
+		url  = new URL(ENDPOINT);
 		conn = (HttpURLConnection) url.openConnection();
 
 		conn.setRequestMethod("POST");
@@ -80,7 +80,7 @@ public class PublishHelper {
 		conn.getOutputStream().write(postDataBytes);
 
 		// get response
-		_logger.info("ResponseCode: " 	 + conn.getResponseCode());
-		_logger.info("ResponseMessage: " + conn.getResponseMessage());
+		LOGGER.info("ResponseCode: " 	 + conn.getResponseCode());
+		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
 	}
 }

@@ -19,10 +19,10 @@ import org.apache.log4j.Logger;
  */
 public class MessageServer {
 
-	private static final Executor _serverExecutor	= Executors.newSingleThreadExecutor();
-	private static final int _port 					= 9999;
-	private static final long _messagePeriodSeconds = 10;
-	private static final Logger _logger 			= Logger.getLogger(MessageServer.class);
+	private static final Executor SERVER_EXECUTOR 	 = Executors.newSingleThreadExecutor();
+	private static final int PORT 					 = 9999;
+	private static final long MESSAGE_PERIOD_SECONDS = 10;
+	private static final Logger LOGGER 				 = Logger.getLogger(MessageServer.class);
 
 	/**
 	 * The entry point of this application. It will send one message every 10 seconds until terminated
@@ -38,14 +38,14 @@ public class MessageServer {
 		BlockingQueue<String> messageQueue  = new ArrayBlockingQueue<>(100);
 		int id 								= 0;
 
-		_serverExecutor.execute(new SteamingServer(messageQueue));
+		SERVER_EXECUTOR.execute(new SteamingServer(messageQueue));
 
 		while (true) {
             PubSubMessage message   = PubSubMessage.generate("blubb",Integer.toString(id));
             Gson gson               = new Gson();
 
             messageQueue.put(gson.toJson(message));
-            Thread.sleep(TimeUnit.SECONDS.toMillis(_messagePeriodSeconds));
+            Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
             id++;
         }
@@ -57,7 +57,7 @@ public class MessageServer {
 		/**
 		 * Instantiates a new Steaming server.
 		 *
-		 * @param messageQueue the event queue
+		 * @param messageQueue the EVENT queue
 		 */
 		private SteamingServer(BlockingQueue<String> messageQueue) {
 			this.messageQueue = messageQueue;
@@ -67,7 +67,7 @@ public class MessageServer {
 		public void run() {
 
 			try (
-				ServerSocket serverSocket   = new ServerSocket(_port);
+				ServerSocket serverSocket   = new ServerSocket(PORT);
 				Socket clientSocket         = serverSocket.accept();
 				PrintWriter pw             = new PrintWriter(clientSocket.getOutputStream(), true)
 			)
@@ -75,7 +75,7 @@ public class MessageServer {
 				while (true) {
 					String message = messageQueue.take();
 
-					_logger.info(message);
+					LOGGER.info(message);
 					pw.println(message);
 				}
 			} catch (IOException|InterruptedException e) {

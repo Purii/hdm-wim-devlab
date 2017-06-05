@@ -12,27 +12,27 @@ public class Constants {
 	 * Keys for the message attributes
 	 */
 	public static class AttributeKey{
-		public static final String eventSource 	= "EventSource";
-		public static final String eventType	= "EventType";
+		public static final String EVENT_SOURCE	= "EventSource";
+		public static final String EVENT_TYPE	= "EventType";
 	}
 
 	/**
 	 * Source of event
 	 */
 	public static class EventSource{
-		public static final String speechTokenization 		= "speech-tokenization";
-		public static final String event 					= "event";
-		public static final String machineLearning 			= "machine-learning";
-		public static final String userInterface 			= "user-interface";
-		public static final String semanticRepresentation	= "semantic-representation";
+		public static final String SPEECH_TOKENIZATION 		= "speech-tokenization";
+		public static final String EVENT 					= "event";
+		public static final String MACHINE_LEARNING 		= "machine-learning";
+		public static final String USER_INTERFACE 			= "USER-interface";
+		public static final String SEMANTIC_REPRESENTATION 	= "semantic-representation";
 
 		// for message generator only
 		public static final List<String> list = Arrays.asList(
-			speechTokenization,
-			event,
-			machineLearning,
-			userInterface,
-			semanticRepresentation
+			SPEECH_TOKENIZATION,
+			EVENT,
+			MACHINE_LEARNING,
+			USER_INTERFACE,
+			SEMANTIC_REPRESENTATION
 		);
 	}
 
@@ -41,26 +41,26 @@ public class Constants {
 	 * Format: "my-test-topic-x"
      */
     public static class Topic {
-		public static final String topic1 	= "topic-1";
-		public static final String topic2 	= "topic-2";
-		public static final String topic3 	= "topic-3";
-		public static final String topic4 	= "topic-4";
-		public static final String topic5	= "topic-5";
+		public static final String TOPIC_1 = "topic-1";
+		public static final String TOPIC_2 = "topic-2";
+		public static final String TOPIC_3 = "topic-3";
+		public static final String TOPIC_4 = "topic-4";
+		public static final String TOPIC_5 = "topic-5";
 
-		public static final String topicEvent 	= "topic-event";
-		public static final String topicSemRep 	= "topic-semRep";
-		public static final String topicML		= "topic-ml";
-		public static final String topicGui 	= "topic-gui";
+		public static final String TOPIC_EVENT 		= "topic-event";
+		public static final String TOPIC_SEM_REP 	= "topic-semRep";
+		public static final String TOPIC_ML 		= "topic-ml";
+		public static final String TOPIC_GUI 		= "topic-gui";
 
-		public static final String pushTest 	= "topic-push-test-123";
+		public static final String PUSH_TEST 		= "topic-push-test-123";
 
 		// for message generator only
 		public static final List<String> list = Arrays.asList(
-			topic1,
-			topic2,
-			topic3,
-			topic4,
-			topic5
+			TOPIC_1,
+			TOPIC_2,
+			TOPIC_3,
+			TOPIC_4,
+			TOPIC_5
 		);
     }
 
@@ -68,21 +68,21 @@ public class Constants {
 	 * Event types.
 	 */
 	public static class EventType {
-		public static final String action 	= "action";
-		public static final String request 	= "request";
-		public static final String user 	= "user";
-		public static final String feedback	= "feedback";
-		public static final String time		= "time";
-		public static final String date		= "date";
+		public static final String ACTION 	= "action";
+		public static final String REQUEST 	= "request";
+		public static final String USER 	= "user";
+		public static final String FEEDBACK	= "feedback";
+		public static final String TIME		= "time";
+		public static final String DATE		= "date";
 
 		// for message generator only
 		public static final List<String> list = Arrays.asList(
-			action,
-			request,
-			user,
-			feedback,
-			time,
-			date
+			ACTION,
+			REQUEST,
+			USER,
+			FEEDBACK,
+			TIME,
+			DATE
 		);
 	}
 
@@ -90,7 +90,7 @@ public class Constants {
 		public static final String monday 		= "monday";
 		public static final String tuesday 		= "tuesday";
 		public static final String wednesday 	= "wednesday";
-		public static final String thursday 	= "thursday";
+		public static final String thursday		= "thursday";
 		public static final String friday		= "friday";
 		public static final String saturday 	= "saturday";
 		public static final String sunday 		= "sunday";
@@ -105,7 +105,7 @@ public class Constants {
 	}
 
 	public class Config {
-		public static final String secretToken 			= "secretToken123";
-		public static final String localPublishEndpoint = "http://localhost:8080/pubsub/publish";
+		public static final String SECRET_TOKEN 			= "secretToken123";
+		public static final String LOCAL_PUBLISH_ENDPOINT 	= "http://localhost:8080/pubsub/publish";
 	}
 }

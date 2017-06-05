@@ -21,15 +21,13 @@ import org.apache.log4j.Logger;
  */
 public class SubscriptionHelper {
 
-	private static final Logger _logger = Logger.getLogger(SubscriptionHelper.class);
-	private final String _projectId;
+	private static final Logger LOGGER 	= Logger.getLogger(SubscriptionHelper.class);
+	private String PROJECT_ID			= ServiceOptions.getDefaultProjectId();
 
 	/**
 	 * Instantiates a new TopicHelper.
 	 */
-	public SubscriptionHelper() {
-		this._projectId = ServiceOptions.getDefaultProjectId();
-	}
+	public SubscriptionHelper() {}
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
@@ -37,7 +35,7 @@ public class SubscriptionHelper {
 	 * @param projectId unique project identifier, eg. "my-project-id"
 	 */
 	public SubscriptionHelper(String projectId){
-		this._projectId = projectId;
+		this.PROJECT_ID = projectId;
 	}
 
 	/**
@@ -46,7 +44,7 @@ public class SubscriptionHelper {
 	 * @return the project id
 	 */
 	public String getProjectId() {
-		return _projectId;
+		return PROJECT_ID;
 	}
 
 	/**
@@ -66,12 +64,12 @@ public class SubscriptionHelper {
 			for(Subscription subscription : subscriptions){
 				if(subscription.getNameAsSubscriptionName().getSubscription().equals(subscriptionId))
 				{
-					_logger.info("Subscription already exists: " + subscriptionId);
+					LOGGER.info("Subscription already exists: " + subscriptionId);
 					return subscription;
 				}
 			}
 
-			SubscriptionName subscriptionName =	SubscriptionName.create(_projectId, subscriptionId);
+			SubscriptionName subscriptionName =	SubscriptionName.create(PROJECT_ID, subscriptionId);
 
 			// create a pull subscription with default acknowledgement deadline
 			Subscription subscription = subscriptionAdminClient.createSubscription(
@@ -85,7 +83,7 @@ public class SubscriptionHelper {
 			pushConfig.*/
 
 
-			_logger.info("Successfully created subscription: " + subscriptionId);
+			LOGGER.info("Successfully created subscription: " + subscriptionId);
 
 			return subscription;
 		}
@@ -103,14 +101,14 @@ public class SubscriptionHelper {
 
 			ListSubscriptionsRequest listSubscriptionsRequest =
 				ListSubscriptionsRequest.newBuilder()
-					.setProjectWithProjectName(ProjectName.create(_projectId))
+					.setProjectWithProjectName(ProjectName.create(PROJECT_ID))
 					.build();
 
 			PagedResponseWrappers.ListSubscriptionsPagedResponse response = subscriptionAdminClient
 																				.listSubscriptions(listSubscriptionsRequest);
 			Iterable<Subscription> subscriptions = response.iterateAll();
 			for (Subscription subscription : subscriptions) {
-				_logger.info(subscription.getName());
+				LOGGER.info(subscription.getName());
 			}
 			return subscriptions;
 		}
@@ -133,8 +131,8 @@ public class SubscriptionHelper {
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
 			// handle incoming message, then ack/nack the received message
-			_logger.info("Id : " + message.getMessageId());
-			_logger.info("Data : " + message.getData().toStringUtf8());
+			LOGGER.info("Id : " + message.getMessageId());
+			LOGGER.info("Data : " + message.getData().toStringUtf8());
 			consumer.ack();
 		};
 
@@ -151,7 +149,7 @@ public class SubscriptionHelper {
 					@Override
 					public void failed(Subscriber.State from, Throwable failure) {
 					// Handle failure. This is called when the Subscriber encountered a fatal error and is shutting down.
-					_logger.error(failure);
+					LOGGER.error(failure);
 					}
 				},
 				MoreExecutors.directExecutor()
