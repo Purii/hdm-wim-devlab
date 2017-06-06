@@ -152,7 +152,7 @@ public class TokenizerInterface2 {
 			personHashMap.put("Aufrufe", "");
 			personHashMap.put("Favorit_Dok", "");
 			
-			boolean gehoertZuProjekt = false;
+			String gehoertZuProjekt = "";
 
 			// initialisiere Objekte
 			// person
@@ -212,12 +212,12 @@ public class TokenizerInterface2 {
 							+ "}";
 
 					//Kontext plus keywords
-				} else if (y < 1 || y < 3) {
+				} else if (y < 1 || (y > 1 && y < 3)) {
 					sparql = "";
 				}		
 				
 				if (y == inputArray.length) {
-					if (gehoertZuProjekt == true) {
+					if (personObj.getPerson_arbeitet_an_Projekt() != "") {
 						sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 								+ "SELECT DISTINCT ?Projekt ?ProjektID ?ProjektName ?Projekt_gehoert_zu_Unternehmen "
 								+ "?Projekt_gehoert_zu_Abteilung ?Projekt_hat_Projektmitglied ?Projekt_hat_Dokument " 					
@@ -229,7 +229,7 @@ public class TokenizerInterface2 {
 								+ "?Projekt ontology:Projekt_hat_Projektmitglied ?Projekt_hat_Projektmitglied . "
 								+ "?Projekt ontology:Projekt_hat_Dokument ?Projekt_hat_Dokument . "
 								
-								+ "?Projekt ontology:Projekt_Name '" + dokumentObj.getDokument_gehoert_zu_Projekt() + "' . "
+								+ "?Projekt ontology:Projekt_Name '" + personObj.getPerson_arbeitet_an_Projekt() + "' . "
 								+ "}";
 					} else {
 						sparql = "";
@@ -518,7 +518,7 @@ public class TokenizerInterface2 {
 								case "Projekt":
 									dok_ProjektStr = splitResult;
 									dokumentObj.setDokument_gehoert_zu_Projekt(dok_ProjektStr);
-									gehoertZuProjekt = true;
+									gehoertZuProjekt = dok_ProjektStr;
 									break;
 								case "Dok_Name":
 									dok_NameStr = splitResult;
@@ -702,7 +702,7 @@ public class TokenizerInterface2 {
 
 								switch (results) {
 								case "ProjektID":
-									projektIDStr = splitResult;
+									projektIDStr = rdfNode.toString().substring(0, rdfNode.toString().indexOf("^^"));
 									projektObj.setProjektID(projektIDStr);
 									break;
 								case "ProjektName":
@@ -812,7 +812,7 @@ public class TokenizerInterface2 {
 			
 
 				// bei Person
-				if (y == 0) {
+				if (y == 1) {
 
 					richTokenHashMap.put("Person", "Person=" + personObj.getPerson() + ", " + "ID=" + personObj.getId()
 							+ ", " + "Klasse=" + personObj.getKlasse() + ", " + "Vorname=" + personObj.getVorname()
