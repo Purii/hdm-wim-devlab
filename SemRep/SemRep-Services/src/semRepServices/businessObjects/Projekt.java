@@ -20,7 +20,7 @@ public class Projekt {
 		this.projekt_hat_Dokument = projekt_hat_Dokument;
 	}
 	
-	public void flushDokumentObjekt() {
+	public void flushProjektObjekt() {
 		setProjektID("");
 		setProjektName("");
 		setProjekt_gehoert_zu_Unternehmen("");

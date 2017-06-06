@@ -20,6 +20,7 @@ import org.apache.jena.rdf.model.RDFNode;
 
 import semRepServices.businessObjects.Dokument2;
 import semRepServices.businessObjects.Person;
+import semRepServices.businessObjects.Projekt;
 
 public class TokenizerInterface2 {
 
@@ -86,6 +87,7 @@ public class TokenizerInterface2 {
 		
 		Person personObj = null;
 		Dokument2 dokumentObj = null;
+		Projekt projektObj = null;
 		
 		try {
 			File file = new File(filePath);
@@ -126,6 +128,13 @@ public class TokenizerInterface2 {
 			String dok_Kontext = "";
 			String dok_KeywordsStr = "";
 			String dok_folder = "";
+			//projekt
+			String projektIDStr = "";
+			String projektNameStr = "";
+			String projekt_gehoert_zu_UnternehmenStr = "";
+			String projekt_gehoert_zu_AbteilungStr = "";
+			String projekt_hat_ProjektmitgliedStr = "";
+			String projekt_hat_DokumentStr = "";
 
 			// initalisiere HashMap
 			// person
@@ -153,6 +162,10 @@ public class TokenizerInterface2 {
 			dokumentObj = new Dokument2(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
 					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_folder, dok_VerfasserStr, dok_PhaseStr,
 					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString, dok_Kontext, dok_KeywordsStr);
+			//projekt
+			projektObj = new Projekt(projektIDStr, projektNameStr, projekt_gehoert_zu_UnternehmenStr, 
+					projekt_gehoert_zu_AbteilungStr, projekt_hat_ProjektmitgliedStr, projekt_hat_DokumentStr);
+			
 			
 			for (int y = 0; y <= inputArray.length; y++) {
 
@@ -174,7 +187,7 @@ public class TokenizerInterface2 {
 
 					// nur Kontext ohne Keywords
 //				} if (y == 1 && y == (inputArray.length - 1)) {
-				} if (y >= 3) {
+				} if (y >= 3 && y < inputArray.length) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dok_Keywords ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
@@ -461,7 +474,7 @@ public class TokenizerInterface2 {
 							}
 
 							// Dokument Keywords
-						} else {
+						} if(y >= 3 && y < inputArray.length) {
 
 							// einmaliges befüllen der nachfolgenden Werte
 							if (((dokumentObj.getDok_Str() == "") == true)
@@ -676,8 +689,121 @@ public class TokenizerInterface2 {
 
 							}
 
+						//Projekte
+						} if (y == inputArray.length) {
+														
+							// einmaliges befüllen der nachfolgenden Werte
+							if (((projektObj.getProjektID() == "") == true)
+									|| ((projektObj.getProjektName() == "") == true)
+									|| ((projektObj.getProjekt_gehoert_zu_Unternehmen() == "") == true)
+									|| ((projektObj.getProjekt_gehoert_zu_Abteilung() == "") == true)
+									|| ((projektObj.getProjekt_hat_Projektmitglied() == "") == true)
+									|| ((projektObj.getProjekt_hat_Dokument() == "") == true)) {
+
+								switch (results) {
+								case "ProjektID":
+									projektIDStr = splitResult;
+									projektObj.setProjektID(projektIDStr);
+									break;
+								case "ProjektName":
+									projektNameStr = splitResult;
+									projektObj.setProjektName(projektNameStr);
+									break;
+								case "Projekt_gehoert_zu_Unternehmen":
+									projekt_gehoert_zu_UnternehmenStr = splitResult;
+									projektObj.setProjekt_gehoert_zu_Unternehmen(projekt_gehoert_zu_UnternehmenStr);
+									break;
+								case "Projekt_gehoert_zu_Abteilung":
+									projekt_gehoert_zu_AbteilungStr = splitResult;
+									projektObj.setProjekt_gehoert_zu_Abteilung(projekt_gehoert_zu_AbteilungStr);
+									break;
+								case "Projekt_hat_Projektmitglied":
+									projekt_hat_ProjektmitgliedStr = splitResult;
+									projektObj.setProjekt_hat_Projektmitglied(projekt_hat_ProjektmitgliedStr);
+									break;
+								case "Projekt_hat_Dokument":
+									projekt_hat_DokumentStr = splitResult;
+									projektObj.setProjekt_hat_Dokument(projekt_hat_DokumentStr);
+									break;
+								}
+
+							}
+							// befülle dynamisch Projekteattribute
+							else if (((projektObj.getProjekt_gehoert_zu_Unternehmen() == "") == false)
+									|| ((projektObj.getProjekt_gehoert_zu_Abteilung() == "") == false)
+									|| ((projektObj.getProjekt_hat_Projektmitglied() == "") == false)
+									|| ((projektObj.getProjekt_hat_Dokument() == "") == false)) {
+
+								switch (results) {
+								case "Projekt_gehoert_zu_Unternehmen":
+									projekt_gehoert_zu_UnternehmenStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											projektObj.getProjekt_gehoert_zu_Unternehmen().toString().split(", "));
+
+									if (splitKeywordsList.contains(projekt_gehoert_zu_UnternehmenStr)) {
+
+										break;
+
+									} else {
+
+										projektObj.setProjekt_gehoert_zu_Unternehmen(
+												projektObj.getProjekt_gehoert_zu_Unternehmen() + ", "
+														+ projekt_gehoert_zu_UnternehmenStr);
+										break;
+									}
+								case "Projekt_gehoert_zu_Abteilung":
+									projekt_gehoert_zu_AbteilungStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											projektObj.getProjekt_gehoert_zu_Abteilung().toString().split(", "));
+
+									if (splitKeywordsList.contains(projekt_gehoert_zu_AbteilungStr)) {
+
+										break;
+
+									} else {
+
+										projektObj.setProjekt_gehoert_zu_Abteilung(
+												projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + projekt_gehoert_zu_AbteilungStr);
+										break;
+									}
+								case "Projekt_hat_Projektmitglied":
+									projekt_hat_ProjektmitgliedStr = splitResult;
+									splitKeywordsList = Arrays
+											.asList(projektObj.getProjekt_hat_Projektmitglied().toString().split(", "));
+
+									if (splitKeywordsList.contains(projekt_hat_ProjektmitgliedStr)) {
+
+										break;
+
+									} else {
+
+										projektObj.setProjekt_hat_Projektmitglied(
+												projektObj.getProjekt_hat_Projektmitglied() + ", " + projekt_hat_ProjektmitgliedStr);
+										break;
+									}
+								case "Projekt_hat_Dokument":
+									projekt_hat_DokumentStr = splitResult;
+									splitKeywordsList = Arrays.asList(
+											projektObj.getProjekt_hat_Dokument().toString().split(", "));
+
+									if (splitKeywordsList.contains(projekt_hat_DokumentStr)) {
+
+										break;
+
+									} else {
+
+										projektObj.setProjekt_hat_Dokument(
+												projektObj.getProjekt_hat_Dokument() + ", "
+														+ projekt_hat_DokumentStr);
+										break;
+									}
+
+								}
+
+							}
+
+							
 						}
-						//y = y - 1;
 						
 					}
 
@@ -699,7 +825,7 @@ public class TokenizerInterface2 {
 							+ "Person_favorisiert_Dokument=" + personObj.getPerson_favorisiert_Dokument());
 
 					// bei Dokumenten
-				} else {
+				} if (y >= 3 && y < inputArray.length) {
 
 					richTokenHashMap.put("Dokument_" + y, "Dokument_" + y + "=" + dokumentObj.getDok_Str() + ", "
 							+ "Klasse=" + dokumentObj.getDok_KlasseStr() + ", " + "Dok_Name="
@@ -718,6 +844,17 @@ public class TokenizerInterface2 {
 
 					dokumentObj.flushDokumentObjekt();
 
+				}
+				if (y == inputArray.length) {
+
+					richTokenHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
+							+ "ProjektName=" + projektObj.getProjektName() + ", " + "Projekt_gehoert_zu_Unternehmen="
+							+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "Projekt_gehoert_zu_Abteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung() + ", "
+							+ "Projekt_hat_Projektmitglied=" + projektObj.getProjekt_hat_Projektmitglied() + ", " + "Projekt_hat_Dokument="
+							+ projektObj.getProjekt_hat_Dokument());
+
+					projektObj.flushProjektObjekt();
+					
 				}
 
 				queryExecution.close();
