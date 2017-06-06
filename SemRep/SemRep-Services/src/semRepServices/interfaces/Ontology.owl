@@ -865,7 +865,7 @@
                  :Dok_ID "1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc"^^xsd:string ;
                  :Dok_Keywords "HighNet"^^xsd:string ,
                                "KickOff"^^xsd:string ;
-                 :Dok_Name "20170422_KickOff_HighNet"^^xsd:string ;
+                 :Dok_Name "KickOff"^^xsd:string ;
                  :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                  :Dok_Typ "Google Präsentationen"^^xsd:string ;
                  :Dok_URL "https://docs.google.com/presentation/d/1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc/edit"^^xsd:string ;
@@ -947,11 +947,8 @@
 :Lisa_Meier rdf:type owl:NamedIndividual ,
                      :Externer_Mitarbeiter ;
             :Person_arbeitet_an_Projekt :HighNet ;
-            :Person_favorisiert_Dokument :KickOff-HighNet ;
             :Person_gehoert_zu_Abteilung :IT ;
-            :Person_hat_Dokument_verfasst :KickOff-HighNet ;
             :Person_hat_Projektrolle :Projektmitarbeiter ;
-            :Person_ruft_Dokument_auf :KickOff-HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
             :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
