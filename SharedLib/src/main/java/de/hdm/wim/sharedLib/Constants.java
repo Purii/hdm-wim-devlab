@@ -23,7 +23,7 @@ public class Constants {
 		public static final String SPEECH_TOKENIZATION 		= "speech-tokenization";
 		public static final String EVENT 					= "event";
 		public static final String MACHINE_LEARNING 		= "machine-learning";
-		public static final String USER_INTERFACE 			= "USER-interface";
+		public static final String USER_INTERFACE 			= "user-interface";
 		public static final String SEMANTIC_REPRESENTATION 	= "semantic-representation";
 
 		// for message generator only
