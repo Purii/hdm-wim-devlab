@@ -18,11 +18,19 @@
 
 #### Topics
 
-Die Topics werden ...
+Topics, die genutzt werden sollten:
+
+* FeedbackGui
+* Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Tokens können zu folgendem Dokument führen)
+* Offers (Vorschläge)
+* SessionInsights (User loggt sich ein/aus; User ist passiv)
+* RichTokens (SR > CEP)
+* Tokens (ST > SR)
+* Training (CEP > ML) ?
 
 #### Felder einer PubSub Message
 
-Über PubSub werden Messages versendet. Folgende Felder diesen dabei als [Grundlage](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):
+Über PubSub werden Messages versendet. Folgende Felder dienen dabei als [Grundlage](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):
 
 | Feld  | Datentyp | Beschreibung |
 | :------------ | :---------------: | ------------ |
@@ -39,13 +47,26 @@ Diese können nach Bedarf erweitert werden.
 
 ....
 
-| `EventType`  | Beschreibung |
+| `EventType`  | Beschreibung | Topic |
+| :------------ | --------------- | --------------- |
+| StayAlive | Heartbeat von GUI Clients | SessionInsights |
+| LinkOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
+| Offer | Dokumentvorschläge | Offers |
+| Training? | Feedback an ML | Training |
+| Token | Einfache Tokens | Tokens |
+| RichToken | Angereicherte Tokens | RichTokens |
+
+
+| `EventSource` | Beschreibung |
 | :------------ | --------------- |
-| StayAlive | Heartbeat von GUI Clients |
-| CreateProtocol |  |
-| LinkOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. |
-| RequestX | |
-| Offer | |
-| Training | |
-| Token | |
-| RichToken | |
+| SPEECH_TOKENIZATION | Speech Tokenization |
+| EVENT | Complex Event Processing |
+| MACHINE_LEARNING | Machine Learning |
+| USER_INTERFACE | User Interface |
+| SEMANTIC_REPRESENTATION | Semantic Representation |
+
+
+Causality?
+
+`EventID`= `String`? (MessageID)
+
