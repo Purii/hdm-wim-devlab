@@ -142,6 +142,8 @@ public class TokenizerInterface2 {
 			personHashMap.put("Dokumente", "");
 			personHashMap.put("Aufrufe", "");
 			personHashMap.put("Favorit_Dok", "");
+			
+			boolean gehoertZuProjekt = false;
 
 			// initialisiere Objekte
 			// person
@@ -151,10 +153,10 @@ public class TokenizerInterface2 {
 			dokumentObj = new Dokument2(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
 					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_folder, dok_VerfasserStr, dok_PhaseStr,
 					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString, dok_Kontext, dok_KeywordsStr);
+			
+			for (int y = 0; y <= inputArray.length; y++) {
 
-			for (int y = 0; y < inputArray.length; y++) {
-
-				if (y == 0) {
+				if (y == 1) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Person ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
@@ -197,37 +199,32 @@ public class TokenizerInterface2 {
 							+ "}";
 
 					//Kontext plus keywords
-				} 
-//				if (y > 1) {
-//
-//					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-//							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
-//							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
-//							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " 					
-//							+ "WHERE { " 
-//							+ "?Dokument a ?Klasse . "
-//							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
-//							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
-//							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
-//							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
-//							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
-//							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
-//							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
-//							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
-//							//+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-//							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
-//							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-//							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
-//							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
-//							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
-//							// Eingrenzung auf keyword
-//							//+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
-//							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[1].toString() + " . "
-//							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " ."
-//							+ "}";
-//
-//				}
+				} else if (y < 1 || y < 3) {
+					sparql = "";
+				}		
+				
+				if (y == inputArray.length) {
+					if (gehoertZuProjekt == true) {
+						sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+								+ "SELECT DISTINCT ?Projekt ?ProjektID ?ProjektName ?Projekt_gehoert_zu_Unternehmen "
+								+ "?Projekt_gehoert_zu_Abteilung ?Projekt_hat_Projektmitglied ?Projekt_hat_Dokument " 					
+								+ "WHERE { " 
+								+ "?Projekt ontology:Projekt_ID ?ProjektID . "
+								+ "?Projekt ontology:Projekt_Name ?ProjektName . "
+								+ "?Projekt ontology:Projekt_gehoert_zu_Unternehmen ?Projekt_gehoert_zu_Unternehmen . "
+								+ "?Projekt ontology:Projekt_gehoert_zu_Abteilung ?Projekt_gehoert_zu_Abteilung . "
+								+ "?Projekt ontology:Projekt_hat_Projektmitglied ?Projekt_hat_Projektmitglied . "
+								+ "?Projekt ontology:Projekt_hat_Dokument ?Projekt_hat_Dokument . "
+								
+								+ "?Projekt ontology:Projekt_Name '" + dokumentObj.getDokument_gehoert_zu_Projekt() + "' . "
+								+ "}";
+					} else {
+						sparql = "";
+					}
+				}
 
+				if (sparql != "") {
+					
 				// Initialisierung und Ausführung einer SPARQL-Query
 				Query query = QueryFactory.create(sparql);
 				QueryExecution queryExecution = QueryExecutionFactory.create(query, ontologyModel);
@@ -242,8 +239,7 @@ public class TokenizerInterface2 {
 
 				List<String> splitKeywordsList = null;
 
-				// Ergebniswerte werden für Konsolendarstellung aufbereitet
-				outerloop: for (@SuppressWarnings("unused")
+				for (@SuppressWarnings("unused")
 				int i = 0; resultSet.hasNext() == true; i++) {
 					QuerySolution querySolution = resultSet.nextSolution();
 					for (int j = 0; j < resultSet.getResultVars().size(); j++) {
@@ -255,7 +251,7 @@ public class TokenizerInterface2 {
 
 						// Person: Befülle HashMap, wenn die userID durchlaufen
 						// wird
-						if (y == 0) {
+						if (y == 1) {
 
 							// einmaliges befüllen der nachfolgenden Werte
 							if (((personHashMap.get("Person") == "") == true)
@@ -509,6 +505,7 @@ public class TokenizerInterface2 {
 								case "Projekt":
 									dok_ProjektStr = splitResult;
 									dokumentObj.setDokument_gehoert_zu_Projekt(dok_ProjektStr);
+									gehoertZuProjekt = true;
 									break;
 								case "Dok_Name":
 									dok_NameStr = splitResult;
@@ -680,10 +677,13 @@ public class TokenizerInterface2 {
 							}
 
 						}
-
+						//y = y - 1;
+						
 					}
 
 				}
+				
+			
 
 				// bei Person
 				if (y == 0) {
@@ -721,7 +721,8 @@ public class TokenizerInterface2 {
 				}
 
 				queryExecution.close();
-
+				
+				}
 			}
 
 		} catch (Exception e) {
