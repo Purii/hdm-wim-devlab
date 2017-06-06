@@ -16,9 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ben on 4/06/2017.
  */
-// [START pubsub_appengine_flex_push]
 @WebServlet(name = "Push with PubSub" ,value = "/pubsub/push")
 public class PubSubPush extends HttpServlet {
+
+	private final Gson gson 			= new Gson();
+	private final JsonParser jsonParser = new JsonParser();
+	private MessageRepository messageRepository;
+
+	PubSubPush(MessageRepository messageRepository) {
+		this.messageRepository = messageRepository;
+	}
+
+	public PubSubPush() {
+		this.messageRepository = MessageRepositoryImpl.getInstance();
+	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -41,7 +52,6 @@ public class PubSubPush extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
-// [END pubsub_appengine_flex_push]
 
 	private Message getMessage(HttpServletRequest request) throws IOException {
 		String requestBody 		= request.getReader().lines().collect(Collectors.joining("\n"));
@@ -57,17 +67,5 @@ public class PubSubPush extends HttpServlet {
 
 	private String decode(String data) {
 		return new String(Base64.getDecoder().decode(data));
-	}
-
-	private final Gson gson = new Gson();
-	private final JsonParser jsonParser = new JsonParser();
-	private MessageRepository messageRepository;
-
-	PubSubPush(MessageRepository messageRepository) {
-		this.messageRepository = messageRepository;
-	}
-
-	public PubSubPush() {
-		this.messageRepository = MessageRepositoryImpl.getInstance();
 	}
 }

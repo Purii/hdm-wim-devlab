@@ -17,9 +17,16 @@ import org.apache.http.HttpStatus;
 /**
  * Created by ben on 4/06/2017.
  */
-// [START pubsub_appengine_flex_publish]
 @WebServlet(name = "Publish with PubSub", value = "/pubsub/publish")
 public class PubSubPublish extends HttpServlet {
+
+	private Publisher publisher;
+
+	public PubSubPublish() { }
+
+	PubSubPublish(Publisher publisher) {
+		this.publisher = publisher;
+	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -29,7 +36,7 @@ public class PubSubPublish extends HttpServlet {
 
 			// create a publisher on the topic
 			String topicId = req.getParameter("topic");
-			if(topicId.isEmpty())
+			if(topicId.isEmpty()) // default topic
 				topicId = Constants.Topic.PUSH_TEST;
 
 			if (publisher == null) {
@@ -50,14 +57,5 @@ public class PubSubPublish extends HttpServlet {
 		} catch (Exception e) {
 			resp.sendError(HttpStatus.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
-	}
-// [END pubsub_appengine_flex_publish]
-
-	private Publisher publisher;
-
-	public PubSubPublish() { }
-
-	PubSubPublish(Publisher publisher) {
-		this.publisher = publisher;
 	}
 }

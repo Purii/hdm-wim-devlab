@@ -1,14 +1,7 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture;
 
 import com.google.cloud.ServiceOptions;
-import com.google.pubsub.v1.Subscription;
-import com.google.pubsub.v1.Topic;
-import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.PublishHelperOld;
-import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.SubscriptionHelper;
-import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.TopicHelper;
 import de.hdm.wim.sharedLib.Constants;
-import java.util.Arrays;
-import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
@@ -21,6 +14,7 @@ public class RunPubSub {
 	private static String TEST_TOPIC 		= Constants.Topic.PUSH_TEST;
 	private static String SUBSCRIPTION_ID 	= "test-subscription";
 
+/*
 	public static void main(String[] args) throws Exception {
 
 		LOGGER.info("projectId: " + PROJECT_ID);
@@ -47,4 +41,5 @@ public class RunPubSub {
 		// create a subscriber which uses the subscription to listen to messages of the specified topic
 		sh.createSubscriber(subscription.getNameAsSubscriptionName());
 	}
+*/
 }
