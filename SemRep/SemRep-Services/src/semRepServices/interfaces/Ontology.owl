@@ -302,6 +302,13 @@
           rdfs:range xsd:string .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#Dok_Ordner
+:Dok_Ordner rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :dataProperty_Dokument ;
+            rdfs:domain :Dokument ;
+            rdfs:range xsd:string .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#Dok_Typ
 :Dok_Typ rdf:type owl:DatatypeProperty ;
          rdfs:subPropertyOf :dataProperty_Dokument ;
@@ -370,6 +377,13 @@
             rdfs:subPropertyOf :dataProperty_Project ;
             rdfs:domain :Projekt ;
             rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Projekt_Keyword
+:Projekt_Keyword rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :dataProperty_Project ;
+                 rdfs:domain :Projekt ;
+                 rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Projekt_Name
@@ -584,24 +598,87 @@
                     :Abschluss .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis
+:Anforderungen-Big_Data_Diagnosis rdf:type owl:NamedIndividual ,
+                                           :Dokument ;
+                                  :Dokument_favorisiert_von_Person :Mateos_Alliaj ;
+                                  :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
+                                  :Dokument_gehoert_zu_Projekt :Big_Data_Diagnosis ;
+                                  :Dokument_hat_Dokumentenkategorie :Textdokumente ;
+                                  :Dokument_hat_Keyword :Big_Data ;
+                                  :Dokument_hat_Kontext :Big_Data_Diagnosis_project ;
+                                  :Dokument_verfasst_von_Person :Mateos_Alliaj ;
+                                  :Dok_Erstelldatum "2017-06-02T15:33:00"^^xsd:dateTime ;
+                                  :Dok_ID "1Cl1k0OYjdubR0_BqiFp2xaRGeRpqqUz8pucX7iQwIQ8"^^xsd:string ;
+                                  :Dok_Keywords "Big Data, Anforderungen, Big Data Diagnosis"^^xsd:string ;
+                                  :Dok_Name "Anforderungen"^^xsd:string ;
+                                  :Dok_Ordner "Testdokumente-Big_Data_Diagnosis"^^xsd:string ;
+                                  :Dok_Typ "Google Docs"^^xsd:string ;
+                                  :Dok_URL "https://docs.google.com/document/d/1Cl1k0OYjdubR0_BqiFp2xaRGeRpqqUz8pucX7iQwIQ8/edit"^^xsd:string ;
+                                  :Dok_Updatedatum "2017-06-03T12:33:00"^^xsd:dateTime ;
+                                  :Dok_Version "1.1"^^xsd:double .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet
+:Aufgabenliste-HighNet rdf:type owl:NamedIndividual ,
+                                :Dokument ;
+                       :Dokument_favorisiert_von_Person :Björn_Zimmermann ;
+                       :Dokument_gehoert_zu_Phase :Definition ;
+                       :Dokument_gehoert_zu_Projekt :HighNet ;
+                       :Dokument_hat_Dokumentenkategorie :Textdokumente ;
+                       :Dokument_hat_Keyword :list ,
+                                             :milestone ,
+                                             :tasks ,
+                                             :to-do_list ;
+                       :Dokument_hat_Kontext :HighNet_project ;
+                       :Dokument_verfasst_von_Person :Kristjan_Alliaj ;
+                       :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
+                       :Dok_ID "1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY"^^xsd:string ;
+                       :Dok_Keywords "Aufgaben"^^xsd:string ,
+                                     "Aufgabenliste"^^xsd:string ,
+                                     "Liste"^^xsd:string ,
+                                     "milestone"^^xsd:string ;
+                       :Dok_Name "Aufgabenliste"^^xsd:string ;
+                       :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                       :Dok_Typ "Google Docs"^^xsd:string ;
+                       :Dok_URL "https://docs.google.com/document/d/1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY/edit"^^xsd:string ;
+                       :Dok_Updatedatum "2017-04-30T16:08:00"^^xsd:dateTime ;
+                       :Dok_Version "1.1"^^xsd:double .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Big_Data
+:Big_Data rdf:type owl:NamedIndividual ,
+                   :Keyword .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis
 :Big_Data_Diagnosis rdf:type owl:NamedIndividual ,
                              :Projekt ;
+                    :Projekt_gehoert_zu_Abteilung :IT ;
+                    :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
+                    :Projekt_hat_Dokument :Anforderungen-Big_Data_Diagnosis ;
+                    :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
+                    :Projekt_hat_keyword :Big_Data ;
                     :Projekt_ID 3 ;
                     :Projekt_Name "Big Data Diagnosis"^^xsd:string .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis_project
+:Big_Data_Diagnosis_project rdf:type owl:NamedIndividual ,
+                                     :Kontext .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann
 :Björn_Zimmermann rdf:type owl:NamedIndividual ,
                            :Externer_Mitarbeiter ;
                   :Person_arbeitet_an_Projekt :HighNet ;
-                  :Person_favorisiert_Dokument :_KickOff_HighNet ,
-                                               :_Kostenaufstellung_HighNet ;
+                  :Person_favorisiert_Dokument :KickOff-HighNet ,
+                                               :Kostenaufstellung-HighNet ;
                   :Person_gehoert_zu_Abteilung :IT ;
-                  :Person_hat_Dokument_verfasst :_Kostenaufstellung_HighNet ;
+                  :Person_hat_Dokument_verfasst :Kostenaufstellung-HighNet ;
                   :Person_hat_Projektrolle :Entwickler ;
-                  :Person_ruft_Dokument_auf :_KickOff_HighNet ,
-                                            :_Kostenaufstellung_HighNet ;
+                  :Person_ruft_Dokument_auf :KickOff-HighNet ,
+                                            :Kostenaufstellung-HighNet ;
                   :Person_Email "bjconcepts.de@gmail.com"^^xsd:string ;
                   :Person_ID "3"^^xsd:string ;
                   :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -612,8 +689,17 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#BlackWater
 :BlackWater rdf:type owl:NamedIndividual ,
                      :Projekt ;
+            :Projekt_gehoert_zu_Abteilung :Finance ;
+            :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
+            :Projekt_hat_Dokument :Finanzreport-BlackWater ;
+            :Projekt_hat_Projektmitglied :Donald_Trump ;
             :Projekt_ID 2 ;
             :Projekt_Name "Black Water"^^xsd:string .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#BlackWater_project
+:BlackWater_project rdf:type owl:NamedIndividual ,
+                             :Kontext .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Broken_Bits
@@ -642,12 +728,12 @@
 :Donald_Trump rdf:type owl:NamedIndividual ,
                        :Interner_Mitarbeiter ;
               :Person_arbeitet_an_Projekt :BlackWater ;
-              :Person_favorisiert_Dokument :_KickOff_HighNet ;
+              :Person_favorisiert_Dokument :KickOff-HighNet ;
               :Person_gehoert_zu_Abteilung :Finance ;
-              :Person_hat_Dokument_verfasst :_Finanzreport_BlackWater ;
+              :Person_hat_Dokument_verfasst :Finanzreport-BlackWater ;
               :Person_hat_Projektrolle :Projektleiter ;
               :Person_hat_Unternehmensrolle :Chief_Financial_Officer ;
-              :Person_ruft_Dokument_auf :_KickOff_HighNet ;
+              :Person_ruft_Dokument_auf :KickOff-HighNet ;
               :Person_Email "donald.trump@starcars.com"^^xsd:string ;
               :Person_ID "7"^^xsd:string ;
               :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
@@ -674,6 +760,29 @@
          :Abteilung_Name "Finanzen"^^xsd:string .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater
+:Finanzreport-BlackWater rdf:type owl:NamedIndividual ,
+                                  :Dokument ;
+                         :Dokument_favorisiert_von_Person :Donald_Trump ;
+                         :Dokument_gehoert_zu_Phase :Sonstige ;
+                         :Dokument_gehoert_zu_Projekt :BlackWater ;
+                         :Dokument_hat_Dokumentenkategorie :Planungen ;
+                         :Dokument_hat_Keyword :finances ,
+                                               :financial_report ,
+                                               :report ;
+                         :Dokument_hat_Kontext :BlackWater_project ;
+                         :Dokument_verfasst_von_Person :Donald_Trump ;
+                         :Dok_Erstelldatum "2017-05-22T08:33:00"^^xsd:dateTime ;
+                         :Dok_ID "1Ktol-SWvAh8pnHG2O7HdPrfbEVZWX3Vf2YIPYXA_8gI"^^xsd:string ;
+                         :Dok_Keywords "Finanzen, Report, Finanzreport"^^xsd:string ;
+                         :Dok_Name "Finanzreport"^^xsd:string ;
+                         :Dok_Ordner "Testdokumente-BlackWater"^^xsd:string ;
+                         :Dok_Typ "Google Präsentationen"^^xsd:string ;
+                         :Dok_URL "https://docs.google.com/presentation/d/1Ktol-SWvAh8pnHG2O7HdPrfbEVZWX3Vf2YIPYXA_8gI/edit"^^xsd:string ;
+                         :Dok_Updatedatum "2017-05-30T14:48:00"^^xsd:dateTime ;
+                         :Dok_Version "1.3"^^xsd:double .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#Grafiken
 :Grafiken rdf:type owl:NamedIndividual ,
                    :Dokumentenkategorie .
@@ -683,12 +792,12 @@
 :Haruki_Murakami rdf:type owl:NamedIndividual ,
                           :Interner_Mitarbeiter ;
                  :Person_arbeitet_an_Projekt :HighNet ;
-                 :Person_favorisiert_Dokument :_KickOff_HighNet ;
+                 :Person_favorisiert_Dokument :KickOff-HighNet ;
                  :Person_gehoert_zu_Abteilung :Research_and_Development ;
-                 :Person_hat_Dokument_verfasst :_Projektplanung_HighNet ;
+                 :Person_hat_Dokument_verfasst :Projektplanung-HighNet ;
                  :Person_hat_Projektrolle :Projektmitarbeiter ;
-                 :Person_ruft_Dokument_auf :_KickOff_HighNet ,
-                                           :_Projektplanung_HighNet ;
+                 :Person_ruft_Dokument_auf :KickOff-HighNet ,
+                                           :Projektplanung-HighNet ;
                  :Person_Email "haruki.murakami@starcars.com"^^xsd:string ;
                  :Person_ID "5"^^xsd:string ;
                  :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
@@ -699,9 +808,17 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#HighNet
 :HighNet rdf:type owl:NamedIndividual ,
                   :Projekt ;
-         :Projekt_hat_Dokument :_Meilensteine_HighNet ;
+         :Projekt_gehoert_zu_Abteilung :Research_and_Development ;
+         :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
+         :Projekt_hat_Dokument :Meilensteine-HighNet ;
+         :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
          :Projekt_ID 1 ;
          :Projekt_Name "HighNet"^^xsd:string .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#HighNet_project
+:HighNet_project rdf:type owl:NamedIndividual ,
+                          :Kontext .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#IT
@@ -717,12 +834,12 @@
 :Ivan_Kurtovic rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
                :Person_arbeitet_an_Projekt :HighNet ;
-               :Person_favorisiert_Dokument :_KickOff_HighNet ;
+               :Person_favorisiert_Dokument :KickOff-HighNet ;
                :Person_gehoert_zu_Abteilung :IT ;
-               :Person_hat_Dokument_verfasst :_Kostenplanung_HighNet ;
+               :Person_hat_Dokument_verfasst :Kostenplanung-HighNet ;
                :Person_hat_Projektrolle :Entwickler ;
-               :Person_ruft_Dokument_auf :_KickOff_HighNet ,
-                                         :_Kostenplanung_HighNet ;
+               :Person_ruft_Dokument_auf :KickOff-HighNet ,
+                                         :Kostenplanung-HighNet ;
                :Person_Email "ivankurtovic2016@gmail.com"^^xsd:string ;
                :Person_ID "4"^^xsd:string ;
                :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -730,16 +847,95 @@
                :Person_Vorname "Ivan"^^xsd:string .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet
+:KickOff-HighNet rdf:type owl:NamedIndividual ,
+                          :Dokument ;
+                 :Dokument_favorisiert_von_Person :Donald_Trump ,
+                                                  :Kristjan_Alliaj ,
+                                                  :Lisa_Meier ,
+                                                  :Mateos_Alliaj ;
+                 :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
+                 :Dokument_gehoert_zu_Projekt :HighNet ;
+                 :Dokument_hat_Dokumentenkategorie :Praesentationen ;
+                 :Dokument_hat_Keyword :kickoff ,
+                                       :kickoff-HighNet ;
+                 :Dokument_hat_Kontext :HighNet_project ;
+                 :Dokument_verfasst_von_Person :Lisa_Meier ;
+                 :Dok_Erstelldatum "2017-04-22T15:33:00"^^xsd:dateTime ;
+                 :Dok_ID "1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc"^^xsd:string ;
+                 :Dok_Keywords "HighNet"^^xsd:string ,
+                               "KickOff"^^xsd:string ;
+                 :Dok_Name "20170422_KickOff_HighNet"^^xsd:string ;
+                 :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                 :Dok_Typ "Google Präsentationen"^^xsd:string ;
+                 :Dok_URL "https://docs.google.com/presentation/d/1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc/edit"^^xsd:string ;
+                 :Dok_Updatedatum "2017-04-23T13:49:14"^^xsd:dateTime ,
+                                  "2017-05-01T09:45:34"^^xsd:dateTime ;
+                 :Dok_Version "1.2"^^xsd:double .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet
+:Kostenaufstellung-HighNet rdf:type owl:NamedIndividual ,
+                                    :Dokument ;
+                           :Dokument_favorisiert_von_Person :Björn_Zimmermann ,
+                                                            :Ivan_Kurtovic ;
+                           :Dokument_gehoert_zu_Phase :Definition ;
+                           :Dokument_gehoert_zu_Projekt :HighNet ;
+                           :Dokument_hat_Dokumentenkategorie :Tabellen ;
+                           :Dokument_hat_Keyword :cost_planning ,
+                                                 :costs ,
+                                                 :listing ;
+                           :Dokument_hat_Kontext :HighNet_project ;
+                           :Dokument_verfasst_von_Person :Björn_Zimmermann ;
+                           :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
+                           :Dok_ID "1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs"^^xsd:string ;
+                           :Dok_Keywords "Aufstellung"^^xsd:string ,
+                                         "Kosten"^^xsd:string ,
+                                         "Kostenaufstellung"^^xsd:string ;
+                           :Dok_Name "Kostenaufstellung"^^xsd:string ;
+                           :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                           :Dok_Typ "Google Tabellen"^^xsd:string ;
+                           :Dok_URL "https://docs.google.com/spreadsheets/d/1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs/edit"^^xsd:string ;
+                           :Dok_Updatedatum "2017-05-05T13:02:00"^^xsd:dateTime ;
+                           :Dok_Version "1.2"^^xsd:double .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet
+:Kostenplanung-HighNet rdf:type owl:NamedIndividual ,
+                                :Dokument ;
+                       :Dokument_favorisiert_von_Person :Lisa_Meier ;
+                       :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
+                       :Dokument_gehoert_zu_Projekt :HighNet ;
+                       :Dokument_hat_Dokumentenkategorie :Planungen ,
+                                                         :Tabellen ;
+                       :Dokument_hat_Keyword :cost_planning ,
+                                             :costs ,
+                                             :planning ;
+                       :Dokument_hat_Kontext :HighNet_project ;
+                       :Dokument_verfasst_von_Person :Ivan_Kurtovic ;
+                       :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
+                       :Dok_ID "1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM"^^xsd:string ;
+                       :Dok_Keywords "Kosten"^^xsd:string ,
+                                     "Kostenplanung"^^xsd:string ,
+                                     "Planung"^^xsd:string ;
+                       :Dok_Name "Kostenplanung"^^xsd:string ;
+                       :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                       :Dok_Typ "Google Tabellen"^^xsd:string ;
+                       :Dok_URL "https://docs.google.com/spreadsheets/d/1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM/edit"^^xsd:string ;
+                       :Dok_Updatedatum "2017-05-09T10:32:00"^^xsd:dateTime ;
+                       :Dok_Version "1.0"^^xsd:double .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj
 :Kristjan_Alliaj rdf:type owl:NamedIndividual ,
                           :Externer_Mitarbeiter ;
                  :Person_arbeitet_an_Projekt :HighNet ;
-                 :Person_favorisiert_Dokument :_KickOff_HighNet ;
+                 :Person_favorisiert_Dokument :KickOff-HighNet ;
                  :Person_gehoert_zu_Abteilung :IT ;
-                 :Person_hat_Dokument_verfasst :_Aufgabenliste_HighNet ;
+                 :Person_hat_Dokument_verfasst :Aufgabenliste-HighNet ;
                  :Person_hat_Projektrolle :Entwickler ;
-                 :Person_ruft_Dokument_auf :_Aufgabenliste_HighNet ,
-                                           :_KickOff_HighNet ;
+                 :Person_ruft_Dokument_auf :Aufgabenliste-HighNet ,
+                                           :KickOff-HighNet ;
                  :Person_Email "kristjan.alliaj@gmail.com"^^xsd:string ;
                  :Person_ID "2"^^xsd:string ;
                  :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -751,11 +947,11 @@
 :Lisa_Meier rdf:type owl:NamedIndividual ,
                      :Externer_Mitarbeiter ;
             :Person_arbeitet_an_Projekt :HighNet ;
-            :Person_favorisiert_Dokument :_KickOff_HighNet ;
+            :Person_favorisiert_Dokument :KickOff-HighNet ;
             :Person_gehoert_zu_Abteilung :IT ;
-            :Person_hat_Dokument_verfasst :_KickOff_HighNet ;
+            :Person_hat_Dokument_verfasst :KickOff-HighNet ;
             :Person_hat_Projektrolle :Projektmitarbeiter ;
-            :Person_ruft_Dokument_auf :_KickOff_HighNet ;
+            :Person_ruft_Dokument_auf :KickOff-HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
             :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -768,20 +964,44 @@
                         :Externer_Mitarbeiter ;
                :Person_arbeitet_an_Projekt :Big_Data_Diagnosis ,
                                            :HighNet ;
-               :Person_favorisiert_Dokument :_KickOff_HighNet ;
+               :Person_favorisiert_Dokument :KickOff-HighNet ;
                :Person_gehoert_zu_Abteilung :IT ;
-               :Person_hat_Dokument_verfasst :_Projektplanung_HighNet ,
-                                             :_Meilensteine_HighNet ;
+               :Person_hat_Dokument_verfasst :Meilensteine-HighNet ,
+                                             :Projektplanung-HighNet ;
                :Person_hat_Projektrolle :Entwickler ,
                                         :Projektleiter ;
-               :Person_ruft_Dokument_auf :_KickOff_HighNet ,
-                                         :_Projektplanung_HighNet ,
-                                         :_Meilensteine_HighNet ;
+               :Person_ruft_Dokument_auf :KickOff-HighNet ,
+                                         :Meilensteine-HighNet ,
+                                         :Projektplanung-HighNet ;
                :Person_Email "mateos.alliaj@gmail.com"^^xsd:string ;
                :Person_ID "1"^^xsd:string ;
                :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
                :Person_Nachname "Alliaj"^^xsd:string ;
                :Person_Vorname "Mateos"^^xsd:string .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet
+:Meilensteine-HighNet rdf:type owl:NamedIndividual ,
+                               :Dokument ;
+                      :Dokument_favorisiert_von_Person :Haruki_Murakami ;
+                      :Dokument_gehoert_zu_Phase :Definition ;
+                      :Dokument_gehoert_zu_Projekt :HighNet ;
+                      :Dokument_hat_Dokumentenkategorie :Planungen ,
+                                                        :Textdokumente ;
+                      :Dokument_hat_Keyword :milestone ;
+                      :Dokument_hat_Kontext :HighNet_project ;
+                      :Dokument_verfasst_von_Person :Mateos_Alliaj ;
+                      :Dok_Erstelldatum "2017-04-28T11:59:00"^^xsd:dateTime ;
+                      :Dok_ID "1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc"^^xsd:string ;
+                      :Dok_Keywords "Meilenstein"^^xsd:string ,
+                                    "Meilensteine"^^xsd:string ,
+                                    "milestone"^^xsd:string ;
+                      :Dok_Name "Meilensteine"^^xsd:string ;
+                      :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                      :Dok_Typ "Google Docs"^^xsd:string ;
+                      :Dok_URL "https://docs.google.com/document/d/1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc/edit"^^xsd:string ;
+                      :Dok_Updatedatum "2017-05-01T09:34:00"^^xsd:dateTime ;
+                      :Dok_Version "1.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Planungen
@@ -812,6 +1032,35 @@
                     :Projektrolle_gehoert_zu_Person :Haruki_Murakami ,
                                                     :Lisa_Meier ;
                     :Projektrolle_Bezeichnung "Projektmitarbeiter"^^xsd:string .
+
+
+###  http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet
+:Projektplanung-HighNet rdf:type owl:NamedIndividual ,
+                                 :Dokument ;
+                        :Dokument_favorisiert_von_Person :Lisa_Meier ;
+                        :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
+                        :Dokument_gehoert_zu_Projekt :HighNet ;
+                        :Dokument_hat_Dokumentenkategorie :Planungen ,
+                                                          :Textdokumente ;
+                        :Dokument_hat_Keyword :milestone ,
+                                              :planning ,
+                                              :project_plan ,
+                                              :project_planning ;
+                        :Dokument_hat_Kontext :HighNet_project ;
+                        :Dokument_verfasst_von_Person :Haruki_Murakami ,
+                                                      :Mateos_Alliaj ;
+                        :Dok_Erstelldatum "2017-04-12T17:33:00"^^xsd:dateTime ;
+                        :Dok_ID "1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM"^^xsd:string ;
+                        :Dok_Keywords "Planung"^^xsd:string ,
+                                      "Projektplan"^^xsd:string ,
+                                      "Projektplanung"^^xsd:string ,
+                                      "milestone"^^xsd:string ;
+                        :Dok_Name "Projektplanung"^^xsd:string ;
+                        :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
+                        :Dok_Typ "Google Docs"^^xsd:string ;
+                        :Dok_URL "https://docs.google.com/document/d/1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM/edit"^^xsd:string ;
+                        :Dok_Updatedatum "2017-04-29T14:05:00"^^xsd:dateTime ;
+                        :Dok_Version "1.1"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Prozesse
@@ -875,19 +1124,9 @@
                        :Dokumentenkategorie .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#activities_concerning_the_BlackWater_project
-:activities_concerning_the_BlackWater_project rdf:type owl:NamedIndividual ,
-                                                       :Kontext .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#activities_concerning_the_HighNet_project
-:activities_concerning_the_HighNet_project rdf:type owl:NamedIndividual ,
-                                                    :Kontext .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#appointment_for_our_next_meeting
-:appointment_for_our_next_meeting rdf:type owl:NamedIndividual ,
-                                           :Kontext .
+###  http://www.semanticweb.org/sem-rep/ontology#appointment
+:appointment rdf:type owl:NamedIndividual ,
+                      :Kontext .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#cost_planning
@@ -950,6 +1189,11 @@
                          :Kontext .
 
 
+###  http://www.semanticweb.org/sem-rep/ontology#next_meeting
+:next_meeting rdf:type owl:NamedIndividual ,
+                       :Kontext .
+
+
 ###  http://www.semanticweb.org/sem-rep/ontology#planning
 :planning rdf:type owl:NamedIndividual ,
                    :Keyword .
@@ -988,181 +1232,6 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#to-do_list
 :to-do_list rdf:type owl:NamedIndividual ,
                      :Keyword .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170422_Aufgabenliste_HighNet
-:_Aufgabenliste_HighNet rdf:type owl:NamedIndividual ,
-                                 :Dokument ;
-                        :Dokument_favorisiert_von_Person :Björn_Zimmermann ;
-                        :Dokument_gehoert_zu_Phase :Definition ;
-                        :Dokument_gehoert_zu_Projekt :HighNet ;
-                        :Dokument_hat_Dokumentenkategorie :Textdokumente ;
-                        :Dokument_hat_Keyword :list ,
-                                              :milestone ,
-                                              :tasks ,
-                                              :to-do_list ;
-                        :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                        :Dokument_verfasst_von_Person :Kristjan_Alliaj ;
-                        :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
-                        :Dok_ID "1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY"^^xsd:string ;
-                        :Dok_Keywords "Aufgaben"^^xsd:string ,
-                                      "Aufgabenliste"^^xsd:string ,
-                                      "Liste"^^xsd:string ,
-                                      "milestone"^^xsd:string ;
-                        :Dok_Name "Aufgabenliste"^^xsd:string ;
-                        :Dok_Typ "Google Docs"^^xsd:string ;
-                        :Dok_URL "https://docs.google.com/document/d/1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY/edit"^^xsd:string ;
-                        :Dok_Updatedatum "2017-04-30T16:08:00"^^xsd:dateTime ;
-                        :Dok_Version "1.1"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170422_KickOff_HighNet
-:_KickOff_HighNet rdf:type owl:NamedIndividual ,
-                           :Dokument ;
-                  :Dokument_favorisiert_von_Person :Donald_Trump ,
-                                                   :Kristjan_Alliaj ,
-                                                   :Lisa_Meier ,
-                                                   :Mateos_Alliaj ;
-                  :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
-                  :Dokument_gehoert_zu_Projekt :HighNet ;
-                  :Dokument_hat_Dokumentenkategorie :Praesentationen ;
-                  :Dokument_hat_Keyword :kickoff ,
-                                        :kickoff-HighNet ;
-                  :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                  :Dokument_verfasst_von_Person :Lisa_Meier ;
-                  :Dok_Erstelldatum "2017-04-22T15:33:00"^^xsd:dateTime ;
-                  :Dok_ID "1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc"^^xsd:string ;
-                  :Dok_Keywords "HighNet"^^xsd:string ,
-                                "KickOff"^^xsd:string ;
-                  :Dok_Name "20170422_KickOff_HighNet"^^xsd:string ;
-                  :Dok_Typ "Google Präsentationen"^^xsd:string ;
-                  :Dok_URL "https://docs.google.com/presentation/d/1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc/edit"^^xsd:string ;
-                  :Dok_Updatedatum "2017-04-23T13:49:14"^^xsd:dateTime ,
-                                   "2017-05-01T09:45:34"^^xsd:dateTime ;
-                  :Dok_Version "1.2"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170422_Kostenaufstellung_HighNet
-:_Kostenaufstellung_HighNet rdf:type owl:NamedIndividual ,
-                                     :Dokument ;
-                            :Dokument_favorisiert_von_Person :Björn_Zimmermann ,
-                                                             :Ivan_Kurtovic ;
-                            :Dokument_gehoert_zu_Phase :Definition ;
-                            :Dokument_gehoert_zu_Projekt :HighNet ;
-                            :Dokument_hat_Dokumentenkategorie :Tabellen ;
-                            :Dokument_hat_Keyword :cost_planning ,
-                                                  :costs ,
-                                                  :listing ;
-                            :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                            :Dokument_verfasst_von_Person :Björn_Zimmermann ;
-                            :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
-                            :Dok_ID "1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs"^^xsd:string ;
-                            :Dok_Keywords "Aufstellung"^^xsd:string ,
-                                          "Kosten"^^xsd:string ,
-                                          "Kostenaufstellung"^^xsd:string ;
-                            :Dok_Name "Kostenaufstellung"^^xsd:string ;
-                            :Dok_Typ "Google Tabellen"^^xsd:string ;
-                            :Dok_URL "https://docs.google.com/spreadsheets/d/1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs/edit"^^xsd:string ;
-                            :Dok_Updatedatum "2017-05-05T13:02:00"^^xsd:dateTime ;
-                            :Dok_Version "1.2"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170429_Projektplanung_HighNet
-:_Projektplanung_HighNet rdf:type owl:NamedIndividual ,
-                                  :Dokument ;
-                         :Dokument_favorisiert_von_Person :Lisa_Meier ;
-                         :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
-                         :Dokument_gehoert_zu_Projekt :HighNet ;
-                         :Dokument_hat_Dokumentenkategorie :Planungen ,
-                                                           :Textdokumente ;
-                         :Dokument_hat_Keyword :milestone ,
-                                               :planning ,
-                                               :project_plan ,
-                                               :project_planning ;
-                         :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                         :Dokument_verfasst_von_Person :Haruki_Murakami ,
-                                                       :Mateos_Alliaj ;
-                         :Dok_Erstelldatum "2017-04-12T17:33:00"^^xsd:dateTime ;
-                         :Dok_ID "1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM"^^xsd:string ;
-                         :Dok_Keywords "Planung"^^xsd:string ,
-                                       "Projektplan"^^xsd:string ,
-                                       "Projektplanung"^^xsd:string ,
-                                       "milestone"^^xsd:string ;
-                         :Dok_Name "Projektplanung"^^xsd:string ;
-                         :Dok_Typ "Google Docs"^^xsd:string ;
-                         :Dok_URL "https://docs.google.com/document/d/1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM/edit"^^xsd:string ;
-                         :Dok_Updatedatum "2017-04-29T14:05:00"^^xsd:dateTime ;
-                         :Dok_Version "1.1"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170501_Meilensteine_HighNet
-:_Meilensteine_HighNet rdf:type owl:NamedIndividual ,
-                                :Dokument ;
-                       :Dokument_favorisiert_von_Person :Haruki_Murakami ;
-                       :Dokument_gehoert_zu_Phase :Definition ;
-                       :Dokument_gehoert_zu_Projekt :HighNet ;
-                       :Dokument_hat_Dokumentenkategorie :Planungen ,
-                                                         :Textdokumente ;
-                       :Dokument_hat_Keyword :milestone ;
-                       :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                       :Dokument_verfasst_von_Person :Mateos_Alliaj ;
-                       :Dok_Erstelldatum "2017-04-28T11:59:00"^^xsd:dateTime ;
-                       :Dok_ID "1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc"^^xsd:string ;
-                       :Dok_Keywords "Meilenstein"^^xsd:string ,
-                                     "Meilensteine"^^xsd:string ,
-                                     "milestone"^^xsd:string ;
-                       :Dok_Name "Meilensteine"^^xsd:string ;
-                       :Dok_Typ "Google Docs"^^xsd:string ;
-                       :Dok_URL "https://docs.google.com/document/d/1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc/edit"^^xsd:string ;
-                       :Dok_Updatedatum "2017-05-01T09:34:00"^^xsd:dateTime ;
-                       :Dok_Version "1.1"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170509_Kostenplanung_HighNet
-:_Kostenplanung_HighNet rdf:type owl:NamedIndividual ,
-                                 :Dokument ;
-                        :Dokument_favorisiert_von_Person :Lisa_Meier ;
-                        :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
-                        :Dokument_gehoert_zu_Projekt :HighNet ;
-                        :Dokument_hat_Dokumentenkategorie :Planungen ,
-                                                          :Tabellen ;
-                        :Dokument_hat_Keyword :cost_planning ,
-                                              :costs ,
-                                              :planning ;
-                        :Dokument_hat_Kontext :activities_concerning_the_HighNet_project ;
-                        :Dokument_verfasst_von_Person :Ivan_Kurtovic ;
-                        :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
-                        :Dok_ID "1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM"^^xsd:string ;
-                        :Dok_Keywords "Kosten"^^xsd:string ,
-                                      "Kostenplanung"^^xsd:string ,
-                                      "Planung"^^xsd:string ;
-                        :Dok_Name "Kostenplanung"^^xsd:string ;
-                        :Dok_Typ "Google Tabellen"^^xsd:string ;
-                        :Dok_URL "https://docs.google.com/spreadsheets/d/1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM/edit"^^xsd:string ;
-                        :Dok_Updatedatum "2017-05-09T10:32:00"^^xsd:dateTime ;
-                        :Dok_Version "1.0"^^xsd:double .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#20170522_Finanzreport_BlackWater
-:_Finanzreport_BlackWater rdf:type owl:NamedIndividual ,
-                                   :Dokument ;
-                          :Dokument_favorisiert_von_Person :Donald_Trump ;
-                          :Dokument_gehoert_zu_Phase :Sonstige ;
-                          :Dokument_gehoert_zu_Projekt :BlackWater ;
-                          :Dokument_hat_Dokumentenkategorie :Planungen ;
-                          :Dokument_hat_Keyword :finances ,
-                                                :financial_report ,
-                                                :report ;
-                          :Dokument_hat_Kontext :activities_concerning_the_BlackWater_project ;
-                          :Dokument_verfasst_von_Person :Donald_Trump ;
-                          :Dok_Erstelldatum "2017-05-22T08:33:00"^^xsd:dateTime ;
-                          :Dok_ID "test-dok-ID"^^xsd:string ;
-                          :Dok_Keywords "Finanzen, Report, Finanzreport"^^xsd:string ;
-                          :Dok_Name "Finanzreport"^^xsd:string ;
-                          :Dok_Typ "Google Präsentationen"^^xsd:string ;
-                          :Dok_URL "www.test-url.com"^^xsd:string ;
-                          :Dok_Updatedatum "2017-05-30T14:48:00"^^xsd:dateTime ;
-                          :Dok_Version "1.3"^^xsd:double .
 
 
 #################################################################

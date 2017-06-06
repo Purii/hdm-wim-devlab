@@ -17,7 +17,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
-import semRepServices.businessObjects.Dokument;
+import semRepServices.businessObjects.Dokument2;
 import semRepServices.businessObjects.Person;
 
 public class TokenizerInterface2 {
@@ -51,12 +51,17 @@ public class TokenizerInterface2 {
 	}
 
 	public static void setArrayDemoDataSzenario3() {
+//		inputArray = new String[4];
+//		inputArray[0] = "2";
+//		inputArray[1] = "Aufgaben";
+//		inputArray[2] = "KickOff";
+//		inputArray[3] = "Meilensteine";
+		
 		inputArray = new String[4];
-		inputArray[0] = "2";
-		//inputArray[1] = "activities concerning the HighNet project"; (context: [Projektdokumente])
-		inputArray[1] = "Aufgaben";
-		inputArray[2] = "KickOff";
-		inputArray[3] = "Meilensteine";
+		inputArray[0] = "793dnj";		// sessionID
+		inputArray[1] = "2"; 			// userID
+		inputArray[2] = ""; 		// context
+		inputArray[3] = "milestone";	// keyword
 		
 		//Kontext muss noch geliefert werden vom speech z.B.: Thema wird grad über Highnet geredet
 		// 2 filter pro sparql
@@ -74,7 +79,7 @@ public class TokenizerInterface2 {
 		richTokenHashMap = new HashMap<String, String>();
 		personArrayList = new ArrayList<String>();
 		Person personObj = null;
-		Dokument dokumentObj = null;
+		Dokument2 dokumentObj = null;
 
 		try {
 			File file = new File(filePath);
@@ -136,7 +141,7 @@ public class TokenizerInterface2 {
 			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
 					projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 			// dokument
-			dokumentObj = new Dokument(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
+			dokumentObj = new Dokument2(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
 					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_VerfasserStr, dok_PhaseStr,
 					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString, dok_Kontext, dok_KeywordsStr);
 

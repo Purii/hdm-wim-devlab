@@ -1,6 +1,6 @@
 package semRepServices.businessObjects;
 
-public class Dokument {
+public class Dokument2 {
 
 	public String dok_Str;
 	public String dok_KlasseStr;
@@ -19,10 +19,12 @@ public class Dokument {
 	public String dokument_hat_Kontext;
 	public String dokument_hat_Keyword;
 
-	public Dokument(String dok_Str, String dok_KlasseStr, String dok_NameStr, String dok_IDStr, String dok_URLStr,
-			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_VersionStr,
-			String dok_TypStr, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
-			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt, 
+	public String dok_folder;
+
+	public Dokument2(String dok_Str, String dok_KlasseStr, String dok_NameStr, String dok_IDStr, String dok_URLStr,
+			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_VersionStr, String dok_TypStr, String dok_folder,
+			String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
+			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt,
 			String dokument_favorisiert_von_Person, String dokument_hat_Kontext, String dokument_hat_Keyword) {
 		this.dok_Str = dok_Str;
 		this.dok_KlasseStr = dok_KlasseStr;
@@ -37,18 +39,20 @@ public class Dokument {
 		this.dok_UpdatedatumStr = dok_UpdatedatumStr;
 		this.dok_VersionStr = dok_VersionStr;
 		this.dok_TypStr = dok_TypStr;
+		this.dok_folder = dok_folder;
 		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
 		this.dokument_hat_Kontext = dokument_hat_Kontext;
 		this.dokument_hat_Keyword = dokument_hat_Keyword;
 	}
-	
-	public void flushDokumentObjekt(){
+
+	public void flushDokumentObjekt() {
 		setDok_Str("");
 		setDok_KlasseStr("");
 		setDok_erstelldatumStr("");
 		setDok_IDStr("");
 		setDok_NameStr("");
 		setDok_TypStr("");
+		setDok_folder("");
 		setDok_UpdatedatumStr("");
 		setDok_URLStr("");
 		setDok_VersionStr("");
@@ -59,6 +63,14 @@ public class Dokument {
 		setDokument_favorisiert_von_Person("");
 		setDokument_hat_Keyword("");
 		setDokument_hat_Kontext("");
+	}
+	
+	public String getDok_folder() {
+		return dok_folder;
+	}
+
+	public void setDok_folder(String dok_folder) {
+		this.dok_folder = dok_folder;
 	}
 
 	public String getDokument_hat_Kontext() {
@@ -188,7 +200,5 @@ public class Dokument {
 	public void setDokument_favorisiert_von_Person(String dokument_favorisiert_von_Person) {
 		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
 	}
-	
-	
 
 }

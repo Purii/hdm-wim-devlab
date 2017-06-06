@@ -17,7 +17,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 
-import semRepServices.businessObjects.Dokument;
+import semRepServices.businessObjects.Dokument2;
 import semRepServices.businessObjects.Dokument1;
 import semRepServices.businessObjects.Person;
 
