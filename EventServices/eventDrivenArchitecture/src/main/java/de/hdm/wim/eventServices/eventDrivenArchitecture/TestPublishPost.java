@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Created by ben on 5/06/2017.
  *
  * Publishes the generated messages via POST
+ * make sure the app in pubSubTesting is running.
  */
 public class TestPublishPost {
 	private static final long MESSAGE_PERIOD_SECONDS = 1;
