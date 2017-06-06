@@ -22,8 +22,8 @@ public class Dokument2 {
 	public String dok_folder;
 
 	public Dokument2(String dok_Str, String dok_KlasseStr, String dok_NameStr, String dok_IDStr, String dok_URLStr,
-			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_VersionStr, String dok_TypStr, String dok_folder,
-			String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
+			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_VersionStr, String dok_TypStr, 
+			String dok_folder, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
 			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt,
 			String dokument_favorisiert_von_Person, String dokument_hat_Kontext, String dokument_hat_Keyword) {
 		this.dok_Str = dok_Str;

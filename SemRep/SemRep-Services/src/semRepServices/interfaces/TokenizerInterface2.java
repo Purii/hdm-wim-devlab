@@ -2,6 +2,7 @@ package semRepServices.interfaces;
 
 import java.io.File;
 import java.io.FileReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
@@ -24,7 +25,7 @@ public class TokenizerInterface2 {
 
 	public static String[] inputArray = null;
 	public static ArrayList<String> personArrayList = null;
-	public static HashMap<String, String> richTokenHashMap = null;
+	public static LinkedHashMap<String, String> richTokenHashMap = null;
 
 	public static void main(String[] args) {
 
@@ -69,18 +70,23 @@ public class TokenizerInterface2 {
 
 	}
 
-	public static HashMap<String, String> getDocumentMetaData() {
+	public static LinkedHashMap<String, String> getDocumentMetaData() {
 
 		String filePath = "src/semRepServices/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 
 		HashMap<String, String> personHashMap = null;
 		HashMap<String, String> dokumentHashMap = null;
-		richTokenHashMap = new HashMap<String, String>();
+		richTokenHashMap = new LinkedHashMap<String, String>();
 		personArrayList = new ArrayList<String>();
+		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		richTokenHashMap.put("SessionID", inputArray[0]);
+		richTokenHashMap.put("TimeStamp", timestamp.toString());
+		
 		Person personObj = null;
 		Dokument2 dokumentObj = null;
-
+		
 		try {
 			File file = new File(filePath);
 			FileReader fileReader = new FileReader(file);
@@ -119,6 +125,7 @@ public class TokenizerInterface2 {
 			String dok_favorisiertVonString = "";
 			String dok_Kontext = "";
 			String dok_KeywordsStr = "";
+			String dok_folder = "";
 
 			// initalisiere HashMap
 			// person
@@ -142,7 +149,7 @@ public class TokenizerInterface2 {
 					projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 			// dokument
 			dokumentObj = new Dokument2(dok_Str, dok_KlasseStr, dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
-					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_VerfasserStr, dok_PhaseStr,
+					dok_UpdatedatumStr, dok_VersionStr, dok_TypStr, dok_folder, dok_VerfasserStr, dok_PhaseStr,
 					dok_kategorieStr, dok_ProjektStr, dok_favorisiertVonString, dok_Kontext, dok_KeywordsStr);
 
 			for (int y = 0; y < inputArray.length; y++) {
@@ -164,7 +171,8 @@ public class TokenizerInterface2 {
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
 
 					// nur Kontext ohne Keywords
-				} if (y == 1 && y == (inputArray.length - 1)) {
+//				} if (y == 1 && y == (inputArray.length - 1)) {
+				} if (y >= 3) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dok_Keywords ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
@@ -185,39 +193,40 @@ public class TokenizerInterface2 {
 							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
 							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
 							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
-							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[y].toString() + " . "
+							+ "?Dokument ontology:Dokument_hat_Keyword ?" + inputArray[y].toString() + " . "
 							+ "}";
 
 					//Kontext plus keywords
-				} if (y > 1) {
-
-					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
-							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
-							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " 					
-							+ "WHERE { " 
-							+ "?Dokument a ?Klasse . "
-							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
-							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
-							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
-							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
-							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
-							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
-							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
-							//+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
-							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
-							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
-							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
-							// Eingrenzung auf keyword
-							//+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
-							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[1].toString() + " . "
-							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " ."
-							+ "}";
-
-				}
+				} 
+//				if (y > 1) {
+//
+//					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+//							+ "SELECT DISTINCT ?Klasse ?Kontext ?Dokument ?Verfasser ?Phase ?Dokumentkategorie "
+//							+ "?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum ?Dok_Keywords "
+//							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von " 					
+//							+ "WHERE { " 
+//							+ "?Dokument a ?Klasse . "
+//							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
+//							+ "?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . "
+//							+ "?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . "
+//							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
+//							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
+//							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+//							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
+//							+ "?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . "
+//							//+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
+//							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
+//							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
+//							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
+//							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
+//							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
+//							// Eingrenzung auf keyword
+//							//+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . " + "}";
+//							+ "?Dokument ontology:Dokument_hat_Kontext ?" + inputArray[1].toString() + " . "
+//							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " ."
+//							+ "}";
+//
+//				}
 
 				// Initialisierung und Ausführung einer SPARQL-Query
 				Query query = QueryFactory.create(sparql);
