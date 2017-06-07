@@ -45,6 +45,8 @@ Die einzelnen Attribute werden anhand von Keys identifiziert.
 Dazu sind die vordefinierten Konstanten der Datei [`sharedLib/Constants.java`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L14) zu verwenden.
 Diese können nach Bedarf erweitert werden.
 
+##### Event-Type
+
 | `EventType`  | Beschreibung | Topic |
 | :------------ | --------------- | --------------- |
 | StayAlive | Heartbeat von GUI Clients | SessionInsights |
@@ -54,6 +56,7 @@ Diese können nach Bedarf erweitert werden.
 | Token | Einfache Tokens | Tokens |
 | RichToken | Angereicherte Tokens | RichTokens |
 
+##### Event-Source
 
 | `EventSource` | Beschreibung |
 | :------------ | --------------- |
