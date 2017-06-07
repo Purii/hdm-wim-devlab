@@ -2,6 +2,8 @@ package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
 import static de.hdm.wim.sharedLib.Constants.Config.LOCAL_PUBLISH_ENDPOINT;
 
+import com.google.gson.GsonBuilder;
+import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,9 +43,12 @@ public class PublishHelper {
 	public void Publish(Message message) throws Exception{
 
 		Map<String,Object> params = new LinkedHashMap<>();
+		String jsonAttributes 	  = new GsonBuilder().create()
+												.toJson(message.getAttributes(), Map.class);
 
-		params.put("topic", 	message.getTopic());
-		params.put("payload", 	message.getData());
+		params.put(RequestParameters.TOPIC, 		message.getTopic());
+		params.put(RequestParameters.PAYLOAD, 		message.getData());
+		params.put(RequestParameters.ATTRIBUTES,	jsonAttributes);
 
 		sendPost(params);
 	}
@@ -56,10 +61,10 @@ public class PublishHelper {
 		StringBuilder postData = new StringBuilder();
 		for (Map.Entry<String, Object> param : params.entrySet()) {
 			if (postData.length() != 0)
-				postData.append('&');
+				postData.append("&");
 
 			postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-			postData.append('=');
+			postData.append("=");
 			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
 		}
 
@@ -80,7 +85,7 @@ public class PublishHelper {
 		conn.getOutputStream().write(postDataBytes);
 
 		// get response
-		LOGGER.info("ResponseCode: " 	 + conn.getResponseCode());
+		LOGGER.info("ResponseCode: " 	+ conn.getResponseCode());
 		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
 	}
 }

@@ -2,11 +2,14 @@ package de.hdm.wim;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.Publisher;
+import com.google.gson.GsonBuilder;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +38,7 @@ public class PubSubPublish extends HttpServlet {
 		try {
 
 			// create a publisher on the topic
-			String topicId = req.getParameter("topic");
+			String topicId = req.getParameter(RequestParameters.TOPIC);
 			if(topicId.isEmpty()) // default topic
 				topicId = Constants.Topic.PUSH_TEST;
 
@@ -45,15 +48,23 @@ public class PubSubPublish extends HttpServlet {
 					.build();
 			}
 
-			// construct a pubsub message from the payload
-			final String payload = req.getParameter("payload");
+			// construct a pubsub message
+			final String payload 	= req.getParameter(RequestParameters.PAYLOAD);
+			final String attributes = req.getParameter(RequestParameters.ATTRIBUTES);
+
+			final Map attributesMap = new GsonBuilder().create().fromJson(attributes, Map.class);
+
 			PubsubMessage pubsubMessage =
-				PubsubMessage.newBuilder().setData(ByteString.copyFromUtf8(payload)).build();
+				PubsubMessage.newBuilder()
+					.setData(ByteString.copyFromUtf8(payload))
+					.putAllAttributes(attributesMap)
+					.build();
 
 			publisher.publish(pubsubMessage);
 
 			// redirect to home page
 			resp.sendRedirect("/");
+
 		} catch (Exception e) {
 			resp.sendError(HttpStatus.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}

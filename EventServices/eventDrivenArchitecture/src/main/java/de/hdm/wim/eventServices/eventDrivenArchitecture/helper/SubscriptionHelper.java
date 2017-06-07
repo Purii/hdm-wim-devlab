@@ -131,8 +131,9 @@ public class SubscriptionHelper {
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
 			// handle incoming message, then ack/nack the received message
-			LOGGER.info("Id : " + message.getMessageId());
-			LOGGER.info("Data : " + message.getData().toStringUtf8());
+			LOGGER.info("Id: " 			+ message.getMessageId());
+			LOGGER.info("Data: " 		+ message.getData().toStringUtf8());
+			LOGGER.info("Attributes: "  + message.getAttributesMap().toString());
 			consumer.ack();
 		};
 

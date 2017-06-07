@@ -18,7 +18,7 @@ public class TestPublishPost {
 		int i 				= 1;
 		PublishHelper ph 	= new PublishHelper();
 
-		while (i <= 2) {
+		while (i <= 3) {
 			Message message   = Message.generate("blubb_" + i, Topic.PUSH_TEST);
 
 			ph.Publish(message);
