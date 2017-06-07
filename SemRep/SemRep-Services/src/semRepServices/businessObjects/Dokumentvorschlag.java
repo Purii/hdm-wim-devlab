@@ -2,14 +2,16 @@ package semRepServices.businessObjects;
 
 public class Dokumentvorschlag {
 	
-	public String dok_NameStr;
+	public String sessionID;
+	public String timeStamp;
 	public String dok_IDStr;
-	public String dok_URLStr;
-	public String dok_TypStr;
+	public String dok_NameStr;
 	public String prio;
+	public String dok_TypStr;
+	public String dok_URLStr;
 	public String dok_folder;
 	
-	public Dokumentvorschlag(String dok_IDStr, String dok_NameStr, String prio,
+	public Dokumentvorschlag(String sessionID, String timeStamp, String dok_IDStr, String dok_NameStr, String prio,
 			String dok_TypStr, String dok_URLStr, String dok_folder) {
 		this.dok_IDStr = dok_IDStr;
 		this.dok_NameStr = dok_NameStr;
@@ -20,12 +22,31 @@ public class Dokumentvorschlag {
 	}
 
 	public void flushDokumentvorschlag() {
+		setTimeStamp("");
 		setDok_IDStr("");
 		setDok_NameStr("");
 		setPrio("");
 		setDok_TypStr("");
 		setDok_URLStr("");
 		setDok_folder("");
+	}
+	
+	
+
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public String getDok_NameStr() {

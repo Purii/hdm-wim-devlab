@@ -35,6 +35,7 @@ public class UXInterface {
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
 	public static HashMap<String, String> dokOfferHashMap = null;
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	Timestamp timestamp = null;
 
 	public static void main(String[] args) {
 
@@ -47,7 +48,7 @@ public class UXInterface {
 		
 		//richToken
 		inputArray = new String[4];
-		inputArray[0] = "793dnj";				// sessionID
+		inputArray[0] = "1";				// sessionID
 		inputArray[1] = "2"; 					// userID
 		inputArray[2] = "HighNet_project"; 		// context
 		inputArray[3] = "milestone";			// keyword
@@ -64,7 +65,7 @@ public class UXInterface {
 
 		alleDokumenteLinkedHashMap = new LinkedHashMap<String, String>();
 		
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		new Timestamp(System.currentTimeMillis());
 		alleDokumenteLinkedHashMap.put("SessionID", inputArray[0]);
 		alleDokumenteLinkedHashMap.put("TimeStamp", timestamp.toString());
 
