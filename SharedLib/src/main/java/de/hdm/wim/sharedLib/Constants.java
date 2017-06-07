@@ -65,7 +65,7 @@ public class Constants {
     }
 
 	/**
-	 * Event types.
+	 * Event types. -> einheitliche Attribute (siehe READEME)
 	 */
 	public static class EventType {
 		public static final String ACTION 	= "action";
