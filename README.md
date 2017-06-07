@@ -35,7 +35,7 @@ Topics, die genutzt werden sollten:
 | Feld  | Datentyp | Beschreibung |
 | :------------ | :---------------: | ------------ |
 | `data` | `string (bytes format)` | Frei definierbar durch Gruppe. Beispiele: Dokumentenvorschläge, Tokens,.. |
-| `attributes` | `map (key: string, value: string)` | Beispiele: `eventSource`, `eventType` |
+| `attributes` | `map (key: string, value: string)` | Metadaten, Beispiele sind: `eventSource`, `eventType` |
 | `messageId` | `string` | Wird durch PubSub Server hinzugefügt |
 | `publishTime` | `string (Timestamp format)` | Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
@@ -52,7 +52,7 @@ Event Type spezifiziert die grundlegenden Eigenschaften einer Message.
 | `EventType`  | Beschreibung | Topic |
 | :------------ | --------------- | --------------- |
 | StayAlive | Heartbeat von GUI Clients | SessionInsights |
-| LinkOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
+| GoogleOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
 | Offer | Dokumentvorschläge | Offers |
 | Training? | Feedback an ML | Training |
 | Token | Einfache Tokens | Tokens |
