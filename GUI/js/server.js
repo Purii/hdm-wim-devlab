@@ -66,11 +66,12 @@ var broadcast = function() {
     var infoJSON18 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs,"SuggestionID":"56843", "DokumentenID": "32846","name":"Dokument18", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
     var infoJSON19 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs,'SuggestionID':'12345', 'DokumentenID': '098765', 'name':'Dokument19', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
     var infoJSON20 = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs,"SuggestionID":"56843", "DokumentenID": "32846","name":"Dokument20", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var infoJSON21 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs,"SuggestionID":"56843", "DokumentenID": "32846","name":"Dokument21", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
 
 
 
   var json = JSON.stringify({
-       forSession1: infoJSON1, forSession2: infoJSON2, forSession3: infoJSON3, forSession1: infoJSON4, forSession2: infoJSON5, forSession3: infoJSON6, forSession1: infoJSON7, forSession2: infoJSON8,forSession3: infoJSON9, forSession1: infoJSON10,forSession2: infoJSON10, forSession3: infoJSON11, forSession1: infoJSON12, forSession2: infoJSON13, forSession3: infoJSON14, forSession1: infoJSON15, forSession2: infoJSON16, forSession3: infoJSON17, forSession1: infoJSON18,forSession2: infoJSON19, forSession3: infoJSON20
+       info1: infoJSON1, info2: infoJSON2, info3: infoJSON3, info4: infoJSON4, info5: infoJSON5, info6: infoJSON6, info7: infoJSON7, info8: infoJSON8,info9: infoJSON9, info10: infoJSON10,info12: infoJSON10, info13: infoJSON11, info14: infoJSON12, info15: infoJSON13, info16: infoJSON14, info17: infoJSON15, info18: infoJSON16, info19: infoJSON17, info20: infoJSON18,info21: infoJSON19, info22: infoJSON20, info23: infoJSON21
   });
 
   wss.clients.forEach(function each(client) {
