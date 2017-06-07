@@ -47,6 +47,8 @@ Diese können nach Bedarf erweitert werden.
 
 ##### Event Type
 
+Event Type spezifiziert die grundlegenden Eigenschaften einer Message. 
+
 | `EventType`  | Beschreibung | Topic |
 | :------------ | --------------- | --------------- |
 | StayAlive | Heartbeat von GUI Clients | SessionInsights |
@@ -57,6 +59,8 @@ Diese können nach Bedarf erweitert werden.
 | RichToken | Angereicherte Tokens | RichTokens |
 
 ##### Event Source
+
+Event Source beschreibt die Herkunft der Message.
 
 | `EventSource` | Beschreibung |
 | :------------ | --------------- |
