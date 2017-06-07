@@ -1,4 +1,4 @@
-package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
+package de.hdm.wim.Helper;
 
 import com.google.api.gax.grpc.ExecutorProvider;
 import com.google.api.gax.grpc.InstantiatingExecutorProvider;
@@ -14,20 +14,25 @@ import com.google.pubsub.v1.PushConfig;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.SubscriptionName;
 import com.google.pubsub.v1.TopicName;
+import de.hdm.wim.sharedLib.Constants.Config;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 24/05/2017.
+ * Created by ben on 04/06/2017.
  */
 public class SubscriptionHelper {
 
-	private static final Logger LOGGER 	= Logger.getLogger(SubscriptionHelper.class);
-	private String PROJECT_ID			= ServiceOptions.getDefaultProjectId();
+	private static final Logger _logger = Logger.getLogger(SubscriptionHelper.class);
+	private final String _projectId;
+	private String _pushEndpoint;
 
 	/**
 	 * Instantiates a new TopicHelper.
 	 */
-	public SubscriptionHelper() {}
+	public SubscriptionHelper() {
+
+		this._projectId = ServiceOptions.getDefaultProjectId();
+	}
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
@@ -35,7 +40,7 @@ public class SubscriptionHelper {
 	 * @param projectId unique project identifier, eg. "my-project-id"
 	 */
 	public SubscriptionHelper(String projectId){
-		this.PROJECT_ID = projectId;
+		this._projectId = projectId;
 	}
 
 	/**
@@ -44,18 +49,18 @@ public class SubscriptionHelper {
 	 * @return the project id
 	 */
 	public String getProjectId() {
-		return PROJECT_ID;
+		return _projectId;
 	}
 
 	/**
-	 * Create a subscription to a specif topic.
+	 * Create a pull subscription to a specif topic.
 	 *
 	 * @param topicName the topic name
 	 * @param subscriptionId the subscription id, eg. "my-test-subscription"
 	 * @return the subscription
 	 * @throws Exception the exception
 	 */
-	public Subscription createSubscriptionIfNotExists(TopicName topicName, String subscriptionId) throws Exception{
+	public Subscription createPullSubscriptionIfNotExists(TopicName topicName, String subscriptionId) throws Exception{
 
 		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
 
@@ -64,12 +69,12 @@ public class SubscriptionHelper {
 			for(Subscription subscription : subscriptions){
 				if(subscription.getNameAsSubscriptionName().getSubscription().equals(subscriptionId))
 				{
-					LOGGER.info("Subscription already exists: " + subscriptionId);
+					_logger.info("Subscription already exists: " + subscriptionId);
 					return subscription;
 				}
 			}
 
-			SubscriptionName subscriptionName =	SubscriptionName.create(PROJECT_ID, subscriptionId);
+			SubscriptionName subscriptionName =	SubscriptionName.create(_projectId, subscriptionId);
 
 			// create a pull subscription with default acknowledgement deadline
 			Subscription subscription = subscriptionAdminClient.createSubscription(
@@ -83,7 +88,53 @@ public class SubscriptionHelper {
 			pushConfig.*/
 
 
-			LOGGER.info("Successfully created subscription: " + subscriptionId);
+			_logger.info("Successfully created subscription: " + subscriptionId);
+
+			return subscription;
+		}
+	}
+
+
+	/**
+	 * Create a push subscription to a specif topic.
+	 *
+	 * @param topicName the topic name
+	 * @param subscriptionId the subscription id, eg. "my-test-subscription"
+	 * @return the subscription
+	 * @throws Exception the exception
+	 */
+	public Subscription createPushSubscriptionIfNotExists(TopicName topicName, String subscriptionId) throws Exception{
+
+		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
+
+			Iterable<Subscription> subscriptions = getSubscriptions();
+
+			for(Subscription subscription : subscriptions){
+				if(subscription.getNameAsSubscriptionName().getSubscription().equals(subscriptionId))
+				{
+					_logger.info("Subscription already exists: " + subscriptionId);
+					return subscription;
+				}
+			}
+
+			_pushEndpoint 						= String.format(
+													"https://%s.appspot.com/pubsub/push?token=%s&topic=%s",
+													_projectId,
+													Config.SECRET_TOKEN,
+													topicName.getTopic()
+			                                      );
+			SubscriptionName subscriptionName 	= SubscriptionName.create(_projectId, subscriptionId);
+			PushConfig pushConfig 				= PushConfig.newBuilder().setPushEndpoint(_pushEndpoint).build();
+
+			// create a push subscription with default acknowledgement deadline
+			Subscription subscription = subscriptionAdminClient.createSubscription(
+				subscriptionName,
+				topicName,
+				pushConfig,
+				10
+			);
+
+			_logger.info("Successfully created push subscription: " + subscriptionId);
 
 			return subscription;
 		}
@@ -101,14 +152,14 @@ public class SubscriptionHelper {
 
 			ListSubscriptionsRequest listSubscriptionsRequest =
 				ListSubscriptionsRequest.newBuilder()
-					.setProjectWithProjectName(ProjectName.create(PROJECT_ID))
+					.setProjectWithProjectName(ProjectName.create(_projectId))
 					.build();
 
 			PagedResponseWrappers.ListSubscriptionsPagedResponse response = subscriptionAdminClient
-																				.listSubscriptions(listSubscriptionsRequest);
+				.listSubscriptions(listSubscriptionsRequest);
 			Iterable<Subscription> subscriptions = response.iterateAll();
 			for (Subscription subscription : subscriptions) {
-				LOGGER.info(subscription.getName());
+				_logger.info(subscription.getName());
 			}
 			return subscriptions;
 		}
@@ -117,22 +168,22 @@ public class SubscriptionHelper {
 	/**
 	 * Create subscriber.
 	 *
-	 * @param subscriptionName the subscription id
+	 * @param subscriptionId the subscription id
 	 * @throws Exception the exception
 	 */
-	public void createSubscriber(SubscriptionName subscriptionName) throws Exception{
+	public void createSubscriber(String subscriptionId) throws Exception{
 
-		//SubscriptionName subscriptionName = SubscriptionName.create(_projectId, subscriptionId);
+		SubscriptionName subscriptionName = SubscriptionName.create(_projectId, subscriptionId);
 
 		ExecutorProvider executorProvider =	InstantiatingExecutorProvider.newBuilder()
-												.setExecutorThreadCount(1)
-												.build();
+			.setExecutorThreadCount(1)
+			.build();
 
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
 			// handle incoming message, then ack/nack the received message
-			LOGGER.info("Id : " + message.getMessageId());
-			LOGGER.info("Data : " + message.getData().toStringUtf8());
+			_logger.info("Id : " + message.getMessageId());
+			_logger.info("Data : " + message.getData().toStringUtf8());
 			consumer.ack();
 		};
 
@@ -148,8 +199,8 @@ public class SubscriptionHelper {
 				new Subscriber.Listener() {
 					@Override
 					public void failed(Subscriber.State from, Throwable failure) {
-					// Handle failure. This is called when the Subscriber encountered a fatal error and is shutting down.
-					LOGGER.error(failure);
+						// Handle failure. This is called when the Subscriber encountered a fatal error and is shutting down.
+						_logger.error(failure);
 					}
 				},
 				MoreExecutors.directExecutor()
@@ -166,5 +217,9 @@ public class SubscriptionHelper {
 				subscriber.stopAsync();
 			}
 		}
+	}
+
+	public String get_pushEndpoint() {
+		return _pushEndpoint;
 	}
 }

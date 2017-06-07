@@ -1,103 +1,86 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
-import com.google.api.gax.core.ApiFuture;
-import com.google.api.gax.core.ApiFutures;
-import com.google.cloud.pubsub.spi.v1.Publisher;
-import com.google.protobuf.ByteString;
-import com.google.pubsub.v1.PubsubMessage;
-import com.google.pubsub.v1.TopicName;
+import static de.hdm.wim.sharedLib.Constants.Config.LOCAL_PUBLISH_ENDPOINT;
+
+import de.hdm.wim.sharedLib.classes.Message;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by ben on 23/04/2017.
+ * Created by ben on 5/06/2017.
  */
 public class PublishHelper {
 
-	private static final Logger logger = Logger.getLogger(PublishHelper.class);
+	private static String ENDPOINT		= LOCAL_PUBLISH_ENDPOINT;
+	private static final Logger LOGGER 	= Logger.getLogger(PublishHelper.class);
 
 	/**
-	 * Publish a message.
-	 *
-	 * @param message the message
-	 * @param topicName the topic name
-	 * @throws Exception the exception
+	 * Instantiates a new Publish helper.
 	 */
-	public void publishMessage(String message, TopicName topicName) throws Exception {
+	public PublishHelper(){	}
 
-		Publisher publisher 						= null;
-		List<ApiFuture<String>> messageIdFutures 	= new ArrayList<>();
-
-    	try {
-			publisher = Publisher.defaultBuilder(topicName).build();
-
-				ByteString data 					= ByteString.copyFromUtf8(message);
-				PubsubMessage pubsubMessage 		= PubsubMessage.newBuilder()
-														.setData(data)
-														.build();
-
-				//TODO: add attributes to message
-				// Once published, returns a server-assigned message id (unique within the topic)
-				ApiFuture<String> messageIdFuture 	= publisher.publish(pubsubMessage);
-				messageIdFutures.add(messageIdFuture);
-
-		} finally {
-			// wait on any pending publish requests.
-			List<String> messageIds = ApiFutures.allAsList(messageIdFutures).get();
-
-			for (String messageId : messageIds) {
-				logger.info("published with message ID: " + messageId);
-			}
-
-			if (publisher != null) {
-				// When finished with the publisher, shutdown to free up resources.
-				publisher.shutdown();
-			}
-		}
+	/**
+	 * Instantiates a new PublishHelper.
+	 *
+	 * @param request the request
+	 */
+	public PublishHelper(String request){
+		this.ENDPOINT = request;
 	}
 
 	/**
-	 * Publish messages.
+	 * Publish a message
 	 *
-	 * @param messages the messages
-	 * @param topicName the topic name
+	 * @param message the message
 	 * @throws Exception the exception
 	 */
-	public void publishMessages(List<String> messages, TopicName topicName) throws Exception {
+	public void Publish(Message message) throws Exception{
 
-		Publisher publisher 						= null;
-		List<ApiFuture<String>> messageIdFutures 	= new ArrayList<>();
+		Map<String,Object> params = new LinkedHashMap<>();
 
-		try {
-			publisher = Publisher.defaultBuilder(topicName).build();
+		params.put("topic", 	message.getTopic());
+		params.put("payload", 	message.getData());
 
-			// schedule publishing one message at a time : messages get automatically batched
-			for (String message : messages) {
-				ByteString data 					= ByteString.copyFromUtf8(message);
-				PubsubMessage pubsubMessage 		= PubsubMessage.newBuilder()
-					.setData(data)
-					.build();
+		sendPost(params);
+	}
 
-				//TODO: add attributes to message
-				// Once published, returns a server-assigned message id (unique within the topic)
-				ApiFuture<String> messageIdFuture 	= publisher.publish(pubsubMessage);
-				messageIdFutures.add(messageIdFuture);
-			}
+	private static void sendPost(Map<String,Object> params) throws Exception{
+		URL url;
+		HttpURLConnection conn;
 
-		} finally {
-			// wait on any pending publish requests.
-			List<String> messageIds = ApiFutures.allAsList(messageIdFutures).get();
+		//build request url
+		StringBuilder postData = new StringBuilder();
+		for (Map.Entry<String, Object> param : params.entrySet()) {
+			if (postData.length() != 0)
+				postData.append('&');
 
-			for (String messageId : messageIds) {
-				logger.info("published with message ID: " + messageId);
-			}
-
-			if (publisher != null) {
-				// When finished with the publisher, shutdown to free up resources.
-				publisher.shutdown();
-			}
+			postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+			postData.append('=');
+			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
 		}
+
+		LOGGER.info("postData: " + postData);
+
+		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+		// set up connection
+		url  = new URL(ENDPOINT);
+		conn = (HttpURLConnection) url.openConnection();
+
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type",   "application/x-www-form-urlencoded");
+		conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+		conn.setDoOutput(true);
+
+		// send request
+		conn.getOutputStream().write(postDataBytes);
+
+		// get response
+		LOGGER.info("ResponseCode: " 	 + conn.getResponseCode());
+		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
 	}
 }

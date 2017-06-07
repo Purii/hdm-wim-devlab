@@ -14,23 +14,21 @@ import org.apache.log4j.Logger;
  */
 public class TopicHelper {
 
-	private static final Logger _logger = Logger.getLogger(TopicHelper.class);
-	private final String _projectId;
+	private static final Logger LOGGER 	= Logger.getLogger(TopicHelper.class);
+	private String PROJECT_ID			= ServiceOptions.getDefaultProjectId();
 
 	/**
 	 * Instantiates a new TopicHelper.
 	 */
-	public TopicHelper() {
-		this._projectId = ServiceOptions.getDefaultProjectId();
-	}
+	public TopicHelper() {}
 
 	/**
 	 * Instantiates a new TopicHelper.
 	 *
-	 * @param projectId unique project identifier, eg. "my-project-id"
+	 * @param projectId the project id
 	 */
-	public TopicHelper(String projectId) {
-		this._projectId = projectId;
+	public TopicHelper(String projectId){
+		this.PROJECT_ID = projectId;
 	}
 
 	/**
@@ -39,7 +37,7 @@ public class TopicHelper {
 	 * @return the project id
 	 */
 	public String getProjectId() {
-		return _projectId;
+		return PROJECT_ID;
 	}
 
 	/**
@@ -50,7 +48,7 @@ public class TopicHelper {
 	 * @throws Exception the exception
 	 */
 	public Topic createTopicIfNotExists( String topicId ) throws Exception {
-		_logger.info("Creating Topic \"" + topicId +"\" ...");
+		LOGGER.info("Creating Topic \"" + topicId +"\" ...");
 
 		try (TopicAdminClient topicAdminClient = TopicAdminClient.create()) {
 
@@ -59,13 +57,13 @@ public class TopicHelper {
 			for(Topic topic : topics){
 				if(topic.getNameAsTopicName().getTopic().equals(topicId))
 				{
-					_logger.info("Topic already exists, lets use it!");
+					LOGGER.info("Topic already exists, lets use it!");
 					return topic;
 				}
 			}
 
-			_logger.info("Successfully created topic: " + topicId);
-			TopicName topicName 	= TopicName.create(_projectId, topicId);
+			LOGGER.info("Successfully created topic: " + topicId);
+			TopicName topicName 	= TopicName.create(PROJECT_ID, topicId);
 			return topicAdminClient.createTopic(topicName);
 		}
 	}
@@ -81,14 +79,14 @@ public class TopicHelper {
 
 			ListTopicsRequest listTopicsRequest =
 					ListTopicsRequest.newBuilder()
-							.setProjectWithProjectName(ProjectName.create(_projectId))
+							.setProjectWithProjectName(ProjectName.create(PROJECT_ID))
 							.build();
 
 			PagedResponseWrappers.ListTopicsPagedResponse response = topicAdminClient.listTopics(listTopicsRequest);
 			Iterable<Topic> topics = response.iterateAll();
-			_logger.info("Existing topics:");
+			LOGGER.info("Existing topics:");
 			for (Topic topic : topics) {
-				_logger.info(topic.getName());
+				LOGGER.info(topic.getName());
 			}
 			return topics;
 			//return response;
@@ -104,10 +102,10 @@ public class TopicHelper {
 	public void deleteTopic(String topicId) throws Exception {
 
 		try (TopicAdminClient topicAdminClient = TopicAdminClient.create()) {
-			TopicName topicName = TopicName.create( _projectId, topicId );
+			TopicName topicName = TopicName.create(PROJECT_ID, topicId );
 			topicAdminClient.deleteTopic(topicName);
 		}catch(Exception ex) {
-			_logger.warn("Could not delete topic!", ex);
+			LOGGER.warn("Could not delete topic!", ex);
 		}
 	}
 
@@ -123,10 +121,10 @@ public class TopicHelper {
 		//TODO: optimize => remove try catch
 		Topic topic = null;
 		try (TopicAdminClient topicAdminClient = TopicAdminClient.create()) {
-			TopicName topicName = TopicName.create(_projectId, topicId);
+			TopicName topicName = TopicName.create(PROJECT_ID, topicId);
 			topic = topicAdminClient.getTopic(topicName);
 		}catch (Exception ex) {
-			_logger.info("Failed to get topic: {} " + topicId, ex);
+			LOGGER.info("Failed to get topic: {} " + topicId, ex);
 		}
 		return topic;
 	}

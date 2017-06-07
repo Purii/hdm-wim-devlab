@@ -19,5 +19,7 @@ WHERE {
 ?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords .
 
 ?Dokument ontology:Dokument_hat_Keyword ontology:milestone .
-?Dokument ontology:Dokument_hat_Kontext ?activities_concerning_the_HighNet_project .
+?Dokument ontology:Dokument_hat_Kontext ontology:HighNet_project .
+
+###?Dokument ontology:Dokument_hat_Kontext ?activities_concerning_the_HighNet_project .
 }

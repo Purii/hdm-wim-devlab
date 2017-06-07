@@ -12,6 +12,7 @@
     <modules>
         <module>eventProcessing</module>
         <module>eventDrivenArchitecture</module>
+        <module>pubSubTesting</module>
     </modules>
 
     <packaging>pom</packaging>

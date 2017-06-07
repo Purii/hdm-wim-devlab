@@ -15,13 +15,14 @@ import org.apache.log4j.Logger;
 
 /**
  * Created by ben on 2/06/2017.
+ * this class is only for testing purposes!
  */
 public class MessageServer {
 
-	private static final Executor SERVER_EXECUTOR     = Executors.newSingleThreadExecutor();
-	private static final int PORT                     = 9999;
-	private static final long MESSAGE_PERIOD_SECONDS  = 10;
-	private static final Logger logger                = Logger.getLogger(MessageServer.class);
+	private static final Executor SERVER_EXECUTOR 	 = Executors.newSingleThreadExecutor();
+	private static final int PORT 					 = 9999;
+	private static final long MESSAGE_PERIOD_SECONDS = 10;
+	private static final Logger LOGGER 				 = Logger.getLogger(MessageServer.class);
 
 	/**
 	 * The entry point of this application. It will send one message every 10 seconds until terminated
@@ -35,13 +36,12 @@ public class MessageServer {
 	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
 		BlockingQueue<String> messageQueue  = new ArrayBlockingQueue<>(100);
-		MessageGenerator msgg   			= new MessageGenerator();
 		int id 								= 0;
 
 		SERVER_EXECUTOR.execute(new SteamingServer(messageQueue));
 
 		while (true) {
-            PubSubMessage message   = msgg.GenerateMessage("blubb",Integer.toString(id));
+            PubSubMessage message   = PubSubMessage.generate("blubb",Integer.toString(id));
             Gson gson               = new Gson();
 
             messageQueue.put(gson.toJson(message));
@@ -57,7 +57,7 @@ public class MessageServer {
 		/**
 		 * Instantiates a new Steaming server.
 		 *
-		 * @param messageQueue the event queue
+		 * @param messageQueue the EVENT queue
 		 */
 		private SteamingServer(BlockingQueue<String> messageQueue) {
 			this.messageQueue = messageQueue;
@@ -75,7 +75,7 @@ public class MessageServer {
 				while (true) {
 					String message = messageQueue.take();
 
-					logger.info(message);
+					LOGGER.info(message);
 					pw.println(message);
 				}
 			} catch (IOException|InterruptedException e) {
