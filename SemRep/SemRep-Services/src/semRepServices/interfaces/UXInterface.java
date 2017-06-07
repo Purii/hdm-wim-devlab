@@ -224,8 +224,8 @@ public class UXInterface {
 		dokOfferHashMap = new LinkedHashMap<String, String>();
 		tmpDokOfferHashMap = new LinkedHashMap<String, String>();
 		
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
+		timestamp = new Timestamp(System.currentTimeMillis());
+		
 		Dokumentvorschlag dokumentvorschlagObj = null;
 
 		try {
@@ -239,7 +239,7 @@ public class UXInterface {
 
 			// dokument
 			String sessionIDStr = inputArray[0].toString();
-			String timeStampStr = "";
+			String timeStampStr = timestamp.toString();
 			String dok_IDStr = "";
 			String dok_NameStr = "";
 			String prioStr = "";
@@ -287,8 +287,11 @@ public class UXInterface {
 							+ "}";
 
 					//Kontext plus keywords
-				} 
+				} if (y >= 1 && y < 3) {
+					sparql = "";
+				}
 
+				if (sparql != ""){
 				// Initialisierung und Ausführung einer SPARQL-Query
 				Query query = QueryFactory.create(sparql);
 				QueryExecution queryExecution = QueryExecutionFactory.create(query, ontologyModel);
@@ -353,10 +356,6 @@ public class UXInterface {
 
 				}
 					
-					timestamp = new Timestamp(System.currentTimeMillis());
-					timeStampStr = timestamp.toString();
-					dokumentvorschlagObj.setTimeStamp(timeStampStr);
-					
 					if (y == 0) {
 						//prio bei allen Dokumenten irrelevant (0)
 						prioStr = "0";
@@ -387,7 +386,6 @@ public class UXInterface {
 									+ "Dok_Ordner=" + dokumentvorschlagObj.getDok_folder());
 						
 						countDokOffersInLoop = countDokOffersInLoop + 1;
-						
 						dokumentvorschlagObj.flushDokumentvorschlag();
 						}
 					
@@ -395,6 +393,10 @@ public class UXInterface {
 
 				queryExecution.close();
 
+				dokumentvorschlagObj.flushDokumentvorschlag();
+				
+			}
+			
 			}
 
 		} catch (Exception e) {
