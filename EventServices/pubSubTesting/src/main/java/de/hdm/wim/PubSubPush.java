@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.classes.Message;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.stream.Collectors;

@@ -1,5 +1,6 @@
 package de.hdm.wim;
 
+import de.hdm.wim.sharedLib.classes.Message;
 import java.util.List;
 
 /**
@@ -24,9 +25,10 @@ public class PubSubHome {
 		StringBuilder sb = new StringBuilder();
 		for (Message message : messages) {
 			sb.append("<tr>");
-			sb.append("<td>" + message.getMessageId() + "</td>");
-			sb.append("<td>" + message.getData() + "</td>");
-			sb.append("<td>" + message.getTopic() + "</td>");
+			sb.append("<td>" + message.getId() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getTopic() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getData() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getAttributes() + "</td>");
 			sb.append("<td>" + message.getPublishTime() + "</td>");
 			sb.append("</tr>");
 		}

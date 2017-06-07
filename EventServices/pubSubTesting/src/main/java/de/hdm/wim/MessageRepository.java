@@ -1,5 +1,6 @@
 package de.hdm.wim;
 
+import de.hdm.wim.sharedLib.classes.Message;
 import java.util.List;
 
 /**

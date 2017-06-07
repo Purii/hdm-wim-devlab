@@ -8,7 +8,7 @@ import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
-
+import de.hdm.wim.sharedLib.classes.Message;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class MessageRepositoryImpl implements MessageRepository {
 		Key key = datastore.allocateId(keyFactory.newKey());
 
 		Entity.Builder messageEntityBuilder = Entity.newBuilder(key)
-			.set("messageId", message.getMessageId());
+			.set("messageId", message.getId());
 
 		if (message.getData() != null) {
 			messageEntityBuilder = messageEntityBuilder.set("data", message.getData());
@@ -61,7 +61,7 @@ public class MessageRepositoryImpl implements MessageRepository {
 		List<Message> messages = new ArrayList<>();
 		while (results.hasNext()) {
 			Entity entity 	= results.next();
-			Message message = new Message(entity.getString("messageId"));
+			Message message = new Message(entity.getString("id"));
 
 			String data = entity.getString("data");
 			if (data != null) {
