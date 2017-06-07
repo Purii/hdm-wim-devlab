@@ -2,6 +2,10 @@
 
 library für Klassen, die von allen Gruppen genutzt werden.
 
+## Install
+
+`mvn clean install` um lib im lokalen maven repository zu installieren
+
 ## Inhalt
 
 ### Message
