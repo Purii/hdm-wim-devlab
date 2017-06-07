@@ -75,7 +75,7 @@ Causality?
 
 `EventID`= `String`? (MessageID)
 
-#### Message Object
+#### Message Konstruktor
 
 [`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/7e7c56a6427e63351ecb546ac9f7b633f5b84371/EventServices/eventProcessing/src/main/java/de/hdm/wim/eventServices/eventProcessing/classes/Message.java)
 
