@@ -9,11 +9,16 @@ import java.util.Hashtable;
 
 /**
  * Created by ben on 3/06/2017.
+ *
+ * A message captures information from the Pubsub message received over the push endpoint and is
+ * persisted in storage.
  */
 public class Message {
 
 	private String data;
 	private String topic;
+	private String id;
+	private String publishTime;
 	private Hashtable attributes = new Hashtable();
 
 	/**
@@ -33,6 +38,15 @@ public class Message {
 	 * Instantiates a new Message.
 	 */
 	public Message(){}
+
+	/**
+	 * Instantiates a new Message.
+	 *
+	 * @param messageId the message id
+	 */
+	public Message(String messageId) {
+		this.id = messageId;
+	}
 
 	/**
 	 * Gets data.
@@ -139,5 +153,41 @@ public class Message {
 		);
 
 		return new Message(data, topic, attributes);
+	}
+
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * Gets publish time.
+	 *
+	 * @return the publish time
+	 */
+	public String getPublishTime() {
+		return publishTime;
+	}
+
+	/**
+	 * Sets publish time.
+	 *
+	 * @param publishTime the publish time
+	 */
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
 	}
 }
