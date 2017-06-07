@@ -96,6 +96,13 @@ public class Constants {
 		public static final String sunday 		= "sunday";
 	}
 
+	public class RequestParameters {
+		public static final String TOPIC 		= "topic";
+		public static final String ATTRIBUTES 	= "attributes";
+		public static final String PAYLOAD 		= "payload";
+		public static final String TOKEN 		= "token";
+	}
+
 	/**
 	 * Event types.
 	 * Format: "my-test-subscription-topic-x"
