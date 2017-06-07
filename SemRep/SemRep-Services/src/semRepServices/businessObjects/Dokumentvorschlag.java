@@ -13,6 +13,8 @@ public class Dokumentvorschlag {
 	
 	public Dokumentvorschlag(String sessionID, String timeStamp, String dok_IDStr, String dok_NameStr, String prio,
 			String dok_TypStr, String dok_URLStr, String dok_folder) {
+		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
 		this.dok_IDStr = dok_IDStr;
 		this.dok_NameStr = dok_NameStr;
 		this.prio = prio;
@@ -31,7 +33,16 @@ public class Dokumentvorschlag {
 		setDok_folder("");
 	}
 	
-	
+	public void flushAllDokumentvorschlag() {
+		setSessionID("");
+		setTimeStamp("");
+		setDok_IDStr("");
+		setDok_NameStr("");
+		setPrio("");
+		setDok_TypStr("");
+		setDok_URLStr("");
+		setDok_folder("");
+	}
 
 	public String getSessionID() {
 		return sessionID;

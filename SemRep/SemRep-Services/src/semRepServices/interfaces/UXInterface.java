@@ -35,7 +35,7 @@ public class UXInterface {
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
 	public static HashMap<String, String> dokOfferHashMap = null;
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
-	Timestamp timestamp = null;
+	public static Timestamp timestamp = null;
 
 	public static void main(String[] args) {
 
@@ -64,10 +64,6 @@ public class UXInterface {
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 
 		alleDokumenteLinkedHashMap = new LinkedHashMap<String, String>();
-		
-		new Timestamp(System.currentTimeMillis());
-		alleDokumenteLinkedHashMap.put("SessionID", inputArray[0]);
-		alleDokumenteLinkedHashMap.put("TimeStamp", timestamp.toString());
 
 		Dokumentvorschlag dokumentvorschlagObj = null;
 
@@ -81,6 +77,8 @@ public class UXInterface {
 			String sparql = "";
 
 			// dokument
+			String sessionIDStr = inputArray[0];
+			String timeStampStr = "";
 			String dok_IDStr = "";
 			String dok_NameStr = "";
 			String prioStr = "";
@@ -90,7 +88,7 @@ public class UXInterface {
 		
 			// initialisiere Objekte
 			// dokument
-			dokumentvorschlagObj = new Dokumentvorschlag(dok_IDStr, dok_NameStr, prioStr,
+			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 
 			for (int y = 0; y < inputArray.length; y++) {
@@ -124,7 +122,6 @@ public class UXInterface {
 				String splitResult = "";
 				int indexOfToSplitCharacter;
 				int countLoop = 0;
-				int countDokOffersInLoop = 0;
 
 				// Ergebniswerte werden für Konsolendarstellung aufbereitet
 				outerloop: for (@SuppressWarnings("unused")
@@ -180,8 +177,14 @@ public class UXInterface {
 						//prio bei allen Dokumenten irrelevant (0)
 						prioStr = "0";
 						dokumentvorschlagObj.setPrio(prioStr);
+						timestamp = new Timestamp(System.currentTimeMillis());
+						timeStampStr = timestamp.toString();
+						dokumentvorschlagObj.setTimeStamp(timeStampStr);
+						
 						alleDokumenteLinkedHashMap.put("Dokument_" + i, 
-									"Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
+									"SessionID=" + dokumentvorschlagObj.getSessionID()
+									+ ", " + "TimeStamp=" + dokumentvorschlagObj.getTimeStamp()
+									+ ", " + "Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
 									+ ", " + "Dok_Name=" + dokumentvorschlagObj.getDok_NameStr()
 									+ ", " + "Dok_Prio=" + dokumentvorschlagObj.getPrio() + ", " 
 									+ "Dok_Typ=" + dokumentvorschlagObj.getDok_TypStr() + ", " 
@@ -200,6 +203,8 @@ public class UXInterface {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}  
+		
+		dokumentvorschlagObj.flushAllDokumentvorschlag();
 		
 		// drucke alles im richTokenHashMap aus
 		for (String key : alleDokumenteLinkedHashMap.keySet()) {
@@ -220,8 +225,6 @@ public class UXInterface {
 		tmpDokOfferHashMap = new LinkedHashMap<String, String>();
 		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		dokOfferLinkedHashMap.put("SessionID", inputArray[0]);
-		dokOfferLinkedHashMap.put("TimeStamp", timestamp.toString());
 
 		Dokumentvorschlag dokumentvorschlagObj = null;
 
@@ -235,6 +238,8 @@ public class UXInterface {
 			String sparql = "";
 
 			// dokument
+			String sessionIDStr = inputArray[0].toString();
+			String timeStampStr = "";
 			String dok_IDStr = "";
 			String dok_NameStr = "";
 			String prioStr = "";
@@ -244,7 +249,7 @@ public class UXInterface {
 		
 			// initialisiere Objekte
 			// dokument
-			dokumentvorschlagObj = new Dokumentvorschlag(dok_IDStr, dok_NameStr, prioStr,
+			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 
 			for (int y = 0; y < inputArray.length; y++) {
@@ -348,12 +353,18 @@ public class UXInterface {
 
 				}
 					
+					timestamp = new Timestamp(System.currentTimeMillis());
+					timeStampStr = timestamp.toString();
+					dokumentvorschlagObj.setTimeStamp(timeStampStr);
+					
 					if (y == 0) {
 						//prio bei allen Dokumenten irrelevant (0)
 						prioStr = "0";
 						dokumentvorschlagObj.setPrio(prioStr);
 						dokOfferLinkedHashMap.put("Dokument_" + i, 
-									"Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
+									"SessionID=" + dokumentvorschlagObj.getSessionID()
+									+ ", " + "TimeStamp=" + dokumentvorschlagObj.getTimeStamp()
+									+ ", " + "Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
 									+ ", " + "Dok_Name=" + dokumentvorschlagObj.getDok_NameStr()
 									+ ", " + "Dok_Prio=" + dokumentvorschlagObj.getPrio() + ", " 
 									+ "Dok_Typ=" + dokumentvorschlagObj.getDok_TypStr() + ", " 
@@ -366,7 +377,9 @@ public class UXInterface {
 						prioStr = "1";
 						dokumentvorschlagObj.setPrio(prioStr);
 						dokOfferHashMap.put("Dokumentvorschlag_" + countDokOffersInLoop, 
-									"Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
+									"SessionID=" + dokumentvorschlagObj.getSessionID()
+									+ ", " + "TimeStamp=" + dokumentvorschlagObj.getTimeStamp()
+									+ ", " + "Dok_ID=" + dokumentvorschlagObj.getDok_IDStr()
 									+ ", " + "Dok_Name=" + dokumentvorschlagObj.getDok_NameStr() 
 									+ ", " + "Dok_Prio=" + dokumentvorschlagObj.getPrio() + ", "  
 									+ "Dok_Typ=" + dokumentvorschlagObj.getDok_TypStr() + ", " 
@@ -388,11 +401,11 @@ public class UXInterface {
 			System.out.println(e.getMessage());
 		}
 		
+		dokumentvorschlagObj.flushAllDokumentvorschlag();
+		
 		//checke Duplikate
-
 		int countOffers = 0;
 		String offerStr = "";
-		
 	    for(HashMap.Entry<String, String> entry : dokOfferHashMap.entrySet()) {
 	        if (!tmpDokOfferHashMap.containsValue(entry.getValue())) {
 	        	offerStr = entry.getKey().toString().split("_")[0];
@@ -404,12 +417,7 @@ public class UXInterface {
 	    	dokOfferLinkedHashMap.put(entry.getKey(), entry.getValue());
 	    }
 	    
-		
-		//SortedSet<String> keys = new TreeSet<String>(richTokenHashMap.keySet());
-
-		// drucke alles im richTokenHashMap aus
 		for (String key : dokOfferLinkedHashMap.keySet()) {
-//		for (String key : keys) {
 			System.out.println(key + ": " + dokOfferLinkedHashMap.get(key) + ", ");
 		}
 
