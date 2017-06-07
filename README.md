@@ -21,7 +21,7 @@
 Topics, die genutzt werden sollten:
 
 * FeedbackGui
-* Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Tokens können zu folgendem Dokument führen)
+* Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Favoriten des Users)
 * Offers (Vorschläge)
 * SessionInsights (User loggt sich ein/aus; User ist passiv)
 * RichTokens (SR > CEP)
@@ -52,11 +52,13 @@ Event Type spezifiziert die grundlegenden Eigenschaften einer Message.
 | `EventType`  | Beschreibung | Topic |
 | :------------ | --------------- | --------------- |
 | StayAlive | Heartbeat von GUI Clients | SessionInsights |
+| Insight | User klickt mehrfach auf ein Dokumente | Insights |
 | GoogleOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
 | Offer | Dokumentvorschläge | Offers |
 | Training? | Feedback an ML | Training |
 | Token | Einfache Tokens | Tokens |
 | RichToken | Angereicherte Tokens | RichTokens |
+| Feedback | Feedback des Users | FeedbackGui |
 
 ##### Event Source
 
