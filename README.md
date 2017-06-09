@@ -37,6 +37,7 @@
 * **Subscribe:** Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
 
 ***Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!***
+
 ***Topics können in den Issues beantragt werden!***
 
 ### Aktuell existierende Topics
@@ -102,7 +103,7 @@ Causality?
 [`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
 
 ```java
-    	/**
+    /**
 	 * Instantiates a new Message.
 	 *
 	 * @param data the data
