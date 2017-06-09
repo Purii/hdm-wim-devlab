@@ -10,7 +10,7 @@
         * [`attributes`](#attributes)
         * [Event Type](#event-type)
         * [Event Source](#event-source)
-        * [Message Konstruktor](#message-konstruktor)
+    * [Message Konstruktor](#message-konstruktor)
         
 
 ## Spielregeln
