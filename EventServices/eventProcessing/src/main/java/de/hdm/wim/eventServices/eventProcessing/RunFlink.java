@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import de.hdm.wim.eventServices.eventProcessing.cep.events.MessageEvent;
 import de.hdm.wim.eventServices.eventProcessing.cep.events.TokenEvent;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.RelationToDatePattern;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.TestPattern2;
 import de.hdm.wim.eventServices.eventProcessing.cep.source.MessageEventSource;
 import de.hdm.wim.eventServices.eventProcessing.cep.source.TokenSource;
 import de.hdm.wim.sharedLib.classes.PubSubMessage;
@@ -60,6 +61,8 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999)
 				.flatMap(new Splitter());
 
+			TestPattern2 testPattern2 = new TestPattern2();
+			testPattern2.run(env, messageStream);
 
             // print message stream
 
