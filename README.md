@@ -2,6 +2,16 @@
 
 *Hinweis: Bei diesem Projekt handelt es sich um ein Forschungsprojekt der Hochschule der Medien, Stuttgart.*
 
+* [Spielregeln](#spielregeln)
+* [Google PubSub](#google-pubsub)
+    * [Grundlegende Kommunikation](#grundlegende-kommunikation)
+    * [Aktuell existierende Topics](#aktuell-existierende-topics)
+    * [Felder einer PubSub Message](#felder-einer-pubsub-message)
+        * [`attributes`](#attributes)
+        * [Event Type](#event-type)
+        * [Event Source](#event-source)
+        * [Message Konstruktor](#message-konstruktor)
+        
 
 ## Spielregeln
 
@@ -10,27 +20,26 @@
 * Entwickelt wird eine Event Driven Architecture. Die Kommunikation findet über Messages statt.
 * Diese Events werden mittels [Google PubSub](https://cloud.google.com/pubsub/docs/overview) übermittelt.
 
-### Google PubSub
+## Google PubSub
 
 * Zugriff auf die Funktionen Senden & Empfangen kann über folgenden [GitHub Issue](https://github.com/Purii/hdm-wim-devlab/issues/4) beantragt werden (Google Account benötigt).
 * Topics können nicht selbst angelegt werden, sondern müssen ebenfalls über einen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden.
 * Für PubSub wird eine [ausführliche Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) bereitgestellt. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html) (Package: com.google.cloud.pubsub.spi.v1)
 
-Der Ablauf sieht wie folgt aus:
+### Grundlegende Kommunikation
+![PubSub Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/26975555-9a009aa6-4d20-11e7-98c3-f6268862762d.jpg)
 
-![PubSub Workflow](https://user-images.githubusercontent.com/24392118/26975555-9a009aa6-4d20-11e7-98c3-f6268862762d.jpg)
+* **Gruppe:** jeweiliges Team
+* **Message:** von allen zu verwenden aus der SharedLib, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
+* **AppEngine:** erzeugt Publisher und Subscriber automatisch (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic (Achtung: Topics sind Konstanten, einzusehen in dieser [Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java))
+* **PubSub:** verteilt PubSubMessages durch die Topics
+* **Publish:** Eine Message wird in das eingetragene Topic veröffentlicht, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
+* **Subscribe:** Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
 
-* Gruppe- jeweiliges Team
-* Message- von allen zu verwenden aus der SharedLib, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
-* AppEngine- erzeugt Publisher und Subscriber automatisch (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic (Achtung: Topics sind Konstanten, einzusehen in dieser [Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java))
-* PubSub- verteilt PubSubMessages durch die Topics
-* Publish- Eine Message wird in das eingetragene Topic veröffentlicht, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
-* Subscribe- Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
+***Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!***
+***Topics können in den Issues beantragt werden!***
 
-#### Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!
-#### Topics können in den Issues beantragt werden!
-
-#### Topics
+### Aktuell existierende Topics
 
 [Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java), die genutzt werden:
 
@@ -42,7 +51,7 @@ Der Ablauf sieht wie folgt aus:
 * Tokens (ST > SR)
 * Training (CEP > ML) ?
 
-#### Felder einer PubSub Message
+### Felder einer PubSub Message
 
 Über PubSub werden Messages versendet. Folgende Felder dienen dabei als [Grundlage](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):
 
@@ -53,13 +62,13 @@ Der Ablauf sieht wie folgt aus:
 | `messageId` | `string` | Wird durch PubSub Server hinzugefügt |
 | `publishTime` | `string (Timestamp format)` | Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
-##### `attributes`
+#### `attributes`
 Relevant ist für uns neben dem Feld `data` das Feld `attributes`.
 Die einzelnen Attribute werden anhand von Keys identifiziert.
 Dazu sind die vordefinierten Konstanten der Datei [`sharedLib/Constants.java`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L14) zu verwenden.
 Diese können nach Bedarf erweitert werden.
 
-##### Event Type
+#### Event Type
 
 Event Type spezifiziert die grundlegenden Eigenschaften einer Message. 
 
@@ -74,7 +83,7 @@ Event Type spezifiziert die grundlegenden Eigenschaften einer Message.
 | RichToken | Angereicherte Tokens | RichTokens |
 | Feedback | Feedback des Users | FeedbackGui |
 
-##### Event Source
+#### Event Source
 
 Event Source beschreibt die Herkunft der Message.
 
@@ -88,7 +97,7 @@ Event Source beschreibt die Herkunft der Message.
 
 Causality?
 
-#### Message Konstruktor
+### Message Konstruktor
 
 [`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
 
