@@ -86,10 +86,7 @@ Event Source beschreibt die Herkunft der Message.
 | USER_INTERFACE | User Interface |
 | SEMANTIC_REPRESENTATION | Semantic Representation |
 
-
 Causality?
-
-`EventID`= `String`? (MessageID)
 
 #### Message Konstruktor
 
