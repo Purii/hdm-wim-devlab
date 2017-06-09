@@ -79,13 +79,19 @@ Causality?
 
 #### Message Konstruktor
 
-[`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/7e7c56a6427e63351ecb546ac9f7b633f5b84371/EventServices/eventProcessing/src/main/java/de/hdm/wim/eventServices/eventProcessing/classes/Message.java)
+[`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
 
 ```java
-    public Message(String data, HashMap<String, String> attributes, LocalDateTime timestamp, int messageId) {
-        this._data = data;
-        this._attributes = attributes;
-        this._timestamp = timestamp;
-        this._messageId = messageId;
-    }
+    	/**
+	 * Instantiates a new Message.
+	 *
+	 * @param data the data
+	 * @param topic the topic
+	 * @param attributes the attributes
+	 */
+	public Message( String data, String topic, Hashtable attributes ){
+		this.data 		= data;
+		this.topic 		= topic;
+		this.attributes = attributes;
+	}
 ```
