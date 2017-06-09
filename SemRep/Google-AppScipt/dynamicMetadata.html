@@ -1,0 +1,54 @@
+ 
+   function addKeyToSelectedList() {
+                   document.getElementById("save-btn").disabled = true;
+  document.getElementById("delete-btn").disabled = true;
+    document.getElementById("add-btn").disabled = true;
+
+  
+  
+  
+    var x = document.getElementById("keywordElement").value;
+    if(x.length == 0) {
+   
+           alert("Text ist leer");  
+           return;
+    }else {
+    
+    //for loop - gibt es den wert schon? - hier
+    
+    var para = document.createElement("OPTION");
+    var t = document.createTextNode(x);
+    para.appendChild(t);
+    document.getElementById("selectDD").appendChild(para);
+    document.getElementById("keywordElement").value = "";
+    //var val = document.getElementById("selectDD").lastChild.innerHTML;
+    document.getElementById("selectDD").lastChild.selected=true
+ 
+  
+       alert("Werte wurden gespeichert" +   $('#selectDD option:last').text());  
+
+    }
+      }
+
+
+
+<form style="padding:31px;">
+      
+
+     <input onkeydown="onkeydown()" style="height: 25px;width: 234px; margin-left: 2px; margin-bottom: 3px;"  name="keywordfield" size="10" type="text" id="keywordElement"/><br/>
+     <button style="" type="submit" id="add-btn" onclick="addKeyToSelectedList()" form="form1" value="Submit">Speichern</button>
+      <button id="save-btn" disabled  style="" type="submit" onclick="loadKeyFromSelectedList('selectDD')" form="form1" value="Submit">Bearbeiten</button>
+     <button id="delete-btn"  disabled style="" type="submit" onclick="deleteKeyToSelectedList('selectDD')" form="form1" value="Submit">Löschen</button>
+
+      <!--    <input style="height:20px;" width="300px"type="text" id="addkeyword"/>-->
+  </form>
+  
+  
+   <h5> hinzugefügte Keywords </h5>
+  <div class="block form-group">
+   <select id="selectDD" size="10"   onclick="selectDDonClick()">
+   <option>nix drin</option>
+  </select>
+</div>
+<br />
+<br /><br />
