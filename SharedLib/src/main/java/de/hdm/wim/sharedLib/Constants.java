@@ -84,7 +84,6 @@ public class Constants {
 		public static final String ACTION 	= "action";
 		public static final String REQUEST 	= "request";
 		public static final String USER 	= "user";
-		public static final String FEEDBACK	= "feedback";
 		public static final String TIME		= "time";
 		public static final String DATE		= "date";
 		public static final String STAYALIVE 	= "stayalive";
