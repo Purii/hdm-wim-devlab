@@ -16,9 +16,23 @@
 * Topics können nicht selbst angelegt werden, sondern müssen ebenfalls über einen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden.
 * Für PubSub wird eine [ausführliche Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) bereitgestellt. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html) (Package: com.google.cloud.pubsub.spi.v1)
 
+Der Ablauf sieht wie folgt aus:
+
+![PubSub Workflow](https://user-images.githubusercontent.com/24392118/26975555-9a009aa6-4d20-11e7-98c3-f6268862762d.jpg)
+
+* Gruppe- jeweiliges Team
+* Message- von allen zu verwenden aus der SharedLib, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
+* AppEngine- erzeugt Publisher und Subscriber automatisch (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic (Achtung: Topics sind Konstanten, einzusehen in dieser [Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java))
+* PubSub- verteilt PubSubMessages durch die Topics
+* Publish- Eine Message wird in das eingetragene Topic veröffentlicht, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
+* Subscribe- Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
+
+#### Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!
+#### Topics können in den Issues beantragt werden!
+
 #### Topics
 
-Topics, die genutzt werden sollten:
+[Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java), die genutzt werden:
 
 * FeedbackGui
 * Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Favoriten des Users)
