@@ -69,9 +69,9 @@ public class TopicHelper {
 	}
 
 	/**
-	 * Get list of topics.
+	 * Get all topics.
 	 *
-	 * @return the list of topics
+	 * @return List of topics
 	 * @throws Exception the exception
 	 */
 	public Iterable<Topic> getTopics() throws Exception{
