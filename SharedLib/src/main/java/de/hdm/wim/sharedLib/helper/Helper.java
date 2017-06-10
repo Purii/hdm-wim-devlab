@@ -18,7 +18,7 @@ public class Helper {
 	/**
 	 * Get random string from list of String.
 	 *
-	 * @param list the list
+	 * @param list
 	 * @return the string
 	 */
 	public String getRandomStringFromList(List<String> list){
