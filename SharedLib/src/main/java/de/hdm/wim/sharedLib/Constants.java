@@ -123,10 +123,12 @@ public class Constants {
 	}
 
 	public class RequestParameters {
-		public static final String TOPIC 		= "topic";
-		public static final String ATTRIBUTES 	= "attributes";
-		public static final String PAYLOAD 		= "payload";
-		public static final String TOKEN 		= "token";
+		public static final String TOPIC 			= "topic";
+		public static final String ATTRIBUTES 		= "attributes";
+		public static final String ATTRIBUTE_KEY 	= "key";
+		public static final String ATTRIBUTE_VALUE 	= "value";
+		public static final String PAYLOAD 			= "payload";
+		public static final String TOKEN 			= "token";
 	}
 
 	/**
