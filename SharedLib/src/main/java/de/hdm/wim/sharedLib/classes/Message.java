@@ -34,6 +34,11 @@ public class Message {
 		this.attributes = attributes;
 	}
 
+	public Message( String data, String topic ){
+		this.data 		= data;
+		this.topic 		= topic;
+	}
+
 	/**
 	 * Instantiates a new Message.
 	 */
