@@ -1,4 +1,4 @@
-package de.hdm.wim;
+package de.hdm.wim.pubSubTesting;
 
 import de.hdm.wim.sharedLib.classes.Message;
 import java.util.List;
@@ -14,7 +14,7 @@ public interface MessageRepository {
 	/**
 	 * Retrieve most recent stored messages.
 	 * @param limit number of messages
-	 * @return list of messages
+	 * @return ALL_TOPICS of messages
 	 */
 	List<Message> retrieve(int limit);
 }

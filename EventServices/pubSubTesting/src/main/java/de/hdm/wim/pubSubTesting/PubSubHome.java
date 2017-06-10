@@ -1,5 +1,6 @@
-package de.hdm.wim;
+package de.hdm.wim.pubSubTesting;
 
+import de.hdm.wim.sharedLib.Constants.Topic;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.util.List;
 
@@ -19,6 +20,16 @@ public class PubSubHome {
 	public static String getReceivedMessages() {
 		List<Message> messageList = messageRepository.retrieve(MAX_MESSAGES);
 		return convertToHtmlTable(messageList);
+	}
+
+	public static String getListOfTopics(){
+		List<String> topics = Topic.list;
+
+		StringBuilder sb = new StringBuilder();
+		for (String topic : topics) {
+			sb.append("<option value=\"" + topic + "\">" + topic + "</option>");
+		}
+		return sb.toString();
 	}
 
 	private static String convertToHtmlTable(List<Message> messages) {

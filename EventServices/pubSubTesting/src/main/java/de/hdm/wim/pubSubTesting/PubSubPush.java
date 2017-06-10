@@ -1,13 +1,13 @@
-package de.hdm.wim;
+package de.hdm.wim.pubSubTesting;
 
+import com.google.common.io.BaseEncoding;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by ben on 4/06/2017.
  */
-@WebServlet(name = "Push with PubSub" ,value = "/pubsub/push")
+@WebServlet(
+	name = "Push with PubSub",
+	value = "/pubsub/push"
+)
 public class PubSubPush extends HttpServlet {
 
 	private final Gson gson 			= new Gson();
@@ -38,7 +41,7 @@ public class PubSubPush extends HttpServlet {
 		String pubsubVerificationToken = Constants.Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
-		if (req.getParameter("token").compareTo(pubsubVerificationToken) != 0) {
+		if (req.getParameter(RequestParameters.TOKEN).compareTo(pubsubVerificationToken) != 0) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
@@ -55,7 +58,12 @@ public class PubSubPush extends HttpServlet {
 	}
 
 	private Message getMessage(HttpServletRequest request) throws IOException {
-		String requestBody 		= request.getReader().lines().collect(Collectors.joining("\n"));
+
+
+/*		request.getReader().lines().collect(() -> {
+			"\n";
+		});*/
+		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
 		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
 		String messageStr 		= jsonRoot.getAsJsonObject().get("message").toString();
 		Message message 		= gson.fromJson(messageStr, Message.class);
@@ -67,6 +75,6 @@ public class PubSubPush extends HttpServlet {
 	}
 
 	private String decode(String data) {
-		return new String(Base64.getDecoder().decode(data));
+		return new String(BaseEncoding.base64().decode(data));
 	}
 }

@@ -1,4 +1,4 @@
-package de.hdm.wim.Helper;
+package de.hdm.wim.pubSubTesting.Helper;
 
 import com.google.api.gax.grpc.ExecutorProvider;
 import com.google.api.gax.grpc.InstantiatingExecutorProvider;

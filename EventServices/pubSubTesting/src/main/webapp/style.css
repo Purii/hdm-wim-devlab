@@ -1,0 +1,20 @@
+.my-input-field,
+.my-input-field:hover,
+.my-input-field:active,
+.my-input-field:focus{
+    padding:2px;
+    width:100%;
+}
+
+.my-textfield-wrapper{
+    padding:0;
+}
+
+.btn_add_kv
+{
+    width: 100%;
+}
+input:focus::-webkit-input-placeholder
+{
+    color: transparent;
+}

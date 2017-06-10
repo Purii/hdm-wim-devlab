@@ -1,4 +1,4 @@
-package de.hdm.wim;
+package de.hdm.wim.pubSubTesting;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
