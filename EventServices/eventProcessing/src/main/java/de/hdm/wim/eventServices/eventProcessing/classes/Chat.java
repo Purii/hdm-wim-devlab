@@ -9,7 +9,6 @@ import java.util.List;
  * Created by Ben on 16.01.2017.
  */
 public class Chat {
-
     private LocalDateTime chatStart;
     private LocalDateTime chatEnd;
 
