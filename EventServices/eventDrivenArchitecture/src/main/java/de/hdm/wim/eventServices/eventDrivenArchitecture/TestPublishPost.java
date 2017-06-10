@@ -27,5 +27,14 @@ public class TestPublishPost {
 
 			i++;
 		}
+		Message message1   	= new Message("blubb_", Topic.PUSH_TEST);
+		Message message2  	= new Message("blubb_", Topic.PUSH_TEST);
+		Message message3	= new Message("blubb_", Topic.PUSH_TEST);
+
+		ph.Publish(message1);
+		ph.Publish(message2);
+		ph.Publish(message3);
+
+
 	}
 }
