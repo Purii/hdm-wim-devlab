@@ -46,6 +46,14 @@ public class Constants {
 		public static final String TOPIC_3 = "topic-3";
 		public static final String TOPIC_4 = "topic-4";
 		public static final String TOPIC_5 = "topic-5";
+		
+		public static final String FEEDBACK_GUI = "feedback-gui";
+		public static final String INSIGHTS = "INSIGHTS";
+		public static final String OFFERS = "offers";
+		public static final String SESSIONINSIGHTS = "sessioninsights";
+		public static final String RICHTOKEN = "richtoken";
+	    public static final String TOKEN = "token";
+
 
 		public static final String TOPIC_EVENT 		= "topic-event";
 		public static final String TOPIC_SEM_REP 	= "topic-semRep";
@@ -60,7 +68,12 @@ public class Constants {
 			TOPIC_2,
 			TOPIC_3,
 			TOPIC_4,
-			TOPIC_5
+			TOPIC_5,
+			FEEDBACK_GUI,
+			INSIGHTS,
+			TOKEN,
+			RICHTOKEN,
+			SESSIONINSIGHTS
 		);
     }
 
@@ -71,9 +84,15 @@ public class Constants {
 		public static final String ACTION 	= "action";
 		public static final String REQUEST 	= "request";
 		public static final String USER 	= "user";
-		public static final String FEEDBACK	= "feedback";
 		public static final String TIME		= "time";
 		public static final String DATE		= "date";
+		public static final String STAYALIVE 	= "stayalive";
+		public static final String INSIGHT  	= "insight";
+		public static final String GOOGLEOFFER 	= "googleoffer";
+		public static final String OFFER	    = "offer";
+		public static final String TOKEN		= "token";
+		public static final String RICHTOKEN	= "richtoken";
+		public static final String FEEDBACK		= "feedback";
 
 		// for message generator only
 		public static final List<String> list = Arrays.asList(
@@ -82,7 +101,14 @@ public class Constants {
 			USER,
 			FEEDBACK,
 			TIME,
-			DATE
+			DATE,
+			STAYALIVE,
+			INSIGHT,
+			GOOGLEOFFER,
+			OFFER,
+			TOKEN,
+			RICHTOKEN,
+			FEEDBACK
 		);
 	}
 

@@ -24,7 +24,6 @@ public class Dokumentvorschlag {
 	}
 
 	public void flushDokumentvorschlag() {
-		setTimeStamp("");
 		setDok_IDStr("");
 		setDok_NameStr("");
 		setPrio("");
