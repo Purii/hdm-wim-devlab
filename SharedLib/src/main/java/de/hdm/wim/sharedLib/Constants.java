@@ -8,108 +8,128 @@ import java.util.List;
  */
 public class Constants {
 
-	/**
-	 * Keys for the message attributes
-	 */
-	public static class AttributeKey{
-		public static final String EVENT_SOURCE	= "EventSource";
-		public static final String EVENT_TYPE	= "EventType";
-	}
+	public static class PubSub{
 
-	/**
-	 * Source of event
-	 */
-	public static class EventSource{
-		public static final String SPEECH_TOKENIZATION 		= "speech-tokenization";
-		public static final String EVENT 					= "event";
-		public static final String MACHINE_LEARNING 		= "machine-learning";
-		public static final String USER_INTERFACE 			= "user-interface";
-		public static final String SEMANTIC_REPRESENTATION 	= "semantic-representation";
+		/**
+		 * Keys for the message attributes
+		 */
+		public static class AttributeKey{
+			public static final String EVENT_SOURCE	= "EventSource";
+			public static final String EVENT_TYPE	= "EventType";
+		}
 
-		// for message generator only
-		public static final List<String> list = Arrays.asList(
-			SPEECH_TOKENIZATION,
-			EVENT,
-			MACHINE_LEARNING,
-			USER_INTERFACE,
-			SEMANTIC_REPRESENTATION
-		);
-	}
+		/**
+		 * Source of event
+		 */
+		public static class EventSource{
+			public static final String SPEECH_TOKENIZATION 		= "speech-tokenization";
+			public static final String EVENT 					= "event";
+			public static final String MACHINE_LEARNING 		= "machine-learning";
+			public static final String USER_INTERFACE 			= "user-interface";
+			public static final String SEMANTIC_REPRESENTATION 	= "semantic-representation";
 
-    /**
-     * Topic
-	 * Format: "my-test-topic-x"
-     */
-    public static class Topic {
-		public static final String TOPIC_1 = "topic-1";
-		public static final String TOPIC_2 = "topic-2";
-		public static final String TOPIC_3 = "topic-3";
-		public static final String TOPIC_4 = "topic-4";
-		public static final String TOPIC_5 = "topic-5";
-		
-		public static final String FEEDBACK_GUI = "feedback-gui";
-		public static final String INSIGHTS = "INSIGHTS";
-		public static final String OFFERS = "offers";
-		public static final String SESSIONINSIGHTS = "sessioninsights";
-		public static final String RICHTOKEN = "richtoken";
-	    public static final String TOKEN = "token";
+			// for message generator only
+			public static final List<String> list = Arrays.asList(
+				SPEECH_TOKENIZATION,
+				EVENT,
+				MACHINE_LEARNING,
+				USER_INTERFACE,
+				SEMANTIC_REPRESENTATION
+			);
+		}
+
+		/**
+		 * Topic
+		 * Format: "my-test-topic-x"
+		 */
+		public static class Topic {
+			public static final String TOPIC_1 = "topic-1";
+			public static final String TOPIC_2 = "topic-2";
+			public static final String TOPIC_3 = "topic-3";
+			public static final String TOPIC_4 = "topic-4";
+			public static final String TOPIC_5 = "topic-5";
+
+			public static final String FEEDBACK_GUI = "feedback-gui";
+			public static final String INSIGHTS = "INSIGHTS";
+			public static final String OFFERS = "offers";
+			public static final String SESSIONINSIGHTS = "sessioninsights";
+			public static final String RICHTOKEN = "richtoken";
+			public static final String TOKEN = "token";
 
 
-		public static final String TOPIC_EVENT 		= "topic-event";
-		public static final String TOPIC_SEM_REP 	= "topic-semRep";
-		public static final String TOPIC_ML 		= "topic-ml";
-		public static final String TOPIC_GUI 		= "topic-gui";
+			public static final String TOPIC_EVENT 		= "topic-event";
+			public static final String TOPIC_SEM_REP 	= "topic-semRep";
+			public static final String TOPIC_ML 		= "topic-ml";
+			public static final String TOPIC_GUI 		= "topic-gui";
 
-		public static final String PUSH_TEST 		= "topic-push-test-123";
+			public static final String PUSH_TEST 		= "topic-push-test-123";
 
-		// for message generator only
-		public static final List<String> list = Arrays.asList(
-			TOPIC_1,
-			TOPIC_2,
-			TOPIC_3,
-			TOPIC_4,
-			TOPIC_5,
-			FEEDBACK_GUI,
-			INSIGHTS,
-			TOKEN,
-			RICHTOKEN,
-			SESSIONINSIGHTS
-		);
-    }
+			// for message generator only
+			public static final List<String> list = Arrays.asList(
+				TOPIC_1,
+				TOPIC_2,
+				TOPIC_3,
+				TOPIC_4,
+				TOPIC_5,
+				FEEDBACK_GUI,
+				INSIGHTS,
+				TOKEN,
+				RICHTOKEN,
+				SESSIONINSIGHTS
+			);
+		}
 
-	/**
-	 * Event types. -> einheitliche Attribute (siehe READEME)
-	 */
-	public static class EventType {
-		public static final String ACTION 	= "action";
-		public static final String REQUEST 	= "request";
-		public static final String USER 	= "user";
-		public static final String TIME		= "time";
-		public static final String DATE		= "date";
-		public static final String STAYALIVE 	= "stayalive";
-		public static final String INSIGHT  	= "insight";
-		public static final String GOOGLEOFFER 	= "googleoffer";
-		public static final String OFFER	    = "offer";
-		public static final String TOKEN		= "token";
-		public static final String RICHTOKEN	= "richtoken";
-		public static final String FEEDBACK		= "feedback";
+		/**
+		 * Type of events.
+		 */
+		public static class EventType {
+			public static final String ACTION 		= "action";
+			public static final String REQUEST 		= "request";
+			public static final String USER 		= "user";
+			public static final String TIME			= "time";
+			public static final String DATE			= "date";
+			public static final String STAYALIVE 	= "stayalive";
+			public static final String INSIGHT  	= "insight";
+			public static final String GOOGLEOFFER 	= "googleoffer";
+			public static final String OFFER	    = "offer";
+			public static final String TOKEN		= "token";
+			public static final String RICHTOKEN	= "richtoken";
+			public static final String FEEDBACK		= "feedback";
 
-		// for message generator only
-		public static final List<String> list = Arrays.asList(
-			ACTION,
-			REQUEST,
-			USER,
-			FEEDBACK,
-			TIME,
-			DATE,
-			STAYALIVE,
-			INSIGHT,
-			GOOGLEOFFER,
-			OFFER,
-			TOKEN,
-			RICHTOKEN,
-			FEEDBACK
-		);
+			// for message generator only
+			public static final List<String> list = Arrays.asList(
+				ACTION,
+				REQUEST,
+				USER,
+				FEEDBACK,
+				TIME,
+				DATE,
+				STAYALIVE,
+				INSIGHT,
+				GOOGLEOFFER,
+				OFFER,
+				TOKEN,
+				RICHTOKEN,
+				FEEDBACK
+			);
+		}
+
+		// NEVER CHANGE ANY OF THIS!
+		public class Config {
+			public static final String SECRET_TOKEN 			= "secretToken123";
+			public static final String APP_ID					= "hdm-wim-devlab";
+			public static final String APPSPOT_URL				= APP_ID + ".appspot.com/";
+			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
+			public static final String PUBLISH_ENDPOINT 		= "/pubsub/publish";
+			public static final String PUSH_ENDPOINT			= "/pubsub/push";
+
+			public static final String LOCAL_PUBLISH_ENDPOINT 	= LOCAL_ADDRESS + PUBLISH_ENDPOINT;
+			public static final String LOCAL_PUSH_ENDPOINT 		= LOCAL_ADDRESS + PUSH_ENDPOINT;
+			public static final String PROD_PUBLISH_ENDPOINT 	= APPSPOT_URL + PUBLISH_ENDPOINT;
+			public static final String PROD_PUSH_ENDPOINT 		= APPSPOT_URL + PUSH_ENDPOINT;
+
+		}
+
 	}
 
 	public class WeekDays {
@@ -129,18 +149,5 @@ public class Constants {
 		public static final String ATTRIBUTE_VALUE 	= "value";
 		public static final String PAYLOAD 			= "payload";
 		public static final String TOKEN 			= "token";
-	}
-
-	/**
-	 * Event types.
-	 * Format: "my-test-subscription-topic-x"
-	 */
-	public class Subscription {
-		public static final String subscriptionTopic1 = "subscription-topic-1";
-	}
-
-	public class Config {
-		public static final String SECRET_TOKEN 			= "secretToken123";
-		public static final String LOCAL_PUBLISH_ENDPOINT 	= "http://localhost:8080/pubsub/publish";
 	}
 }

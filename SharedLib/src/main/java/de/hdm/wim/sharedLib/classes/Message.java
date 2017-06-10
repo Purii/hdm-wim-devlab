@@ -1,9 +1,9 @@
 package de.hdm.wim.sharedLib.classes;
 
-import de.hdm.wim.sharedLib.Constants.AttributeKey;
-import de.hdm.wim.sharedLib.Constants.EventSource;
-import de.hdm.wim.sharedLib.Constants.EventType;
-import de.hdm.wim.sharedLib.Constants.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.util.Hashtable;
 

@@ -38,7 +38,7 @@ public class PubSubPush extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
-		String pubsubVerificationToken = Constants.Config.SECRET_TOKEN;
+		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.TOKEN).compareTo(pubsubVerificationToken) != 0) {
