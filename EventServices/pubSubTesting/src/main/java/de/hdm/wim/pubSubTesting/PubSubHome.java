@@ -1,6 +1,6 @@
 package de.hdm.wim.pubSubTesting;
 
-import de.hdm.wim.sharedLib.Constants.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.util.List;
 

@@ -114,7 +114,7 @@ public class Constants {
 			);
 		}
 
-		// NEVER CHANGE ANY OF THIS!
+		// NEVER CHANGE ANY OF THIS! except you know what you are doing..
 		public class Config {
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";

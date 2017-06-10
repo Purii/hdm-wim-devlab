@@ -14,7 +14,7 @@ import com.google.pubsub.v1.PushConfig;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.SubscriptionName;
 import com.google.pubsub.v1.TopicName;
-import de.hdm.wim.sharedLib.Constants.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import org.apache.log4j.Logger;
 
 /**

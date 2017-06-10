@@ -1,6 +1,6 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
-import static de.hdm.wim.sharedLib.Constants.Config.LOCAL_PUBLISH_ENDPOINT;
+import static de.hdm.wim.sharedLib.Constants.PubSub.Config.LOCAL_PUBLISH_ENDPOINT;
 
 import com.google.gson.GsonBuilder;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;

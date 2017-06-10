@@ -1,7 +1,7 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture;
 
 import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.PublishHelper;
-import de.hdm.wim.sharedLib.Constants.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.util.concurrent.TimeUnit;
 

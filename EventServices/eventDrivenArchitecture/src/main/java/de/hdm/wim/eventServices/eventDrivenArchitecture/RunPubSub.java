@@ -18,7 +18,7 @@ public class RunPubSub {
 
 	private static final Logger LOGGER 		= Logger.getLogger(RunPubSub.class);
 	private static final String PROJECT_ID	= ServiceOptions.getDefaultProjectId();
-	private static String TEST_TOPIC 		= Constants.Topic.PUSH_TEST;
+	private static String TEST_TOPIC 		= Constants.PubSub.Topic.PUSH_TEST;
 	private static String SUBSCRIPTION_ID 	= "test-subscription";
 
 

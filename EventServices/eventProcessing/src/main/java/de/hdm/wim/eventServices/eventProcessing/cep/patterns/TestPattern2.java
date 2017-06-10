@@ -1,8 +1,7 @@
 package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
-import de.hdm.wim.eventServices.eventProcessing.cep.events.MessageEvent;
-import de.hdm.wim.eventServices.eventProcessing.cep.events.TokenEvent;
-import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.classes.PubSubMessage;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternStream;
@@ -29,17 +28,17 @@ public class TestPattern2 {
 		//Successful means Offer Event follows Request Event and Feedback Event follows Offer Event within 2 minutes
 		Pattern<PubSubMessage, ?> successfulRequest = Pattern
 			.<PubSubMessage>begin("User Request")
-			.where(evt -> evt.getAttributes().containsValue(Constants.EventSource.SPEECH_TOKENIZATION)
-					&& evt.getAttributes().containsValue(Constants.EventType.REQUEST)
+			.where(evt -> evt.getAttributes().containsValue(EventSource.SPEECH_TOKENIZATION)
+					&& evt.getAttributes().containsValue(EventType.REQUEST)
 			)
 			.followedBy("Offer Event")
-			.where(evt -> evt.getAttributes().containsValue(Constants.EventSource.SEMANTIC_REPRESENTATION)
-					&& evt.getAttributes().containsValue(Constants.EventType.OFFER)
+			.where(evt -> evt.getAttributes().containsValue(EventSource.SEMANTIC_REPRESENTATION)
+					&& evt.getAttributes().containsValue(EventType.OFFER)
 			)
 			.followedBy("Feedback Event")
 			.within(Time.minutes(10))
-			.where(evt -> evt.getAttributes().containsValue(Constants.EventSource.USER_INTERFACE)
-					&& evt.getAttributes().containsValue(Constants.EventType.FEEDBACK)
+			.where(evt -> evt.getAttributes().containsValue(EventSource.USER_INTERFACE)
+					&& evt.getAttributes().containsValue(EventType.FEEDBACK)
 			);
 
 
