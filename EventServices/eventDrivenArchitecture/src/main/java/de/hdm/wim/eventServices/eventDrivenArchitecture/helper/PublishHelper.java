@@ -1,45 +1,33 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
-import static de.hdm.wim.sharedLib.Constants.PubSub.Config.LOCAL_PUBLISH_ENDPOINT;
-
-import com.google.gson.GsonBuilder;
-import de.hdm.wim.sharedLib.Constants.RequestParameters;
-import de.hdm.wim.sharedLib.classes.Message;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import org.apache.log4j.Logger;
-
 /**
  * Created by ben on 5/06/2017.
  */
 public class PublishHelper {
 
-	private static String ENDPOINT		= LOCAL_PUBLISH_ENDPOINT;
+/*	private static String ENDPOINT		= LOCAL_PUBLISH_ENDPOINT;
 	private static final Logger LOGGER 	= Logger.getLogger(PublishHelper.class);
 
-	/**
+	*//**
 	 * Instantiates a new Publish helper.
-	 */
+	 *//*
 	public PublishHelper(){	}
 
-	/**
+	*//**
 	 * Instantiates a new PublishHelper.
 	 *
 	 * @param request the request
-	 */
+	 *//*
 	public PublishHelper(String request){
 		this.ENDPOINT = request;
 	}
 
-	/**
+	*//**
 	 * Publish a message
 	 *
 	 * @param message the message
 	 * @throws Exception the exception
-	 */
+	 *//*
 	public void Publish(Message message) throws Exception{
 
 		Map<String,Object> params = new LinkedHashMap<>();
@@ -87,5 +75,5 @@ public class PublishHelper {
 		// get response
 		LOGGER.info("ResponseCode: " 	+ conn.getResponseCode());
 		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
-	}
+	}*/
 }

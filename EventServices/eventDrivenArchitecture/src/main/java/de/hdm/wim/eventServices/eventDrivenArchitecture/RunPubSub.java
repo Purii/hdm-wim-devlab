@@ -39,7 +39,7 @@ public class RunPubSub {
 		// publish messages to a specific topic
 		PublishHelperOld phOLD	= new PublishHelperOld();
 		List<String> messages 	= Arrays.asList("first message", "second message");
-		phOLD.publishMessages(messages, topic.getNameAsTopicName());
+		//phOLD.publishMessages(messages, topic.getNameAsTopicName());
 
 		// create a subscriber which uses the subscription to listen to messages of the specified topic
 		sh.createSubscriber(subscription.getNameAsSubscriptionName());

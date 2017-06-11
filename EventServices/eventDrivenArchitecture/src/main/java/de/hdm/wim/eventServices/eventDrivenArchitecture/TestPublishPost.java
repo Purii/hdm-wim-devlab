@@ -1,10 +1,5 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture;
 
-import de.hdm.wim.eventServices.eventDrivenArchitecture.helper.PublishHelper;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
-import de.hdm.wim.sharedLib.classes.Message;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by ben on 5/06/2017.
  *
@@ -12,11 +7,11 @@ import java.util.concurrent.TimeUnit;
  * make sure the app in pubSubTesting is running.
  */
 public class TestPublishPost {
-	private static final long MESSAGE_PERIOD_SECONDS = 1;
+	/*private static final long MESSAGE_PERIOD_SECONDS = 1;
 
 	public static void main(String[] args) throws Exception {
 		int i 				= 1;
-		PublishHelper ph 	= new PublishHelper();
+		PublishHelper ph 	= new PublishHelper(true);
 
 		while (i <= 3) {
 			Message message   = Message.generate("blubb_" + i, Topic.PUSH_TEST);
@@ -36,5 +31,5 @@ public class TestPublishPost {
 		ph.Publish(message3);
 
 
-	}
+	}*/
 }
