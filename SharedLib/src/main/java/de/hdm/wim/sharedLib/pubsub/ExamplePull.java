@@ -14,10 +14,11 @@ public class ExamplePull {
 
 	public static void main(String[] args) throws Exception {
 
-		// create a new topic
+		// create the topic
 		TopicHelper th = new TopicHelper();
 		Topic topic    = th.createTopicIfNotExists(PubSub.Topic.TOPIC_1);
 
+		// create the subscription
 		SubscriptionHelper sh = new SubscriptionHelper(true);
 		sh.Subscribe(SubscriptionType.PULL, topic.getNameAsTopicName());
 	}

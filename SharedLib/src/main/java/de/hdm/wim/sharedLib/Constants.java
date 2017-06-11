@@ -49,12 +49,12 @@ public class Constants {
 			public static final String TOPIC_4 = "topic-4";
 			public static final String TOPIC_5 = "topic-5";
 
-			public static final String FEEDBACK_GUI = "feedback-gui";
-			public static final String INSIGHTS = "INSIGHTS";
-			public static final String OFFERS = "offers";
-			public static final String SESSIONINSIGHTS = "sessioninsights";
-			public static final String RICHTOKEN = "richtoken";
-			public static final String TOKEN = "token";
+			public static final String FEEDBACK_GUI 	= "feedback-gui";
+			public static final String INSIGHTS 		= "insights";
+			public static final String OFFERS 			= "offers";
+			public static final String SESSIONINSIGHTS 	= "sessioninsights";
+			public static final String RICHTOKEN 		= "richtoken";
+			public static final String TOKEN 			= "token";
 
 
 			public static final String TOPIC_EVENT 		= "topic-event";
@@ -116,11 +116,11 @@ public class Constants {
 
 		// NEVER CHANGE ANY OF THIS! except you know what you are doing..
 		public class Config {
-			private static final String PUSH_ENDPOINT_PREFIX	= "/_ah/push-handlers/";
+			private static final String PUSH_ENDPOINT_PREFIX	= "/_ah/push-handlers";
 
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";
-			public static final String APPSPOT_URL				= APP_ID + ".appspot.com";
+			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 			public static final String PUBLISH_ENDPOINT 		= "/pubsub/publish";
 			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + "/pubsub/push";

@@ -15,7 +15,7 @@ public class ExamplePublish {
 	public static void main(String[] args) throws Exception {
 		int i 				= 1;
 
-		PublishHelper ph 	= new PublishHelper(true);
+		PublishHelper ph 	= new PublishHelper(false);
 
 		while (i <= 3) {
 			Message message   = Message.generate("blubb_" + i, Topic.TOPIC_1);

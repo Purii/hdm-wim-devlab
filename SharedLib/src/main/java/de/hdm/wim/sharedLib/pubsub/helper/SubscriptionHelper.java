@@ -91,10 +91,6 @@ public class SubscriptionHelper {
 				10
 			);
 
-			/*PushConfig pushConfig = PushConfig.newBuilder().setPushEndpoint("").build();
-			pushConfig.*/
-
-
 			LOGGER.info("Successfully created pull subscription: " + subscriptionId);
 
 			return subscription;
@@ -123,14 +119,9 @@ public class SubscriptionHelper {
 				}
 			}
 
-/*			_pushEndpoint 						= String.format(
-													"https://%s.appspot.com/pubsub/push?token=%s&topic=%s",
-													_projectId,
-													Config.SECRET_TOKEN,
-													topicName.getTopic()
-			                                      );*/
 			SubscriptionName subscriptionName 	= SubscriptionName.create(PROJECT_ID, subscriptionId);
 
+			// set endpoint
 			PushConfig pushConfig 				= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
 
 			// create a push subscription with default acknowledgement deadline
@@ -180,7 +171,6 @@ public class SubscriptionHelper {
 	 */
 	private void createSubscriber(Subscription subscription) throws Exception{
 
-		//SubscriptionName subscriptionName = SubscriptionName.create(PROJECT_ID, subscriptionId);
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
 
@@ -188,11 +178,16 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
+		LOGGER.info("TEST1");
+
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
+
 			// handle incoming message, then ack/nack the received message
 			LOGGER.info("Id : " + message.getMessageId());
 			LOGGER.info("Data : " + message.getData().toStringUtf8());
+			LOGGER.info("Attributes: "  + message.getAttributesMap().toString());
+
 			consumer.ack();
 		};
 
