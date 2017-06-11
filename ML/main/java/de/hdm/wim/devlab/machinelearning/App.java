@@ -31,9 +31,9 @@ public class App {
 
                 try (PreparedStatement prep = connection.prepareStatement(insertSql)) {
                         prep.setInt(1, 1);
-                        prep.setString(2, "Daniel");
-                        prep.setString(3, "Lepiorz");
-                        prep.setString(4, "Daniel.Lepiorz@gmail.com");
+                        prep.setString(2, "");
+                        prep.setString(3, "");
+                        prep.setString(4, "");
                        //prep.setTimestamp(5, sqlTimeStamp);
 
                         int count = prep.executeUpdate();
