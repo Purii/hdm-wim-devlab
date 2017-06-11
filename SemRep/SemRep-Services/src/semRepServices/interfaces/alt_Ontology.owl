@@ -248,13 +248,6 @@
                                           rdfs:range :Unternehmen .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#hatKeyword
-:hatKeyword rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf :keyword ;
-            rdfs:domain owl:Thing ;
-            rdfs:range :Keyword .
-
-
 ###  http://www.semanticweb.org/sem-rep/ontology#hatPersonDokumentWahrscheinlichkeit
 :hatPersonDokumentWahrscheinlichkeit rdf:type owl:ObjectProperty .
 
@@ -272,13 +265,6 @@
               rdfs:subPropertyOf :dataProperty_Abteilung ;
               rdfs:domain :Abteilung ;
               rdfs:range xsd:integer .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#Abteilung_Kuerzel
-:Abteilung_Kuerzel rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf :dataProperty_Abteilung ;
-                   rdfs:domain :Abteilung ;
-                   rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Abteilung_Name
@@ -307,13 +293,6 @@
               rdfs:subPropertyOf :dataProperty_Dokument ;
               rdfs:domain :Dokument ;
               rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#Dok_Kontext
-:Dok_Kontext rdf:type owl:DatatypeProperty ;
-             rdfs:subPropertyOf :dataProperty_Dokument ;
-             rdfs:domain :Dokument ;
-             rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Dok_Name
@@ -358,13 +337,6 @@
              rdfs:range xsd:double .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Dokumentkategorie_Name
-:Dokumentkategorie_Name rdf:type owl:DatatypeProperty ;
-                        rdfs:subPropertyOf :dataProperty_Dokumentkategorie ;
-                        rdfs:domain :Dokumentenkategorie ;
-                        rdfs:range xsd:string .
-
-
 ###  http://www.semanticweb.org/sem-rep/ontology#Person_Email
 :Person_Email rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf :dataProperty_Person ;
@@ -398,13 +370,6 @@
                 rdfs:subPropertyOf :dataProperty_Person ;
                 rdfs:domain :Person ;
                 rdfs:range xsd:string .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#Phase_Name
-:Phase_Name rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf :dataProperty_Phase ;
-            rdfs:domain :Phase ;
-            rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Projekt_ID
@@ -471,16 +436,8 @@
 :dataProperty_Dokument rdf:type owl:DatatypeProperty .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokumentkategorie
-:dataProperty_Dokumentkategorie rdf:type owl:DatatypeProperty .
-
-
 ###  http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person
 :dataProperty_Person rdf:type owl:DatatypeProperty .
-
-
-###  http://www.semanticweb.org/sem-rep/ontology#dataProperty_Phase
-:dataProperty_Phase rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project
@@ -638,8 +595,7 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Abschluss
 :Abschluss rdf:type owl:NamedIndividual ,
-                    :Abschluss ;
-           :Phase_Name "Abschluss"^^xsd:string .
+                    :Abschluss .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis
@@ -654,13 +610,7 @@
                                   :Dokument_verfasst_von_Person :Mateos_Alliaj ;
                                   :Dok_Erstelldatum "2017-06-02T15:33:00"^^xsd:dateTime ;
                                   :Dok_ID "1Cl1k0OYjdubR0_BqiFp2xaRGeRpqqUz8pucX7iQwIQ8"^^xsd:string ;
-                                  :Dok_Keywords "Anforderungen"^^xsd:string ,
-                                                "Big Data"^^xsd:string ,
-                                                "Big Data Diagnosis"^^xsd:string ,
-                                                "big data"^^xsd:string ,
-                                                "big data diagnosis"^^xsd:string ;
-                                  :Dok_Kontext "Big_Data_Diagnosis_project"^^xsd:string ,
-                                               "Videokonferenz"^^xsd:string ;
+                                  :Dok_Keywords "Big Data, Anforderungen, Big Data Diagnosis"^^xsd:string ;
                                   :Dok_Name "Anforderungen"^^xsd:string ;
                                   :Dok_Ordner "Testdokumente-Big_Data_Diagnosis"^^xsd:string ;
                                   :Dok_Typ "Google Docs"^^xsd:string ;
@@ -682,23 +632,12 @@
                                              :to-do_list ;
                        :Dokument_hat_Kontext :HighNet_project ;
                        :Dokument_verfasst_von_Person :Kristjan_Alliaj ;
-                       :hatKeyword :milestone ;
                        :Dok_Erstelldatum "2017-04-22T11:33:00"^^xsd:dateTime ;
                        :Dok_ID "1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY"^^xsd:string ;
                        :Dok_Keywords "Aufgaben"^^xsd:string ,
                                      "Aufgabenliste"^^xsd:string ,
                                      "Liste"^^xsd:string ,
-                                     "list"^^xsd:string ,
-                                     "milestone"^^xsd:string ,
-                                     "milestones"^^xsd:string ,
-                                     "task list"^^xsd:string ,
-                                     "tasks"^^xsd:string ,
-                                     "to do"^^xsd:string ,
-                                     "to do list"^^xsd:string ,
-                                     "to-do"^^xsd:string ,
-                                     "to-do list"^^xsd:string ;
-                       :Dok_Kontext "HighNet_project"^^xsd:string ,
-                                    "Videokonferenz"^^xsd:string ;
+                                     "milestone"^^xsd:string ;
                        :Dok_Name "Aufgabenliste"^^xsd:string ;
                        :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                        :Dok_Typ "Google Docs"^^xsd:string ;
@@ -721,7 +660,7 @@
                     :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
                     :Projekt_hat_keyword :Big_Data ;
                     :Projekt_ID 3 ;
-                    :Projekt_Name "Big_Data_Diagnosis"^^xsd:string .
+                    :Projekt_Name "Big Data Diagnosis"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis_project
@@ -755,7 +694,7 @@
             :Projekt_hat_Dokument :Finanzreport-BlackWater ;
             :Projekt_hat_Projektmitglied :Donald_Trump ;
             :Projekt_ID 2 ;
-            :Projekt_Name "BlackWater"^^xsd:string .
+            :Projekt_Name "Black Water"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#BlackWater_project
@@ -766,7 +705,6 @@
 ###  http://www.semanticweb.org/sem-rep/ontology#Broken_Bits
 :Broken_Bits rdf:type owl:NamedIndividual ,
                       :Externes_Unternehmen ;
-             :Unternehmen_hat_Projekt :HighNet ;
              :Unternehmen_hat_Rolle :Chief_Financial_Officer ;
              :Unternehmen_Name "Broken Bits"^^xsd:string ;
              :Unternehmen_Sitz "Stuttgart"^^xsd:string .
@@ -783,8 +721,7 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Definition
 :Definition rdf:type owl:NamedIndividual ,
-                     :Definition ;
-            :Phase_Name "Definition"^^xsd:string .
+                     :Definition .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Donald_Trump
@@ -818,11 +755,9 @@
 :Finance rdf:type owl:NamedIndividual ,
                   :Interne_Abteilung ;
          :Abteilung_gehoert_zu_Unternehmen :Star_Cars ;
-         :Abteilung_hat_Mitarbeiter :Donald_Trump ;
          :Abteilung_hat_Projekt :BlackWater ;
          :Abteilung_ID 3 ;
-         :Abteilung_Kuerzel "Fi"^^xsd:string ;
-         :Abteilung_Name "Finance"^^xsd:string .
+         :Abteilung_Name "Finanzen"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater
@@ -839,15 +774,7 @@
                          :Dokument_verfasst_von_Person :Donald_Trump ;
                          :Dok_Erstelldatum "2017-05-22T08:33:00"^^xsd:dateTime ;
                          :Dok_ID "1Ktol-SWvAh8pnHG2O7HdPrfbEVZWX3Vf2YIPYXA_8gI"^^xsd:string ;
-                         :Dok_Keywords "Finanzen"^^xsd:string ,
-                                       "Finanzreport"^^xsd:string ,
-                                       "Report"^^xsd:string ,
-                                       "finances"^^xsd:string ,
-                                       "financial report"^^xsd:string ,
-                                       "financial_report"^^xsd:string ,
-                                       "report"^^xsd:string ;
-                         :Dok_Kontext "BlackWater_project"^^xsd:string ,
-                                      "Videokonferenz"^^xsd:string ;
+                         :Dok_Keywords "Finanzen, Report, Finanzreport"^^xsd:string ;
                          :Dok_Name "Finanzreport"^^xsd:string ;
                          :Dok_Ordner "Testdokumente-BlackWater"^^xsd:string ;
                          :Dok_Typ "Google Präsentationen"^^xsd:string ;
@@ -858,8 +785,7 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Grafiken
 :Grafiken rdf:type owl:NamedIndividual ,
-                   :Dokumentenkategorie ;
-          :Dokumentkategorie_Name "Grafiken"^^xsd:string .
+                   :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami
@@ -886,7 +812,6 @@
          :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
          :Projekt_hat_Dokument :Meilensteine-HighNet ;
          :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
-         :hatKeyword :milestone ;
          :Projekt_ID 1 ;
          :Projekt_Name "HighNet"^^xsd:string .
 
@@ -900,16 +825,9 @@
 :IT rdf:type owl:NamedIndividual ,
              :Externe_Abteilung ;
     :Abteilung_gehoert_zu_Unternehmen :Broken_Bits ;
-    :Abteilung_hat_Mitarbeiter :Björn_Zimmermann ,
-                               :Ivan_Kurtovic ,
-                               :Kristjan_Alliaj ,
-                               :Lisa_Meier ,
-                               :Mateos_Alliaj ;
-    :Abteilung_hat_Projekt :Big_Data_Diagnosis ,
-                           :HighNet ;
+    :Abteilung_hat_Projekt :HighNet ;
     :Abteilung_ID 2 ;
-    :Abteilung_Kuerzel "IT"^^xsd:string ;
-    :Abteilung_Name "IT"^^xsd:string .
+    :Abteilung_Name "IT-Abteilung"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic
@@ -946,15 +864,7 @@
                  :Dok_Erstelldatum "2017-04-22T15:33:00"^^xsd:dateTime ;
                  :Dok_ID "1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc"^^xsd:string ;
                  :Dok_Keywords "HighNet"^^xsd:string ,
-                               "KickOff"^^xsd:string ,
-                               "highnet"^^xsd:string ,
-                               "kick-off"^^xsd:string ,
-                               "kickoff"^^xsd:string ,
-                               "kickoff highnet"^^xsd:string ,
-                               "kickoff-HighNet"^^xsd:string ,
-                               "kickoff-highnet" ;
-                 :Dok_Kontext "HighNet_project"^^xsd:string ,
-                              "Videokonferenz"^^xsd:string ;
+                               "KickOff"^^xsd:string ;
                  :Dok_Name "KickOff"^^xsd:string ;
                  :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                  :Dok_Typ "Google Präsentationen"^^xsd:string ;
@@ -981,12 +891,7 @@
                            :Dok_ID "1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs"^^xsd:string ;
                            :Dok_Keywords "Aufstellung"^^xsd:string ,
                                          "Kosten"^^xsd:string ,
-                                         "Kostenaufstellung"^^xsd:string ,
-                                         "cost planning"^^xsd:string ,
-                                         "costs"^^xsd:string ,
-                                         "listing"^^xsd:string ;
-                           :Dok_Kontext "HighNet_project"^^xsd:string ,
-                                        "Videokonferenz"^^xsd:string ;
+                                         "Kostenaufstellung"^^xsd:string ;
                            :Dok_Name "Kostenaufstellung"^^xsd:string ;
                            :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                            :Dok_Typ "Google Tabellen"^^xsd:string ;
@@ -1012,12 +917,7 @@
                        :Dok_ID "1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM"^^xsd:string ;
                        :Dok_Keywords "Kosten"^^xsd:string ,
                                      "Kostenplanung"^^xsd:string ,
-                                     "Planung"^^xsd:string ,
-                                     "cost planning"^^xsd:string ,
-                                     "costs"^^xsd:string ,
-                                     "planning"^^xsd:string ;
-                       :Dok_Kontext "HighNet_project"^^xsd:string ,
-                                    "Videokonferenz"^^xsd:string ;
+                                     "Planung"^^xsd:string ;
                        :Dok_Name "Kostenplanung"^^xsd:string ;
                        :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                        :Dok_Typ "Google Tabellen"^^xsd:string ;
@@ -1047,11 +947,8 @@
 :Lisa_Meier rdf:type owl:NamedIndividual ,
                      :Externer_Mitarbeiter ;
             :Person_arbeitet_an_Projekt :HighNet ;
-            :Person_favorisiert_Dokument :KickOff-HighNet ;
             :Person_gehoert_zu_Abteilung :IT ;
-            :Person_hat_Dokument_verfasst :KickOff-HighNet ;
             :Person_hat_Projektrolle :Projektmitarbeiter ;
-            :Person_ruft_Dokument_auf :KickOff-HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
             :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -1095,10 +992,7 @@
                       :Dok_ID "1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc"^^xsd:string ;
                       :Dok_Keywords "Meilenstein"^^xsd:string ,
                                     "Meilensteine"^^xsd:string ,
-                                    "milestone"^^xsd:string ,
-                                    "milestones"^^xsd:string ;
-                      :Dok_Kontext "HighNet_project"^^xsd:string ,
-                                   "Videokonferenz"^^xsd:string ;
+                                    "milestone"^^xsd:string ;
                       :Dok_Name "Meilensteine"^^xsd:string ;
                       :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                       :Dok_Typ "Google Docs"^^xsd:string ;
@@ -1109,20 +1003,17 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Planungen
 :Planungen rdf:type owl:NamedIndividual ,
-                    :Dokumentenkategorie ;
-           :Dokumentkategorie_Name "Planungen"^^xsd:string .
+                    :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Praesentationen
 :Praesentationen rdf:type owl:NamedIndividual ,
-                          :Dokumentenkategorie ;
-                 :Dokumentkategorie_Name "Präsentationen"^^xsd:string .
+                          :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Projektdokumente
 :Projektdokumente rdf:type owl:NamedIndividual ,
-                           :Dokumentenkategorie ;
-                  :Dokumentkategorie_Name "Projektdokumente"^^xsd:string .
+                           :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Projektleiter
@@ -1160,13 +1051,7 @@
                         :Dok_Keywords "Planung"^^xsd:string ,
                                       "Projektplan"^^xsd:string ,
                                       "Projektplanung"^^xsd:string ,
-                                      "milestone"^^xsd:string ,
-                                      "milestones"^^xsd:string ,
-                                      "planning"^^xsd:string ,
-                                      "project plan"^^xsd:string ,
-                                      "project planning"^^xsd:string ;
-                        :Dok_Kontext "HighNet_project"^^xsd:string ,
-                                     "Videokonferenz"^^xsd:string ;
+                                      "milestone"^^xsd:string ;
                         :Dok_Name "Projektplanung"^^xsd:string ;
                         :Dok_Ordner "Testdokumente-HighNet"^^xsd:string ;
                         :Dok_Typ "Google Docs"^^xsd:string ;
@@ -1177,77 +1062,63 @@
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Prozesse
 :Prozesse rdf:type owl:NamedIndividual ,
-                   :Dokumentenkategorie ;
-          :Dokumentkategorie_Name "Prozesse"^^xsd:string .
+                   :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Research_and_Development
 :Research_and_Development rdf:type owl:NamedIndividual ,
                                    :Interne_Abteilung ;
                           :Abteilung_gehoert_zu_Unternehmen :Star_Cars ;
-                          :Abteilung_hat_Mitarbeiter :Haruki_Murakami ;
                           :Abteilung_hat_Projekt :HighNet ;
                           :Abteilung_ID 1 ;
-                          :Abteilung_Kuerzel "RD"^^xsd:string ;
-                          :Abteilung_Name "Research & Development"^^xsd:string .
+                          :Abteilung_Name "Forschung & Entwicklung"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Software-Quelltext
 :Software-Quelltext rdf:type owl:NamedIndividual ,
-                             :Dokumentenkategorie ;
-                    :Dokumentkategorie_Name "Software-Quelltext"^^xsd:string .
+                             :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Sonstige
 :Sonstige rdf:type owl:NamedIndividual ,
-                   :Sonstige ;
-          :Phase_Name "Sonstige"^^xsd:string .
+                   :Sonstige .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung
 :SpezifikationUndPlanung rdf:type owl:NamedIndividual ,
-                                  :SpezifikationUndPlanung ;
-                         :Phase_Name "Spezifikation & Planung"^^xsd:string .
+                                  :SpezifikationUndPlanung .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Star_Cars
 :Star_Cars rdf:type owl:NamedIndividual ,
                     :Eigenes_Unternehmen ;
-           :Unternehmen_hat_Projekt :Big_Data_Diagnosis ,
-                                    :BlackWater ,
-                                    :HighNet ;
            :Unternehmen_Name "Star Cars"^^xsd:string ;
            :Unternehmen_Sitz "Tokio"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Tabellen
 :Tabellen rdf:type owl:NamedIndividual ,
-                   :Dokumentenkategorie ;
-          :Dokumentkategorie_Name "Tabellen"^^xsd:string .
+                   :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Textdokumente
 :Textdokumente rdf:type owl:NamedIndividual ,
-                        :Dokumentenkategorie ;
-               :Dokumentkategorie_Name "Textdokumente"^^xsd:string .
+                        :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Umsetzung
 :Umsetzung rdf:type owl:NamedIndividual ,
-                    :Umsetzung ;
-           :Phase_Name "Umsetzung"^^xsd:string .
+                    :Umsetzung .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Videos
 :Videos rdf:type owl:NamedIndividual ,
-                 :Dokumentenkategorie ;
-        :Dokumentkategorie_Name "Videos"^^xsd:string .
+                 :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#Website_Link
 :Website_Link rdf:type owl:NamedIndividual ,
-                       :Dokumentenkategorie ;
-              :Dokumentkategorie_Name "Website_Link"^^xsd:string .
+                       :Dokumentenkategorie .
 
 
 ###  http://www.semanticweb.org/sem-rep/ontology#appointment

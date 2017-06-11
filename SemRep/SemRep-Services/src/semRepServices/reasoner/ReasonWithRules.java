@@ -8,6 +8,9 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.reasoner.rulesys.GenericRuleReasoner;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.reasoner.rulesys.Rule;
+
+import riotcmd.rdfxml;
+
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -24,7 +27,7 @@ public class ReasonWithRules {
     
   Model instances = ModelFactory.createDefaultModel();
   //instances.read ("file:dataset.txt","N3");
-  instances.read ("file:dataset2.txt","N3"); 
+  instances.read ("file:dataset3.txt", null); 
   Reasoner reasoner = new GenericRuleReasoner(Rule.rulesFromURL("file:rule2.txt"));
                     //GenericRuleReasoner(Rule.rulesFromURL("file:rule.txt"));
   reasoner.setDerivationLogging(true);

@@ -15,7 +15,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
-import semRepServices.businessObjects.Dokument2;
+import semRepServices.businessObjects.Dokument;
 import semRepServices.businessObjects.Dokumentvorschlag;
 
 import java.sql.Timestamp;
@@ -264,16 +264,28 @@ public class UXInterface {
 				}
 				if (y >= 3) {
 
+//					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+//							+ "SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ "
+//							+ "?Dok_URL ?Dok_Keywords ?Dok_Ordner " + "WHERE { "
+//							+ "?Dokument ontology:Dok_ID ?Dok_ID . " + "?Dokument ontology:Dok_Name ?Dok_Name . "
+//							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . " + "?Dokument ontology:Dok_URL ?Dok_URL . "
+//							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
+//							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
+//							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
+//							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " . "
+//							+ "?Dokument ontology:Dokument_hat_Kontext ontology:" + inputArray[2].toString() + " . "
+//							+ "}";
+					
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ "
 							+ "?Dok_URL ?Dok_Keywords ?Dok_Ordner " + "WHERE { "
 							+ "?Dokument ontology:Dok_ID ?Dok_ID . " + "?Dokument ontology:Dok_Name ?Dok_Name . "
 							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . " + "?Dokument ontology:Dok_URL ?Dok_URL . "
 							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
-							+ "?Dokument ontology:Dokument_hat_Kontext ?Kontext . "
-							+ "?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords . "
-							+ "?Dokument ontology:Dokument_hat_Keyword ontology:" + inputArray[y].toString() + " . "
-							+ "?Dokument ontology:Dokument_hat_Kontext ontology:" + inputArray[2].toString() + " . "
+							+ "?Dokument ontology:Dok_Kontext ?Kontext . "
+							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
+							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString().toLowerCase() + "' . "
+							+ "?Dokument ontology:Dok_Kontext '" + inputArray[2].toString() + "' . "
 							+ "}";
 
 					// Kontext plus keywords
