@@ -1,4 +1,4 @@
-package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
+package de.hdm.wim.sharedLib.pubsub.helper;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.PagedResponseWrappers;
@@ -41,7 +41,8 @@ public class TopicHelper {
 	}
 
 	/**
-	 * Create a topic with the given name for a specific project.
+	 * Create a topic with the given name for a specific project, if topic exists it
+	 * returns the existing topic.
 	 *
 	 * @param topicId the topic id, eg. "my-topic-id"
 	 * @return the topic

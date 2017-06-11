@@ -132,6 +132,11 @@ public class Constants {
 
 		}
 
+		public class SubscriptionType{
+			public static final String PUSH	= "push";
+			public static final String PULL = "pull";
+		}
+
 	}
 
 	public class WeekDays {

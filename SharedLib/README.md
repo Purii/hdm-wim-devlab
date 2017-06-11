@@ -46,18 +46,27 @@ Mit Hilfe des PublishHelpers, werden Messages an PubSub übermittelt.
 Beispiel:
 
 ```
+// publish one message every second
 public static void main(String[] args) throws Exception {
-    int i            = 1;
-    PublishHelper ph = new PublishHelper();
+    int i 				= 1;
 
-    while (i <= 100) {
-        Message message = Message.generate( "blubb_" + i, Topic.pushTest );
-        
+    PublishHelper ph 	= new PublishHelper(true);
+
+    while (i <= 3) {
+    	Message message   = Message.generate("blubb_" + i, Topic.TOPIC_1);
+
         ph.Publish(message);
 
-        Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+        Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
-        i++;
+	i++;
     }
 }
 ```
+
+`ExamplePublish.java`
+
+### SubscriptionHelper
+### TopicHelper
+
+Mit dem Topic helper werden topics erstellt, existieren die Topics bereits, werden diese verwendet.
