@@ -1,19 +1,30 @@
 package de.hdm.wim.eventServices.eventDrivenArchitecture.helper;
 
+import com.google.api.gax.core.ApiFuture;
+import com.google.api.gax.core.ApiFutures;
+import com.google.cloud.pubsub.spi.v1.Publisher;
+import com.google.protobuf.ByteString;
+import com.google.pubsub.v1.PubsubMessage;
+import com.google.pubsub.v1.TopicName;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.log4j.Logger;
+
 /**
  * Created by ben on 23/04/2017.
  */
 public class PublishHelperOld {
 
-	/*private static final Logger LOGGER = Logger.getLogger(PublishHelperOld.class);
+	private static final Logger LOGGER = Logger.getLogger(PublishHelperOld.class);
 
-	*//**
+	/*
 	 * Publish a message.
 	 *
 	 * @param message the message
 	 * @param topicName the topic name
 	 * @throws Exception the exception
-	 *//*
+	 * */
+
 	public void publishMessage(String message, TopicName topicName) throws Exception {
 
 		Publisher publisher 						= null;
@@ -47,13 +58,14 @@ public class PublishHelperOld {
 		}
 	}
 
-	*//**
+	/*
 	 * Publish messages.
 	 *
 	 * @param messages the messages
 	 * @param topicName the topic name
 	 * @throws Exception the exception
-	 *//*
+	 * */
+
 	public void publishMessages(List<String> messages, TopicName topicName) throws Exception {
 
 		Publisher publisher 						= null;
@@ -88,5 +100,5 @@ public class PublishHelperOld {
 				publisher.shutdown();
 			}
 		}
-	}*/
+	}
 }
