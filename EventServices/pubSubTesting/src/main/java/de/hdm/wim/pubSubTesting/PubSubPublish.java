@@ -8,6 +8,7 @@ import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
+import de.hdm.wim.sharedLib.pubsub.helper.TopicHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -90,6 +91,10 @@ public class PubSubPublish extends HttpServlet {
 
 			String attrJson = gson.toJson(attributes);
 			LOGGER.info(attrJson);
+
+			// make sure topic exists
+			TopicHelper th = new TopicHelper();
+			th.createTopicIfNotExists(topicId);
 
 			// create a publisher on the topic
 			if (publisher == null) {
