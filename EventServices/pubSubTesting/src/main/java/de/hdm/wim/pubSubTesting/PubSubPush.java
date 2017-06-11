@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.classes.Message;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(
 	name = "Push with PubSub",
-	value = "/pubsub/push"
+	value = Config.PUSH_ENDPOINT
 )
 public class PubSubPush extends HttpServlet {
 

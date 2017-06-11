@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
+import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import org.apache.log4j.Logger;
  */
 @WebServlet(
 	name = "Publish with PubSub",
-	value = "/pubsub/publish"
+	value = Config.PUBLISH_ENDPOINT
 )
 public class PubSubPublish extends HttpServlet {
 
