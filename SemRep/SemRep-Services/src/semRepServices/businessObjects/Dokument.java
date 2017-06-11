@@ -1,76 +1,66 @@
 package semRepServices.businessObjects;
 
-public class Dokument1 {
-	
-	public String dok_Str;
-	public String dok_KlasseStr;
+public class Dokument {
+
 	public String dok_NameStr;
 	public String dok_IDStr;
 	public String dok_URLStr;
 	public String dok_erstelldatumStr;
-	public String dok_UpdatedatumStr;
-	public String dok_KeywordsStr;
 	public String dok_VersionStr;
 	public String dok_TypStr;
 	public String dokument_verfasst_von_Person;
-	public String dokument_gehoert_zu_Phase;
-	public String dokument_hat_Dokumentenkategorie;
 	public String dokument_gehoert_zu_Projekt;
 	public String dokument_favorisiert_von_Person;
+	public String dokument_hat_Keyword;
 
-	public Dokument1(String dok_Str, String dok_KlasseStr, String dok_NameStr, String dok_IDStr, String dok_URLStr,
-			String dok_erstelldatumStr, String dok_UpdatedatumStr, String dok_KeywordsStr, String dok_VersionStr,
-			String dok_TypStr, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Phase,
-			String dokument_hat_Dokumentenkategorie, String dokument_gehoert_zu_Projekt, String dokument_favorisiert_von_Person) {
-		this.dok_Str = dok_Str;
-		this.dok_KlasseStr = dok_KlasseStr;
+	public String dok_folder;
+
+	public Dokument(String dok_NameStr, String dok_IDStr, String dok_URLStr,
+			String dok_erstelldatumStr, String dok_VersionStr, String dok_TypStr, 
+			String dok_folder, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Projekt,
+			String dokument_favorisiert_von_Person, String dokument_hat_Keyword) {
+
 		this.dokument_verfasst_von_Person = dokument_verfasst_von_Person;
-		this.dokument_gehoert_zu_Phase = dokument_gehoert_zu_Phase;
-		this.dokument_hat_Dokumentenkategorie = dokument_hat_Dokumentenkategorie;
 		this.dokument_gehoert_zu_Projekt = dokument_gehoert_zu_Projekt;
 		this.dok_NameStr = dok_NameStr;
 		this.dok_IDStr = dok_IDStr;
 		this.dok_URLStr = dok_URLStr;
 		this.dok_erstelldatumStr = dok_erstelldatumStr;
-		this.dok_UpdatedatumStr = dok_UpdatedatumStr;
-		this.dok_KeywordsStr = dok_KeywordsStr;
 		this.dok_VersionStr = dok_VersionStr;
 		this.dok_TypStr = dok_TypStr;
-		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;		
+		this.dok_folder = dok_folder;
+		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
+		this.dokument_hat_Keyword = dokument_hat_Keyword;
 	}
-	
-	public void flushDokumentObjekt(){
-		setDok_Str("");
-		setDok_KlasseStr("");
+
+	public void flushDokumentObjekt() {
 		setDok_erstelldatumStr("");
 		setDok_IDStr("");
-		setDok_KeywordsStr("");
 		setDok_NameStr("");
 		setDok_TypStr("");
-		setDok_UpdatedatumStr("");
+		setDok_folder("");
 		setDok_URLStr("");
 		setDok_VersionStr("");
-		setDokument_gehoert_zu_Phase("");
 		setDokument_gehoert_zu_Projekt("");
-		setDokument_hat_Dokumentenkategorie("");
 		setDokument_verfasst_von_Person("");
 		setDokument_favorisiert_von_Person("");
+		setDokument_hat_Keyword("");
+	}
+	
+	public String getDok_folder() {
+		return dok_folder;
 	}
 
-	public String getDok_Str() {
-		return dok_Str;
+	public void setDok_folder(String dok_folder) {
+		this.dok_folder = dok_folder;
 	}
 
-	public void setDok_Str(String dok_Str) {
-		this.dok_Str = dok_Str;
+	public String getDokument_hat_Keyword() {
+		return dokument_hat_Keyword;
 	}
 
-	public String getDok_KlasseStr() {
-		return dok_KlasseStr;
-	}
-
-	public void setDok_KlasseStr(String dok_KlasseStr) {
-		this.dok_KlasseStr = dok_KlasseStr;
+	public void setDokument_hat_Keyword(String dokument_hat_Keyword) {
+		this.dokument_hat_Keyword = dokument_hat_Keyword;
 	}
 
 	public String getDok_NameStr() {
@@ -105,22 +95,6 @@ public class Dokument1 {
 		this.dok_erstelldatumStr = dok_erstelldatumStr;
 	}
 
-	public String getDok_UpdatedatumStr() {
-		return dok_UpdatedatumStr;
-	}
-
-	public void setDok_UpdatedatumStr(String dok_UpdatedatumStr) {
-		this.dok_UpdatedatumStr = dok_UpdatedatumStr;
-	}
-
-	public String getDok_KeywordsStr() {
-		return dok_KeywordsStr;
-	}
-
-	public void setDok_KeywordsStr(String dok_KeywordsStr) {
-		this.dok_KeywordsStr = dok_KeywordsStr;
-	}
-
 	public String getDok_VersionStr() {
 		return dok_VersionStr;
 	}
@@ -145,22 +119,6 @@ public class Dokument1 {
 		this.dokument_verfasst_von_Person = dokument_verfasst_von_Person;
 	}
 
-	public String getDokument_gehoert_zu_Phase() {
-		return dokument_gehoert_zu_Phase;
-	}
-
-	public void setDokument_gehoert_zu_Phase(String dokument_gehoert_zu_Phase) {
-		this.dokument_gehoert_zu_Phase = dokument_gehoert_zu_Phase;
-	}
-
-	public String getDokument_hat_Dokumentenkategorie() {
-		return dokument_hat_Dokumentenkategorie;
-	}
-
-	public void setDokument_hat_Dokumentenkategorie(String dokument_hat_Dokumentenkategorie) {
-		this.dokument_hat_Dokumentenkategorie = dokument_hat_Dokumentenkategorie;
-	}
-
 	public String getDokument_gehoert_zu_Projekt() {
 		return dokument_gehoert_zu_Projekt;
 	}
@@ -176,6 +134,5 @@ public class Dokument1 {
 	public void setDokument_favorisiert_von_Person(String dokument_favorisiert_von_Person) {
 		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
 	}
-
 
 }
