@@ -42,13 +42,13 @@
 
 ### Aktuell existierende Topics
 
-[Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java), die genutzt werden:
+[Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45), die genutzt werden:
 
 * FeedbackGui
 * Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Favoriten des Users)
 * Offers (Vorschläge)
 * SessionInsights (User loggt sich ein/aus; User ist passiv)
-* RichTokens (SR > CEP)
+* RichTokens (SR > CEP) --> Teil von Vorschlag? (@semrep)
 * Tokens (ST > SR)
 
 ### Felder einer PubSub Message
