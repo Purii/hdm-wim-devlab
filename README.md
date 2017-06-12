@@ -50,7 +50,6 @@
 * SessionInsights (User loggt sich ein/aus; User ist passiv)
 * RichTokens (SR > CEP)
 * Tokens (ST > SR)
-* Training (CEP > ML) ?
 
 ### Felder einer PubSub Message
 
@@ -95,8 +94,6 @@ Event Source beschreibt die Herkunft der Message.
 | MACHINE_LEARNING | Machine Learning |
 | USER_INTERFACE | User Interface |
 | SEMANTIC_REPRESENTATION | Semantic Representation |
-
-Causality?
 
 ### Message Konstruktor
 
