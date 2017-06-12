@@ -78,7 +78,6 @@ Event Type spezifiziert die grundlegenden Eigenschaften einer Message.
 | Insight | User klickt mehrfach auf ein Dokumente | Insights |
 | GoogleOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
 | Offer | Dokumentvorschläge | Offers |
-| Training? | Feedback an ML | Training |
 | Token | Einfache Tokens | Tokens |
 | RichToken | Angereicherte Tokens | RichTokens |
 | Feedback | Feedback des Users | FeedbackGui |
