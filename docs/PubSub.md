@@ -21,6 +21,11 @@ Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub](
 | `messageId` | `string` | `getData() : string | String getMessageId()` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp format)` | String `getPublishTime() | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
+### Attribute
+...
+
+### Data
+...
 
 ## PublishHelper – Events veröffentlichen
 Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
