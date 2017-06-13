@@ -2,17 +2,36 @@
 
 Dieses Dokument dient der verbindlichen Definition der Events, welche durch unser Netzwerk geschickt werden.
 
+* [ContextEvent](#contextevent)
+* [DocumentRelevantEvent](#documentrelevantevent)
+* [DocumentHighlyRelevantEvent](#documenthighlyrelevant)
 * [FeedbackEvent](#feedbackevent)
 * [InsightEvent](#insightevent)
 * [LearnEvent](#learnevent)
 * [OfferEvent](#offerevent)
+* [SessionEndEvent](sessionendevent)
+* [SessionStartEvent](#sessionstartevent)
 * [StayAliveEvent](#stayaliveevent)
 * [TokenEvent](#tokenevent)
+* [UserInformationEvent](#userinformationevent)
+* [UserLoginEvent](#userloginevent)
+* [UserLogoutEvent](#userlogoutevent)
 
 *Um die Konstanten nutzen zu können, muss die entsprechende Datei wie folgt implementiert werden*
 ```
 import  de.hdm.wim.sharedLib.Constants;
 ```
+
+## ContextEvent
+*erstellt durch CEP; die Nutzerinformationen und gesprochenen Token lassen auf ein Projekt schließen*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, projectId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT } ``` |
+| `data` | `string (bytes format)` | ``` { Context } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
 
 
 ## DocumentRelevantEvent
@@ -20,8 +39,8 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` {userId: String, documentId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT } ``` |
+| `data` | `string (bytes format)` | ``` Document is relevant ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -32,8 +51,8 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_HIGHLY_RELEVANT } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, documentId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_HIGHLY_RELEVANT } ``` |
+| `data` | `string (bytes format)` | ``` { Document is highly relevant } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -44,8 +63,8 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, documentId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK } ``` |
+| `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
@@ -67,8 +86,8 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.MACHINE_LEARNING, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.LEARN } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId, projectId } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, documentId: String, projectId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.MACHINE_LEARNING, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.LEARN } ``` |
+| `data` | `string (bytes format)` | ``` { Learning } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -79,14 +98,14 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId, relevance } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, documentId: String, relevance: Integer, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER } ``` |
+| `data` | `string (bytes format)` | ``` { Offer } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.OFFERS` |
 
 
-## SessionEvent
+## UserSessionEvent
 *erstellt durch CEP und GUI; der User führt eine Sitzungs-Aktion durch (Login, Logout, passiver Logout)*
 
 | Feld | Datentyp | Wert |
@@ -95,16 +114,16 @@ import  de.hdm.wim.sharedLib.Constants;
 | `data` | `string (bytes format)` | ``` { userId, action } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
 
-## SessionInsightEvent
+## SessionStartEvent
 *erstellt durch CEP; Schlussfolgerungen auf Grundlage der SessionEvents (Session beendet)*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
 | `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSIONINSIGHT } ``` |
-| `data` | `string (bytes format)` | ``` { userId, action } ``` |
+| `data` | `string (bytes format)` | ``` { session } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
@@ -131,7 +150,4 @@ import  de.hdm.wim.sharedLib.Constants;
 | `data` | `string (bytes format)` | ``` { userId, token } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` |
-
-
-## 
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` | 
