@@ -1,16 +1,9 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
-import de.hdm.wim.eventServices.eventProcessing.cep.events.MessageEvent;
-import de.hdm.wim.eventServices.eventProcessing.cep.events.TokenEvent;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.RelationToDatePattern;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.TestPattern2;
-import de.hdm.wim.eventServices.eventProcessing.cep.source.MessageEventSource;
-import de.hdm.wim.eventServices.eventProcessing.cep.source.TokenSource;
-import de.hdm.wim.sharedLib.classes.PubSubMessage;
+import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
 import org.apache.flink.api.common.functions.FlatMapFunction;
-import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.api.java.tuple.Tuple1;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;

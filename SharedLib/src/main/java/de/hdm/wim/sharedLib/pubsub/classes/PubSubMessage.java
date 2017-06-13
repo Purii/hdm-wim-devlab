@@ -1,12 +1,12 @@
-package de.hdm.wim.sharedLib.classes;
+package de.hdm.wim.sharedLib.pubsub.classes;
 
+import com.google.common.io.BaseEncoding;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import de.hdm.wim.sharedLib.helper.Helper;
+import de.hdm.wim.sharedLib.testing.Helper;
 import java.time.LocalDateTime;
 import java.util.Hashtable;
-import com.google.common.io.BaseEncoding;
 
 /**
  * Created by ben on 2/06/2017.

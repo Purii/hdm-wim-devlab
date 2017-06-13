@@ -1,7 +1,7 @@
 package de.hdm.wim.sharedLib.testing;
 
 import com.google.gson.Gson;
-import de.hdm.wim.sharedLib.classes.PubSubMessage;
+import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;

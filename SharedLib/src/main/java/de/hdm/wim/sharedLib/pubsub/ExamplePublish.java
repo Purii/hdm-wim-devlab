@@ -1,7 +1,7 @@
 package de.hdm.wim.sharedLib.pubsub;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
-import de.hdm.wim.sharedLib.classes.Message;
+import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import java.util.concurrent.TimeUnit;
 
@@ -18,9 +18,9 @@ public class ExamplePublish {
 		PublishHelper ph 	= new PublishHelper(false);
 
 		while (i <= 3) {
-			Message message   = Message.generate("blubb_" + i, Topic.TOPIC_1);
+			Event event   = Event.generate("blubb_" + i);
 
-			ph.Publish(message);
+			ph.Publish(event, Topic.TOPIC_1);
 
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
