@@ -1,11 +1,4 @@
 
-ExperimentVersion: Learner - Nutzer-Dokument
-
-Über den Link ist der Learner als Experiment auf dem Machine Learning Studio abrufbar.
-
-https://gallery.cortanaintelligence.com/Experiment/Learner-Dokument-Nutzer
-
-
 
 ExperimentVersion: Learner - Nutzer- Projekt
 
