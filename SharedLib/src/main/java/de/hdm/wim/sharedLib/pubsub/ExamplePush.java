@@ -19,7 +19,7 @@ public class ExamplePush {
 		Topic topic    = th.createTopicIfNotExists(PubSub.Topic.TOPIC_1);
 
 		// create the subscription
-		SubscriptionHelper sh = new SubscriptionHelper(false);
+		SubscriptionHelper sh = new SubscriptionHelper(true);
 		sh.Subscribe(SubscriptionType.PUSH, topic.getNameAsTopicName());
 	}
 }
