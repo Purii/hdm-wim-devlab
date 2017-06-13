@@ -3,7 +3,7 @@ package de.hdm.wim.sharedLib.pubsub.helper;
 import com.google.gson.GsonBuilder;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
-import de.hdm.wim.sharedLib.classes.Message;
+import de.hdm.wim.sharedLib.events.Event;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -41,19 +41,19 @@ public class PublishHelper {
 	}
 
 	/**
-	 * Publish a message
+	 * Publish an event
 	 *
-	 * @param message the message
+	 * @param event the message
 	 * @throws Exception the exception
 	 */
-	public void Publish(Message message) throws Exception{
+	public void Publish(Event event, String topic) throws Exception{
 
 		Map<String,Object> params = new LinkedHashMap<>();
 		String jsonAttributes 	  = new GsonBuilder().create()
-			.toJson(message.getAttributes(), Map.class);
+			.toJson(event.getAttributes(), Map.class);
 
-		params.put(RequestParameters.TOPIC, 		message.getTopic());
-		params.put(RequestParameters.PAYLOAD, 		message.getData());
+		params.put(RequestParameters.TOPIC, 		topic);
+		params.put(RequestParameters.PAYLOAD, 		event.getData());
 		params.put(RequestParameters.ATTRIBUTES,	jsonAttributes);
 
 		sendPost(params);
