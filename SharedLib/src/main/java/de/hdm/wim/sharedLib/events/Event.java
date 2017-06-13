@@ -1,54 +1,137 @@
 package de.hdm.wim.sharedLib.events;
 
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.classes.Message;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
+import de.hdm.wim.sharedLib.testing.Helper;
+import java.util.Hashtable;
 
 /**
- * To be implemented by specific Event-Classes
- * @Todo Attributes
+ * Created by ben on 3/06/2017.
+ *
+ * A message captures information from the Pubsub message received over the push endpoint and is
+ * persisted in storage.
  */
-public abstract class Event {
-    private String eventId;
-    private String publishTime;
-    private String data;
+public class Event {
 
-    protected abstract Message getAsMessage();
+	private String data;
+	private String id;
+	private String publishTime;
+	private Hashtable attributes = new Hashtable();
 
-    /**
-     * Publish Event as Message to PubSub
-     *
-     * @throws Exception
-     */
-    public void publishToPubSub() throws Exception {
+	/**
+	 * Instantiates a new Message.
+	 *
+	 * @param data the data
+	 * @param attributes the attributes
+	 */
+	public Event( String data, Hashtable attributes ){
+		this.data 		= data;
+		this.attributes = attributes;
+	}
 
-    }
+	public Event( String data ){
+		this.data 		= data;
+	}
 
-    public Event(String eventId) {
-        this.eventId = eventId;
-    }
+	/**
+	 * Instantiates a new Message.
+	 */
+	public Event(){}
 
-    public String getEventId() {
-        return eventId;
-    }
+	/**
+	 * Gets data.
+	 *
+	 * @return the data
+	 */
+	public String getData() {
+		return data;
+	}
 
-    public void setMessageId(String eventId) {
-        this.eventId = eventId;
-    }
+	/**
+	 * Sets data.
+	 *
+	 * @param data the data
+	 */
+	public void setData(String data) {
+		this.data = data;
+	}
 
-    public String getPublishTime() {
-        return publishTime;
-    }
+	/**
+	 * Gets attributes.
+	 *
+	 * @return the attributes
+	 */
+	public Hashtable getAttributes() {
+		return attributes;
+	}
 
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
-    }
+	/**
+	 * Sets attributes.
+	 *
+	 * @param attributes the attributes
+	 */
+	public void setAttributes(Hashtable attributes) {
+		this.attributes = attributes;
+	}
 
-    public String getData() {
-        return data;
-    }
+	/**
+	 * Generate message.
+	 *
+	 * @param data the data
+	 * @return the message
+	 */
+	public static Event generate(String data){
 
-    public void setData(String data) {
-        this.data = data;
-    }
+		Helper helper 			= new Helper();
+		Hashtable attributes 	= new Hashtable();
+
+		attributes.put(
+			AttributeKey.EVENT_SOURCE,
+			helper.getRandomStringFromList(EventSource.list)
+		);
+
+		attributes.put(
+			AttributeKey.EVENT_TYPE,
+			helper.getRandomStringFromList(EventType.list)
+		);
+
+		return new Event(data, attributes);
+	}
+
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * Gets publish time.
+	 *
+	 * @return the publish time
+	 */
+	public String getPublishTime() {
+		return publishTime;
+	}
+
+	/**
+	 * Sets publish time.
+	 *
+	 * @param publishTime the publish time
+	 */
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
+	}
 }
