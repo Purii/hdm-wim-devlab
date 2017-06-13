@@ -99,11 +99,11 @@ import  de.hdm.wim.sharedLib.Constants;
 
 
 ## SessionInsightEvent
-*erstellt durch CEP; Schlussfolgerungen auf Grundlage der SessionEvents*
+*erstellt durch CEP; Schlussfolgerungen auf Grundlage der SessionEvents (Session beendet)*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT(USER_INTERFACE), constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSIONINSIGHT } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSIONINSIGHT } ``` |
 | `data` | `string (bytes format)` | ``` { userId, action } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -134,3 +134,4 @@ import  de.hdm.wim.sharedLib.Constants;
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` |
 
 
+## 
