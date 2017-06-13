@@ -38,9 +38,9 @@ public class SubscriptionHelper {
 		PROJECT_ID= ServiceOptions.getDefaultProjectId();
 
 		if(IS_LOCAL)
-			ENDPOINT = Config.LOCAL_PUSH_ENDPOINT;
+			ENDPOINT = Config.getLocalPushEndpoint();
 		else
-			ENDPOINT = Config.PROD_PUSH_ENDPOINT;
+			ENDPOINT = Config.getProdPushEndpoint();
 	}
 
 	/**
@@ -54,9 +54,9 @@ public class SubscriptionHelper {
 		PROJECT_ID	= projectId;
 
 		if(IS_LOCAL)
-			ENDPOINT = Config.LOCAL_PUSH_ENDPOINT;
+			ENDPOINT = Config.getLocalPushEndpoint();
 		else
-			ENDPOINT = Config.PROD_PUSH_ENDPOINT;
+			ENDPOINT = Config.getProdPushEndpoint();
 	}
 
 	/**

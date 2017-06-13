@@ -35,9 +35,9 @@ public class PublishHelper {
 		this.IS_LOCAL = isLocal;
 
 		if(IS_LOCAL)
-			ENDPOINT = Config.LOCAL_PUBLISH_ENDPOINT;
+			ENDPOINT = Config.getLocalPublishEndpoint();
 		else
-			ENDPOINT = Config.PROD_PUBLISH_ENDPOINT;
+			ENDPOINT = Config.getProdPublishEndpoint();
 	}
 
 	/**
