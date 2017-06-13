@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 /**
  * Created by ben on 4/06/2017.
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 )
 public class PubSubPush extends HttpServlet {
 
+	private static final Logger LOGGER 	= Logger.getLogger(PubSubPush.class);
 	private final Gson gson 			= new Gson();
 	private final JsonParser jsonParser = new JsonParser();
 	private MessageRepository messageRepository;
@@ -40,6 +42,8 @@ public class PubSubPush extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
+		LOGGER.info("doPost");
+
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
@@ -51,6 +55,9 @@ public class PubSubPush extends HttpServlet {
 		// decode message data from base64
 		Message message = getMessage(req);
 		try {
+
+			LOGGER.info(message.getData());
+
 			messageRepository.save(message);
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system
 			resp.setStatus(HttpServletResponse.SC_OK);
