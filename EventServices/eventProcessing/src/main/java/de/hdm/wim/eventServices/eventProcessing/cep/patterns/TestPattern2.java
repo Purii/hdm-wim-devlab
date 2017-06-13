@@ -2,7 +2,7 @@ package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import de.hdm.wim.sharedLib.classes.PubSubMessage;
+import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternStream;
 import org.apache.flink.cep.pattern.Pattern;
