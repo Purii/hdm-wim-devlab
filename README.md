@@ -17,16 +17,20 @@
 
 * Jede Gruppe hat ein eigenes Verzeichnis.
 * Jede Gruppe stellt einen oder mehrere Microservices bereit. Jede Gruppe ist damit selbst für die eigene Systemumgebung verantwortlich.
-* Entwickelt wird eine Event Driven Architecture. Die Kommunikation findet über Messages statt.
+* Entwickelt wird eine Event Driven Architecture. Die Kommunikation findet über Messages bzw. Events statt.
 * Diese Events werden mittels [Google PubSub](https://cloud.google.com/pubsub/docs/overview) übermittelt.
 
 ## Google PubSub
 
-* Zugriff auf die Funktionen Senden & Empfangen kann über folgenden [GitHub Issue](https://github.com/Purii/hdm-wim-devlab/issues/4) beantragt werden (Google Account benötigt).
-* Topics können nicht selbst angelegt werden, sondern müssen ebenfalls über einen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) beantragt werden.
-* Für PubSub wird eine [ausführliche Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) bereitgestellt. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html) (Package: com.google.cloud.pubsub.spi.v1)
+Für die Kommunikation zwischen den Modulen wird Google PubSub genutzt.
+Über PubSub werden `Messages` versendet. Wir sprechend jedoch häufiger von `Events`.
+Betrachtet die `Messages` als eine Art Kapsel für ein `Event` bzw. Synonym zueinander.
 
-### Grundlegende Kommunikation
+* Zugriff auf die PubSub, also die Funktionen Senden & Empfangen kann über diesen [GitHub Issue](https://github.com/Purii/hdm-wim-devlab/issues/4) beantragt werden (Google Account benötigt).
+* Die verfügbaren Topics (Kommunikationskanäle) werden über die [`sharedLib`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45) bereitgestellt. Näheres zur Verwendung findet Ihr in der [Dokumentation](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md). Werden zusätzliche Topics benötigt, können diese über einen neuen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) angefragt werden.
+* Als Teil der `sharedLib` werden Euch Klassen zur Verfügung gestellt, um Events empfangen und senden zu können. Falls darüber hinaus weitere Informationen benötigt werden, kann die [ausführliche offizielle Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) von Google PubSub genutzt werden. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html) (Package: com.google.cloud.pubsub.spi.v1)
+
+### Grundlegende Kommunikation (WIP)
 ![PubSub Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/26975555-9a009aa6-4d20-11e7-98c3-f6268862762d.jpg)
 
 * **Gruppe:** jeweiliges Team
@@ -40,18 +44,9 @@
 
 ***Topics können in den Issues beantragt werden!***
 
-### Aktuell existierende Topics
-
-[Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45), die genutzt werden:
-
-* FeedbackGui
-* Insights (User klickt mehrfach auf denselben Dokumentvorschlag; Favoriten des Users)
-* Offers (Vorschläge)
-* SessionInsights (User loggt sich ein/aus; User ist passiv)
-* RichTokens (SR > CEP) --> Teil von Vorschlag? (@semrep)
-* Tokens (ST > SR)
-
 ### Felder einer PubSub Message
+
+[tldr;] Schaut in die [Dokumentation](https://github.com/Purii/hdm-wim-devlab/blob/master/docs).
 
 Über PubSub werden Messages versendet. Folgende Felder dienen dabei als [Grundlage](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):
 
