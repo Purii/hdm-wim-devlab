@@ -8,10 +8,9 @@ Dieses Dokument dient der verbindlichen Definition der Events, welche durch unse
 * [StayAliveEvent](#stayaliveevent)
 * [TokenEvent](#tokenevent)
 
-** Um die Konstanten nutzen zu können, muss die entsprechende Datei wie folgt implementiert werden **
+*Um die Konstanten nutzen zu können, muss die entsprechende Datei wie folgt implementiert werden*
 ```
-import  de.hdm.wim.sharedLib.Constants
-...
+import  de.hdm.wim.sharedLib.Constants;
 ```
 
 ## FeedbackEvent
