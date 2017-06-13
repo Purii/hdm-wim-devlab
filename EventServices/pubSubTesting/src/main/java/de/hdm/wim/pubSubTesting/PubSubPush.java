@@ -28,6 +28,7 @@ public class PubSubPush extends HttpServlet {
 	private static final Logger LOGGER 	= Logger.getLogger(PubSubPush.class);
 	private final Gson gson 			= new Gson();
 	private final JsonParser jsonParser = new JsonParser();
+
 	private MessageRepository messageRepository;
 
 	PubSubPush(MessageRepository messageRepository) {
@@ -68,11 +69,6 @@ public class PubSubPush extends HttpServlet {
 
 	private Message getMessage(HttpServletRequest request) throws IOException {
 
-
-/*		request.getReader().lines().collect(() -> {
-			"\n";
-		});*/
-
 		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
 		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
 		String messageStr 		= jsonRoot.getAsJsonObject().get("message").toString();
@@ -84,10 +80,12 @@ public class PubSubPush extends HttpServlet {
 		return message;
 	}
 
-/*	private String encode(String data) throws Exception{
+	/*
+	private String encode(String data) throws Exception{
 		byte[] byteString = data.getBytes(data);
 		return new String(BaseEncoding.base64().encode(byteString));
-	}*/
+	}
+	*/
 
 	private String decode(String data) {
 		return new String(BaseEncoding.base64().decode(data));
