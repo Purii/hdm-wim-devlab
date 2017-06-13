@@ -1,4 +1,4 @@
-package de.hdm.wim.sharedLib.helper;
+package de.hdm.wim.sharedLib.testing;
 
 import java.util.List;
 import java.util.Random;
