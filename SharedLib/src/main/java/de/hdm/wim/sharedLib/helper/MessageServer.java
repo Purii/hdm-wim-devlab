@@ -41,7 +41,7 @@ public class MessageServer {
 		SERVER_EXECUTOR.execute(new SteamingServer(messageQueue));
 
 		while (true) {
-            PubSubMessage message   = PubSubMessage.generate("blubb",Integer.toString(id));
+            PubSubMessage message   = PubSubMessage.getRandom("blubb",Integer.toString(id));
             Gson gson               = new Gson();
 
             messageQueue.put(gson.toJson(message));

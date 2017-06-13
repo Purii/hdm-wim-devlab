@@ -6,6 +6,7 @@ import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.time.LocalDateTime;
 import java.util.Hashtable;
+import com.google.common.io.BaseEncoding;
 
 /**
  * Created by ben on 2/06/2017.
@@ -27,7 +28,7 @@ public class PubSubMessage {
 	 * @param attributes the attributes
 	 */
 	public PubSubMessage(String data, String messageId, LocalDateTime publishTime, Hashtable attributes){
-		this.data 			= data;
+		this.setData(data);
 		this.messageId 		= messageId;
 		this.publishTime 	= publishTime;
 		this.attributes 	= attributes;
@@ -39,7 +40,7 @@ public class PubSubMessage {
 	 * @return the data
 	 */
 	public String getData() {
-		return data;
+		return new String(BaseEncoding.base64().decode(this.data));
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class PubSubMessage {
 	 * @param data the data
 	 */
 	public void setData(String data) {
-		this.data = data;
+		this.data = BaseEncoding.base64Url().encode(data.getBytes());
 	}
 
 	/**
@@ -110,21 +111,22 @@ public class PubSubMessage {
 	 *
 	 * @param data the data
 	 * @param id the id
-	 * @return the pub sub message
+	 * @return PubSubMessage
 	 */
-	public static PubSubMessage generate(String data, String id){
+
+	public static PubSubMessage getRandom(String data, String id){
 
 		Helper helper 			= new Helper();
 		Hashtable attributes 	= new Hashtable();
 
 		attributes.put(
-			AttributeKey.EVENT_SOURCE,
-			helper.getRandomStringFromList(EventSource.list)
+				AttributeKey.EVENT_SOURCE,
+				helper.getRandomStringFromList(EventSource.list)
 		);
 
 		attributes.put(
-			AttributeKey.EVENT_TYPE,
-			helper.getRandomStringFromList(EventType.list)
+				AttributeKey.EVENT_TYPE,
+				helper.getRandomStringFromList(EventType.list)
 		);
 
 		return new PubSubMessage(data, id, LocalDateTime.now(), attributes);
