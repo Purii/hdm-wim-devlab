@@ -1,0 +1,17 @@
+
+{
+  "name": "1",
+  "children": [
+    {
+  "SessionID": "1",
+  "TimeStamp": "123",
+  "SuggestionID": "12345",
+  "DokumentenID": "098765",
+  "name": "Dokument1",
+  "prio": 1,
+  "DokuTyp": "gdoc",
+  "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit",
+  "folder": "Mercedesprojekt"
+    }
+  ]
+}

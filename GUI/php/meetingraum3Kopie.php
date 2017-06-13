@@ -27,29 +27,25 @@
     <!-- Page styles -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-       <link rel="stylesheet" href="../mdl/templates/android-dot-com/material.min.css">
-       <link rel="stylesheet" href="../mdl/templates/android-dot-com/styles.css">
+    <link rel="stylesheet" href="../mdl/templates/android-dot-com/material.min.css">
+    <link rel="stylesheet" href="../mdl/templates/android-dot-com/styles.css">
+    <style>
+        #view-source {
+            position: fixed;
+            display: block;
+            right: 0;
+            bottom: 0;
+            margin-right: 40px;
+            margin-bottom: 40px;
+            z-index: 900;
+        }
+    </style>
 
-       <style>
-           #view-source {
-               position: fixed;
-               display: block;
-               right: 0;
-               bottom: 0;
-               margin-right: 40px;
-               margin-bottom: 40px;
-               z-index: 900;
-           }
-       </style>
 
-
-       <!-- CSS Markus -->
+    <!-- CSS Markus -->
     <link href="../css/styleTabs.css" rel="stylesheet" type="text/css">
     <link href="../css/styleBootstrap.css" rel="stylesheet" type="text/css">
-  <!--  <link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css"> -->
-
-    <!-- js markus -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -110,52 +106,10 @@
 
                 <h1>Hier Visualisierung aller Vorschläge </h1>
                 <p class="vorschlag" id="vorschlag123">Ich bin ein Vorschlag</p>
-                <ul id="vorschlagsListe"></ul>
-                <div id="chart_div" style="width: 900px; height: 500px;"></div>
+                <ul id="vorschlagsListe">
 
 
-
-                <script type="text/javascript">
-
-                    function parameterFunction(a , b , c , d ){
-                        google.charts.load('current', {'packages':['corechart']});
-                        google.charts.setOnLoadCallback(drawChart);
-
-
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['Year', 'Sales', 'Expenses'],
-                                [a,  1000,      400],
-                                [b,  1170,      460],
-                                [c,  660,       1120],
-                                [d,  1030,      540]
-                            ]);
-
-                            var options = {
-                                title: 'Company Performance',
-                                curveType: 'function',
-                                legend: { position: 'bottom' }
-                            };
-
-                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                            chart.draw(data, options);
-                        }
-
-                    }
-
-                </script>
-
-
-
-
-                <button id="drawButton" >
-                    Zeichne
-                </button>
-
-
-
-
+                </ul>
                 <ul id="log"></ul>
 
             </div>
@@ -167,7 +121,7 @@
 
             <div id="Paris" class="tabcontent">
                 <h3>Paris</h3>
-
+        
             </div>
 
             <div id="Tokyo" class="tabcontent">
@@ -178,9 +132,7 @@
         </div>
 
 
-
-
-            <footer class="android-footer mdl-mega-footer">
+        <footer class="android-footer mdl-mega-footer">
 
 
         </footer>
@@ -193,14 +145,11 @@
     <script src="../js/xhrobjekt.js"></script>
     <script src="../js/ajaxjson.js"></script>
     <script src="../js/tabs.js"></script>
-
     <script src="../js/client.js"></script>
 
 
 
-
-
-    <!--fonts:  https://material.io/icons/ -->
+<!--fonts:  https://material.io/icons/ -->
 
 </body>
 </html>

@@ -1,0 +1,631 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="description" value="Open source jQuery/HTML5 canvas treemapping plugin with open architecture allowing complete customization of look and feel and treemap event handling."/>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css" media=screen>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.treemap.js"></script>
+        <script type="text/javascript" src="moboxAndLabelData.json"></script>
+        <style type="text/css">
+            body {
+                font: 0.75em Verdana, Geneva, sans-serif;
+            }
+            .sizeByOptionLabel {
+                display: inline-block;
+                color: #aaa;
+            }
+            .sizeByOption {
+                display: inline-block;
+                border: 1px solid #ccc;
+                padding: 0px 10px 0px 10px;
+                margin: 0px 0px 0px 0px;
+                color: #666;
+            }
+            #content { margin-right: auto; margin-left: auto; width: 900px; }
+            canvas { border: 1px solid #f00; }
+            #treemap { display: inline-block; }
+            .highlighter { border: 1px solid #ff0; position: absolute; display: none; pointer-events: none; }
+            .mouseoverbox { 
+                border: 1px solid #aaa; 
+                position: absolute; 
+                background-color: #fff; 
+                pointer-events: none; 
+                display: none;
+            }
+            .mouseoverbox p {
+                margin: 0px 2px 0px 2px;
+                padding: 0px 2px 0px 2px;
+                font-size: 0.8em;
+                color: #444;
+            }
+            .codeDiv {
+                border: 1px solid #aaa;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content"> 
+            <div id="header"></div>
+            <div id="bodyContent">
+                <div id="example1">
+                  <h3>HTML5 Javascript treemap</h3>
+                    <h4>Description</h4>
+                    <p>Utilizing the jQuery widget factory and HTML5 canvas this Javascript treemap widget presents hierarchical data using the squarified treemap layout algorithm described in "<a href="http://www.win.tue.nl/~vanwijk/stm.pdf">Squarified Treemaps</a>", by Mark Bruls, Kees Huizing and Jarke J. van Wijk.</p>  
+                    <p>The jQuery treemap widget code and this page's HTML, CSS and Javascript are available from <a href="https://github.com/evancarey/jsTreemap">https://github.com/evancarey/jsTreemap</a>. Stable tagged versions of the source can also be obtained via the jQuery plugin registry <a href="http://plugins.jquery.com/treemap/">http://plugins.jquery.com/treemap/</a>.  Development and testing has primarily been limited to current versions of Chrome, Safari and FF.  Please send issues, ideas and (even better) fixes to me via GitHub.</p>
+                    <h4>Example</h4>
+                    <p>The following example treemap of random data demonstrates the creation, destruction and dynamic update of some of the treemap plugin options.  Using the buttons below, create and destroy the treemap.  Click the other buttons to update the treemap plugin's dimensions, color gradient and the gradient applied to the treemap's leaf nodes.</p>
+                    <input id="t8" type="button" value="destroy"/>
+                    <input id="t1" type="button" value="create"/>
+                    <input id="t2" type="button" value="900x200"/>
+                    <input id="t3" type="button" value="900x600"/>
+                    <input id="t4" type="button" value="color1"/>
+                    <input id="t5" type="button" value="color2"/>
+                    <input id="t6" type="button" value="gradient1"/>
+                    <input id="t7" type="button" value="gradient2"/>
+                    <input id="t9" type="checkbox" checked="checked"/>
+                    <label for="t9">labels</label>
+                    <div><span id="treemap"></span></div>
+                    <div id="sizeByOptions">
+                    <div class="sizeByOptionLabel">Size By:</div>
+                    <div class="sizeByOption" id="sizeBy0">size opt 1</div>
+                    <div class="sizeByOption" id="sizeBy1" style="background-color:#ddd">size opt 2</div>
+                    <div class="sizeByOption" id="sizeBy2">size opt 3</div>
+                    <div class="sizeByOption" id="sizeBy3">size opt 4</div>
+                    </div>
+                    <div id="debug-info"><span><p>Click the 'create' button to create example treemap</p></span></div>
+                    <div id="highlighter"></div>
+                    <div id="mouseoverbox" class="mouseoverbox"></div>
+                    <h4>Features</h4>
+                    <ul>
+                      <li>Pure Javascript - no embedded objects and browser plugins required.</li>
+                      <li>Open architecture - easily change look and feel with your own gradient and labeller code.</li>
+                      <li>Unbalanced Graphs OK - graph being treemapped can have branches of different depth.</li>
+                      <li>Node highlighting, mouseover boxes and menus can be implemented as treemap event handlers in Javascript!</li>
+                      <li>Size and color updates are simple plugin options.</li>
+                      <li>Treemap graph and presentation data are separate.</li>
+                    </ul>
+                    <h4>Options</h4>
+                        <h5>dimensions</h5>
+                        <p>An array of two elements the first being the width and the second is the height (in pixels) of the canvas element used to render the treemap.  Example: set the width to 600 pixels and height to 400 pixels.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    dimensions: [600,400]</pre></div>
+                        <h5>nodeData</h5>
+                        <p>A data structure containing the nodes to be presented in the treemap.  Each node has the members: "id", "size", and "color".  Internal nodes have the additional member "children".  Root node does not require the members "size" or "color".  If present they are ignored.
+                        <ul>
+                            <li>"id" is a unique identifier for the node.  Identifier can be used in treemap event handlers to perform lookup into node detail data.</li>
+                            <li>"size" is an array of float values in the range [0,1] that can be used to size a node.  Size values are relative values that represent what fraction of the parent's area the child node should occupy.  The element used to size the node is dependent on the value of the option "sizeOption".</li>
+                            <li>"color" is an array of float values in the range [0,1] that are used to compute an index into the treemap's color gradient.  The element used to color the node is dependent on the value of the option "colorOption".</li>
+                            <li>"children" is an array of child nodes.</li>
+                        </ul>
+                        Example:
+                        </p>
+    <div class="codeDiv"><pre>
+    nodeData: {
+        "id":"2fc414e2", 
+        "children":[
+            {
+                "id":"23f627dc", 
+                "size":[0.25,0.349], 
+                "color":[0.39,0.54], 
+                "children":[
+                    {
+                        "id":"ce96d31f", 
+                        "size":[0.25,0.64], 
+                        "color":[0.74,0.10]
+                    },
+                    {
+                        "id":"91e0ea1d", 
+                        "size":[0.25,0.15], 
+                        "color":[0.98,0.78]
+                    },
+                    {
+                        "id":"62188591", 
+                        "size":[0.16667,0.32], 
+                        "color":[0.39,0.48]
+                    },
+                    ...
+                ]
+            },
+            ...
+        ]
+    }</pre></div>
+                        <h5>sizeOption</h5>
+                        <p>An index into a node's size array used to specify which size value to apply to the node.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    sizeOption: 0</pre></div>
+                        <h5>colorOption</h5>
+                        <p>An index into a node's color array used to specify which color value to apply to the node.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    colorOption: 0</pre></div>
+                        <h5>colorStops</h5>
+                        <p>An array of colors and values used to create a one pixel wide linear color gradient of length determined by option "colorResolution".  The linear color gradient is used as color lookup table by calculating indexes into the linear gradient derived from the colorResoltion and each node's current color value.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    colorStops : [
+        {"val":0,"color":"#08f"},
+        {"val":0.5,"color":"#03f"},
+        {"val":1,"color":"#005"}
+    ]</pre></div>
+                        <h5>colorResolution</h5>
+                        <p>An integer value which is used as the length of the treemap's linear color gradient.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    colorResolution: 1024</pre></div>
+                        <h5>naColor</h5>
+                        <p>A hex color value used for nodes with null values for the current colorOption.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    naColor: "#000"</pre></div>
+                        <h5>layoutMethod</h5>
+                        <p>A function that returns an array of rectangles representing the computed geometry derived from a containing rectangle and an array of (normalized) area values.  The function must accept 2 arguments such that the first argument is the containing rectangle and the second argument is an array of area values.</p>
+                        <ul>
+                            <li>"rect" is the containing rectangle with x, y, width, height.  ex: [0, 0, 600, 400]</li>
+                            <li>"vals" is an array of normalized area values to be treemapped.  The sum of the values should equal 1.0.  ex: [0.5, 0.25, 0.25]</li>
+                        </ul>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    layoutMethod: TreemapUtils.squarify</pre></div>
+                        <h5>innerNodeHeaderGradient</h5>
+                        <p>A function that returns a gradient object used as the fillStyle of inner node header rectangles.  The function must accept 3 arguments: "ctx", "rect", and "rgb".
+                        <ul>
+                            <li>"ctx" is the 2d drawing context of the treemap's canvas element.</li>
+                            <li>"rect" is a node's header rectangle generated by treemap layout algorithm.</li>
+                            <li>"rgb" is a node's color value obtained by treemap's lookup into its current color gradient.</li>
+                        </ul>
+                        </p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    innerNodeHeaderGradient: function(ctx,rect,rgb) {
+        var gradient = ctx.createLinearGradient(rect[0],rect[1],rect[0],rect[1]+rect[3]);
+        gradient.addColorStop(0.,"#ccc");
+        gradient.addColorStop(.4,"#fff");
+        gradient.addColorStop(.6,"#fff");
+        gradient.addColorStop(1.,"#777");
+        return gradient;
+    }</pre></div>
+                        <h5>leafNodeBodyGradient</h5>
+                        <p>A function that returns a gradient object used as the fillStyle of leaf node body rectangles.  The function must accept 3 arguments: "ctx", "rect" and "rgb".
+                        <ul>
+                            <li>"ctx" is the 2d drawing context of the treemap's canvas element.</li>
+                            <li>"rect" is a node's rectangle generated by treemap layout algorithm.</li>
+                            <li>"rgb" is a node's color value obtained by treemap's lookup into its current color gradient.</li>
+                        </ul>
+                        </p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    leafNodeBodyGradient: function(ctx,rect,rgb) {
+        var r1 = Math.min(rect[2],rect[3])*0.1;
+        var r2 = Math.max(rect[2],rect[3]);
+        var x = rect[0]+rect[2]*0.5;
+        var y = rect[1]+rect[3]*0.5;
+        var gradient = ctx.createRadialGradient(x,y,r1,x,y,r2);
+        gradient.addColorStop(0,TreemapUtils.lighterColor(TreemapUtils.rgb2hex(rgb),0.2));
+        gradient.addColorStop(1,TreemapUtils.darkerColor(TreemapUtils.rgb2hex(rgb),0.2));
+        return gradient;
+    }</pre></div>
+                        <h5>innerNodeHeaderLabeller</h5>
+                        <p>A function that renders text into inner node header rectangles.  The function must accept 4 arguments: "ctx", "rect", "rgb" and "id".
+                        <ul>
+                            <li>"ctx" is the 2d drawing context of the treemap's canvas element.</li>
+                            <li>"rect" is a node's header rectangle generated by treemap layout algorithm.</li>
+                            <li>"rgb" is a node's color value obtained by treemap's lookup into its current color gradient.</li>
+                            <li>"id" is the node's unique identifier.</li>
+                        </ul>
+                        </p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    innerNodeHeaderLabeller: function(ctx,rect,rgb,id) {
+        ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+        ctx.clip();
+        ctx.fillStyle = '#555';
+        ctx.font = '0.625em Verdana, Geneva, sans-serif';
+        ctx.fillText(id,rect[0],rect[1]+10);
+    }</pre></div>
+                        <h5>leafNodeBodyLabeller</h5>
+                        <p>A function that renders text into leaf node body rectangles.  The function must accept 4 arguments: "ctx", "rect", "rgb" and "id".
+                        <ul>
+                            <li>"ctx" is the 2d drawing context of the treemap's canvas element.</li>
+                            <li>"rect" is a node's body rectangle generated by treemap layout algorithm.</li>
+                            <li>"rgb" is a node's color value obtained by treemap's lookup into its current color gradient.</li>
+                            <li>"id" is the node's unique identifier.</li>
+                        </ul>
+                        </p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    leafNodeBodyLabeller: function(ctx,rect,rgb,id) {
+        ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+        ctx.clip();
+        if (TreemapUtils.avgRgb(rgb) <= 200) {
+            ctx.fillStyle = '#fff';
+        } else {
+            ctx.fillStyle = '#888';
+        }
+        ctx.font = '0.625em Verdana, Geneva, sans-serif';
+        ctx.fillText(id,rect[0],rect[1]+10);
+    }</pre></div>
+                        <h5>nodeBorderWidth</h5>
+                        <p>Number of pixels to use as spacing around internal nodes.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    nodeBorderWidth: 0</pre></div>
+                        <h5>labelsEnabled</h5>
+                        <p>Boolean used to enable or disable node labelling.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    labelsEnabled: true</pre></div>
+                        <h5>animationEnabled</h5>
+                        <p>Boolean flag indicating whether or not to animate size option changes.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    animationEnabled: false</pre></div>
+                        <h5>animationDurationMs</h5>
+                        <p>Millisecond duration of size transition animation.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    animationDurationMs: 1000</pre></div>
+                        <h5>animationEasing</h5>
+                        <p>Object containing input parameters to a Bezier curve function.  Resultant curve is used to compute percent completion of animation.</p>
+    <p>Default:</p>
+    <div class="codeDiv"><pre>
+    animationEasing: {} // linear easing</pre></div>
+    <p>Example:</p>
+    <div class="codeDiv"><pre>
+    animationEasing: {mX1 : 0.42, mY1 : 0.0, mX2 : 0.58, mY2 : 1.0} // ease-in-out</pre></div>
+    <p>Easing convenience object:</p>
+    <div class="codeDiv"><pre>
+    TreemapUtils.Easing = {
+        "ease":        {mX1 : 0.25, mY1 : 0.1, mX2 : 0.25, mY2 : 1.0}, 
+        "linear":      {mX1 : 0.00, mY1 : 0.0, mX2 : 1.00, mY2 : 1.0},
+        "ease-in":     {mX1 : 0.42, mY1 : 0.0, mX2 : 1.00, mY2 : 1.0},
+        "ease-out":    {mX1 : 0.00, mY1 : 0.0, mX2 : 0.58, mY2 : 1.0},
+        "ease-in-out": {mX1 : 0.42, mY1 : 0.0, mX2 : 0.58, mY2 : 1.0}
+    };</pre></div>
+    <p>Easing convenience object members can be applied like so:</p>
+    <div class="codeDiv"><pre>
+    $("#treemap").treemap({
+        ...
+        "animationEasing":TreemapUtils.Easing["ease-in-out"],
+        ...
+    });
+    </pre></div>
+                    <h4>Events</h4>
+                    <h5>treemapmousemove</h5>
+                    <p>The treemapmousemove event can be used to trigger and update the presentation of a mouseover box and node highlighter(s) via a Javascript callback.  The mouseover box and highlighter(s) shown in this example are optional presentation elements and can be populated, styled using HTML and CSS.  The sample javascript code in this page demonstrates what information is available to the event handlers and how one might choose to highlight and/or display node details.</p>
+                    <h5>treemapclick</h5>
+                    <p>The treemapclick event can be used to trigger dynamic updates to the page's presentation via a Javascript callback.  The sample javascript code in this page demonstrates what information is available to the event handler.</p>
+                    <h4>Examples</h4>
+                    <ul>
+                        <li><a href="01-example.html">01-example.html</a> - treemap of small data set using defaulted options</li>
+                        <li><a href="02-example.html">02-example.html</a> - adding size and color controls</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="footer">
+                <div>
+                    <p>The jQuery treemap widget code and this page's HTML, CSS and Javascript are available from <a href="https://github.com/evancarey/jsTreemap">https://github.com/evancarey/jsTreemap</a></p>
+                </div>
+            </div>
+        </div>
+	    <script type="text/javascript">
+            var highlighterFadeTimeout;
+            var triggerHighlighterFade = function() {
+                $("#highlighter").fadeOut(400,"linear");
+            };
+            var clearHighlighterFade = function() {
+                clearTimeout(highlighterFadeTimeout);
+            };
+            var initHighlighterFade = function(duration) {
+                highlighterFadeTimeout = setTimeout('triggerHighlighterFade()',duration);
+            };
+            var mouseoverboxFadeTimeout;
+            var triggerMouseoverboxFade = function() {
+                $("#mouseoverbox").fadeOut(400,"linear");
+            };
+            var clearMouseoverboxFade = function() {
+                clearTimeout(mouseoverboxFadeTimeout);
+            };
+            var initMouseoverboxFade = function(duration) {
+                mouseoverboxFadeTimeout = setTimeout('triggerMouseoverboxFade()',duration);
+            };
+            var mouseclickHandler = function(e,data) {
+                var nodes = data.nodes;
+                var ids = data.ids;
+                alert('you clicked node with id '+nodes[0].id);
+            };
+            var mousemoveHandler = function(e,data) {
+                if (data.nodes[0] == undefined) return;
+                $("#debug-info").html("<span><p>" + e.pageX + ", " + e.pageY + "; id = " + data.ids[0] + "</p></span>");
+                updateHighlighter(e,data);
+                updateMouseoverbox(e,data);
+            };
+            var mouseleaveHandler = function() {
+                //console.log("mouseleaveHandler");
+                clearMouseoverboxFade();
+                triggerMouseoverboxFade();
+                clearHighlighterFade();
+                triggerHighlighterFade();
+            };
+            var updateHighlighter = function(e,data) {
+                $(".highlighter").hide().css("background-color","");
+                for (var i = 0; i < data.nodes.length; i++) {
+                    var offset = $("#treemap").offset();
+                    var divId = "highlighter"+i;
+                    if ( $("#"+divId).length == 0 ) {
+                        $("#highlighter").append("<div id=\""+divId+"\" class=\"highlighter\"></div>");
+                    }
+                    var bodyRect = data.nodes[i].geometry.body;
+                    var headerRect = data.nodes[i].geometry.header;
+                    var highlighterRect = [0,0,0,0];
+                    // Adjust for treemap's current offset and check if node has a header rectangle
+                    if (headerRect != null) {
+                        highlighterRect[0] = headerRect[0] + offset.left;
+                        highlighterRect[1] = headerRect[1] + offset.top;
+                        highlighterRect[2] = headerRect[2];
+                        highlighterRect[3] = headerRect[3] + bodyRect[3];
+                    } else {
+                        highlighterRect[0] = bodyRect[0] + offset.left;
+                        highlighterRect[1] = bodyRect[1] + offset.top;
+                        highlighterRect[2] = bodyRect[2];
+                        highlighterRect[3] = bodyRect[3];
+                    }
+                    $("#"+divId).css({
+                        "display":"inline",
+                        "left":highlighterRect[0],
+                        "top":highlighterRect[1],
+                        "width":highlighterRect[2],
+                        "height":highlighterRect[3]
+                    });
+                    $("#"+divId).show();
+                }
+                if (highlighterFadeTimeout != undefined) clearHighlighterFade();
+                initHighlighterFade(30000);
+                $("#highlighter").show();
+            };
+            var updateMouseoverbox = function(e,data) {
+                $(".mouseoverbox").hide();
+                if (data.nodes[0].hasOwnProperty('children') === false) {
+                    $("#mouseoverbox").css({"background-color":"rgba(255,255,255,0.85)"});
+                } else {
+                    $("#mouseoverbox").css({"background-color":"rgba(255,255,200,0.85)"});
+                }
+                $("#mouseoverbox").html("<span>"
+                    + "<p><b>" + moboxAndLabelData[data.nodes[0].id].label + "</b></p>"
+                    + "<p>x = <b>" + moboxAndLabelData[data.nodes[0].id].x + "</b></p>"
+                    + "<p>y = <b>" + moboxAndLabelData[data.nodes[0].id].y + "</b></p>"
+                    + "<p>z = <b>" + moboxAndLabelData[data.nodes[0].id].z + "</b></p>"
+                    + "</span>");
+                var mouseoverboxWidth = $("#mouseoverbox").width();
+                var mouseoverboxHeight = $("#mouseoverbox").height();
+                var treemapWidth = $("#treemap").width();
+                var treemapHeight = $("#treemap").height();
+                var treemapOffset = $("#treemap").offset();
+                if (e.pageX + mouseoverboxWidth + 16 > treemapOffset.left + treemapWidth) {
+                    $("#mouseoverbox").css({ "left":e.pageX-mouseoverboxWidth-8 });
+                } else {
+                    $("#mouseoverbox").css({ "left":e.pageX+16 });
+                }
+                if (e.pageY + mouseoverboxHeight > treemapOffset.top + treemapHeight) {
+                    $("#mouseoverbox").css({ "top":e.pageY-mouseoverboxHeight });
+                } else {
+                    $("#mouseoverbox").css({ "top":e.pageY });
+                }
+                if (mouseoverboxFadeTimeout != undefined) clearMouseoverboxFade();
+                initMouseoverboxFade(30000);
+                $("#mouseoverbox").show();
+            };
+            var myInnerNodeHeaderLabeller = function(ctx,rect,rgb,id) {
+              ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+              ctx.clip();
+              ctx.fillStyle = '#555';
+              ctx.font = '0.625em Verdana, Geneva, sans-serif';
+              ctx.fillText(moboxAndLabelData[id].label,rect[0],rect[1]+10);
+            };
+            var myLeafNodeBodyLabeller = function(ctx,rect,rgb,id) {
+                ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+                ctx.clip();
+                if (TreemapUtils.avgRgb(rgb) <= 200) {
+                    ctx.fillStyle = '#fff';
+                } else {
+                    ctx.fillStyle = '#888';
+                }
+                ctx.font = '0.625em Verdana, Geneva, sans-serif';
+                ctx.fillText(moboxAndLabelData[id].label,rect[0],rect[1]+10);
+            };
+            var currSizeOption = 1;
+            var initSizeBySelector = function() {
+                currSizeOption = 1; // reset size by option
+                $(".sizeByOption").css("background-color","");
+                $("#sizeBy1").css("background-color","#ddd");
+            };
+            var sizeByHandler = function(testSizeOption) {
+                if (testSizeOption == currSizeOption) return;
+                $(".sizeByOption").css("background-color","");
+                $("#sizeBy"+testSizeOption).css("background-color","#ddd");
+                $("#treemap").treemap("option","sizeOption",testSizeOption);
+                currSizeOption = testSizeOption;
+            };
+            var init = function(){
+                var treemapActive = false;
+                var createTreemap = function() {
+                    if (treemapActive == true) return;
+                    treemapActive = true;
+                    initSizeBySelector();
+                    $("#t9").attr('checked','checked');
+                    $("#debug-info").html("<span><p>0,0</p></span>");
+                    $("#treemap").treemap({
+                        "dimensions":[900,300],
+                        "sizeOption":1,
+                        "innerNodeHeaderLabeller": myInnerNodeHeaderLabeller,
+                        "leafNodeBodyLabeller": myLeafNodeBodyLabeller,
+                        "labelsEnabled":true,
+                        "nodeBorderWidth":1,
+                        "animationEnabled":true,
+                        "animationDurationMs":2000,
+                        "animationEasing":TreemapUtils.Easing["ease-in-out"],
+                        "nodeData": {
+                            "id":"2fc414e2", "children":[
+                                {"id":"23f627dc", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.39], "children":[
+                                    {"id":"ce96d31f", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"91e0ea1d", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"62188591", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"b80861a4", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"9216f340", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"40236148", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"c12264b7", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"126debf5", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.52], "children":[
+                                    {"id":"634c7555", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"2eac5833", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"50790bdd", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"15b8f1e1", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"4e14522d", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"92cf9150", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"97794307", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"7e3f0349", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.74], "children":[
+                                    {"id":"1dbf73a8", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"caefaba5", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"89bd30be", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39], "children":[
+                                        {"id":"7d56b381", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                        {"id":"5f3fcf29", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                        {"id":"50aa205c", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                        {"id":"beba7a53", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                        {"id":"b15f0ae4", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                        {"id":"cecbda69", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                        {"id":"496c7052", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                    ]},
+                                    {"id":"57582ef2", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"ef593822", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"c93cd65d", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"81c3e4d8", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"a3bec3a8", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.52], "children":[
+                                    {"id":"27605654", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"a113de2d", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"121fec09", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"0b1c34bf", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"6e4576d4", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"55d92db9", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"8dca9e0e", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"c467043d", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.39], "children":[
+                                    {"id":"e0b3ced3", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"904ad26e", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"8f58816c", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"ee1ca0bb", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"1f7df236", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"e411614a", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"234fa244", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"ae6f93e2", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98], "children":[
+                                    {"id":"4511fee8", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"ab206acd", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"d436ff53", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"25a300d6", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"391c72a8", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"7071d634", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"939985e5", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                                {"id":"08095bd4", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.85], "children":[
+                                    {"id":"0e27d9c9", "size":[.25,.7078533757055014,.08038695496678606,.1798013810278924], "color":[.74]},
+                                    {"id":"2fa79804", "size":[.25,.04716253184550722,.11885651163331237,.21906028099441757], "color":[.98]},
+                                    {"id":"e3ede063", "size":[.16667,.06122787130028486,.22720306420190928,.13172295366450237], "color":[.39]},
+                                    {"id":"40e92699", "size":[.125,.030236144312274546,.13194188815903038,.22872719830190025], "color":[.19]},
+                                    {"id":"9296b705", "size":[.083333,.13627056790452963,.19140993988513774,.008958104928028555], "color":[.52]},
+                                    {"id":"432db33d", "size":[.083333,.008355967011586606,.12493818313339286,.15427971304890944], "color":[.98]},
+                                    {"id":"4a01b07c", "size":[.041666667,.00889354192031559,.12526345802043118,.07745036803434943], "color":[.74]}
+                                ]},
+                            ]
+                        }
+                    })
+                    .bind('treemapmousemove',mousemoveHandler)
+                    .bind('treemapclick',mouseclickHandler)
+                    .mouseleave(function(){mouseleaveHandler()});
+                };
+                $("#t1").click(function(){
+                    createTreemap();
+                });
+                $("#t2").click(function(){
+                    $(".highlighter").hide();
+                    $("#treemap").unbind()
+                    .treemap("option","dimensions",[900,200])
+                    .bind('treemapmousemove',mousemoveHandler)
+                    .bind('treemapclick',mouseclickHandler)
+                    .mouseleave(function(){mouseleaveHandler()});
+                });
+                $("#t3").click(function(){
+                    $(".highlighter").hide().unbind();
+                    $("#treemap").unbind()
+                    .treemap("option","dimensions",[900,600])
+                    .bind('treemapmousemove',mousemoveHandler)
+                    .bind('treemapclick',mouseclickHandler)
+                    .mouseleave(function(){mouseleaveHandler()});
+                });
+                $("#t5").click(function(){
+                    $("#treemap").treemap("option","colorStops",[
+                        {"val":0,  "color":"#a00"},
+                        {"val":.4,"color":"#f00"},
+                        {"val":.5, "color":"#fff"},
+                        {"val":.6,"color":"#0f0"},
+                        {"val":1,  "color":"#070"}
+                    ]);
+                });
+                $("#t4").click(function(){
+                    $("#treemap").treemap("option","colorStops",[
+                        {"val":0,"color":"#520"},
+                        {"val":.25,"color":"#ff0"},
+                        {"val":0.5,"color":"#fff"},
+                        {"val":0.75,"color":"#0ff"},
+                        {"val":1,"color":"#052"}
+                    ]);
+                });
+                $("#t6").click(function(){
+                    $("#treemap").treemap("option","leafNodeBodyGradient",function(ctx,rect,rgb){
+                        var r1 = Math.min(rect[2],rect[3])*0.1;
+                        var r2 = Math.max(rect[2],rect[3]);
+                        var x = rect[0];
+                        var y = rect[1];
+                        var gradient = ctx.createRadialGradient(x,y,r1,x,y,r2);
+                        gradient.addColorStop(0,TreemapUtils.darkerColor(TreemapUtils.rgb2hex(rgb),0.1));
+                        gradient.addColorStop(1,TreemapUtils.lighterColor(TreemapUtils.rgb2hex(rgb),0.1));
+                        return gradient;
+                    })
+                });
+                $("#t7").click(function(){
+                    $("#treemap").treemap("option","leafNodeBodyGradient",function(ctx,rect,rgb){
+                        var r1 = Math.min(rect[2],rect[3])*0.1;
+                        var r2 = Math.max(rect[2],rect[3]);
+                        var x = rect[0]+rect[2]*0.5;
+                        var y = rect[1]+rect[3]*0.5;
+                        var gradient = ctx.createRadialGradient(x,y,r1,x,y,r2);
+                        gradient.addColorStop(0,TreemapUtils.lighterColor(TreemapUtils.rgb2hex(rgb),0.2));
+                        gradient.addColorStop(1,TreemapUtils.darkerColor(TreemapUtils.rgb2hex(rgb),0.2));
+                        return gradient;
+                    })
+                });
+                $("#t8").click(function(){
+                    $(".highlighter").hide().unbind();
+                    $("#treemap").unbind().treemap("destroy");
+                    $("#debug-info").html("<span><p>click the 'create' button to create treemap</p></span>");
+                    treemapActive = false;
+                });
+                $("#t9").click(function(){
+                    $("#treemap").treemap("option","labelsEnabled",$(this).is(':checked'));
+                });
+                $(".sizeByOption").mouseenter(function(){
+                    sizeByHandler($(this).attr("id").match(/[0-9]+/)[0]);
+                });
+                createTreemap();   
+            };
+            $(document).ready(function(){
+                init();
+            });
+        </script>
+    </body>
+</html>
+

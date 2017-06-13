@@ -1,0 +1,66 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<button id="drawButton" >
+    Zeichne
+</button>
+<div id="curve_chart" style="width: 900px; height: 500px"></div>
+
+<script>
+    var nameArray = ['StarCars','Mercedes1','BMW', 'Porsche', 'PorscheDoku1' ];
+    var parentArray = [null, 'StarCars','StarCars', 'StarCars', 'StarCars' ];
+    var sizeArray = [1,1,1,1,1 ];
+    var colorArray = [1,1,1, 25, 50, 100];
+
+
+    function selectHandler(e) {
+        alert('A table row was selected' +'______hier später neuen tab öffenen');
+    }
+
+    function parameterFunction( ){
+        google.charts.load('current', {'packages':['treemap']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Location');
+            data.addColumn('string', 'Parent');
+            data.addColumn('number', 'size');
+            data.addColumn('number', 'color');
+
+
+           var rowArray = [];
+
+            for(var y= 0; y < nameArray.length; y ++) {
+
+            rowArray.push([nameArray[y], parentArray[y], sizeArray[y], colorArray[y]]);
+            }
+
+            data.addRows( rowArray);
+
+            tree = new google.visualization.TreeMap(document.getElementById('curve_chart'));
+
+            google.visualization.events.addListener(tree, 'select', selectHandler);
+
+            tree.draw(data, {
+                minColor: '#FBF6EA',
+                midColor: '#FCDC86',
+                maxColor: '#FCB303',
+                headerHeight: 15,
+                fontColor: 'black',
+                showScale: true
+            });
+        }
+
+    }
+
+
+    document.getElementById("drawButton").onclick = parameterFunction;
+/*
+document.getElementById('drawButton').addEventListener('onclick',
+        parameterFunction())
+
+*/
+
+</script>
+
