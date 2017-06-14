@@ -12,7 +12,7 @@ import java.util.Hashtable;
  * A message captures information from the Pubsub message received over the push endpoint and is
  * persisted in storage.
  */
-public class Event {
+public class Event implements IEvent {
 
 	private String data;
 	private String id;
