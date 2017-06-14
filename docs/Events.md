@@ -1,6 +1,7 @@
 # Events
 
 Dieses Dokument dient der verbindlichen Definition der Events, welche durch unser Netzwerk geschickt werden.
+Werden weitere Events benötigt oder genügen die definierten Attribute nicht, ist dafür ein [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) zu erstellen.
 
 * [ContextEvent](#contextevent)
 * [DocumentRelevantEvent](#documentrelevantevent)
