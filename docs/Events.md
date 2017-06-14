@@ -16,8 +16,8 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [UserInformationEvent](#userinformationevent)
 * [UserLoginEvent](#userloginevent)
 * [UserLogoutEvent](#userlogoutevent)
-* UserEntersSessionEvent
-* UserLeavesSessionEvent
+* [UserJoinedSessionEvent](#userjoinedsessionevent)
+* [UserLeftSessionEvent](#userleftsessionevent)
 
 *Um die Konstanten nutzen zu können, muss die entsprechende Datei wie folgt implementiert werden*
 ```
@@ -101,7 +101,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_END</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_END</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Session finished } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -113,7 +113,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_START</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_START</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Session started } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -190,3 +190,27 @@ import  de.hdm.wim.sharedLib.Constants;
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+
+## UserJoinedSessionEvent
+*erstellt durch GUI; ein User hat sich an einer Session angemeldet*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_JOINED_SESSION</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { User joined Session } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+## UserLeftSessionEvent
+*erstellt durch GUI; ein User hat sich von einer Session abgemeldet*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_LEFT_SESSION</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { User leaved Session } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
