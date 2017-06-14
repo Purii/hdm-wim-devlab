@@ -10,12 +10,14 @@ import com.google.cloud.pubsub.spi.v1.SubscriptionAdminClient;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.pubsub.v1.ListSubscriptionsRequest;
 import com.google.pubsub.v1.ProjectName;
+import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.PushConfig;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.SubscriptionName;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
+import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 
 /**
@@ -80,6 +82,10 @@ public class SubscriptionHelper {
 					return subscription;
 				}
 			}
+			//PullRequest pullRequest;
+			//PullResponse pullResponse;
+
+			//pullResponse.
 
 			SubscriptionName subscriptionName =	SubscriptionName.create(PROJECT_ID, subscriptionId);
 
@@ -180,16 +186,26 @@ public class SubscriptionHelper {
 
 		LOGGER.info("test1");
 
+		Stream<PubsubMessage> eventStream = Stream.empty();
+
+		//eventStream
+		//BlockingQueue<PubsubMessage> blockingQueue = new ArrayBlockingQueue<PubsubMessage>(20);
+
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
 
 			// handle incoming message, then ack/nack the received message
-			LOGGER.info("Id : " + message.getMessageId());
-			LOGGER.info("Data : " + message.getData().toStringUtf8());
+			LOGGER.info("Id : " 		+ message.getMessageId());
+			LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
 			LOGGER.info("Attributes: "  + message.getAttributesMap().toString());
 
-			consumer.ack();
+			//if(blockingQueue.add(message))
+				consumer.ack();
+			//else
+				//consumer.nack();
 		};
+
+
 
 		LOGGER.info("test2");
 
@@ -199,6 +215,7 @@ public class SubscriptionHelper {
 				.defaultBuilder(subscriptionName, receiver)
 				.setExecutorProvider(executorProvider)
 				.build();
+
 
 			subscriber.addListener(
 				new Subscriber.Listener() {
@@ -212,6 +229,8 @@ public class SubscriptionHelper {
 			);
 
 			subscriber.startAsync().awaitRunning();
+/*subscriber.pull();
+subscription.*/
 
 			Thread.sleep(30000); //5 Minutes = 300000
 		} catch (InterruptedException e){
@@ -226,17 +245,23 @@ public class SubscriptionHelper {
 
 	}
 
+
+	private void handleMessage(){
+
+	}
+
 	/**
 	 * Subscribe.
 	 *
 	 * @param subscriptionType type of subscription: push or pull, see Constants!
-	 * @param topicName name of the topic
+	 * @param topicId name of the topic
 	 * @throws Exception the exception
 	 */
-	public void Subscribe(String subscriptionType, TopicName topicName) throws Exception{
+	public void Subscribe(String subscriptionType, String topicId) throws Exception{
 
-		Subscription subscription = null;
-		final String namePrefix = "subscription-";
+		TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		Subscription subscription 	= null;
+		final String namePrefix 	= "subscription-";
 		String subscriptionName;
 
 		if(subscriptionType.equals(SubscriptionType.PULL)){
