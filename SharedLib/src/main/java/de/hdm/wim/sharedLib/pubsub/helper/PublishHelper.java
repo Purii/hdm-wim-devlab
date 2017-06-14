@@ -63,6 +63,8 @@ public class PublishHelper {
 		URL url;
 		HttpURLConnection conn;
 
+		//TODO: resend message if it didnt work
+
 		//build request url
 		StringBuilder postData = new StringBuilder();
 		for (Map.Entry<String, Object> param : params.entrySet()) {
@@ -74,6 +76,7 @@ public class PublishHelper {
 			postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
 		}
 
+		LOGGER.info("endPoint: " + ENDPOINT);
 		LOGGER.info("postData: " + postData);
 
 		byte[] postDataBytes = postData.toString().getBytes("UTF-8");
