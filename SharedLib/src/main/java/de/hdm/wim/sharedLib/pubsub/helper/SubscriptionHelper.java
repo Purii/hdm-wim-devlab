@@ -34,21 +34,6 @@ public class SubscriptionHelper {
 	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, false in prod [default]
-	 */
-/*	public SubscriptionHelper(boolean isLocal) {
-		IS_LOCAL = isLocal;
-		PROJECT_ID= ServiceOptions.getDefaultProjectId();
-
-		if(IS_LOCAL)
-			ENDPOINT = Config.getLocalPushEndpoint();
-		else
-			ENDPOINT = Config.getProdPushEndpoint();
-	}*/
-
-	/**
-	 * Instantiates a new SubscriptionHelper.
-	 *
 	 * @param projectId the projectId, format: "my-project-id"
 	 */
 	public SubscriptionHelper(String projectId) {
@@ -135,47 +120,6 @@ public class SubscriptionHelper {
 	}
 
 	/**
-	 * Create a push subscription to the given topic.
-	 *
-	 * @param topicName the topic name
-	 * @param subscriptionId the subscription id, eg. "my-test-subscription"
-	 * @return the subscription
-	 * @throws Exception the exception
-	 */
-	private Subscription createPushSubscriptionIfNotExists(TopicName topicName, String subscriptionId) throws Exception{
-
-		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
-
-			Iterable<Subscription> subscriptions = getSubscriptions();
-
-			for(Subscription subscription : subscriptions){
-				if(subscription.getNameAsSubscriptionName().getSubscription().equals(subscriptionId))
-				{
-					LOGGER.info("Using existing subscription: " + subscriptionId);
-					return subscription;
-				}
-			}
-
-			SubscriptionName subscriptionName 	= SubscriptionName.create(PROJECT_ID, subscriptionId);
-
-			// set endpoint
-			PushConfig pushConfig 				= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
-
-			// create a push subscription with default acknowledgement deadline
-			Subscription subscription = subscriptionAdminClient.createSubscription(
-				subscriptionName,
-				topicName,
-				pushConfig,
-				10
-			);
-
-			LOGGER.info("Successfully created push subscription: " + subscriptionId);
-
-			return subscription;
-		}
-	}
-
-	/**
 	 * Gets subscriptions.
 	 *
 	 * @return the subscriptions
@@ -216,12 +160,7 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
-		//LOGGER.info("test1");
-
 		Stream<PubsubMessage> eventStream = Stream.empty();
-
-		//eventStream
-		//BlockingQueue<PubsubMessage> blockingQueue = new ArrayBlockingQueue<PubsubMessage>(20);
 
 		// Instantiate an asynchronous message receiver
 		MessageReceiver receiver = (message, consumer) ->{
@@ -231,15 +170,8 @@ public class SubscriptionHelper {
 			LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
 			LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()).toString());
 
-			//if(blockingQueue.add(message))
-				consumer.ack();
-			//else
-				//consumer.nack();
+			consumer.ack();
 		};
-
-
-
-		//LOGGER.info("test2");
 
 		try {
 			// Create a subscriber bound to the message receiver
@@ -261,8 +193,6 @@ public class SubscriptionHelper {
 			);
 
 			subscriber.startAsync().awaitRunning();
-/*subscriber.pull();
-subscription.*/
 
 			Thread.sleep(30000); //5 Minutes = 300000
 		} catch (InterruptedException e){
@@ -273,49 +203,5 @@ subscription.*/
 				subscriber.stopAsync();
 			}
 		}
-
-
 	}
-
-
-	private void handleMessage(){
-
-	}
-
-	/**
-	 * Subscribe to a topic using a subscription.
-	 *
-	 * @param subscriptionType type of subscription: push or pull, see Constants!
-	 * @param topicId name of the topic
-	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
-	 * @throws Exception the exception
-	 */
-/*
-	public void Subscribe(Subscription subscription) throws Exception{
-
-		//TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
-		//Subscription subscription 	= null;
-		//final String namePrefix 	= "subscription-";
-		//PushConfig pushConfig;
-		//String subscriptionName;
-
-		if(subscriptionType.equals(SubscriptionType.PULL)){
-			//LOGGER.info("pull");
-
-			subscriptionName 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
-			pushConfig 			= PushConfig.getDefaultInstance();
-			subscription 		= createSubscriptionIfNotExists(topicName, subscriptionName, pushConfig);
-		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
-			//LOGGER.info("push");
-
-			subscriptionName 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
-			pushConfig 			= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
-			subscription 		= createSubscriptionIfNotExists(topicName, subscriptionName, pushConfig);
-		}else{
-			LOGGER.error("wrong subscription type: " + subscriptionType);
-		}
-
-		createSubscriber(subscription);
-	}
-*/
 }
