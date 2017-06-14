@@ -5,7 +5,7 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 
 * [ContextEvent](#contextevent)
 * [DocumentRelevantEvent](#documentrelevantevent)
-* [DocumentHighlyRelevantEvent](#documenthighlyrelevant)
+* [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
 * [FeedbackEvent](#feedbackevent)
 * [LearnEvent](#learnevent)
 * [OfferEvent](#offerevent)
