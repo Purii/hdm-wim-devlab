@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
-import de.hdm.wim.sharedLib.classes.Message;
+import de.hdm.wim.sharedLib.events.Event;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,12 +54,12 @@ public class PubSubPush extends HttpServlet {
 
 		// parse message object from "message" field in the request body json
 		// decode message data from base64
-		Message message = getMessage(req);
+		Event event = getEvents(req);
 		try {
 
-			LOGGER.info(message.getData());
+			LOGGER.info(event.getData());
 
-			messageRepository.save(message);
+			messageRepository.save(event);
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system
 			resp.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
@@ -67,17 +67,17 @@ public class PubSubPush extends HttpServlet {
 		}
 	}
 
-	private Message getMessage(HttpServletRequest request) throws IOException {
+	private Event getEvents(HttpServletRequest request) throws IOException {
 
 		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
 		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
-		String messageStr 		= jsonRoot.getAsJsonObject().get("message").toString();
-		Message message 		= gson.fromJson(messageStr, Message.class);
+		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
+		Event event 			= gson.fromJson(eventStr, Event.class);
 
 		// decode from base64
-		String decoded = decode(message.getData());
-		message.setData(decoded);
-		return message;
+		String decoded = decode(event.getData());
+		event.setData(decoded);
+		return event;
 	}
 
 	/*

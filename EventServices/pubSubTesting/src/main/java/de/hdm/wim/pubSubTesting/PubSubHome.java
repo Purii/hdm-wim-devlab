@@ -1,7 +1,7 @@
 package de.hdm.wim.pubSubTesting;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
-import de.hdm.wim.sharedLib.classes.Message;
+import de.hdm.wim.sharedLib.events.Event;
 import java.util.List;
 
 /**
@@ -17,9 +17,9 @@ public class PubSubHome {
 	 *
 	 * @return html representation of messages (one per row)
 	 */
-	public static String getReceivedMessages() {
-		List<Message> messageList = messageRepository.retrieve(MAX_MESSAGES);
-		return convertToHtmlTable(messageList);
+	public static String getReceivedEvents() {
+		List<Event> eventList = messageRepository.retrieve(MAX_MESSAGES);
+		return convertToHtmlTable(eventList);
 	}
 
 	public static String getListOfTopics(){
@@ -32,15 +32,15 @@ public class PubSubHome {
 		return sb.toString();
 	}
 
-	private static String convertToHtmlTable(List<Message> messages) {
+	private static String convertToHtmlTable(List<Event> events) {
 		StringBuilder sb = new StringBuilder();
-		for (Message message : messages) {
+		for (Event event : events) {
 			sb.append("<tr>");
-			sb.append("<td>" + message.getId() + "</td>");
-			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getTopic() + "</td>");
-			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getData() + "</td>");
-			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + message.getAttributes() + "</td>");
-			sb.append("<td>" + message.getPublishTime() + "</td>");
+			sb.append("<td>" + event.getId() + "</td>");
+			//sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getTopic() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getData() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getAttributes() + "</td>");
+			sb.append("<td>" + event.getPublishTime() + "</td>");
 			sb.append("</tr>");
 		}
 		return sb.toString();

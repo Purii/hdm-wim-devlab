@@ -106,7 +106,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%= PubSubHome.getReceivedMessages() %>
+                    <%= PubSubHome.getReceivedEvents() %>
                     </tbody>
                 </table>
             </div>

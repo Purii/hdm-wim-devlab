@@ -8,7 +8,7 @@ import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
-import de.hdm.wim.sharedLib.classes.Message;
+import de.hdm.wim.sharedLib.events.Event;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,30 +24,30 @@ public class MessageRepositoryImpl implements MessageRepository {
 	private KeyFactory keyFactory = getDatastoreInstance().newKeyFactory().setKind(messagesKind);
 
 	@Override
-	public void save(Message message) {
+	public void save(Event event) {
 		// Save message to "messages"
 		Datastore datastore = getDatastoreInstance();
 		Key key = datastore.allocateId(keyFactory.newKey());
 
 		Entity.Builder messageEntityBuilder = Entity.newBuilder(key)
-			.set("messageId", message.getId());
+			.set("messageId", event.getId());
 
-		if (message.getData() != null) {
-			messageEntityBuilder = messageEntityBuilder.set("data", message.getData());
+		if (event.getData() != null) {
+			messageEntityBuilder = messageEntityBuilder.set("data", event.getData());
 		}
 
-		if (message.getTopic() != null) {
+/*		if (message.getTopic() != null) {
 			messageEntityBuilder = messageEntityBuilder.set("topic", message.getData());
-		}
+		}*/
 
-		if (message.getPublishTime() != null) {
-			messageEntityBuilder = messageEntityBuilder.set("publishTime", message.getPublishTime());
+		if (event.getPublishTime() != null) {
+			messageEntityBuilder = messageEntityBuilder.set("publishTime", event.getPublishTime());
 		}
 		datastore.put(messageEntityBuilder.build());
 	}
 
 	@Override
-	public List<Message> retrieve(int limit) {
+	public List<Event> retrieve(int limit) {
 		// Get de.hdm.wim.Message saved in Datastore
 		Datastore datastore = getDatastoreInstance();
 		Query<Entity> query =
@@ -58,26 +58,26 @@ public class MessageRepositoryImpl implements MessageRepository {
 				.build();
 		QueryResults<Entity> results = datastore.run(query);
 
-		List<Message> messages = new ArrayList<>();
+		List<Event> events = new ArrayList<>();
 		while (results.hasNext()) {
 			Entity entity 	= results.next();
-			Message message = new Message(entity.getString("id"));
+			Event event = new Event(entity.getString("id"));
 
 			String data = entity.getString("data");
 			if (data != null) {
-				message.setData(data);
+				event.setData(data);
 			}
-			String topic = entity.getString("topic");
+/*			String topic = entity.getString("topic");
 			if (topic != null) {
-				message.setTopic(topic);
-			}
+				event.setTopic(topic);
+			}*/
 			String publishTime = entity.getString("publishTime");
 			if (publishTime != null) {
-				message.setPublishTime(publishTime);
+				event.setPublishTime(publishTime);
 			}
-			messages.add(message);
+			events.add(event);
 		}
-		return messages;
+		return events;
 	}
 
 	private Datastore getDatastoreInstance() {
