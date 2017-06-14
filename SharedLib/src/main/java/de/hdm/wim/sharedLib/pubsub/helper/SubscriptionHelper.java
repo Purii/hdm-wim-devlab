@@ -25,16 +25,16 @@ import org.apache.log4j.Logger;
  */
 public class SubscriptionHelper {
 
-	private static final Logger LOGGER = Logger.getLogger(SubscriptionHelper.class);
+	private static final Logger LOGGER 	= Logger.getLogger(SubscriptionHelper.class);
+	private static boolean IS_LOCAL 	= false;
+	private static boolean USE_REST 	= false;
+	private static String PROJECT_ID	= Config.APP_ID;
 	private String ENDPOINT;
-	private boolean IS_LOCAL = false;
-	private boolean USE_REST = false;
-	private String PROJECT_ID;
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param projectId the projectId, format: "my-project-id"
+	 * @param projectId the projectId, format: "my-project-id", by default {@value SubscriptionHelper#PROJECT_ID}
 	 */
 	public SubscriptionHelper(String projectId) {
 		PROJECT_ID 	= projectId;
@@ -46,11 +46,27 @@ public class SubscriptionHelper {
 	}
 
 	/**
+	 * Instantiates a new SubscriptionHelper. Using the projectId from Constants
+	 *
+	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
+	 * @param useREST true if you want to use REST, by default {@value SubscriptionHelper#USE_REST}
+	 */
+	public SubscriptionHelper(boolean isLocal, boolean useREST) {
+		IS_LOCAL 	= isLocal;
+		USE_REST 	= useREST;
+
+		if(IS_LOCAL)
+			ENDPOINT = Config.getLocalPushEndpoint();
+		else
+			ENDPOINT = Config.getProdPushEndpoint();
+	}
+
+	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, false in prod [default]
-	 * @param useREST true if you want to use REST, [default] = false
-	 * @param projectId the project id, you can find it in the constants
+	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
+	 * @param useREST true if you want to use REST, by default {@value SubscriptionHelper#USE_REST}
+	 * @param projectId the project id, by default {@value SubscriptionHelper#PROJECT_ID}
 	 */
 	public SubscriptionHelper(boolean isLocal, boolean useREST, String projectId) {
 		IS_LOCAL 	= isLocal;
@@ -62,6 +78,7 @@ public class SubscriptionHelper {
 		else
 			ENDPOINT = Config.getProdPushEndpoint();
 	}
+
 
 	/**
 	 * Create a subscription to the given topic or return an existing subscription.
