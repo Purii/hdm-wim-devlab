@@ -209,7 +209,7 @@ import  de.hdm.wim.sharedLib.Constants;
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
 | `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_LEFT_SESSION</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { User leaved Session } ``` |
+| `data` | `string (bytes format)` | ``` { User left Session } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
