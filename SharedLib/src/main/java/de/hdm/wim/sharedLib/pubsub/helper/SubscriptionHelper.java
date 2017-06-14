@@ -2,12 +2,12 @@ package de.hdm.wim.sharedLib.pubsub.helper;
 
 import com.google.api.gax.grpc.ExecutorProvider;
 import com.google.api.gax.grpc.InstantiatingExecutorProvider;
-import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.MessageReceiver;
 import com.google.cloud.pubsub.spi.v1.PagedResponseWrappers;
 import com.google.cloud.pubsub.spi.v1.Subscriber;
 import com.google.cloud.pubsub.spi.v1.SubscriptionAdminClient;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.gson.Gson;
 import com.google.pubsub.v1.ListSubscriptionsRequest;
 import com.google.pubsub.v1.ProjectName;
 import com.google.pubsub.v1.PubsubMessage;
@@ -27,15 +27,16 @@ public class SubscriptionHelper {
 
 	private static final Logger LOGGER = Logger.getLogger(SubscriptionHelper.class);
 	private String ENDPOINT;
-	private boolean IS_LOCAL;
+	private boolean IS_LOCAL = false;
+	private boolean USE_REST = false;
 	private String PROJECT_ID;
 
 	/**
-	 * Instantiates a new TopicHelper.
+	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, false in prod
+	 * @param isLocal true if you are running a local webapp, false in prod [default]
 	 */
-	public SubscriptionHelper(boolean isLocal) {
+/*	public SubscriptionHelper(boolean isLocal) {
 		IS_LOCAL = isLocal;
 		PROJECT_ID= ServiceOptions.getDefaultProjectId();
 
@@ -43,17 +44,15 @@ public class SubscriptionHelper {
 			ENDPOINT = Config.getLocalPushEndpoint();
 		else
 			ENDPOINT = Config.getProdPushEndpoint();
-	}
+	}*/
 
 	/**
-	 * Instantiates a new TopicHelper.
+	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, false in prod
-	 * @param projectId the project id, you can find it in the constants
+	 * @param projectId the projectId, format: "my-project-id"
 	 */
-	public SubscriptionHelper(boolean isLocal, String projectId) {
-		IS_LOCAL 	= isLocal;
-		PROJECT_ID	= projectId;
+	public SubscriptionHelper(String projectId) {
+		PROJECT_ID 	= projectId;
 
 		if(IS_LOCAL)
 			ENDPOINT = Config.getLocalPushEndpoint();
@@ -62,17 +61,54 @@ public class SubscriptionHelper {
 	}
 
 	/**
-	 * Create a pull subscription to the given topic.
+	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param topicName the topic name
-	 * @param subscriptionId the subscription id, eg. "my-test-subscription"
-	 * @return the subscription
+	 * @param isLocal true if you are running a local webapp, false in prod [default]
+	 * @param useREST true if you want to use REST, [default] = false
+	 * @param projectId the project id, you can find it in the constants
+	 */
+	public SubscriptionHelper(boolean isLocal, boolean useREST, String projectId) {
+		IS_LOCAL 	= isLocal;
+		PROJECT_ID	= projectId;
+		USE_REST 	= useREST;
+
+		if(IS_LOCAL)
+			ENDPOINT = Config.getLocalPushEndpoint();
+		else
+			ENDPOINT = Config.getProdPushEndpoint();
+	}
+
+	/**
+	 * Create a subscription to the given topic or return an existing subscription.
+	 *
+	 * @param subscriptionType type of subscription: push or pull, see Constants!
+	 * @param topicId name of the topic
+	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
 	 * @throws Exception the exception
 	 */
-	private Subscription createPullSubscriptionIfNotExists(TopicName topicName, String subscriptionId) throws Exception{
+	public Subscription CreateSubscription(String subscriptionType, String topicId, String suffix) throws Exception{
+
+		LOGGER.info("creating subscription...");
+
+		TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		final String namePrefix 	= "subscription-";
+		PushConfig pushConfig		= null;
+		String subscriptionId		= "";
+
+		if(subscriptionType.equals(SubscriptionType.PULL)){
+			subscriptionId 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
+			pushConfig 			= PushConfig.getDefaultInstance();
+		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
+			subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
+			pushConfig 			= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
+		}else{
+			LOGGER.error("wrong subscription type: " + subscriptionType);
+			return null;
+		}
 
 		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
 
+			// check if subscription with same name exists, if yes use it
 			Iterable<Subscription> subscriptions 	= getSubscriptions();
 
 			for(Subscription subscription : subscriptions){
@@ -82,10 +118,6 @@ public class SubscriptionHelper {
 					return subscription;
 				}
 			}
-			//PullRequest pullRequest;
-			//PullResponse pullResponse;
-
-			//pullResponse.
 
 			SubscriptionName subscriptionName =	SubscriptionName.create(PROJECT_ID, subscriptionId);
 
@@ -93,11 +125,10 @@ public class SubscriptionHelper {
 			Subscription subscription = subscriptionAdminClient.createSubscription(
 				subscriptionName,
 				topicName,
-				PushConfig.getDefaultInstance(),
+				pushConfig,
 				10
 			);
-
-			LOGGER.info("Successfully created pull subscription: " + subscriptionId);
+			LOGGER.info("Successfully created subscription: " + subscriptionId);
 
 			return subscription;
 		}
@@ -152,6 +183,7 @@ public class SubscriptionHelper {
 	 */
 	public Iterable<Subscription> getSubscriptions() throws Exception {
 
+		//LOGGER.info("existing subscriptions:");
 		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
 
 			ListSubscriptionsRequest listSubscriptionsRequest =
@@ -163,19 +195,19 @@ public class SubscriptionHelper {
 				.listSubscriptions(listSubscriptionsRequest);
 			Iterable<Subscription> subscriptions = response.iterateAll();
 			for (Subscription subscription : subscriptions) {
-				LOGGER.info(subscription.getName());
+				//LOGGER.info(subscription.getName());
 			}
 			return subscriptions;
 		}
 	}
 
 	/**
-	 * Create subscriber.
+	 * Subscribe to a topic using a subscription.
 	 *
 	 * @param subscription the subscription
 	 * @throws Exception the exception
 	 */
-	private void createSubscriber(Subscription subscription) throws Exception{
+	public void Subscribe(Subscription subscription) throws Exception{
 
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
@@ -184,7 +216,7 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
-		LOGGER.info("test1");
+		//LOGGER.info("test1");
 
 		Stream<PubsubMessage> eventStream = Stream.empty();
 
@@ -197,7 +229,7 @@ public class SubscriptionHelper {
 			// handle incoming message, then ack/nack the received message
 			LOGGER.info("Id : " 		+ message.getMessageId());
 			LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
-			LOGGER.info("Attributes: "  + message.getAttributesMap().toString());
+			LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()).toString());
 
 			//if(blockingQueue.add(message))
 				consumer.ack();
@@ -207,7 +239,7 @@ public class SubscriptionHelper {
 
 
 
-		LOGGER.info("test2");
+		//LOGGER.info("test2");
 
 		try {
 			// Create a subscriber bound to the message receiver
@@ -251,31 +283,39 @@ subscription.*/
 	}
 
 	/**
-	 * Subscribe.
+	 * Subscribe to a topic using a subscription.
 	 *
 	 * @param subscriptionType type of subscription: push or pull, see Constants!
 	 * @param topicId name of the topic
+	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
 	 * @throws Exception the exception
 	 */
-	public void Subscribe(String subscriptionType, String topicId) throws Exception{
+/*
+	public void Subscribe(Subscription subscription) throws Exception{
 
-		TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
-		Subscription subscription 	= null;
-		final String namePrefix 	= "subscription-";
-		String subscriptionName;
+		//TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		//Subscription subscription 	= null;
+		//final String namePrefix 	= "subscription-";
+		//PushConfig pushConfig;
+		//String subscriptionName;
 
 		if(subscriptionType.equals(SubscriptionType.PULL)){
-			LOGGER.info("pull");
-			subscriptionName 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic();
-			subscription 		= createPullSubscriptionIfNotExists(topicName, subscriptionName);
+			//LOGGER.info("pull");
+
+			subscriptionName 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
+			pushConfig 			= PushConfig.getDefaultInstance();
+			subscription 		= createSubscriptionIfNotExists(topicName, subscriptionName, pushConfig);
 		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
-			LOGGER.info("push");
-			subscriptionName 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic();
-			subscription 		= createPushSubscriptionIfNotExists(topicName, subscriptionName);
+			//LOGGER.info("push");
+
+			subscriptionName 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
+			pushConfig 			= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
+			subscription 		= createSubscriptionIfNotExists(topicName, subscriptionName, pushConfig);
 		}else{
 			LOGGER.error("wrong subscription type: " + subscriptionType);
 		}
 
 		createSubscriber(subscription);
 	}
+*/
 }
