@@ -1,10 +1,14 @@
 package de.hdm.wim.sharedLib.pubsub;
 
+import de.hdm.wim.sharedLib.Constants.PubSub;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
+import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
 
@@ -14,20 +18,32 @@ import java.util.concurrent.TimeUnit;
 public class ExamplePublish {
 	private static final long MESSAGE_PERIOD_SECONDS = 1;
 
-	// publish one message every second
+	/**
+	 * before you publish, make sure there is a subscription, otherwise messages might get lost Oo
+	 */
 	public static void main(String[] args) throws Exception {
-		int i 				= 1;
+		int MAX_NUMBER_OF_MESSAGES = 1;
+
+		// init a SubscriptionHelper to use for prod environment, without REST and for the given project
+		SubscriptionHelper sh 		= new SubscriptionHelper(false, false, Config.APP_ID);
+
+		/**
+		 * this will create a subscription with id: "subscription-pull-topic-1-test1"
+		 * if the subscription already exists, we will use it
+		 */
+		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
+		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test2");
 
 		PublishHelper ph 	= new PublishHelper(false);
 
-		while (i <= 3) {
-			Event event   = Event.generate("blubb_" + i);
+		while (MAX_NUMBER_OF_MESSAGES <= 3) {
+			Event event   = Event.generate("blubb_" + MAX_NUMBER_OF_MESSAGES);
 
 			ph.Publish(event, Topic.TOPIC_1);
 
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
-			i++;
+			MAX_NUMBER_OF_MESSAGES++;
 		}
 
 		Event feedbackEvent = new Event();
