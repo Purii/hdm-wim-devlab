@@ -205,7 +205,7 @@ socket.onmessage = function (event) {
                          // log("pushe in arrays " + name);
                           folderArray.push(folder);
 
-                          nameArray.push(folder +" => " + name);
+                          nameArray.push(name);
                           parentArray.push('StarCars');
                           sizeArray.push(prio* 5 + 1);   // Aufpassen!!! prio muss min 1 haben, sonst wird es nicht angezeigt!!!
                           colorArray.push( prio* 5 + 1 + getFolderArrayIndex(folderArray, folder)  );
@@ -227,7 +227,8 @@ socket.onmessage = function (event) {
         //zeichen google chart
 
         function selectHandler(e) {
-            alert('A table row was selected' +'______hier später neuen tab öffenen');
+            addTab(1, 'name auf Namensarray');
+           // alert('A table row was selected' +'______hier später neuen tab öffenen');
         }
 
         function parameterFunction( ){
@@ -259,14 +260,36 @@ socket.onmessage = function (event) {
 
                 google.visualization.events.addListener(tree, 'select', selectHandler);
 
-                tree.draw(data, {
+
+          /*      function showStaticTooltip(row, size, value) {
+                    return '<div style="background:#fd9; padding:10px; border-style:solid; ">' +
+                        'Read more about the <a href="http://en.wikipedia.org/wiki/Kingdom_(biology)">kingdoms of life</a>.</div>';
+                }
+
+                */
+                function showFullTooltip(row, size, value) {
+                    return '<div style="background:#fd9; padding:10px; border-style:solid">' +
+                        '<span style="font-family:Courier"><b>' + data.getValue(row, 0) +
+                        '</b>, ' + data.getValue(row, 1) + ', ' + data.getValue(row, 2) +
+                        ', ' + data.getValue(row, 3) + '</span><br>' +
+                        'Datatable row: ' + row + '<br>' +
+                        data.getColumnLabel(2) +
+                        ' (total value of this cell and its children): ' + size + '<br>' +
+                        data.getColumnLabel(3) + ': ' + value + ' </div>';
+                }
+
+                var options = {
                     minColor: '#FBF6EA',
                     midColor: '#FCDC86',
                     maxColor: '#FCB303',
                     headerHeight: 15,
                     fontColor: 'black',
-                    showScale: true
-                });
+                    showScale: true,
+                    generateTooltip: showFullTooltip
+
+                }
+
+                tree.draw(data, options);
             }
 
         }
