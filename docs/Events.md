@@ -6,7 +6,6 @@ Dieses Dokument dient der verbindlichen Definition der Events, welche durch unse
 * [DocumentRelevantEvent](#documentrelevantevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevant)
 * [FeedbackEvent](#feedbackevent)
-* [InsightEvent](#insightevent)
 * [LearnEvent](#learnevent)
 * [OfferEvent](#offerevent)
 * [SessionEndEvent](sessionendevent)
@@ -23,11 +22,11 @@ import  de.hdm.wim.sharedLib.Constants;
 ```
 
 ## ContextEvent
-*erstellt durch CEP; die Nutzerinformationen und gesprochenen Token lassen auf ein Projekt schließen*
+*erstellt durch CEP; die Nutzerinformationen und gesprochenen Token lassen auf einen Projekt-Kontext schließen*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { userId: String, projectId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { projectId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.CONTEXT } ``` |
 | `data` | `string (bytes format)` | ``` { Context } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -70,17 +69,6 @@ import  de.hdm.wim.sharedLib.Constants;
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
 
 
-## InsightEvent
-
-| Feld | Datentyp | Wert |
-| :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.INSIGHT } ``` |
-| `data` | `string (bytes format)` | ``` { userId, documentId } ``` |
-| `messageId` | `string` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
-
-
 ## LearnEvent
 *erstellt durch ML; Kontext zwischen Personen oder Dokumenten zu Projekten*
 
@@ -105,25 +93,25 @@ import  de.hdm.wim.sharedLib.Constants;
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.OFFERS` |
 
 
-## UserSessionEvent
-*erstellt durch CEP und GUI; der User führt eine Sitzungs-Aktion durch (Login, Logout, passiver Logout)*
+## SessionEndEvent
+*erstellt durch CEP; es ist kein User mehr in der Session vorhanden*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT(USER_INTERFACE), constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSIONINSIGHT } ``` |
-| `data` | `string (bytes format)` | ``` { userId, action } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_END } ``` |
+| `data` | `string (bytes format)` | ``` { Session finished } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
 
 ## SessionStartEvent
-*erstellt durch CEP; Schlussfolgerungen auf Grundlage der SessionEvents (Session beendet)*
+*erstellt durch GUI; ein User betritt eine Session*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSIONINSIGHT } ``` |
-| `data` | `string (bytes format)` | ``` { session } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_START } ``` |
+| `data` | `string (bytes format)` | ``` { Session started } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
@@ -134,8 +122,8 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.STAYALIVE } ``` |
-| `data` | `string (bytes format)` | ``` { userId, isActive } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.STAYALIVE } ``` |
+| `data` | `string (bytes format)` | ``` { User is active } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
@@ -146,8 +134,56 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | ``` { constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN } ``` |
-| `data` | `string (bytes format)` | ``` { userId, token } ``` |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, token: Object, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN } ``` |
+| `data` | `string (bytes format)` | ``` { Token } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` | 
+
+
+## UserInactiveEvent
+*erstellt durch CEP; ein User ist inaktiv (passiver Logout)*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INACTIVE } ``` |
+| `data` | `string (bytes format)` | ``` { User is inactive } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+
+## UserInformationEvent
+*erstellt durch SR; Detailinformationen über den User, wird bspw. beim Login ausgelöst*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, ..., constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFORMATION } ``` |
+| `data` | `string (bytes format)` | ``` { User information } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+
+## UserLoginEvent
+*erstellt durch GUI; ein User hat sich eingeloggt*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE, constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_LOGIN } ``` |
+| `data` | `string (bytes format)` | ``` { User logged in } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+
+## UserLogoutEvent
+*erstellt durch GUI; ein User hat sich ausgeloggt*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | ``` { userId: String, constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT(USER_INTERFACE), constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_LOGOUT } ``` |
+| `data` | `string (bytes format)` | ``` { User logged out } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
