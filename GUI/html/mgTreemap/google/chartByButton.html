@@ -1,66 +1,42 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<head>
+    <meta charset="utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <link rel="stylesheet" href="styleTabs.css">
+
+</head>
+<body>
 
 
-<button id="drawButton" >
-    Zeichne
-</button>
-<div id="curve_chart" style="width: 900px; height: 500px"></div>
+<div class="tab" id="tabList">
+    <button class="tablinks" onclick="openTab(event, 'KoBoRa')"  id="defaultOpen">KoBoRa</button>
 
-<script>
-    var nameArray = ['StarCars','Mercedes1','BMW', 'Porsche', 'PorscheDoku1' ];
-    var parentArray = [null, 'StarCars','StarCars', 'StarCars', 'StarCars' ];
-    var sizeArray = [1,1,1,1,1 ];
-    var colorArray = [1,1,1, 25, 50, 100];
+</div>
 
 
-    function selectHandler(e) {
-        alert('A table row was selected' +'______hier später neuen tab öffenen');
-    }
+<div id="contentForTabs">
+    <div id="KoBoRaBody" class="tabcontent">
 
-    function parameterFunction( ){
-        google.charts.load('current', {'packages':['treemap']});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Location');
-            data.addColumn('string', 'Parent');
-            data.addColumn('number', 'size');
-            data.addColumn('number', 'color');
+        <h3>KoBoRa System</h3>
+        <p>bla bla</p>
 
 
-           var rowArray = [];
+        <div id="curve_chart" style="width: 900px; height: 500px"></div>
 
-            for(var y= 0; y < nameArray.length; y ++) {
-
-            rowArray.push([nameArray[y], parentArray[y], sizeArray[y], colorArray[y]]);
-            }
-
-            data.addRows( rowArray);
-
-            tree = new google.visualization.TreeMap(document.getElementById('curve_chart'));
-
-            google.visualization.events.addListener(tree, 'select', selectHandler);
-
-            tree.draw(data, {
-                minColor: '#FBF6EA',
-                midColor: '#FCDC86',
-                maxColor: '#FCB303',
-                headerHeight: 15,
-                fontColor: 'black',
-                showScale: true
-            });
-        }
-
-    }
+        <button id="drawButton">
+            Zeichne
+        </button>
+    </div>
 
 
-    document.getElementById("drawButton").onclick = parameterFunction;
-/*
-document.getElementById('drawButton').addEventListener('onclick',
-        parameterFunction())
 
-*/
 
-</script>
+</div>
 
+
+<script type="text/javascript" src="drawCHartByButton.js"></script>
+<script type="text/javascript" src="tabs.js"></script>
+
+</body>

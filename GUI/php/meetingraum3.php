@@ -115,44 +115,9 @@
 
 
 
-                <script type="text/javascript">
-
-                    function parameterFunction(a , b , c , d ){
-                        google.charts.load('current', {'packages':['corechart']});
-                        google.charts.setOnLoadCallback(drawChart);
-
-
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['Year', 'Sales', 'Expenses'],
-                                [a,  1000,      400],
-                                [b,  1170,      460],
-                                [c,  660,       1120],
-                                [d,  1030,      540]
-                            ]);
-
-                            var options = {
-                                title: 'Company Performance',
-                                curveType: 'function',
-                                legend: { position: 'bottom' }
-                            };
-
-                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                            chart.draw(data, options);
-                        }
-
-                    }
-
-                </script>
-
-
-
-
                 <button id="drawButton" >
                     Zeichne
                 </button>
-
 
 
 

@@ -1,5 +1,6 @@
 function selectHandler(e) {
-    alert('A table row was selected' +'______hier später neuen tab öffenen');
+    //alert('A table row was selected' +'______hier später neuen tab öffenen');
+    document.getElementById('curve_chart').click();
 }
 
 google.charts.load('current', {'packages':['treemap']});
