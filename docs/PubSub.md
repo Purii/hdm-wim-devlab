@@ -1,20 +1,11 @@
 # PubSub
 
---> Andere an den Start bringen. Arbeit mit SharedLib demonstrieren
+In diesem Dokument wird der Umgang mit der ShareLib demonstriert. Die ShareLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden. 
 
-**Vezeichnis**
+## Vezeichnis
 
-* [Grundlagen](#grundlagen)
 * [ShareLib-Klassen](#sharelib-klassen)
-* [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveroeffentlichen)
-
-## Grundlagen
-
-- Ein `publisher` erstellt eine `topic`.
-- Ein `subscriber` erstellt eine `subscription` auf diese `topic`.
-- Der `publisher` sendet eine `message` an diese `topic`.
-- Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.
-- Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.
+* [Events als Messages in PubSub veröffentlichen](#ablauf)
 
 ## ShareLib-Klassen
 
@@ -23,8 +14,6 @@
 * [Event-Klasse](#event-klasse)
 * [PublishHelper](#publishhelper)
 * [SuscriptionHelper](#subscriptionhelper)
-* [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveröffentlichen)
-
 
 ### Event-Klasse
 
@@ -32,24 +21,23 @@ In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt d
 
 | Feld  | Datentyp | Methoden | Beschreibung |
 | :------ | :------ | :------ | :------ |
-| `data` | `string (bytes format)` | `String getData()` & `setData(String data)` | Frei definierbar durch Gruppe. Beispiele: Dokumentenvorschläge, Tokens,..|
-| `attributes` | `map (key: string, value: string)` | `String getAttribute(String attribute)` & `setAttribute(String key, String value)` | -**Event Source** von welcher Gruppe wird das Event gesendet. <br /> -**Event Type** spezifiziert die grundlegenden Eigenschaften einer Message. <br /> -**zusätzliche Attribute** kennzeichnend die Message mit weiteren Attributen.<br />|
-| `messageId` | `string` | `getData() : string | String getMessageId()` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp format)` | String `getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
+| `data` | `string (bytes format)` | `String getData()` & `setData(String data)` |`data` ist der Inhalt der Message und ist base64-encoded.|
+| `attributes` | `map (key: string, value: string)` | `String getAttribute(String attribute)` & `setAttribute(String key, String value)` | -**Event Source** von welcher Gruppe wird das Event gesendet. <br /> -**Event Type** spezifiziert die grundlegenden Eigenschaften einer Message. <br /> -**zusätzliche Attribute** kennzeichnend die Message mit weiteren Attributen.<br /> -**Es können bis zu 100 `attributes` als Metainformation zur Message festgelegt werden**|
+| `messageId` | `string` | `String getMessageId()` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp format)` | `String getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
-[Hier findet ihr alle vereinbarten Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
+[Hier findet ihr alle Events, die gemeinsam vereinbart wurden.](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
 
 ### PublishHelper 
 
-* Mit Hilfe des `PublishHelper`, werden Events als Messages an PubSub übermittelt. 
-* [Zur PublishHelper-Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/pubsub/helper/PublishHelper.java)
+* Mit Hilfe des `PublishHelper`, werden Events als Messages an PubSub übermittelt. <br />
+[Zur PublishHelper-Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/pubsub/helper/PublishHelper.java)
 
 ### SubscriptionHelper
 
 * Der `SubscriptionHelper` kann eine `subscription` auf folgende [Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Topics.md) erstellen.
-* Der`SubscriptionHelper` kann via `push` oder `pull`(je nach Konfiguration) `message` von PubSub empfangen. 
-* [Zur SubscriptionHelper-Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/pubsub/helper/SubscriptionHelper.java)
-
+* Der`SubscriptionHelper` kann via `push` oder `pull`(je nach Konfiguration) `message` von PubSub empfangen. <br />
+[Zur SubscriptionHelper-Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/pubsub/helper/SubscriptionHelper.java)
 
 Pro Gruppe ein MessageReceiver --> Dazu bieten wir Vorlage an
 
@@ -59,40 +47,44 @@ Warten auf Bene mit Prefix + Receiver
 
 ## Events als Messages in PubSub veröffentlichen
 
-**Ablauf**
+**Grundlagen** 
 
-- (1) Bevor eine Message veröffentlicht werden kann, muss ein Subscriber erstellt werden. (-> Welche Topics interessieren uns!)
-Um Topics in PubSub zu abonnieren, kann der `SubscriptionHeler` genutzt werden.
+(1) Ein `publisher` erstellt eine `topic`.<br />
+(2) Ein `subscriber` erstellt eine `subscription` auf diese `topic`.<br />
+(3) Der `publisher` sendet eine `message` an diese `topic`.<br />
+(4) Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.<br />
+(5) Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.<br />
 
+### Ablauf
+
+**(1) Topics**
+Die verfügbaren Topics (Kommunikationskanäle) werden über die [`sharedLib`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45) bereitgestellt. Werden zusätzliche Topics benötigt, können diese über einen neuen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) angefragt werden.
+
+**(2) Bevor ein Event als Message an PubSub veröffentlicht werden kann, muss eine subscription auf die gewünschten Topics vorhanden sein.** 
 ```java
-		// init a SubscriptionHelper to use for prod environment for the given project
+// init a SubscriptionHelper to use for prod environment for the given project
 		SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
-
 		/**
 		 * this will create a subscription with id: "subscription-pull-topic-1-test1"
 		 * if the subscription already exists, we will use it
 		 */
 		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
 		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test2");
-        
   ```
-- (2) Bevor eine Message veröffentlicht werden kann, muss ein Event erstellt werden. (-> Welches Ereignis wollen wir veröffentlichen!) 
-
+**(4) Erstellen eines Events**
 ```java
-        Event insightEvent = new Event();
+       Event insightEvent = new Event();
 		insightEvent.setData("insightEvent");
 		insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);}});
-
 ```
-- (3) Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
+**(3) Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.**
 
 ```java
 		PublishHelper ph = new PublishHelper(false);
-        
-        ph.Publish(feedbackEvent, 	Topic.TOPIC_1);
-		ph.Publish(insightEvent, 	Topic.TOPIC_1);
-		ph.Publish(offerEvent, 		Topic.TOPIC_1);
-		ph.Publish(richTokenEvent, 	Topic.TOPIC_1);
-		ph.Publish(stayaliveEvent, 	Topic.TOPIC_1);
-		ph.Publish(tokenEvent, 		Topic.TOPIC_1);
+		ph.Publish(insightEvent, Topic.TOPIC_1);
 ```
+**(4) Message von PubSub empfangen.**
+
+Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
+
+**(5) Empfang der Message bestätigen.** 
