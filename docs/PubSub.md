@@ -6,7 +6,7 @@
 
 * [Grundlagen](#grundlagen)
 * [ShareLib-Klassen](#sharelib-klassen)
-* [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveröffentlichen)
+* [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveroeffentlichen)
 
 ## Grundlagen
 
