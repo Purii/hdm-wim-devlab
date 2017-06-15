@@ -2,7 +2,7 @@
 
 In diesem Dokument wird der Umgang mit der ShareLib demonstriert. Die ShareLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden. 
 
-## Vezeichnis
+## Verzeichnis
 
 * [Google Cloud](#google-cloud)
 * [ShareLib-Klassen](#sharelib-klassen)
