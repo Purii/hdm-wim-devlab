@@ -7,17 +7,14 @@ import com.google.cloud.pubsub.spi.v1.PagedResponseWrappers;
 import com.google.cloud.pubsub.spi.v1.Subscriber;
 import com.google.cloud.pubsub.spi.v1.SubscriptionAdminClient;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.google.gson.Gson;
 import com.google.pubsub.v1.ListSubscriptionsRequest;
 import com.google.pubsub.v1.ProjectName;
-import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.PushConfig;
 import com.google.pubsub.v1.Subscription;
 import com.google.pubsub.v1.SubscriptionName;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
-import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,14 +24,14 @@ public class SubscriptionHelper {
 
 	private static final Logger LOGGER 	= Logger.getLogger(SubscriptionHelper.class);
 	private static boolean IS_LOCAL 	= false;
-	private static boolean USE_REST 	= false;
 	private static String PROJECT_ID	= Config.APP_ID;
 	private String ENDPOINT;
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param projectId the projectId, format: "my-project-id", by default {@value SubscriptionHelper#PROJECT_ID}
+	 * @param projectId the projectId, format: "my-project-id", by default {@value
+	 * SubscriptionHelper#PROJECT_ID}
 	 */
 	public SubscriptionHelper(String projectId) {
 		PROJECT_ID 	= projectId;
@@ -44,7 +41,8 @@ public class SubscriptionHelper {
 	/**
 	 * Instantiates a new SubscriptionHelper. Using the projectId from Constants
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
+	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * SubscriptionHelper#IS_LOCAL}
 	 */
 	public SubscriptionHelper(boolean isLocal) {
 		IS_LOCAL 	= isLocal;
@@ -54,7 +52,8 @@ public class SubscriptionHelper {
 	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
+	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * SubscriptionHelper#IS_LOCAL}
 	 * @param projectId the project id, by default {@value SubscriptionHelper#PROJECT_ID}
 	 */
 	public SubscriptionHelper(boolean isLocal, String projectId) {
@@ -66,10 +65,11 @@ public class SubscriptionHelper {
 	/**
 	 * Create a subscription to the given topic or return an existing subscription.
 	 *
-	 * @param subscriptionType type of subscription: push or pull, see {@link de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType}!
+	 * @param subscriptionType type of subscription: push or pull, see {@link
+	 * de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType}!
 	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
 	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
-	 * @return Subscription
+	 * @return Subscription subscription
 	 * @throws Exception the exception
 	 */
 	public Subscription CreateSubscription(String subscriptionType, String topicId, String suffix) throws Exception{
@@ -150,9 +150,10 @@ public class SubscriptionHelper {
 	 * Subscribe to a topic using a subscription.
 	 *
 	 * @param subscription the subscription
+	 * @param receiver the receiver
 	 * @throws Exception the exception
 	 */
-	public void Subscribe(Subscription subscription) throws Exception{
+	public void Subscribe(Subscription subscription, MessageReceiver receiver) throws Exception{
 
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
@@ -161,26 +162,12 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
-		Stream<PubsubMessage> eventStream = Stream.empty();
-
-		// Instantiate an asynchronous message receiver
-		MessageReceiver receiver = (message, consumer) ->{
-
-			// handle incoming message, then ack/nack the received message
-			LOGGER.info("Id : " 		+ message.getMessageId());
-			LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
-			LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()).toString());
-
-			consumer.ack();
-		};
-
 		try {
 			// Create a subscriber bound to the message receiver
 			subscriber = Subscriber
 				.defaultBuilder(subscriptionName, receiver)
 				.setExecutorProvider(executorProvider)
 				.build();
-
 
 			subscriber.addListener(
 				new Subscriber.Listener() {
