@@ -15,6 +15,18 @@ public class Person {
 	public String person_ruft_Dokument_auf;
 	public String person_favorisiert_Dokument;
 
+	private String sessionID;
+	private String identity;
+	private String objectValue;
+
+	public Person(String sessionID, String identity, String objectValue) {
+
+		this.sessionID = sessionID;
+		this.identity = identity;
+		this.objectValue = objectValue;
+
+	}
+
 	public Person(String person, String id, String klasse, String vorname, String nachname, String mail,
 			String person_arbeitet_an_Projekt, String person_hat_Projektrolle, String person_gehoert_zu_Abteilung,
 			String person_hat_Dokument_verfasst, String person_ruft_Dokument_auf, String person_favorisiert_Dokument) {
@@ -30,6 +42,27 @@ public class Person {
 		this.person_hat_Dokument_verfasst = person_hat_Dokument_verfasst;
 		this.person_ruft_Dokument_auf = person_ruft_Dokument_auf;
 		this.person_favorisiert_Dokument = person_favorisiert_Dokument;
+	}
+
+	public String toStringPersonObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
+				+ "; " + "Person=" + "{" + this.objectValue + "}";
+	}
+
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
 	}
 
 	public String getPerson() {
@@ -127,7 +160,13 @@ public class Person {
 	public void setPerson_favorisiert_Dokument(String person_favorisiert_Dokument) {
 		this.person_favorisiert_Dokument = person_favorisiert_Dokument;
 	}
-	
-	
+
+	public String getObjectValue() {
+		return objectValue;
+	}
+
+	public void setObjectValue(String objectValue) {
+		this.objectValue = objectValue;
+	}
 
 }

@@ -11,6 +11,10 @@ public class Dokumentvorschlag {
 	public String dok_URLStr;
 	public String dok_folder;
 	
+	public Dokumentvorschlag(){
+		
+	}
+	
 	public Dokumentvorschlag(String sessionID, String timeStamp, String dok_IDStr, String dok_NameStr, String prio,
 			String dok_TypStr, String dok_URLStr, String dok_folder) {
 		this.sessionID = sessionID;

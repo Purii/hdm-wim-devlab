@@ -9,6 +9,16 @@ public class Abteilung {
 	public String abteilung_hat_Mitarbeiter;
 	public String abteilung_gehoert_zu_Unternehmen;
 	
+	private String sessionID; 
+	private String identity; 
+	private String objectValue;
+	
+	public Abteilung(String sessionID, String identity, String objectValue){
+		this.sessionID = sessionID;
+		this.identity = identity;
+		this.objectValue = objectValue;	
+	}
+	
 	public Abteilung(String abteilung_ID, String abteilung_Name, String abteilung_Kuerzel, 
 			String abteilung_hat_Projekt, String abteilung_hat_Mitarbeiter, String abteilung_gehoert_zu_Unternehmen){
 		this.abteilung_ID = abteilung_ID;
@@ -19,6 +29,11 @@ public class Abteilung {
 		this.abteilung_gehoert_zu_Unternehmen = abteilung_gehoert_zu_Unternehmen;	
 	}
 	
+	public String toStringAbteilungsObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
+				+ "; " + "Abteilung=" + "{" + this.objectValue + "}";
+	}
+	
 	public void flushAbteilungsObjekt() {
 		setAbteilung_ID("");
 		setAbteilung_Name("");
@@ -26,6 +41,30 @@ public class Abteilung {
 		setAbteilung_hat_Projekt("");
 		setAbteilung_hat_Mitarbeiter("");
 		setAbteilung_gehoert_zu_Unternehmen("");
+	}
+		
+	public String getObjectValue() {
+		return objectValue;
+	}
+
+	public void setObjectValue(String objectValue) {
+		this.objectValue = objectValue;
+	}
+
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
 	}
 
 	public String getAbteilung_ID() {

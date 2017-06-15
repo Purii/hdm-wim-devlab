@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -27,30 +29,113 @@ public class TokenizerInterface {
 	public static ArrayList<String> personArrayList = null;
 	public static LinkedHashMap<String, String> richTokenHashMap = null;
 	public static LinkedHashMap<String, String> dokumentHashMap = null;
+	public static String eventSessionID = "";
+	public static String eventUniqueID = "";
+	public static int anzahlDokumente = 0;
 
 	public static void main(String[] args) {
 
-		setArrayDemoData();
-		getDocumentMetaData();
+		setArrayData();
+		produceMetaData();
+		produceUserInformationEvent();
+		produceDepartmentInformationEvent();
+		produceProjectInformationEvent();
+		goThoughDocumentInstances();
 
 	}
 
-	public static void setArrayDemoData() {
+	private static String produceProjectInformationEvent() {
+
+		Projekt projectInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+			if (key.equals("Projekt")) {
+				projectInformationEventObject = new Projekt(eventSessionID, eventUniqueID,
+						richTokenHashMap.get(key).toString());
+				System.out.println(projectInformationEventObject.toStringProjektObjekt());
+			}
+
+		}
+		return projectInformationEventObject.toStringProjektObjekt();
+
+	}
+
+	private static void goThoughDocumentInstances() {
+
+		for (int goThoughNumDoks = 0; goThoughNumDoks < anzahlDokumente; goThoughNumDoks++) {
+			produceDocumentInformationEvent(goThoughNumDoks);
+		}
+
+	}
+
+	private static String produceDocumentInformationEvent(int dokIndex) {
+
+		Dokument documentInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+
+			if (key.equals("Dokument_" + dokIndex)) {
+				documentInformationEventObject = new Dokument(eventSessionID, eventUniqueID,
+						richTokenHashMap.get(key).toString());
+				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
+				break;
+			}
+
+		}
+		return documentInformationEventObject.toStringDokumentObjekt();
+
+	}
+
+	public static String produceDepartmentInformationEvent() {
+
+		Abteilung departmentInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+			if (key.equals("Abteilung")) {
+				departmentInformationEventObject = new Abteilung(eventSessionID, eventUniqueID,
+						richTokenHashMap.get(key).toString());
+				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
+			}
+
+		}
+		return departmentInformationEventObject.toStringAbteilungsObjekt();
+
+	}
+
+	private static String produceUserInformationEvent() {
+
+		Person userInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+
+			if (key.equals("Person")) {
+				userInformationEventObject = new Person(eventSessionID, eventUniqueID,
+						richTokenHashMap.get(key).toString());
+				System.out.println(userInformationEventObject.toStringPersonObjekt());
+			}
+
+		}
+		return userInformationEventObject.toStringPersonObjekt();
+	}
+
+	public static void setArrayData() {
 
 		inputArray = new String[4];
 		inputArray[0] = "793dnj"; // sessionID
-		inputArray[1] = "2"; // userID
+		inputArray[1] = "6"; // userID
 		inputArray[2] = "Videokonferenz"; // context
 		inputArray[3] = "milestone"; // keyword
 
-		// Kontext muss noch geliefert werden vom speech z.B.: Thema wird grad
-		// über Highnet geredet
-		// 2 filter pro sparql
-		// speech gibt keywords und kontext videokonferenz
+		eventSessionID = inputArray[0].toString();
+		eventUniqueID = UUID.randomUUID().toString();
 
 	}
 
-	public static LinkedHashMap<String, String> getDocumentMetaData() {
+	public static LinkedHashMap<String, String> produceMetaData() {
 
 		String filePath = "src/semRepServices/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
@@ -115,10 +200,10 @@ public class TokenizerInterface {
 			String projekt_gehoert_zu_AbteilungStr = "";
 			String projekt_hat_ProjektmitgliedStr = "";
 			String projekt_hat_DokumentStr = "";
-			//abteilung
+			// abteilung
 			String abteilung_IDStr = "";
 			String abteilung_NameStr = "";
-			String abteilung_KuerzelStr = ""; 
+			String abteilung_KuerzelStr = "";
 			String abteilung_hat_ProjektStr = "";
 			String abteilung_hat_MitarbeiterStr = "";
 			String abteilung_gehoert_zu_UnternehmenStr = "";
@@ -146,19 +231,19 @@ public class TokenizerInterface {
 			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
 					projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 			// dokument
-			dokumentObj = new Dokument(dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr,
-					dok_VersionStr, dok_TypStr, dok_folder, dok_VerfasserStr, 
-					dok_ProjektStr, dok_favorisiertVonString, dok_KeywordsStr);
+			dokumentObj = new Dokument(dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr, dok_VersionStr,
+					dok_TypStr, dok_folder, dok_VerfasserStr, dok_ProjektStr, dok_favorisiertVonString,
+					dok_KeywordsStr);
 			// projekt
 			projektObj = new Projekt(projektIDStr, projektNameStr, projekt_gehoert_zu_UnternehmenStr,
 					projekt_gehoert_zu_AbteilungStr, projekt_hat_ProjektmitgliedStr, projekt_hat_DokumentStr);
-			
-			abteilungObj = new Abteilung(abteilung_IDStr, abteilung_NameStr, abteilung_KuerzelStr, 
+
+			abteilungObj = new Abteilung(abteilung_IDStr, abteilung_NameStr, abteilung_KuerzelStr,
 					abteilung_hat_ProjektStr, abteilung_hat_MitarbeiterStr, abteilung_gehoert_zu_UnternehmenStr);
-		
+
 			for (int y = 0; y <= inputArray.length; y++) {
 
-				//Person
+				// Person
 				if (y == 1) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
@@ -175,10 +260,9 @@ public class TokenizerInterface {
 							// Eingrenzung auf userID
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
 
-					
 				}
-				//Dokumente
-				// Kontext & Keyword				
+				// Dokumente
+				// Kontext & Keyword
 				if (y >= 3 && y < inputArray.length) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
@@ -187,8 +271,7 @@ public class TokenizerInterface {
 							+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von ?Dok_Ordner " + "WHERE { "
 							+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
 							+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
-							+ "?Dokument ontology:Dok_Name ?Dok_Name . " 
-							+ "?Dokument ontology:Dok_ID ?Dok_ID . "
+							+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
 							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
 							+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
 							+ "?Dokument ontology:Dok_Version ?Dok_Version . "
@@ -196,28 +279,27 @@ public class TokenizerInterface {
 							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
 							+ "?Dokument ontology:Dok_Kontext ?Kontext . "
 							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
-							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString() + "' . "
-							+ "?Dokument ontology:Dok_Kontext '" + inputArray[2].toString() + "' . "
-							+ "}"
-							+ "ORDER BY ?Dok_Name";
+							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . " + "?Dokument ontology:Dok_Keywords '"
+							+ inputArray[y].toString() + "' . " + "?Dokument ontology:Dok_Kontext '"
+							+ inputArray[2].toString() + "' . " + "}" + "ORDER BY ?Dok_Name";
 
-				// leer
+					// leer
 				} else if (y < 1) {
 					sparql = "";
 				}
-				//Abteilung
+				// Abteilung
 				if (y > 1 && y < 3) {
-								
-					String[] Person_gehoert_zu_AbteilungStringArr = personObj.getPerson_gehoert_zu_Abteilung().toString().split(", ");
+
+					String[] Person_gehoert_zu_AbteilungStringArr = personObj.getPerson_gehoert_zu_Abteilung()
+							.toString().split(", ");
 					String splittedAbteilungString = "";
-					
+
 					if (Person_gehoert_zu_AbteilungStringArr.length > 0) {
 						splittedAbteilungString = Person_gehoert_zu_AbteilungStringArr[0];
 					} else {
 						splittedAbteilungString = personObj.getPerson_gehoert_zu_Abteilung();
 					}
-					
+
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT  ?Abteilung ?Abteilung_ID ?Abteilung_Name ?Abteilung_Kuerzel "
 							+ "?Abteilung_hat_Projekt ?Abteilung_hat_Mitarbeiter ?Abteilung_gehoert_zu_Unternehmen "
@@ -228,24 +310,24 @@ public class TokenizerInterface {
 							+ "?Abteilung ontology:Abteilung_hat_Projekt ?Abteilung_hat_Projekt . "
 							+ "?Abteilung ontology:Abteilung_hat_Mitarbeiter ?Abteilung_hat_Mitarbeiter . "
 							+ "?Abteilung ontology:Abteilung_gehoert_zu_Unternehmen ?Abteilung_gehoert_zu_Unternehmen . "
-							+ "?Abteilung ontology:Abteilung_Name '" + splittedAbteilungString + "' . " 
-							+ "}";
-					
+							+ "?Abteilung ontology:Abteilung_Name '" + splittedAbteilungString + "' . " + "}";
+
 				}
 
 				// Projekte
 				if (y == inputArray.length) {
 					if (personObj.getPerson_arbeitet_an_Projekt() != "") {
-						
-						String[] Person_arbeitet_an_ProjektStringArr = personObj.getPerson_arbeitet_an_Projekt().toString().split(", ");
+
+						String[] Person_arbeitet_an_ProjektStringArr = personObj.getPerson_arbeitet_an_Projekt()
+								.toString().split(", ");
 						String splittedProjektString = "";
-						
+
 						if (Person_arbeitet_an_ProjektStringArr.length > 0) {
 							splittedProjektString = Person_arbeitet_an_ProjektStringArr[0];
 						} else {
 							splittedProjektString = personObj.getPerson_arbeitet_an_Projekt();
 						}
-						
+
 						sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 								+ "SELECT DISTINCT ?Projekt ?ProjektID ?ProjektName ?Projekt_gehoert_zu_Unternehmen "
 								+ "?Projekt_gehoert_zu_Abteilung ?Projekt_hat_Projektmitglied ?Projekt_hat_Dokument "
@@ -256,8 +338,7 @@ public class TokenizerInterface {
 								+ "?Projekt ontology:Projekt_hat_Projektmitglied ?Projekt_hat_Projektmitglied . "
 								+ "?Projekt ontology:Projekt_hat_Dokument ?Projekt_hat_Dokument . "
 
-								+ "?Projekt ontology:Projekt_Name '" + splittedProjektString
-								+ "' . " + "}";
+								+ "?Projekt ontology:Projekt_Name '" + splittedProjektString + "' . " + "}";
 					}
 
 				}
@@ -267,7 +348,9 @@ public class TokenizerInterface {
 					// Initialisierung und Ausführung einer SPARQL-Query
 					Query query = QueryFactory.create(sparql);
 					QueryExecution queryExecution = QueryExecutionFactory.create(query, ontologyModel);
-					//QueryExecution queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/ontology/query", query); 
+					// QueryExecution queryExecution =
+					// QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/ontology/query",
+					// query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query
@@ -280,12 +363,10 @@ public class TokenizerInterface {
 					ArrayList<String> rememberDokNameArrList = new ArrayList<String>();
 
 					List<String> splitKeywordsList = null;
-					
+
 					int countDokNumber = 0;
-					
-					
-					outerLoop:
-					for (@SuppressWarnings("unused")
+
+					outerLoop: for (@SuppressWarnings("unused")
 					int i = 0; resultSet.hasNext() == true; i++) {
 						QuerySolution querySolution = resultSet.nextSolution();
 						for (int j = 0; j < resultSet.getResultVars().size(); j++) {
@@ -294,7 +375,7 @@ public class TokenizerInterface {
 
 							indexOfToSplitCharacter = rdfNode.toString().indexOf("#");
 							splitResult = rdfNode.toString().substring(indexOfToSplitCharacter + 1);
-							
+
 							// Person: Befülle HashMap, wenn die userID
 							// durchlaufen
 							// wird
@@ -510,7 +591,7 @@ public class TokenizerInterface {
 								}
 
 							}
-							//abteilung
+							// abteilung
 							if (y > 1 && y < 3) {
 								// einmaliges befüllen der nachfolgenden Werte
 								if (((abteilungObj.getAbteilung_ID() == "") == true)
@@ -519,7 +600,7 @@ public class TokenizerInterface {
 										|| ((abteilungObj.getAbteilung_hat_Projekt() == "") == true)
 										|| ((abteilungObj.getAbteilung_hat_Mitarbeiter() == "") == true)
 										|| ((abteilungObj.getAbteilung_gehoert_zu_Unternehmen() == "") == true)) {
-									
+
 									switch (results) {
 									case "Abteilung_ID":
 										abteilung_IDStr = rdfNode.toString().substring(0,
@@ -544,7 +625,8 @@ public class TokenizerInterface {
 										break;
 									case "Abteilung_gehoert_zu_Unternehmen":
 										abteilung_gehoert_zu_UnternehmenStr = splitResult;
-										abteilungObj.setAbteilung_gehoert_zu_Unternehmen(abteilung_gehoert_zu_UnternehmenStr);
+										abteilungObj.setAbteilung_gehoert_zu_Unternehmen(
+												abteilung_gehoert_zu_UnternehmenStr);
 										break;
 									}
 
@@ -553,12 +635,12 @@ public class TokenizerInterface {
 								else if (((abteilungObj.getAbteilung_hat_Projekt() == "") == false)
 										|| ((abteilungObj.getAbteilung_hat_Mitarbeiter() == "") == false)
 										|| ((abteilungObj.getAbteilung_gehoert_zu_Unternehmen() == "") == false)) {
-		
+
 									switch (results) {
 									case "Abteilung_hat_Projekt":
 										abteilung_hat_ProjektStr = splitResult;
-										splitKeywordsList = Arrays.asList(
-												abteilungObj.getAbteilung_hat_Projekt().toString().split(", "));
+										splitKeywordsList = Arrays
+												.asList(abteilungObj.getAbteilung_hat_Projekt().toString().split(", "));
 
 										if (splitKeywordsList.contains(abteilung_hat_ProjektStr)) {
 
@@ -566,9 +648,9 @@ public class TokenizerInterface {
 
 										} else {
 
-											abteilungObj.setAbteilung_hat_Projekt(
-													abteilungObj.getAbteilung_hat_Projekt() + ", "
-															+ abteilung_hat_ProjektStr);
+											abteilungObj
+													.setAbteilung_hat_Projekt(abteilungObj.getAbteilung_hat_Projekt()
+															+ ", " + abteilung_hat_ProjektStr);
 											break;
 										}
 									case "Abteilung_hat_Mitarbeiter":
@@ -589,8 +671,8 @@ public class TokenizerInterface {
 										}
 									case "Abteilung_gehoert_zu_Unternehmen":
 										abteilung_gehoert_zu_UnternehmenStr = splitResult;
-										splitKeywordsList = Arrays.asList(
-												abteilungObj.getAbteilung_gehoert_zu_Unternehmen().toString().split(", "));
+										splitKeywordsList = Arrays.asList(abteilungObj
+												.getAbteilung_gehoert_zu_Unternehmen().toString().split(", "));
 
 										if (splitKeywordsList.contains(abteilung_gehoert_zu_UnternehmenStr)) {
 
@@ -603,45 +685,51 @@ public class TokenizerInterface {
 															+ abteilung_gehoert_zu_UnternehmenStr);
 											break;
 										}
-										
+
 									}
 
 								}
 
 							}
-							//dokumente
+							// dokumente
 							if (y >= 3 && y < inputArray.length) {
-								
-								//Dok_Name noch nicht vorgekommen?
+
+								// Dok_Name noch nicht vorgekommen?
 								if (results.equals("Dok_Name")) {
-									//System.out.println(results.length());									
-									
-									if (!rememberDokNameArrList.contains(splitResult) && rememberDokNameArrList.size() != 0) { 
-										
-										//speichere das letzte Dokumenten-Objekt ab
-										richTokenHashMap.put("Dokument_" + countDokOffersInLoop, 
-												"Dok_Name=" + dokumentObj.getDok_NameStr() 
-												+ ", " + "Dok_ID=" + dokumentObj.getDok_IDStr() 
-												+ ", " + "Dok_URL=" + dokumentObj.getDok_URLStr() 
-												+ ", " + "Dok_Erstelldatum=" + dokumentObj.getDok_erstelldatumStr() 
-												+ ", " + "Dok_Version=" + dokumentObj.getDok_VersionStr() 
-												+ ", " + "Dok_Typ=" + dokumentObj.getDok_TypStr()
-												+ ", " + "Dokument_verfasst_von_Person=" + dokumentObj.getDokument_verfasst_von_Person() 
-												+ ", " + "Dokument_gehoert_zu_Projekt=" + dokumentObj.getDokument_gehoert_zu_Projekt()
-												+ ", " + "Dokument_favorisiert_von_Person=" + dokumentObj.getDokument_favorisiert_von_Person() 
-												+ ", " + "Dok_Keywords=" + dokumentObj.getDokument_hat_Keyword() 
-												+ ", " + "Dok_Ordner=" + dokumentObj.getDok_folder());
-											
-											countDokOffersInLoop = countDokOffersInLoop + 1;
-											
-											//leere das Dokumenten-Objekt, um den 
-											//Speicher für das nächste Objekt frei zu machen
-											dokumentObj.flushDokumentObjekt();
-										
+									// System.out.println(results.length());
+
+									if (!rememberDokNameArrList.contains(splitResult)
+											&& rememberDokNameArrList.size() != 0) {
+
+										// speichere das letzte
+										// Dokumenten-Objekt ab
+										richTokenHashMap.put("Dokument_" + countDokOffersInLoop,
+												"Dok_ID=" + dokumentObj.getDok_IDStr() + ", " + "Dok_Name="
+														+ dokumentObj.getDok_NameStr() + ", " + "Dok_URL="
+														+ dokumentObj.getDok_URLStr() + ", " + "Dok_Erstelldatum="
+														+ dokumentObj.getDok_erstelldatumStr() + ", " + "Dok_Version="
+														+ dokumentObj.getDok_VersionStr() + ", " + "Dok_Typ="
+														+ dokumentObj.getDok_TypStr() + ", "
+														+ "Dokument_verfasst_von_Person="
+														+ dokumentObj.getDokument_verfasst_von_Person() + ", "
+														+ "Dokument_gehoert_zu_Projekt="
+														+ dokumentObj.getDokument_gehoert_zu_Projekt() + ", "
+														+ "Dokument_favorisiert_von_Person="
+														+ dokumentObj.getDokument_favorisiert_von_Person() + ", "
+														+ "Dok_Keywords=" + dokumentObj.getDokument_hat_Keyword() + ", "
+														+ "Dok_Ordner=" + dokumentObj.getDok_folder());
+
+										countDokOffersInLoop = countDokOffersInLoop + 1;
+
+										// leere das Dokumenten-Objekt, um den
+										// Speicher für das nächste Objekt frei
+										// zu machen
+										dokumentObj.flushDokumentObjekt();
+
 									}
 
 								}
-								
+
 								// einmaliges befüllen der nachfolgenden Werte
 								if (((dokumentObj.getDok_NameStr() == "") == true)
 										|| ((dokumentObj.getDok_IDStr() == "") == true)
@@ -903,76 +991,75 @@ public class TokenizerInterface {
 							}
 
 						}
-					
+
 					}
 
-						// bei Person
-						if (y == 1) {
+					// bei Person
+					if (y == 1) {
 
-							richTokenHashMap.put("Person", "Person=" + personObj.getPerson() + ", " + "ID="
-									+ personObj.getId() + ", " + "Klasse=" + personObj.getKlasse() + ", " + "Vorname="
-									+ personObj.getVorname() + ", " + "Nachname=" + personObj.getNachname() + ", "
-									+ "Mail=" + personObj.getMail() + ", " + "Person_arbeitet_an_Projekt="
-									+ personObj.getPerson_arbeitet_an_Projekt() + ", " + "Person_hat_Projektrolle="
-									+ personObj.getPerson_hat_Projektrolle() + ", " + "Person_gehoert_zu_Abteilung="
-									+ personObj.getPerson_gehoert_zu_Abteilung() + ", "
-									+ "Person_hat_Dokument_verfasst=" + personObj.getPerson_hat_Dokument_verfasst()
-									+ ", " + "Person_ruft_Dokument_auf=" + personObj.getPerson_ruft_Dokument_auf()
-									+ ", " + "Person_favorisiert_Dokument="
-									+ personObj.getPerson_favorisiert_Dokument());
+						richTokenHashMap.put("Person",
+								"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
+										+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
+										+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
+										+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
+										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "Dok_Autor="
+										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "Dok_Aufrufe="
+										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "Dok_Favorit="
+										+ personObj.getPerson_favorisiert_Dokument());
 
-						} 
-						// bei Abteilung
-						if (y > 1 && y < 3) {
-								
-							richTokenHashMap.put("Abteilung", "Abteilung_ID=" + abteilungObj.getAbteilung_ID() + ", "
-									+ "Abteilung_Name=" + abteilungObj.getAbteilung_Name() + ", "
-									+ "Abteilung_Kuerzel=" + abteilungObj.getAbteilung_Kuerzel()
-									+ ", " + "Abteilung_hat_Projekt="
-									+ abteilungObj.getAbteilung_hat_Projekt() + ", "
-									+ "Abteilung_hat_Mitarbeiter=" + abteilungObj.getAbteilung_hat_Mitarbeiter()
-									+ ", " + "Abteilung_gehoert_zu_Unternehmen=" + abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
+					}
+					// bei Abteilung
+					if (y > 1 && y < 3) {
 
-							abteilungObj.flushAbteilungsObjekt();
-							
-						}
-						// bei Projekt
-						if (y == inputArray.length) {
+						richTokenHashMap.put("Abteilung",
+								"Abteilung_ID=" + abteilungObj.getAbteilung_ID() + ", " + "Abteilung_Name="
+										+ abteilungObj.getAbteilung_Name() + ", " + "Abteilung_Kuerzel="
+										+ abteilungObj.getAbteilung_Kuerzel() + ", " + "Abteilung_hat_Projekt="
+										+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "Abteilung_hat_Mitarbeiter="
+										+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", "
+										+ "Abteilung_gehoert_zu_Unternehmen="
+										+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
-							richTokenHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
-									+ "ProjektName=" + projektObj.getProjektName() + ", "
-									+ "Projekt_gehoert_zu_Unternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
-									+ ", " + "Projekt_gehoert_zu_Abteilung="
-									+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", "
-									+ "Projekt_hat_Projektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
-									+ ", " + "Projekt_hat_Dokument=" + projektObj.getProjekt_hat_Dokument());
+						abteilungObj.flushAbteilungsObjekt();
 
-							projektObj.flushProjektObjekt();
+					}
+					// bei Projekt
+					if (y == inputArray.length) {
 
-						}
+						richTokenHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
+								+ "ProjektName=" + projektObj.getProjektName() + ", "
+								+ "Projekt_gehoert_zu_Unternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
+								+ ", " + "Projekt_gehoert_zu_Abteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
+								+ ", " + "Projekt_hat_Projektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
+								+ ", " + "Projekt_hat_Dokument=" + projektObj.getProjekt_hat_Dokument());
 
-						//letztes Dokument-Objekt 
-						if (rememberDokNameArrList.size() != 0 && 
-								rememberDokNameArrList.size() == countDokNumber) {
-							//speichere das letzte Dokumenten-Objekt ab
-							richTokenHashMap.put("Dokument_" + countDokOffersInLoop, 
-									"Dok_Name=" + dokumentObj.getDok_NameStr() 
-									+ ", " + "Dok_ID=" + dokumentObj.getDok_IDStr() 
-									+ ", " + "Dok_URL=" + dokumentObj.getDok_URLStr() 
-									+ ", " + "Dok_Erstelldatum=" + dokumentObj.getDok_erstelldatumStr() 
-									+ ", " + "Dok_Version=" + dokumentObj.getDok_VersionStr() 
-									+ ", " + "Dok_Typ=" + dokumentObj.getDok_TypStr()
-									+ ", " + "Dokument_verfasst_von_Person=" + dokumentObj.getDokument_verfasst_von_Person() 
-									+ ", " + "Dokument_gehoert_zu_Projekt=" + dokumentObj.getDokument_gehoert_zu_Projekt()
-									+ ", " + "Dokument_favorisiert_von_Person=" + dokumentObj.getDokument_favorisiert_von_Person() 
-									+ ", " + "Dok_Keywords=" + dokumentObj.getDokument_hat_Keyword() 
-									+ ", " + "Dok_Ordner=" + dokumentObj.getDok_folder());
-														
-								//leere das Dokumenten-Objekt, um den 
-								//Speicher für das nächste Objekt frei zu machen
-								dokumentObj.flushDokumentObjekt();
-						}
-					
+						projektObj.flushProjektObjekt();
+
+					}
+
+					// letztes Dokument-Objekt
+					if (rememberDokNameArrList.size() != 0 && rememberDokNameArrList.size() == countDokNumber) {
+						// speichere das letzte Dokumenten-Objekt ab
+						richTokenHashMap.put("Dokument_" + countDokOffersInLoop,
+								"Dok_Name=" + dokumentObj.getDok_NameStr() + ", " + "Dok_ID="
+										+ dokumentObj.getDok_IDStr() + ", " + "Dok_URL=" + dokumentObj.getDok_URLStr()
+										+ ", " + "Dok_Erstelldatum=" + dokumentObj.getDok_erstelldatumStr() + ", "
+										+ "Dok_Version=" + dokumentObj.getDok_VersionStr() + ", " + "Dok_Typ="
+										+ dokumentObj.getDok_TypStr() + ", " + "Dokument_verfasst_von_Person="
+										+ dokumentObj.getDokument_verfasst_von_Person() + ", "
+										+ "Dokument_gehoert_zu_Projekt=" + dokumentObj.getDokument_gehoert_zu_Projekt()
+										+ ", " + "Dokument_favorisiert_von_Person="
+										+ dokumentObj.getDokument_favorisiert_von_Person() + ", " + "Dok_Keywords="
+										+ dokumentObj.getDokument_hat_Keyword() + ", " + "Dok_Ordner="
+										+ dokumentObj.getDok_folder());
+
+						anzahlDokumente = (countDokOffersInLoop + 1);
+
+						// leere das Dokumenten-Objekt, um den
+						// Speicher für das nächste Objekt frei zu machen
+						dokumentObj.flushDokumentObjekt();
+					}
+
 					queryExecution.close();
 
 				}
@@ -982,10 +1069,10 @@ public class TokenizerInterface {
 			System.out.println(e.getMessage());
 		}
 
-		// drucke alles im richTokenHashMap aus
-		for (String key : richTokenHashMap.keySet()) {
-			System.out.println(key + ": " + richTokenHashMap.get(key));
-		}
+		// // drucke alles im richTokenHashMap aus
+		// for (String key : richTokenHashMap.keySet()) {
+		// System.out.println(key + ": " + richTokenHashMap.get(key));
+		// }
 
 		return richTokenHashMap;
 
