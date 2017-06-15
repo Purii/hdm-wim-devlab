@@ -8,9 +8,6 @@ import java.util.Hashtable;
 
 /**
  * Created by ben on 3/06/2017.
- *
- * A message captures information from the Pubsub message received over the push endpoint and is
- * persisted in storage.
  */
 public class Event implements IEvent {
 
