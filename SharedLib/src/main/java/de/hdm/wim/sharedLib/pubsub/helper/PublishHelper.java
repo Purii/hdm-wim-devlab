@@ -1,13 +1,21 @@
 package de.hdm.wim.sharedLib.pubsub.helper;
 
+import com.google.api.core.ApiFuture;
+import com.google.api.core.ApiFutures;
+import com.google.cloud.pubsub.spi.v1.Publisher;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.ByteString;
+import com.google.pubsub.v1.PubsubMessage;
+import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.Event;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 
@@ -17,54 +25,141 @@ import org.apache.log4j.Logger;
 public class PublishHelper {
 
 	private static final Logger LOGGER 	= Logger.getLogger(PublishHelper.class);
+	private static String PROJECT_ID 	= Config.APP_ID;
+	private static boolean USE_REST		= false;
+	private static boolean IS_LOCAL		= false;
 	private static String ENDPOINT;
-	private static boolean IS_LOCAL; // true if you are running a local server with the webapp
-
-	/**
-	 * Instantiates a new Publish helper.
-	 */
-	//public PublishHelper(){	}
 
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, false in prod
+	 * @param isLocal true if you are running a local webapp, by default {@value PublishHelper#IS_LOCAL}
 	 */
 	public PublishHelper(boolean isLocal){
+		IS_LOCAL = isLocal;
+		ENDPOINT = EndpointHelper.GetPublishEndpoint(IS_LOCAL);
+	}
 
-		this.IS_LOCAL = isLocal;
-
-		if(IS_LOCAL)
-			ENDPOINT = Config.getLocalPublishEndpoint();
-		else
-			ENDPOINT = Config.getProdPublishEndpoint();
+	/**
+	 * Instantiates a new PublishHelper.
+	 *
+	 * @param isLocal true if you are running a local webapp, by default {@value PublishHelper#IS_LOCAL}
+	 * @param projectId set the projectId, by default {@value PublishHelper#PROJECT_ID}
+	 */
+	public PublishHelper(boolean isLocal, String projectId){
+		IS_LOCAL 	= isLocal;
+		PROJECT_ID	= projectId;
+		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
 	}
 
 	/**
 	 * Publish an event
 	 *
 	 * @param event the message
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
+	 * @param useREST true if you want to use REST, by default {@value PublishHelper#USE_REST}
 	 * @throws Exception the exception
 	 */
-	public void Publish(Event event, String topic) throws Exception{
+	public void Publish(Event event, String topicId, boolean useREST) throws Exception{
+		USE_REST 	= useREST;
 
-		Map<String,Object> params = new LinkedHashMap<>();
-		String jsonAttributes 	  = new GsonBuilder().create()
-			.toJson(event.getAttributes(), Map.class);
+		if(USE_REST) {
+			LOGGER.info("use REST");
 
-		params.put(RequestParameters.TOPIC, 		topic);
-		params.put(RequestParameters.PAYLOAD, 		event.getData());
-		params.put(RequestParameters.ATTRIBUTES,	jsonAttributes);
+			Map<String, Object> params = new LinkedHashMap<>();
+			String jsonAttributes = new GsonBuilder().create()
+				.toJson(event.getAttributes(), Map.class);
 
-		sendPost(params);
+			params.put(RequestParameters.TOPIC, topicId);
+			params.put(RequestParameters.PAYLOAD, event.getData());
+			params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
+
+			publishPOST(params);
+		}else{
+			LOGGER.info("don't use REST");
+			publishPUBSUB(event, topicId);
+		}
 	}
 
-	private static void sendPost(Map<String,Object> params) throws Exception{
+	/**
+	 * Publish an event. Using useREST default: {@value PublishHelper#USE_REST}
+	 *
+	 * @param event the message
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
+	 * @throws Exception the exception
+	 */
+	public void Publish(Event event, String topicId) throws Exception{
+
+		if(USE_REST) {
+			LOGGER.info("use REST");
+
+			Map<String, Object> params = new LinkedHashMap<>();
+			String jsonAttributes = new GsonBuilder().create()
+				.toJson(event.getAttributes(), Map.class);
+
+			params.put(RequestParameters.TOPIC, topicId);
+			params.put(RequestParameters.PAYLOAD, event.getData());
+			params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
+
+			publishPOST(params);
+		}else{
+			LOGGER.info("don't use REST");
+			publishPUBSUB(event, topicId);
+		}
+	}
+
+	/**
+	 * Publish an event using PubSub.
+	 *
+	 * @param event the event to be published
+	 * @param topicId the topic you want to publish to
+	 * @throws Exception the exception
+	 */
+	private static void publishPUBSUB(Event event, String topicId) throws Exception{
+
+		TopicName topicName 						= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		List<ApiFuture<String>> messageIdFutures 	= new ArrayList<>();
+		Publisher publisher 						= null;
+
+		try {
+			publisher 					= Publisher.defaultBuilder(topicName).build();
+			ByteString data 			= ByteString.copyFromUtf8(event.getData());
+			PubsubMessage pubsubMessage = PubsubMessage.newBuilder()
+														.setData(data)
+														.putAllAttributes(event.getAttributes())
+														.build();
+
+			//TODO: add attributes to message
+			// Once published, returns a server-assigned message id (unique within the topic)
+			ApiFuture<String> messageIdFuture 	= publisher.publish(pubsubMessage);
+			messageIdFutures.add(messageIdFuture);
+
+		} finally {
+			// wait on any pending publish requests.
+			List<String> messageIds = ApiFutures.allAsList(messageIdFutures).get();
+
+			for (String messageId : messageIds) {
+				LOGGER.info("published with message ID: " + messageId);
+			}
+
+			if (publisher != null) {
+				// When finished with the publisher, shutdown to free up resources.
+				publisher.shutdown();
+			}
+		}
+	}
+
+	/**
+	 * Publish an event using http post to the given endpoint.
+	 *
+	 * @param params
+	 * @throws Exception the exception
+	 */
+	private static void publishPOST(Map<String,Object> params) throws Exception{
 		URL url;
 		HttpURLConnection conn;
 
 		//TODO: resend message if it didnt work
-
 		//build request url
 		StringBuilder postData = new StringBuilder();
 		for (Map.Entry<String, Object> param : params.entrySet()) {
