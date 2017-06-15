@@ -12,9 +12,20 @@ public class Dokument {
 	public String dokument_gehoert_zu_Projekt;
 	public String dokument_favorisiert_von_Person;
 	public String dokument_hat_Keyword;
-
 	public String dok_folder;
+	
+	private String sessionID; 
+	private String identity; 
+	private String objectValue;
+	
+	public Dokument(String sessionID, String identity, String objectValue) {
 
+		this.sessionID = sessionID;
+		this.identity = identity;
+		this.objectValue = objectValue;
+
+	}
+	
 	public Dokument(String dok_NameStr, String dok_IDStr, String dok_URLStr,
 			String dok_erstelldatumStr, String dok_VersionStr, String dok_TypStr, 
 			String dok_folder, String dokument_verfasst_von_Person, String dokument_gehoert_zu_Projekt,
@@ -32,6 +43,11 @@ public class Dokument {
 		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
 		this.dokument_hat_Keyword = dokument_hat_Keyword;
 	}
+	
+	public String toStringDokumentObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
+				+ "; " + "Dokument=" + "{" + this.objectValue + "}";
+	}
 
 	public void flushDokumentObjekt() {
 		setDok_erstelldatumStr("");
@@ -47,6 +63,22 @@ public class Dokument {
 		setDokument_hat_Keyword("");
 	}
 	
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
 	public String getDok_folder() {
 		return dok_folder;
 	}
@@ -133,6 +165,14 @@ public class Dokument {
 
 	public void setDokument_favorisiert_von_Person(String dokument_favorisiert_von_Person) {
 		this.dokument_favorisiert_von_Person = dokument_favorisiert_von_Person;
+	}
+
+	public String getObjectValue() {
+		return objectValue;
+	}
+
+	public void setObjectValue(String objectValue) {
+		this.objectValue = objectValue;
 	}
 
 }
