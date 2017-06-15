@@ -109,6 +109,12 @@ ph.Publish(insightEvent, Topic.TOPIC_1);
 ### Events aus PubSub empfangen (Subscribe)
 **(1) Message von PubSub empfangen.**
 
+***Google Pub/Sub*** unterstützt die ***Push und Pull-Methode***, um die veröffentlichten Messages von Pub/Sub zu den interessierten Subscription/Abonnement zu übermitteln.
+
+***Pull-Subscription:*** Um neue Messages abzurufen, stellt der SubscriptionHelper eine Anfrage an den Pub/Sub-Server. Der Pub/Sub-Server antwortet mit der Message. Sollten keine neuen Messages auf die abonnierten Topics veröffentlich wurden sein, so bekommt der SubscriptionHelper eine Rückmeldung (Fehler) von Pub/Sub.
+
+***Push-Subscription(Stream):*** Der Pub/Sub-Server sendet, nach jeder Veröffentlichung einer neuen Message, diese als HTTP-Anforderung an einen interessierten Abonnement(Push-Methode = STREAM). Der SubscriptionHelper zeigt danach an, dass die Nachricht erfolgreich verarbeitet wurde und das Pub/Sub die Message aus dem Subscription/Abonnement löschen kann. Eine Nicht-Erfolgsreaktion zeigt an, dass die Nachricht erneut von Pub/Sub gesendet werden soll.
+
 Unterschiedlich. Bei Push gibt es einen Stream, bei Pull einen Batch von PubSub Messages
 
 ~~Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
