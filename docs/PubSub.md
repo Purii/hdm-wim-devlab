@@ -18,12 +18,12 @@ Hinweise zur Installation und Downloads finden sich [hier](https://cloud.google.
 
 (2) Initiierung
 
-Google Cloud SDK Shell öffnen. Der Befehl `gcloud init` initialisiert die Konfiguration. Den Befehlen in der Shell folgen.
+Google Cloud SDK Shell öffnen. Der Befehl `gcloud init` initialisiert die Konfiguration. Den Befehlen in der Shell folgen. Falls noch kein Zugriff auf das PubSub-Projekt für den Google-Account beantrage wurde, bitte [hier](https://github.com/Purii/hdm-wim-devlab/issues/4) nachholen.
 
 (3) Authentifizierung
 
 Für die erste Authentifizierung muss der Default-Login definiert werden. Hierfür folgenden Befehl in die Shell eingeben
-`gcloud auth application-default login`. Die API führt daraufhin die Authentifizierung im Browser durch. Falls noch kein Zugriff auf das PubSub-Projekt für den Google-Account beantrage wurde, bitte [hier](https://github.com/Purii/hdm-wim-devlab/issues/4) nachholen.
+`gcloud auth application-default login`. Die API führt daraufhin die Authentifizierung im Browser durch. 
 
 (3) Test
 
