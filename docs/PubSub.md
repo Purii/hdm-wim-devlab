@@ -105,12 +105,14 @@ insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVE
 PublishHelper ph = new PublishHelper(false);
 ph.Publish(insightEvent, Topic.TOPIC_1);
 ```
-**(4) Message von PubSub empfangen.**
+
+### Events aus PubSub empfangen (Subscribe)
+**(1) Message von PubSub empfangen.**
 
 Unterschiedlich. Bei Push gibt es einen Stream, bei Pull einen Batch von PubSub Messages
 
 ~~Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
 
-**(5) Empfang der Message bestätigen.** 
+**(2) Empfang der Message bestätigen.** 
 
 findet im receiver statt => `consumer.ack` oder `consumer.nack`
