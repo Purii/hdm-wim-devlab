@@ -1,4 +1,4 @@
-package de.hdm.wim.sharedLib.pubsub.helper;
+package de.hdm.wim.sharedLib.pubsub.receiver;
 
 import com.google.cloud.pubsub.spi.v1.AckReplyConsumer;
 import com.google.cloud.pubsub.spi.v1.MessageReceiver;
