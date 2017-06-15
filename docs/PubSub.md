@@ -10,24 +10,17 @@
 
 
 ## Event-Klasse
-In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt.
-Ein Objekt dieser Klasse kann mithilfe des PublishHelper veröffentlicht oder mithilfe des SubscriptionHelpers empfangen werden.
-Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub]((https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):) auf:
+In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt dieser Klasse kann mithilfe des PublishHelper veröffentlicht oder mithilfe des SubscriptionHelpers empfangen werden. Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub]((https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):) auf. [Hier findet ihr alle vereinbarten Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
 
 | Feld  | Datentyp | Methoden | Beschreibung |
 | :------ | :------ | :------ | :------ |
-| `data` | `string (bytes format)` | `String getData()` & `setData(String data)` | ...Todo |
-| `attributes` | `map (key: string, value: string)` | `String getAttribute(String attribute)` & `setAttribute(String key, String value)` | ...Todo |
+| `data` | `string (bytes format)` | `String getData()` & `setData(String data)` | Frei definierbar durch Gruppe. Beispiele: Dokumentenvorschläge, Tokens,..|
+| `attributes` | `map (key: string, value: string)` | `String getAttribute(String attribute)` & `setAttribute(String key, String value)` | -**Event Source** von welcher Gruppe wird das Event gesendet. <br /> -**Event Type** spezifiziert die grundlegenden Eigenschaften einer Message. <br /> -**zusätzliche Attribute** kennzeichnend die Message mit weiteren Attributen.<br />|
 | `messageId` | `string` | `getData() : string | String getMessageId()` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp format)` | String `getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
-### Attributes
-...
+## PublishHelper 
 
-### Data
-...
-
-## PublishHelper – Events veröffentlichen
 Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
 
 ```java
