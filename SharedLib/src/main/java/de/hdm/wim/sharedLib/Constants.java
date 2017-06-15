@@ -54,7 +54,7 @@ public class Constants {
 			public static final String TOPIC_ML 		= "topic-ml";
 			public static final String TOPIC_GUI 		= "topic-gui";
 			public static final String PUSH_TEST 		= "topic-push-test-123";
-
+			public static final String RICH_TOKEN 		= "rich-token";
 			
 			// für die Produktion
 			public static final String FEEDBACK_GUI 	= "feedback-gui";
