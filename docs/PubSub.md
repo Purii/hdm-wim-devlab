@@ -113,11 +113,18 @@ ph.Publish(insightEvent, Topic.TOPIC_1);
 
 ***Pull-Subscription:*** Um neue Messages abzurufen, stellt der SubscriptionHelper eine Anfrage an den Pub/Sub-Server her. Der Pub/Sub-Server antwortet mit der Message. Sollten keine neuen Messages auf die abonnierten Topics veröffentlich wurden sein- bekommt der SubscriptionHelper eine Rückmeldung (Fehler) von Pub/Sub.
 
+***Pull Beispiel***
+```java
+//SubscriptionType.PULL
+// subscribe using the existing subscription
+sh.Subscribe(subscription, receiver);
+```
+
 ***Push-Subscription(Stream):*** Der Pub/Sub-Server sendet, nach jeder Veröffentlichung einer neuen Message, diese als HTTP-Anfrage an einen interessierten Subscription/Abonnement (STREAM). Der SubscriptionHelper zeigt danach an, dass die Nachricht erfolgreich verarbeitet wurde und das Pub/Sub die Message aus dem Subscription/Abonnement löschen kann. Eine Nicht-Erfolgsreaktion zeigt an, dass die Nachricht erneut von Pub/Sub gesendet werden soll.
 
-Unterschiedlich. Bei Push gibt es einen Stream, bei Pull einen Batch von PubSub Messages
-
-~~Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
+***Push Beispiel***
+```java
+```
 
 **(2) Empfang der Message bestätigen.** 
 
