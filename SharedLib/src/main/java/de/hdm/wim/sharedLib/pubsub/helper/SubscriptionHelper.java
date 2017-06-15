@@ -38,54 +38,38 @@ public class SubscriptionHelper {
 	 */
 	public SubscriptionHelper(String projectId) {
 		PROJECT_ID 	= projectId;
-
-		if(IS_LOCAL)
-			ENDPOINT = Config.getLocalPushEndpoint();
-		else
-			ENDPOINT = Config.getProdPushEndpoint();
+		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
 	}
 
 	/**
 	 * Instantiates a new SubscriptionHelper. Using the projectId from Constants
 	 *
 	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
-	 * @param useREST true if you want to use REST, by default {@value SubscriptionHelper#USE_REST}
 	 */
-	public SubscriptionHelper(boolean isLocal, boolean useREST) {
+	public SubscriptionHelper(boolean isLocal) {
 		IS_LOCAL 	= isLocal;
-		USE_REST 	= useREST;
-
-		if(IS_LOCAL)
-			ENDPOINT = Config.getLocalPushEndpoint();
-		else
-			ENDPOINT = Config.getProdPushEndpoint();
+		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
 	}
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
 	 *
 	 * @param isLocal true if you are running a local webapp, by default {@value SubscriptionHelper#IS_LOCAL}
-	 * @param useREST true if you want to use REST, by default {@value SubscriptionHelper#USE_REST}
 	 * @param projectId the project id, by default {@value SubscriptionHelper#PROJECT_ID}
 	 */
-	public SubscriptionHelper(boolean isLocal, boolean useREST, String projectId) {
+	public SubscriptionHelper(boolean isLocal, String projectId) {
 		IS_LOCAL 	= isLocal;
 		PROJECT_ID	= projectId;
-		USE_REST 	= useREST;
-
-		if(IS_LOCAL)
-			ENDPOINT = Config.getLocalPushEndpoint();
-		else
-			ENDPOINT = Config.getProdPushEndpoint();
+		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
 	}
-
 
 	/**
 	 * Create a subscription to the given topic or return an existing subscription.
 	 *
-	 * @param subscriptionType type of subscription: push or pull, see Constants!
-	 * @param topicId name of the topic
+	 * @param subscriptionType type of subscription: push or pull, see {@link de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType}!
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
 	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
+	 * @return Subscription
 	 * @throws Exception the exception
 	 */
 	public Subscription CreateSubscription(String subscriptionType, String topicId, String suffix) throws Exception{
@@ -98,7 +82,7 @@ public class SubscriptionHelper {
 		String subscriptionId		= "";
 
 		if(subscriptionType.equals(SubscriptionType.PULL)){
-			subscriptionId 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
+			subscriptionId 		= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
 			pushConfig 			= PushConfig.getDefaultInstance();
 		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
 			subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
