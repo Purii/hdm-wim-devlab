@@ -7,6 +7,7 @@
 * [Event-Klasse](#event-klasse)
 * [PublishHelper](#publishhelper)
 * [SuscriptionHelper](#subscriptionhelper)
+* [Message Veröffentlichen](#messageveröffentlichen)
 
 
 ## Event-Klasse
@@ -20,6 +21,17 @@ In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt d
 | `publishTime` | `string (Timestamp format)` | String `getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
 [Hier findet ihr alle vereinbarten Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
+
+## PublishHelper 
+
+Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
+
+## SubscriptionHelper
+Pro Gruppe ein MessageReceiver --> Dazu bieten wir Vorlage an
+
+SubscribeHelper ohne AppEngine + Anbieten über SharedLibrary
+
+Warten auf Bene mit Prefix + Receiver
 
 ## Message Veröffentlichen 
 
@@ -113,43 +125,7 @@ import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 		}
 ```
 
-## PublishHelper 
-
-Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
-
-## SubscriptionHelper
-Pro Gruppe ein MessageReceiver --> Dazu bieten wir Vorlage an
-
-SubscribeHelper ohne AppEngine + Anbieten über SharedLibrary
-
-Warten auf Bene mit Prefix + Receiver
 
 
 
 
-```java
-# Import der Konstanten
-import de.hdm.wim.sharedLib.Constants;
-
-# Import der Klasse Event
-import de.hdm.wim.sharedLib.events.Event;
-
-# Import der Klasse PublishHelper
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-
-
-public class ExamplePublish {
-
-    public static void main(String[] args) throws Exception {
-        # Instanz von PublishHelper erstellen
-        PublishHelper ph    = new PublishHelper(false);
-
-        # Event generieren (siehe Abschnitt zur Eventklasse)
-        Event event = new Event()
-        ....
-
-        # Event auf PubSub Topic veröffentlichen
-        ph.Publish(event, Constants.Topic.TOPIC_1);
-    }
-}
-```
