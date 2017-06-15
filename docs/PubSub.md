@@ -4,8 +4,30 @@ In diesem Dokument wird der Umgang mit der ShareLib demonstriert. Die ShareLib s
 
 ## Vezeichnis
 
+* [Google Cloud](#google-cloud)
 * [ShareLib-Klassen](#sharelib-klassen)
 * [Events als Messages in PubSub veröffentlichen](#ablauf)
+
+## Google Cloud
+
+Voraussetzung für die Nutzung von PubSub ist Google Cloud. 
+
+(1) Installation 
+
+Hinweise zur Installation und Downloads finden sich [hier](https://cloud.google.com/sdk/downloads). Bei der Installation bitte darauf achten, die für den Test benötigten Beta Commands mit zu installieren.
+
+(2) Initiierung
+
+Google Cloud SDK Shell öffnen. Der Befehl `gcloud init` initialisiert die Konfiguration. Den Befehlen in der Shell folgen.
+
+(3) Authentifizierung
+
+Für die erste Authentifizierung muss der Default-Login definiert werden. Hierfür folgenden Befehl in die Shell eingeben
+`gcloud auth application-default login`. Die API führt daraufhin die Authentifizierung im Browser durch. Falls noch kein Zugriff auf das PubSub-Projekt für den Google-Account beantrage wurde, bitte [hier](https://github.com/Purii/hdm-wim-devlab/issues/4) nachholen.
+
+(3) Test
+
+Den Befehl `gcloud beta pubsub topics list` in der Shell ausführen. Die Shell zeigt als Ergebnis die Liste der momentan vorhandenen Topics an.
 
 ## ShareLib-Klassen
 
