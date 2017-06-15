@@ -2,12 +2,21 @@
 
 --> Andere an den Start bringen. Arbeit mit SharedLib demonstrieren
 
-**Grundlagen**
+**Vezeichnis**
+
+* [Grundlagen](#grundlagen)
+* [ShareLib-Klassen](#sharelib-klassen)
+* [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveröffentlichen)
+
+## Grundlagen
+
 - Ein `publisher` erstellt eine `topic`.
 - Ein `subscriber` erstellt eine `subscription` auf diese `topic`.
 - Der `publisher` sendet eine `message` an diese `topic`.
 - Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.
 - Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.
+
+## ShareLib-Klassen
 
 Über die `SharedLib` werden Klassen zur Verfügung gestellt, um die Integration mit PubSub zu vereinfachen.
 
@@ -17,7 +26,8 @@
 * [Events als Messages in PubSub veröffentlichen](#eventsalsmessagesinpubsubveröffentlichen)
 
 
-## Event-Klasse
+### Event-Klasse
+
 In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt dieser Klasse kann mithilfe des PublishHelper veröffentlicht oder mithilfe des SubscriptionHelpers empfangen werden. Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub (https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage) auf. 
 
 | Feld  | Datentyp | Methoden | Beschreibung |
@@ -29,12 +39,12 @@ In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt d
 
 [Hier findet ihr alle vereinbarten Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
 
-## PublishHelper 
+### PublishHelper 
 
 * Mit Hilfe des `PublishHelper`, werden Events als Messages an PubSub übermittelt. 
 * [Zur PublishHelper-Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/pubsub/helper/PublishHelper.java)
 
-## SubscriptionHelper
+### SubscriptionHelper
 
 * Der `SubscriptionHelper` kann eine `subscription` auf folgende [Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Topics.md) erstellen.
 * Der`SubscriptionHelper` kann via `push` oder `pull`(je nach Konfiguration) `message` von PubSub empfangen. 
@@ -53,7 +63,6 @@ Warten auf Bene mit Prefix + Receiver
 
 - (1) Bevor eine Message veröffentlicht werden kann, muss ein Subscriber erstellt werden. (-> Welche Topics interessieren uns!)
 Um Topics in PubSub zu abonnieren, kann der `SubscriptionHeler` genutzt werden.
-
 
 ```java
 		// init a SubscriptionHelper to use for prod environment for the given project
@@ -87,6 +96,3 @@ Um Topics in PubSub zu abonnieren, kann der `SubscriptionHeler` genutzt werden.
 		ph.Publish(stayaliveEvent, 	Topic.TOPIC_1);
 		ph.Publish(tokenEvent, 		Topic.TOPIC_1);
 ```
-
-Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.
-
