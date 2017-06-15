@@ -24,8 +24,8 @@ public class ExamplePublish {
 	public static void main(String[] args) throws Exception {
 		int MAX_NUMBER_OF_MESSAGES = 1;
 
-		// init a SubscriptionHelper to use for prod environment, without REST and for the given project
-		SubscriptionHelper sh 		= new SubscriptionHelper(false, false, Config.APP_ID);
+		// init a SubscriptionHelper to use for prod environment for the given project
+		SubscriptionHelper sh 		= new SubscriptionHelper(false, Config.APP_ID);
 
 		/**
 		 * this will create a subscription with id: "subscription-pull-topic-1-test1"
@@ -39,7 +39,7 @@ public class ExamplePublish {
 		while (MAX_NUMBER_OF_MESSAGES <= 3) {
 			Event event   = Event.generate("blubb_" + MAX_NUMBER_OF_MESSAGES);
 
-			ph.Publish(event, Topic.TOPIC_1);
+			ph.Publish(event, Topic.TOPIC_1, true);
 
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 

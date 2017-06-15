@@ -14,7 +14,7 @@ public class ExamplePull {
 	public static void main(String[] args) throws Exception {
 
 		// init a SubscriptionHelper to use for prod environment, without REST and for the given project
-		SubscriptionHelper sh 		= new SubscriptionHelper(false, false, Config.APP_ID);
+		SubscriptionHelper sh 		= new SubscriptionHelper(false, Config.APP_ID);
 
 		/**
 		 * this will create a subscription with id: "subscription-pull-topic-1-test1"

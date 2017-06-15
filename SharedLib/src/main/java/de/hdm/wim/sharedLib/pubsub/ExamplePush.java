@@ -14,7 +14,7 @@ public class ExamplePush {
 	public static void main(String[] args) throws Exception {
 
 		// create the subscription
-		SubscriptionHelper sh 		= new SubscriptionHelper(false, false, Config.APP_ID);
+		SubscriptionHelper sh 		= new SubscriptionHelper(false, Config.APP_ID);
 		Subscription subscription 	= sh.CreateSubscription(SubscriptionType.PUSH, PubSub.Topic.TOPIC_1, "test1");
 
 		sh.Subscribe(subscription);
