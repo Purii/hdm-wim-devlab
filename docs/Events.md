@@ -3,7 +3,8 @@
 Dieses Dokument dient der verbindlichen Definition der Events, welche durch unser Netzwerk geschickt werden.
 Werden weitere Events benötigt oder genügen die definierten Attribute nicht, ist dafür ein [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) zu erstellen.
 
-* [ContextEvent](#contextevent)
+* [DocumentContextEvent](#documentcontextevent)
+* [DocumentInformationEvent](#documentinformationevent)
 * [DocumentRelevantEvent](#documentrelevantevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
 * [FeedbackEvent](#feedbackevent)
@@ -13,6 +14,8 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [SessionStartEvent](#sessionstartevent)
 * [StayAliveEvent](#stayaliveevent)
 * [TokenEvent](#tokenevent)
+* [UserContextEvent](#usercontextevent)
+* [UserInactiveEvent](#userinactiveevent)
 * [UserInformationEvent](#userinformationevent)
 * [UserLoginEvent](#userloginevent)
 * [UserLogoutEvent](#userlogoutevent)
@@ -24,13 +27,13 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 import  de.hdm.wim.sharedLib.Constants;
 ```
 
-## ContextEvent
-*erstellt durch CEP; die Nutzerinformationen und gesprochenen Token lassen auf einen Projekt-Kontext schließen*
+## DocumentContextEvent
+*erstellt durch CEP; die Dokumentinformationen lassen auf einen Projekt-Kontext schließen*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>projectId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.CONTEXT</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { Context } ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>documentIds: Array(String)</code></li><li><code>documentNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_CONTEXT</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { Document Context } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -46,6 +49,18 @@ import  de.hdm.wim.sharedLib.Constants;
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+
+
+## DocumentInformationEvent
+*erstellt durch CEP; Detailinformationen zu den gefundenen Dokumenten*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>documentId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_INFO</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Document Information ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
 
 
 ## DocumentHighlyRelevantEvent
@@ -156,16 +171,28 @@ import  de.hdm.wim.sharedLib.Constants;
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
 
+## UserContextEvent
+*erstellt durch CEP; die Nutzerinformationen lassen auf einen Projekt-Kontext schließen*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userIds: Array(String)</code></li><li><code>userNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_CONTEXT</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { User Context } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+
+
 ## UserInformationEvent
 *erstellt durch SR; Detailinformationen über den User, wird bspw. beim Login ausgelöst*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li>...</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFORMATION</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li>...</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
 
 
 ## UserLoginEvent
