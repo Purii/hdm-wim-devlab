@@ -19,7 +19,7 @@ Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub](
 | `data` | `string (bytes format)` | `String getData()` & `setData(String data)` | ...Todo |
 | `attributes` | `map (key: string, value: string)` | `String getAttribute(String attribute)` & `setAttribute(String key, String value)` | ...Todo |
 | `messageId` | `string` | `getData() : string | String getMessageId()` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp format)` | String `getPublishTime() | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
+| `publishTime` | `string (Timestamp format)` | String `getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
 ### Attributes
 ...
