@@ -121,29 +121,8 @@ public class Constants {
 			public static final String APP_ID					= "hdm-wim-devlab";
 			public static final String PUBLISH_ENDPOINT 		= "/pubsub/publish";
 			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + "/pubsub/push";
-
-			private static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
-			private static final String LOCAL_ADDRESS			= "http://localhost:8080";
-
-/*			private static final String LOCAL_PUBLISH_ENDPOINT 	= LOCAL_ADDRESS + PUBLISH_ENDPOINT;
-			private static final String LOCAL_PUSH_ENDPOINT 	= LOCAL_ADDRESS + PUSH_ENDPOINT;
-			private static final String PROD_PUBLISH_ENDPOINT 	= APPSPOT_URL + PUBLISH_ENDPOINT;
-			private static final String PROD_PUSH_ENDPOINT 		= APPSPOT_URL + PUSH_ENDPOINT;*/
-
-			public static String getLocalPushEndpoint(){
-				return LOCAL_ADDRESS + PUSH_ENDPOINT + "?" + RequestParameters.SECRET_TOKEN + "=" + SECRET_TOKEN;
-			}
-			public static String getLocalPublishEndpoint(){
-				return LOCAL_ADDRESS + PUBLISH_ENDPOINT;
-			}
-
-			public static String getProdPushEndpoint(){
-				return APPSPOT_URL + PUSH_ENDPOINT + "?" + RequestParameters.SECRET_TOKEN + "=" + SECRET_TOKEN;
-			}
-			public static String getProdPublishEndpoint(){
-				return APPSPOT_URL + PUBLISH_ENDPOINT;
-			}
-
+			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
+			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 		}
 
 		public class SubscriptionType{
