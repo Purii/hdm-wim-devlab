@@ -11,9 +11,9 @@
     
 ## Schnellzugriffe
         
-        * [Verfügbare Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md)
-        * [Verfügbare Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Topics.md)
-        * [Erläuterungen zur Nutzung von PubSub](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/PubSub.md)
+* [Verfügbare Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md)
+* [Verfügbare Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Topics.md)
+* [Erläuterungen zur Nutzung von PubSub](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/PubSub.md)
 
 ## Spielregeln
 
