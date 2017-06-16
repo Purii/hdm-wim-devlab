@@ -43,32 +43,30 @@ public class PubSubPush extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		LOGGER.info("doPost");
-
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
 
-		// parse message object from "message" field in the request body json
-		// decode message data from base64
 		Event event = getEvents(req);
 		try {
+			LOGGER.info("event.getData(): " + event.getData());
 
-			LOGGER.info(event.getData());
-
-			messageRepository.save(event);
+			//messageRepository.save(event);
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system
 			resp.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
+			LOGGER.error(e);
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	private Event getEvents(HttpServletRequest request) throws IOException {
 
+		// parse message object from "message" field in the request body json
 		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
 		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
 		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
