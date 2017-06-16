@@ -51,7 +51,6 @@ public class PubSubPublish extends HttpServlet {
 		Gson gson 								= new Gson();
 
 		try {
-
 			// get the parameters
 			String topicId 						= req.getParameter(RequestParameters.TOPIC);
 			String payload 						= req.getParameter(RequestParameters.PAYLOAD);
