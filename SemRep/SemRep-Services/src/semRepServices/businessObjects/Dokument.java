@@ -15,6 +15,7 @@ public class Dokument {
 	public String dok_folder;
 	
 	private String sessionID; 
+	public String timeStamp;
 	private String identity; 
 	private String objectValue;
 	
@@ -44,9 +45,14 @@ public class Dokument {
 		this.dokument_hat_Keyword = dokument_hat_Keyword;
 	}
 	
+	public String toStringAlleDokumentObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
+				+ "; " + this.objectValue;
+	}
+	
 	public String toStringDokumentObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + "Dokument=" + "{" + this.objectValue + "}";
+				+ "; " + this.objectValue;
 	}
 
 	public void flushDokumentObjekt() {
@@ -63,6 +69,14 @@ public class Dokument {
 		setDokument_hat_Keyword("");
 	}
 	
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
 	public String getSessionID() {
 		return sessionID;
 	}
