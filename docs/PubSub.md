@@ -110,7 +110,7 @@ PublishHelper ph = new PublishHelper(false);
 ph.Publish(insightEvent, Topic.TOPIC_1);
 ```
 
-**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle
+**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
 
 Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
 
