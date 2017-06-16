@@ -18,6 +18,13 @@ public class Person {
 	private String sessionID;
 	private String identity;
 	private String objectValue;
+	
+	public Person(String sessionID, String objectValue) {
+
+		this.sessionID = sessionID;
+		this.objectValue = objectValue;
+
+	}
 
 	public Person(String sessionID, String identity, String objectValue) {
 

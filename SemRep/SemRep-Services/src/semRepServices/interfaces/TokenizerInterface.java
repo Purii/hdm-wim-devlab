@@ -36,7 +36,7 @@ public class TokenizerInterface {
 	public static void main(String[] args) {
 
 		setArrayData();
-		produceMetaData();
+		getMetaData();
 		produceUserInformationEvent();
 		produceDepartmentInformationEvent();
 		produceProjectInformationEvent();
@@ -135,7 +135,7 @@ public class TokenizerInterface {
 
 	}
 
-	public static LinkedHashMap<String, String> produceMetaData() {
+	public static LinkedHashMap<String, String> getMetaData() {
 
 		String filePath = "src/semRepServices/interfaces/Ontology.owl";
 		OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
