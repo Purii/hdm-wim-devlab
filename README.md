@@ -2,16 +2,18 @@
 
 *Hinweis: Bei diesem Projekt handelt es sich um ein Forschungsprojekt der Hochschule der Medien, Stuttgart.*
 
+* [Schnellzugriffe](#schnellzugriffe)
 * [Spielregeln](#spielregeln)
 * [Google PubSub](#google-pubsub)
     * [Grundlegende Kommunikation](#grundlegende-kommunikation)
     * [Aktuell existierende Topics](#aktuell-existierende-topics)
-    * [Felder einer PubSub Message](#felder-einer-pubsub-message)
-        * [`attributes`](#attributes)
-        * [Event Type](#event-type)
-        * [Event Source](#event-source)
-    * [Message Konstruktor](#message-konstruktor)
+    
+    
+## Schnellzugriffe
         
+        * [Verfügbare Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md)
+        * [Verfügbare Topics](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Topics.md)
+        * [Erläuterungen zur Nutzung von PubSub](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/PubSub.md)
 
 ## Spielregeln
 
@@ -43,67 +45,3 @@ Betrachtet die `Messages` als eine Art Kapsel für ein `Event` bzw. Synonym zuei
 ***Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!***
 
 ***Topics können in den Issues beantragt werden!***
-
-### Felder einer PubSub Message
-
-[tldr;] Schaut in die [Dokumentation](https://github.com/Purii/hdm-wim-devlab/blob/master/docs).
-
-Über PubSub werden Messages versendet. Folgende Felder dienen dabei als [Grundlage](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage):
-
-| Feld  | Datentyp | Beschreibung |
-| :------------ | :---------------: | ------------ |
-| `data` | `string (bytes format)` | Frei definierbar durch Gruppe. Beispiele: Dokumentenvorschläge, Tokens,.. |
-| `attributes` | `map (key: string, value: string)` | Metadaten, Beispiele sind: `eventSource`, `eventType` |
-| `messageId` | `string` | Wird durch PubSub Server hinzugefügt |
-| `publishTime` | `string (Timestamp format)` | Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
-
-#### `attributes`
-Relevant ist für uns neben dem Feld `data` das Feld `attributes`.
-Die einzelnen Attribute werden anhand von Keys identifiziert.
-Dazu sind die vordefinierten Konstanten der Datei [`sharedLib/Constants.java`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L14) zu verwenden.
-Diese können nach Bedarf erweitert werden.
-
-#### Event Type
-
-Event Type spezifiziert die grundlegenden Eigenschaften einer Message. 
-
-| `EventType`  | Beschreibung | Topic |
-| :------------ | --------------- | --------------- |
-| StayAlive | Heartbeat von GUI Clients | SessionInsights |
-| Insight | User klickt mehrfach auf ein Dokumente | Insights |
-| GoogleOffer | Vorschlag zur Anzeige von Google Calender, Drive,.. | Offers |
-| Offer | Dokumentvorschläge | Offers |
-| Token | Einfache Tokens | Tokens |
-| RichToken | Angereicherte Tokens | RichTokens |
-| Feedback | Feedback des Users | FeedbackGui |
-
-#### Event Source
-
-Event Source beschreibt die Herkunft der Message.
-
-| `EventSource` | Beschreibung |
-| :------------ | --------------- |
-| SPEECH_TOKENIZATION | Speech Tokenization |
-| EVENT | Complex Event Processing |
-| MACHINE_LEARNING | Machine Learning |
-| USER_INTERFACE | User Interface |
-| SEMANTIC_REPRESENTATION | Semantic Representation |
-
-### Message Konstruktor
-
-[`Verlinkung zur Message-Klasse`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
-
-```java
-    /**
-	 * Instantiates a new Message.
-	 *
-	 * @param data the data
-	 * @param topic the topic
-	 * @param attributes the attributes
-	 */
-	public Message( String data, String topic, Hashtable attributes ){
-		this.data 		= data;
-		this.topic 		= topic;
-		this.attributes = attributes;
-	}
-```
