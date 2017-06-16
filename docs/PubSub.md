@@ -105,10 +105,27 @@ insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVE
 **(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
 
 ```java
-// init a PublishHelper to use for prod environment
+// init a PublishHelper to use for prod environment (false)
 PublishHelper ph = new PublishHelper(false);
 ph.Publish(insightEvent, Topic.TOPIC_1);
 ```
+
+**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle
+
+Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
+
+| ParameterName  | ParameterValue |
+| :------ | :------ |
+| `topic` | `string` |
+| `payload` | `string` |
+| `attributes` | `string` |
+
+Beispiel:
+`https://hdm-wim-devlab.appspot.com/publishtopic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+ 
+Value des `attributes` Parameters ist ein url codierter json string : `{"EventType":"insight","EventSource":"user-interface"}` => `%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+
+**Hinweis:** Es findet keine Prüfung statt, ob die `topic` existiert. Diese bitte den `Constants` entnehmen.
 
 ### Events aus PubSub empfangen (Subscribe)
 **(1) Message von PubSub empfangen.**
@@ -146,5 +163,5 @@ sh.Subscribe(subscription, receiver);
 
 **(2) Empfang der Message bestätigen.** 
 
-@bene, wird bei Pull benötigt?
+@bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
 findet im receiver statt => `consumer.ack` oder `consumer.nack`
