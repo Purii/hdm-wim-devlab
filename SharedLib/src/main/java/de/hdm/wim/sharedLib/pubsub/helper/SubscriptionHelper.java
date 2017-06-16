@@ -59,7 +59,7 @@ public class SubscriptionHelper {
 	public SubscriptionHelper(boolean isLocal, String projectId) {
 		IS_LOCAL 	= isLocal;
 		PROJECT_ID	= projectId;
-		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
+		ENDPOINT 	= EndpointHelper.GetPushEndpoint(IS_LOCAL);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class SubscriptionHelper {
 			subscriptionId 		= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
 			pushConfig 			= PushConfig.getDefaultInstance();
 		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
-			subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
+			subscriptionId 		= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
 			pushConfig 			= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
 		}else{
 			LOGGER.error("wrong subscription type: " + subscriptionType);
@@ -155,6 +155,8 @@ public class SubscriptionHelper {
 	 */
 	public void Subscribe(Subscription subscription, MessageReceiver receiver) throws Exception{
 
+		LOGGER.info("test0");
+
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
 
@@ -162,7 +164,10 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
+		LOGGER.info("test1");
+
 		try {
+			LOGGER.info("test2");
 			// Create a subscriber bound to the message receiver
 			subscriber = Subscriber
 				.defaultBuilder(subscriptionName, receiver)
@@ -182,10 +187,15 @@ public class SubscriptionHelper {
 
 			subscriber.startAsync().awaitRunning();
 
-			Thread.sleep(30000); //5 Minutes = 300000
+			Thread.sleep(1000); //5 Minutes = 300000
 		} catch (InterruptedException e){
+
+			LOGGER.info("test2");
+
 			e.printStackTrace();
 		} finally {
+
+			LOGGER.info("test3");
 			// stop receiving messages
 			if (subscriber != null) {
 				subscriber.stopAsync();
