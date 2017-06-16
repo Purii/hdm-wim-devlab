@@ -105,10 +105,27 @@ insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVE
 **(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
 
 ```java
-// init a PublishHelper to use for prod environment
+// init a PublishHelper to use for prod environment (false)
 PublishHelper ph = new PublishHelper(false);
 ph.Publish(insightEvent, Topic.TOPIC_1);
 ```
+
+**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
+
+Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
+
+| ParameterName  | ParameterValue |
+| :------ | :------ |
+| `topic` | `string` |
+| `payload` | `string` |
+| `attributes` | `string` |
+
+Beispiel:
+`https://hdm-wim-devlab.appspot.com/publishtopic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+ 
+Value des `attributes` Parameters ist ein url codierter json string : `{"EventType":"insight","EventSource":"user-interface"}` => `%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+
+**Hinweis:** Es findet keine Prüfung statt, ob die `topic` existiert. Diese bitte den `Constants` entnehmen.
 
 ### Events aus PubSub empfangen (Subscribe)
 **(1) Message von PubSub empfangen.**
@@ -119,8 +136,22 @@ ph.Publish(insightEvent, Topic.TOPIC_1);
 
 ***Pull Beispiel***
 ```java
-//SubscriptionType.PULL
-// subscribe using the existing subscription
+// In einem MessageReceiver werden die einzelnen Event bearbeitet, jede Gruppe braucht einen eignen Receiver
+MessageReceiver receiver = new ExampleReceiver();
+
+// Initialisierug des SubscriptionHelpers, dieser erwartet einen boolean ob sich der Enpoint local(true) oder auf der appengine befindet (false) und die Id des projects (zu finden in den Constants)
+SubscriptionHelper sh = new SubscriptionHelper(false, Config.PROJECT_ID);
+
+/**
+ * Erstellt eine subscription mit folgender Id: "subscription-pull-topic-1-test1"
+ * falls es bereits eine subscription mit dieser Id gibt, wird sie verwendet.
+ * Parameter 1: SubscriptionType: PULL oder PUSH, wobei PUSH z.Z. noch nicht unterstützt wird
+ * Parameter 2: Topic (siehe Constants)
+ * Parameter 3: Suffix, welches ermöglicht mehrere Subscriptions auf eine Topic zu erstellen
+ */
+Subscription subscription = sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
+
+// Die folgende Methode erwartet die subscription und den receiver
 sh.Subscribe(subscription, receiver);
 ```
 
@@ -132,5 +163,5 @@ sh.Subscribe(subscription, receiver);
 
 **(2) Empfang der Message bestätigen.** 
 
-@bene, wird bei Pull benötigt?
+@bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
 findet im receiver statt => `consumer.ack` oder `consumer.nack`
