@@ -6,7 +6,9 @@ In diesem Dokument wird der Umgang mit der ShareLib demonstriert. Die ShareLib s
 
 * [Google Cloud](#google-cloud)
 * [ShareLib-Klassen](#sharelib-klassen)
-* [Events als Messages in PubSub veröffentlichen](#ablauf)
+* [Hands-on: Nutzung der SharedLib zur Integration von PubSub](#pubsub)
+    * [Events senden](#events-an-pubsub-senden-publish)
+    * [Events empfangen](#events-aus-pubsub-empfangen-subscribe)
 
 ## Google Cloud
 
@@ -71,18 +73,19 @@ Warten auf Bene mit Prefix + Receiver
 
 **Grundlagen** 
 
-(1) Ein `publisher` erstellt eine `topic`.<br />
-(2) Ein `subscriber` erstellt eine `subscription` auf diese `topic`.<br />
-(3) Der `publisher` sendet eine `message` an diese `topic`.<br />
-(4) Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.<br />
-(5) Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.<br />
+1. Ein `publisher` erstellt eine `topic`.<br />
+2. Ein `subscriber` erstellt eine `subscription` auf diese `topic`.<br />
+3. Der `publisher` sendet eine `message` an diese `topic`.<br />
+4. Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.<br />
+5. Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.<br />
 
-### Events an PubSub schicken (Publish)
+### Events an PubSub senden (Publish)
 
 **(1) Topics**
 Die verfügbaren Topics (Kommunikationskanäle) werden über die [`SharedLib`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45) bereitgestellt. Werden zusätzliche Topics benötigt, können diese über einen neuen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) angefragt werden.
 
-**(2) Bevor Event in PubSub veröffentlicht werden, muss sichergestellt werden, dass eine subscription auf die gewünschten Topics vorhanden ist.** 
+**(2) Bevor Events in PubSub veröffentlicht werden, muss sichergestellt werden, dass eine Subscription auf die gewünschten Topics vorhanden ist.**
+
 ```java
 // init a SubscriptionHelper to use for prod environment for the given project (see Constants in SharedLib)
 SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
@@ -91,14 +94,15 @@ SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
  * if the subscription already exists, we will use it
  */
 sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
-  ```
-**(4) Erstellen eines Events**
+```
+
+**(3) Erstellen eines Events**
 ```java
 Event insightEvent = new Event();
 insightEvent.setData("insightEvent");
 insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);}});
 ```
-**(3) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
+**(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
 
 ```java
 // init a PublishHelper to use for prod environment
@@ -128,4 +132,5 @@ sh.Subscribe(subscription, receiver);
 
 **(2) Empfang der Message bestätigen.** 
 
+@bene, wird bei Pull benötigt?
 findet im receiver statt => `consumer.ack` oder `consumer.nack`
