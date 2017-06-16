@@ -39,7 +39,7 @@ Den Befehl `gcloud beta pubsub topics list` in der Shell ausführen. Die Shell z
 
 ### Event-Klasse
 
-In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt dieser Klasse kann mithilfe des PublishHelper veröffentlicht oder mithilfe des SubscriptionHelpers empfangen werden. Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub (https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage) auf. 
+In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt dieser Klasse kann mithilfe des PublishHelper veröffentlicht oder mithilfe des SubscriptionHelpers empfangen werden. Die Attribute der Klasse bauen auf denen der [Message-Klasse von Google PubSub](https://cloud.google.com/pubsub/docs/reference/rest/v1/PubsubMessage) auf. 
 
 | Feld  | Datentyp | Methoden | Beschreibung |
 | :------ | :------ | :------ | :------ |
