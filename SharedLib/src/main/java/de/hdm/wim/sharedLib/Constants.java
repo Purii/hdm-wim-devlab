@@ -101,7 +101,7 @@ public class Constants {
 			public static final String USER_LOGOUT	= "user-logout";
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
-			public static final String LEARN	= "learning";
+			public static final String LEARN		= "learning";
 			public static final String REQUEST 		= "request";
 			public static final String USER 		= "user";
 			public static final String TIME			= "time";
@@ -137,8 +137,8 @@ public class Constants {
 			public static final String PUSH_ENDPOINT_PREFIX		= "/_ah/push-handlers";
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";
-			public static final String PUBLISH_ENDPOINT 		= "/pubsub/publish";
-			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + "/pubsub/push";
+			public static final String PUBLISH_ENDPOINT 		= "/publish";
+			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + "/push";
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 		}
