@@ -119,8 +119,22 @@ ph.Publish(insightEvent, Topic.TOPIC_1);
 
 ***Pull Beispiel***
 ```java
-//SubscriptionType.PULL
-// subscribe using the existing subscription
+// In einem MessageReceiver werden die einzelnen Event bearbeitet, jede Gruppe braucht einen eignen Receiver
+MessageReceiver receiver = new ExampleReceiver();
+
+// Initialisierug des SubscriptionHelpers, dieser erwartet einen boolean ob sich der Enpoint local(true) oder auf der appengine befindet (false) und die Id des projects (zu finden in den Constants)
+SubscriptionHelper sh = new SubscriptionHelper(false, Config.PROJECT_ID);
+
+/**
+ * Erstellt eine subscription mit folgender Id: "subscription-pull-topic-1-test1"
+ * falls es bereits eine subscription mit dieser Id gibt, wird sie verwendet.
+ * Parameter 1: SubscriptionType: PULL oder PUSH, wobei PUSH z.Z. noch nicht unterstützt wird
+ * Parameter 2: Topic (siehe Constants)
+ * Parameter 3: Suffix, welches ermöglicht mehrere Subscriptions auf eine Topic zu erstellen
+ */
+Subscription subscription = sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
+
+// Die folgende Methode erwartet die subscription und den receiver
 sh.Subscribe(subscription, receiver);
 ```
 
