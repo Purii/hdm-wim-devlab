@@ -57,29 +57,13 @@ public class PublishHelper {
 	 *
 	 * @param event the message
 	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
-	 * @param useREST true if you want to use REST, by default {@value PublishHelper#USE_REST}
+	 * @param useREST true if you want to use REST
 	 * @throws Exception the exception
 	 */
 	public void Publish(Event event, String topicId, boolean useREST) throws Exception{
-		USE_REST 	= useREST;
-
-		if(USE_REST) {
-			LOGGER.info("use REST");
-
-			Map<String, Object> params = new LinkedHashMap<>();
-			String jsonAttributes = new GsonBuilder().create()
-				.toJson(event.getAttributes(), Map.class);
-
-			params.put(RequestParameters.TOPIC, topicId);
-			params.put(RequestParameters.PAYLOAD, event.getData());
-			params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
-
-			publishPOST(params);
-		}else{
-			LOGGER.info("don't use REST");
-			publishPUBSUB(event, topicId);
-		}
+		publish(event, topicId, useREST);
 	}
+
 
 	/**
 	 * Publish an event. Using useREST default: {@value PublishHelper#USE_REST}
@@ -89,9 +73,12 @@ public class PublishHelper {
 	 * @throws Exception the exception
 	 */
 	public void Publish(Event event, String topicId) throws Exception{
+		publish(event,topicId, USE_REST);
+	}
 
-		if(USE_REST) {
-			LOGGER.info("use REST");
+	private void publish(Event event, String topicId, boolean useREST) throws Exception{
+		if(useREST) {
+			LOGGER.info("using REST");
 
 			Map<String, Object> params = new LinkedHashMap<>();
 			String jsonAttributes = new GsonBuilder().create()
@@ -103,10 +90,11 @@ public class PublishHelper {
 
 			publishPOST(params);
 		}else{
-			LOGGER.info("don't use REST");
+			LOGGER.info("not using REST");
 			publishPUBSUB(event, topicId);
 		}
 	}
+
 
 	/**
 	 * Publish an event using PubSub.
