@@ -121,7 +121,7 @@ Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
 | `attributes` | `string` |
 
 Beispiel:
-`https://hdm-wim-devlab.appspot.com/publishtopic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+`https://hdm-wim-devlab.appspot.com/publish?topic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
  
 Value des `attributes` Parameters ist ein url codierter json string : `{"EventType":"insight","EventSource":"user-interface"}` => `%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
 
