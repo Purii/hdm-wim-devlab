@@ -163,5 +163,13 @@ sh.Subscribe(subscription, receiver);
 
 **(2) Empfang der Message bestätigen.** 
 
+Sobald eine Message an einen Subscription/Abonnent gesendet wird, muss der Abonnent entweder die Message bestätigen oder eine negative Rückmeldung an Pub/Sub geben. 
+
+Es können zwei unterschiedliche Rückmeldungs-Varianten auftreten.
+
+***positive acknowledgement(abbr.: ACK)*** Mit `consumer.ack` wird ein erfolgreicher Empfang einer Message ausgedrückt. 
+
+***negative acknowledgement(abbr.: NACK)*** Mit `consumer.nack` wird Pub/Sub mitgeteilt, dass der Subscription/Abonnent die Message nicht verarbeiten konnte oder auch die aktuelle Message vom Abonnenten momentan nicht benötigt wird.
+
 @bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
 findet im receiver statt => `consumer.ack` oder `consumer.nack`
