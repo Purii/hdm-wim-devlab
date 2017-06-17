@@ -33,7 +33,7 @@ public class Projekt {
 	
 	public String toStringProjektObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + "Projekt=" + "{" + this.objectValue + "}";
+				+ "; " + this.objectValue;
 	}
 
 	public void flushProjektObjekt() {

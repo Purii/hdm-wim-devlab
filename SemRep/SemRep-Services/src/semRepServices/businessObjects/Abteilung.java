@@ -31,7 +31,7 @@ public class Abteilung {
 	
 	public String toStringAbteilungsObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + "Abteilung=" + "{" + this.objectValue + "}";
+				+ "; " + this.objectValue;
 	}
 	
 	public void flushAbteilungsObjekt() {

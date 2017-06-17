@@ -48,11 +48,13 @@ public class UXInterface {
 	public static void setArrayDemoData() {
 
 		// richToken
-		inputArray = new String[4];
+		inputArray = new String[6];
 		inputArray[0] = "1"; // sessionID
 		inputArray[1] = "2"; // userID
 		inputArray[2] = "HighNet_project"; // context
 		inputArray[3] = "milestone"; // keyword
+		inputArray[4] = "tasks"; // keyword
+		inputArray[5] = "leading"; //keyword
 		// inputArray[4] = "kickoff";
 
 		// Kontext wird von Event berechnet, aus Projekt- oder
@@ -60,6 +62,7 @@ public class UXInterface {
 
 	}
 
+	//REST-Pfad hier annotieren
 	public static LinkedHashMap<String, String> getAllDocuments() {
 
 		String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -248,7 +251,7 @@ public class UXInterface {
 			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 
-			for (int y = 0; y < inputArray.length; y++) {
+			for (int y = 0; y <= inputArray.length; y++) {
 
 				if (y == 0) {
 
@@ -262,7 +265,7 @@ public class UXInterface {
 					// nur Kontext ohne Keywords
 					// } if ((y == 3 && y == (inputArray.length - 1))) {
 				}
-				if (y >= 3) {
+				if (y == 3) {
 
 //					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 //							+ "SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ "
@@ -284,13 +287,37 @@ public class UXInterface {
 							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
 							+ "?Dokument ontology:Dok_Kontext ?Kontext . "
 							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-							+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString().toLowerCase() + "' . "
+							//+ "?Dokument ontology:Dok_Keywords '" + inputArray[y].toString().toLowerCase() + "' . "
 							+ "?Dokument ontology:Dok_Kontext '" + inputArray[2].toString() + "' . "
+							+ "FILTER ( "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' "
+							+ ") "
 							+ "}";
 
+//					" + inputArray[3].toString() + " // milestone
+//					" + inputArray[4].toString() + " // tasks
+//					" + inputArray[5].toString() + " // leading
+					
 					// Kontext plus keywords
 				}
-				if (y >= 1 && y < 3) {
+				if (y >= 1 && y < 3 || y > 3 && y < inputArray.length) {
+					sparql = "";
+				}
+				if (y == inputArray.length) {
 					sparql = "";
 				}
 

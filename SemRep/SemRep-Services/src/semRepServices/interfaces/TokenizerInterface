@@ -1,3 +1,5 @@
+### Dokumente ###
+#################
 PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
 SELECT DISTINCT ?Klasse ?Kontext ?Dok_Keywords ?Dokument ?Verfasser ?Phase ?Dokumentkategorie 
 ?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum 
@@ -21,10 +23,53 @@ WHERE {
 ?Dokument ontology:Dok_Ordner ?Dok_Ordner . 
 
 
-?Dokument ontology:Dok_Keywords 'milestone' . 
-?Dokument ontology:Dok_Kontext 'Videokonferenz' . 
+### Dokumente nach mehreren Keywords durchsuchen ###
+#################
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
+SELECT DISTINCT ?Klasse ?Kontext ?Dok_Keywords ?Dokument ?Verfasser ?Phase ?Dokumentkategorie 
+?Projekt ?Dok_Name ?Dok_ID ?Dok_URL ?Erstelldatum ?Dok_Updatedatum 
+?Dok_Version ?Dok_Typ ?Favorisiert_Von ?Dok_Ordner			
+WHERE { 
+?Dokument a ?Klasse . 
+?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . 
+?Dokument ontology:Dokument_gehoert_zu_Phase ?Phase . 
+?Dokument ontology:Dokument_hat_Dokumentenkategorie ?Dokumentkategorie . 
+?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . 
+?Dokument ontology:Dok_Name ?Dok_Name . 
+?Dokument ontology:Dok_ID ?Dok_ID . 
+?Dokument ontology:Dok_URL ?Dok_URL . 
+?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . 
+?Dokument ontology:Dok_Updatedatum ?Dok_Updatedatum . 
+?Dokument ontology:Dok_Version ?Dok_Version . 
+?Dokument ontology:Dok_Typ ?Dok_Typ . 
+?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . 
+?Dokument ontology:Dok_Kontext ?Kontext . 
+?Dokument ontology:Dok_Keywords ?Dok_Keywords . 
+?Dokument ontology:Dok_Ordner ?Dok_Ordner . 
+
+?Dokument ontology:Dok_Kontext 'HighNet_project' . 
+FILTER (
+?Dok_Keywords = 'tasks' ||
+?Dok_Keywords = 'milestone' ||
+?Dok_Keywords = 'leading' ||
+
+?Dok_Keywords = 'tasks' && 'milestone' ||
+?Dok_Keywords = 'milestone' && 'tasks'||
+?Dok_Keywords = 'tasks' && 'leading' ||
+?Dok_Keywords = 'leading' && 'tasks'||
+?Dok_Keywords = 'milestone' && 'leading' ||
+?Dok_Keywords = 'leading' && 'milestone' ||
+?Dok_Keywords = 'tasks' && 'milestone' && 'leading' ||
+?Dok_Keywords = 'tasks' && 'leading' && 'milestone' ||
+?Dok_Keywords = 'milestone' && 'tasks' && 'leading'|| 
+?Dok_Keywords = 'milestone' && 'leading'  && 'tasks'  ||
+?Dok_Keywords = 'leading' && 'tasks'  && 'milestone' ||
+?Dok_Keywords = 'leading' && 'milestone' && 'tasks'
+)
+
 }
 ORDER BY ?Dok_Name
+
 
 ### Abteilung ###
 #################

@@ -76,7 +76,7 @@ public class TokenizerInterface {
 		// drucke alles im richTokenHashMap aus
 		for (String key : richTokenHashMap.keySet()) {
 
-			if (key.equals("Dokument_" + dokIndex)) {
+			if (key.equals("Dokument" + dokIndex)) {
 				documentInformationEventObject = new Dokument(eventSessionID, eventUniqueID,
 						richTokenHashMap.get(key).toString());
 				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
@@ -124,11 +124,19 @@ public class TokenizerInterface {
 
 	public static void setArrayData() {
 
-		inputArray = new String[4];
-		inputArray[0] = "793dnj"; // sessionID
-		inputArray[1] = "6"; // userID
-		inputArray[2] = "Videokonferenz"; // context
+		// inputArray = new String[4];
+		// inputArray[0] = "793dnj"; // sessionID
+		// inputArray[1] = "6"; // userID
+		// inputArray[2] = "Videokonferenz"; // context
+		// inputArray[3] = "milestone"; // keyword
+
+		inputArray = new String[6];
+		inputArray[0] = "1"; // sessionID
+		inputArray[1] = "2"; // userID
+		inputArray[2] = "HighNet_project"; // context
 		inputArray[3] = "milestone"; // keyword
+		inputArray[4] = "tasks"; // keyword
+		inputArray[5] = "leading"; // keyword
 
 		eventSessionID = inputArray[0].toString();
 		eventUniqueID = UUID.randomUUID().toString();
@@ -247,7 +255,7 @@ public class TokenizerInterface {
 				if (y == 1) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Person ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
+							+ "SELECT DISTINCT ?Person ?Dokument ?Dok_Name ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
 							+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
 							+ "?Person ontology:Person_Vorname ?Vorname . "
 							+ "?Person ontology:Person_Nachname ?Nachname . " + "?Person ontology:Person_Email ?Mail . "
@@ -256,14 +264,16 @@ public class TokenizerInterface {
 							+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
 							+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
 							+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
-							+ "?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok ."
+							+ "?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok . "
+							+ "?Dokument ontology:Dok_Name ?Dok_Name . " 
+							//+ "?Favorit_Dok ontology:Dok_Name ?Dok_Name . "
 							// Eingrenzung auf userID
 							+ "?Person ontology:Person_ID '" + inputArray[y].toString() + "' ." + "}";
 
 				}
 				// Dokumente
 				// Kontext & Keyword
-				if (y >= 3 && y < inputArray.length) {
+				if (y == 3 && y < inputArray.length) {
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 							+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
@@ -279,9 +289,32 @@ public class TokenizerInterface {
 							+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
 							+ "?Dokument ontology:Dok_Kontext ?Kontext . "
 							+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
-							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . " + "?Dokument ontology:Dok_Keywords '"
-							+ inputArray[y].toString() + "' . " + "?Dokument ontology:Dok_Kontext '"
-							+ inputArray[2].toString() + "' . " + "}" + "ORDER BY ?Dok_Name";
+							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . " 
+//							+ "?Dokument ontology:Dok_Keywords '"
+//							+ inputArray[y].toString() + "' . "
+//							+ "?Dokument ontology:Dok_Kontext '"
+//							+ inputArray[2].toString() + "' . " 
+//							+ "}" 
+							+ "?Dokument ontology:Dok_Kontext '" + inputArray[2].toString() + "' . "
+							+ "FILTER ( "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' && '" + inputArray[5].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[3].toString() + "' && '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[4].toString() + "' && '" + inputArray[3].toString() + "' || "
+							+ "?Dok_Keywords = '" + inputArray[5].toString() + "' && '" + inputArray[3].toString() + "' && '" + inputArray[4].toString() + "' "
+							+ ") "
+							+ "}"
+							+ "ORDER BY ?Dok_Name";
 
 					// leer
 				} else if (y < 1) {
@@ -703,21 +736,21 @@ public class TokenizerInterface {
 
 										// speichere das letzte
 										// Dokumenten-Objekt ab
-										richTokenHashMap.put("Dokument_" + countDokOffersInLoop,
-												"Dok_ID=" + dokumentObj.getDok_IDStr() + ", " + "Dok_Name="
-														+ dokumentObj.getDok_NameStr() + ", " + "Dok_URL="
-														+ dokumentObj.getDok_URLStr() + ", " + "Dok_Erstelldatum="
-														+ dokumentObj.getDok_erstelldatumStr() + ", " + "Dok_Version="
-														+ dokumentObj.getDok_VersionStr() + ", " + "Dok_Typ="
+										richTokenHashMap.put("Dokument" + countDokOffersInLoop,
+												"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName="
+														+ dokumentObj.getDok_NameStr() + ", " + "DokURL="
+														+ dokumentObj.getDok_URLStr() + ", " + "DokErstelldatum="
+														+ dokumentObj.getDok_erstelldatumStr() + ", " + "DokVersion="
+														+ dokumentObj.getDok_VersionStr() + ", " + "DokTyp="
 														+ dokumentObj.getDok_TypStr() + ", "
-														+ "Dokument_verfasst_von_Person="
+														+ "DokumentVerfasstVonPerson="
 														+ dokumentObj.getDokument_verfasst_von_Person() + ", "
-														+ "Dokument_gehoert_zu_Projekt="
+														+ "DokumentGehoertZuProjekt="
 														+ dokumentObj.getDokument_gehoert_zu_Projekt() + ", "
-														+ "Dokument_favorisiert_von_Person="
+														+ "DokumentFavorisiertVonPerson="
 														+ dokumentObj.getDokument_favorisiert_von_Person() + ", "
-														+ "Dok_Keywords=" + dokumentObj.getDokument_hat_Keyword() + ", "
-														+ "Dok_Ordner=" + dokumentObj.getDok_folder());
+														+ "DokKeywords=" + dokumentObj.getDokument_hat_Keyword() + ", "
+														+ "DokOrdner=" + dokumentObj.getDok_folder());
 
 										countDokOffersInLoop = countDokOffersInLoop + 1;
 
@@ -1002,23 +1035,21 @@ public class TokenizerInterface {
 										+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
 										+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
 										+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
-										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "Dok_Autor="
-										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "Dok_Aufrufe="
-										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "Dok_Favorit="
+										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
+										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
+										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
 										+ personObj.getPerson_favorisiert_Dokument());
 
 					}
 					// bei Abteilung
 					if (y > 1 && y < 3) {
 
-						richTokenHashMap.put("Abteilung",
-								"Abteilung_ID=" + abteilungObj.getAbteilung_ID() + ", " + "Abteilung_Name="
-										+ abteilungObj.getAbteilung_Name() + ", " + "Abteilung_Kuerzel="
-										+ abteilungObj.getAbteilung_Kuerzel() + ", " + "Abteilung_hat_Projekt="
-										+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "Abteilung_hat_Mitarbeiter="
-										+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", "
-										+ "Abteilung_gehoert_zu_Unternehmen="
-										+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
+						richTokenHashMap.put("Abteilung", "AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
+								+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
+								+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
+								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
+								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+								+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 						abteilungObj.flushAbteilungsObjekt();
 
@@ -1027,11 +1058,11 @@ public class TokenizerInterface {
 					if (y == inputArray.length) {
 
 						richTokenHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
-								+ "ProjektName=" + projektObj.getProjektName() + ", "
-								+ "Projekt_gehoert_zu_Unternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
-								+ ", " + "Projekt_gehoert_zu_Abteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
-								+ ", " + "Projekt_hat_Projektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
-								+ ", " + "Projekt_hat_Dokument=" + projektObj.getProjekt_hat_Dokument());
+								+ "ProjektName=" + projektObj.getProjektName() + ", " + "ProjektGehoertZuUnternehmen="
+								+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "ProjektGehoertZuAbteilung="
+								+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
+								+ projektObj.getProjekt_hat_Projektmitglied() + ", " + "ProjektHatDokument="
+								+ projektObj.getProjekt_hat_Dokument());
 
 						projektObj.flushProjektObjekt();
 
@@ -1040,17 +1071,17 @@ public class TokenizerInterface {
 					// letztes Dokument-Objekt
 					if (rememberDokNameArrList.size() != 0 && rememberDokNameArrList.size() == countDokNumber) {
 						// speichere das letzte Dokumenten-Objekt ab
-						richTokenHashMap.put("Dokument_" + countDokOffersInLoop,
-								"Dok_Name=" + dokumentObj.getDok_NameStr() + ", " + "Dok_ID="
-										+ dokumentObj.getDok_IDStr() + ", " + "Dok_URL=" + dokumentObj.getDok_URLStr()
-										+ ", " + "Dok_Erstelldatum=" + dokumentObj.getDok_erstelldatumStr() + ", "
-										+ "Dok_Version=" + dokumentObj.getDok_VersionStr() + ", " + "Dok_Typ="
-										+ dokumentObj.getDok_TypStr() + ", " + "Dokument_verfasst_von_Person="
+						richTokenHashMap.put("Dokument" + countDokOffersInLoop,
+								"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr()
+										+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() + ", " + "DokErstelldatum="
+										+ dokumentObj.getDok_erstelldatumStr() + ", " + "DokVersion="
+										+ dokumentObj.getDok_VersionStr() + ", " + "DokTyp="
+										+ dokumentObj.getDok_TypStr() + ", " + "DokumentVerfasstVonPerson="
 										+ dokumentObj.getDokument_verfasst_von_Person() + ", "
-										+ "Dokument_gehoert_zu_Projekt=" + dokumentObj.getDokument_gehoert_zu_Projekt()
-										+ ", " + "Dokument_favorisiert_von_Person="
-										+ dokumentObj.getDokument_favorisiert_von_Person() + ", " + "Dok_Keywords="
-										+ dokumentObj.getDokument_hat_Keyword() + ", " + "Dok_Ordner="
+										+ "DokumentGehoertZuProjekt=" + dokumentObj.getDokument_gehoert_zu_Projekt()
+										+ ", " + "DokumentFavorisiertVonPerson="
+										+ dokumentObj.getDokument_favorisiert_von_Person() + ", " + "DokKeywords="
+										+ dokumentObj.getDokument_hat_Keyword() + ", " + "DokOrdner="
 										+ dokumentObj.getDok_folder());
 
 						anzahlDokumente = (countDokOffersInLoop + 1);

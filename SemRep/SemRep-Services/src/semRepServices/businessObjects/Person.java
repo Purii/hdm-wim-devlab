@@ -53,7 +53,7 @@ public class Person {
 
 	public String toStringPersonObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + "Person=" + "{" + this.objectValue + "}";
+				+ "; " + this.objectValue;
 	}
 
 	public String getSessionID() {
