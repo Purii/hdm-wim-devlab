@@ -1,0 +1,23 @@
+#content{
+    width:750px;
+    border-width:1px;
+    border-style:solid;
+    background:lightgray;
+    margin: auto;
+    margin-top: 10%;
+
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+#sendButton{
+    margin-bottom: 5%;
+    margin-left:35%;
+    padding: 1% 3%;
+}

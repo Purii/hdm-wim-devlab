@@ -61,7 +61,7 @@ function addTab(name) {
     var nameAndTimeStampID = name+timeStamp;
 
     // tab body erzeugen
-    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <iframe class="displayedDocs" src="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs"></iframe> </div>';
+    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs"></iframe> </div>';
 
    // Buttons erzeugen und in tabList schreiben
     var codeForButton = "<button class=\"tablinks\" id="+nameAndTimeStampID+"TAB onclick=\"openTab(event, "+ "'"+ nameAndTimeStampID + "'"+")\"> " + name + "</button>"
@@ -85,4 +85,4 @@ document.getElementById(nameAndTimeStampID+"TAB").click();
 document.getElementById("defaultOpen").onclick=  function (){openTab(event, 'KoBoRa')};
 
 document.getElementById("defaultOpen").click();
-document.getElementById("drawButton").click();
+//document.getElementById("drawButton").click();

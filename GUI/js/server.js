@@ -42,42 +42,49 @@ wss.on('connection', function(socket) {
 
 var broadcast = function() {
   var timeInMs = Date.now();
-    var infoJSON1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument1', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON2 = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument2", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON3 = JSON.stringify({ 'SessionID':'3','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument3', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
-    var infoJSON4 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument4", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON5 = JSON.stringify({ 'SessionID':'2','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument5', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON6 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument6", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Wede" } );
-    var infoJSON7 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument7', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON8 = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument8", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON9 = JSON.stringify({ 'SessionID':'3','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument9', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
-    var infoJSON10 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument10", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON11 = JSON.stringify({ 'SessionID':'2','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument11', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON12 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument12", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON13 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument13', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON14 = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument14", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON15 = JSON.stringify({ 'SessionID':'3','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument15', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON16 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument16", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON17 = JSON.stringify({ 'SessionID':'2','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument17', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON18 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument18", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Lisa" } );
-    var infoJSON19 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument19', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var infoJSON20 = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument20", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var infoJSON21 = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument21", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Jan" } );
+    var Dokument1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument1 '+ counter, 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument2", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument3= JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument3', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+    var Dokument4 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument4", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument5 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument5', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument6 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument6", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Wede" } );
+    var Dokument7 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument7', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument8 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument8", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument9 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument9', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+    var Dokument10 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument10", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument11 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument11', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument12 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument12", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+  //Vorschläge
+    var Dokumentvorschlag1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument13', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokumentvorschlag2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument14", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokumentvorschlag3 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument15', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+ //Favouriten
+    var Favorit1 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument16", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Favorit2 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument17', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+
+    //Nicht verwendet
+    var Dokument = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument18", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Lisa" } );
+    var Dokument = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument19', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument20", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument21", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Jan" } );
 
 
 
   var json = JSON.stringify({
-       info1: infoJSON1, info2: infoJSON2, info3: infoJSON3, info4: infoJSON4, info5: infoJSON5, info6: infoJSON6, info7: infoJSON7, info8: infoJSON8,info9: infoJSON9, info10: infoJSON10,info12: infoJSON10, info13: infoJSON11, info14: infoJSON12, info15: infoJSON13, info16: infoJSON14, info17: infoJSON15, info18: infoJSON16, info19: infoJSON17, info20: infoJSON18,info21: infoJSON19, info22: infoJSON20, info23: infoJSON21
+       info1: Dokument1, info2: Dokument2, info3: Dokument3, info4: Dokument4, info5: Dokument5, info6: Dokument6, info7: Dokument7, info8: Dokument8,info9: Dokument9, info10: Dokument10,info12: Dokument12, info13: Dokumentvorschlag1, info14: Dokumentvorschlag2, info15: Dokumentvorschlag3, info16: Favorit1, info17: Favorit2
   });
 
 
 
   wss.clients.forEach(function each(client) {
     client.send(json);
- //  console.log('Sent: ' + json);
+   console.log('Sent: ' + json);
+   counter++;
   });
 }
 setInterval(broadcast, 3000);
+var counter = 0;
+
 
 /*quelle: https://github.com/sitepoint-editors/websocket-demo
 Installation Steps

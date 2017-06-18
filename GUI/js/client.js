@@ -2,7 +2,7 @@ var socket = new WebSocket('ws://localhost:8081/');
 var meetingRaumID = window.location.toString().split('=');
 var raumID = meetingRaumID[1].toString().split("#");
 
-var sendetAllreadyGoogleInfos =[];
+var sendetAllreadyGoogleInfos = [];
 
 //arrays für google treechart
 var nameArray = [];
@@ -24,9 +24,9 @@ colorArray.push(1);
 function in_array(arrayName, needle) {
     var isInside = false;
 
-    for(var g = 0; g < arrayName.length; g++) {
+    for (var g = 0; g < arrayName.length; g++) {
 
-    //   log( typeof (arrayName[g])  +"  " +arrayName[g]  +" typ var " + typeof (needle) + " " + needle);
+        //   log( typeof (arrayName[g])  +"  " +arrayName[g]  +" typ var " + typeof (needle) + " " + needle);
         if (arrayName[g] == needle) {
 
             isInside = true;
@@ -39,30 +39,62 @@ function in_array(arrayName, needle) {
 }
 
 
+function upgradeArrays( name,  folderName,  parentName,  sizeName,  colorName) {
+
+    //alert("upgrade arrays: " + name);
+
+    if(in_array(nameArray, name)== true){
+
+        // wenn name schon vorhanden, dann upgrade alle arrays mit neuen daten an entsprechender stelle ansonsten einfügen
+    for (var g = 0; g < nameArray.length; g++) {
+
+
+        if (nameArray[g] == name) {
+
+            nameArray[g] = name;
+            folderArray[g] = folderName;
+            parentArray[g] = parentName;
+            sizeArray[g] = sizeName;
+            colorArray[g] = colorName;
+
+           // document.getElementById("drawButton").click();
+        }
+    }
+    }else {
+     //   alert("pushe in arrays: " + name);
+        nameArray.push(name);
+        folderArray.push(folderName);
+        parentArray.push(parentName);
+        sizeArray.push(sizeName);
+        colorArray.push(colorName);
+     //   document.getElementById("drawButton").click();
+    }
+
+    try {
+
+        document.getElementById("defaultOpen").click();
+      //  document.getElementById("drawButton").click();
+    }catch (e){
+        console.log("fehler beim chart aktualisieren in upgradeArrays methode im client.js")
+    }
+
+}
 
 
 function getFolderArrayIndex(arrayName, needle) {
     var arrayIndex = 0;
 
-    for(var g = 0; g < arrayName.length; g++) {
+    for (var g = 0; g < arrayName.length; g++) {
 
-        if( arrayName[g] == needle){
+        if (arrayName[g] == needle) {
             arrayIndex = g;
         }
 
     }
 
-        return arrayIndex;
+    return arrayIndex;
 
 }
-
-
-
-
-
-
-
-
 
 
 function readCookie(name) {
@@ -80,8 +112,6 @@ socket.onopen = function (event) {
     log('Opened connection 🎉');
 
     var meetingRaumID = window.location.toString().split('=');
-
-
 
 
     var json = JSON.stringify({message: 'NewClient_' + googleTokenId + '_SessionID_' + raumID});
@@ -112,79 +142,75 @@ socket.onmessage = function (event) {
     try {
 
 
+
         var obj = JSON.parse(event.data); // this is how you parse a string into JSON
 
-    //    alert("in obj" +obj['0'] );
+        //    alert("in obj" +obj['0'] );
 
-     //   log(event.data);
+    //    log("<br><br><br><br> event . data: ");
+      //   log(event.data);
+
+
+
+      //  log("<br><br><br><br> event.date aN STELLE obj: ");
+       // log(event.data[obj]);
+
+        /*
+         folderArray.splice(0,folderArray.length);
+         nameArray.splice(0,nameArray.length);
+         parentArray.splice(0, parentArray.length);
+         sizeArray.splice(0,sizeArray.length);
+         colorArray.splice(0,colorArray.length);
+         */
 
         for (var key in obj) {
 
-   //     log(key.toString());
-
-        if(key.includes('NewClient') ) {
-
-          var newClientData = obj[key];
-
-          var newClient = newClientData.split('_');
-
-          if(document.getElementById('LoggedInUsers').innerHTML.indexOf(' <li class="mdl-menu__item">googleID: ' + newClient[2] + ' Vorname: ' + newClient[4] + ' Nachname: ' + newClient[6] + ' email: ' + newClient[8] + '</li>') == -1 ) {
-
-              document.getElementById('LoggedInUsers').innerHTML += ' <li class="mdl-menu__item">googleID: ' + newClient[2] + ' Vorname: ' + newClient[4] + ' Nachname: ' + newClient[6] + ' email: ' + newClient[8] + '</li>';
-
-          }
-
-            //checken ob es sich um meine session handelt
-
-            //liste im html anlegen die mit google daten befüllt wird
-            //      checken ob die empfangenen daten die eigenen sind, ansonsten nochmal eigenen daten schicken
 
 
-            //wenn es sich nicht um die selbst gesendete nachricht handelt (dass ein enuer client da ist) dann sende das du da bist. Damit alle clients ihre liste mit allen teilnehmern füllen können
-            var googleTokenId = readCookie("Google_ID");
+            if (key.includes('NewClient')) {
 
-            var googleTokenData = googleTokenId.split('_');
+                var newClientData = obj[key];
 
+                var newClient = newClientData.split('_');
 
-          if( googleTokenData[1] !=  newClient[2]){
+                if (document.getElementById('LoggedInUsers').innerHTML.indexOf(' <li class="mdl-menu__item">googleID: ' + newClient[2] + ' Vorname: ' + newClient[4] + ' Nachname: ' + newClient[6] + ' email: ' + newClient[8] + '</li>') == -1) {
 
-            //  alert($.inArray(newClient[2], sendetAllreadyGoogleInfos));
-              if( !contains(sendetAllreadyGoogleInfos,newClient[2]) ){
+                    document.getElementById('LoggedInUsers').innerHTML += ' <li class="mdl-menu__item">googleID: ' + newClient[2] + ' Vorname: ' + newClient[4] + ' Nachname: ' + newClient[6] + ' email: ' + newClient[8] + '</li>';
 
+                }
 
-                /*   alert(googleTokenId.search(newClient[2]));
-                   alert(googleTokenId);
-                   alert(newClient[2]);
-        */
+                //checken ob es sich um meine session handelt
 
-                  //
-                  var json = JSON.stringify({message: 'NewClient_' + googleTokenId + '_SessionID_' + raumID});
-
-                  socket.send(json);
-                  log('Sent:' + json);
-                  sendetAllreadyGoogleInfos.push(newClient[2]);
-              }
-
-          }
+                //liste im html anlegen die mit google daten befüllt wird
+                //      checken ob die empfangenen daten die eigenen sind, ansonsten nochmal eigenen daten schicken
 
 
+                //wenn es sich nicht um die selbst gesendete nachricht handelt (dass ein enuer client da ist) dann sende das du da bist. Damit alle clients ihre liste mit allen teilnehmern füllen können
+                var googleTokenId = readCookie("Google_ID");
+
+                var googleTokenData = googleTokenId.split('_');
 
 
+                if (googleTokenData[1] != newClient[2]) {
 
-        }
+                    //  alert($.inArray(newClient[2], sendetAllreadyGoogleInfos));
+                    if (!contains(sendetAllreadyGoogleInfos, newClient[2])) {
 
-          //    log(obj[key]);
+                        var json = JSON.stringify({message: 'NewClient_' + googleTokenId + '_SessionID_' + raumID});
+
+                        socket.send(json);
+                        log('Sent:' + json);
+                        sendetAllreadyGoogleInfos.push(newClient[2]);
+                    }
+                }
+            }
+        //    log("<br><br><br><br> jetzt key: ");
+         //   log(key.toString());
+
             var suggestionINSIDE = JSON.parse(obj[key]);
+
             var SessionID = suggestionINSIDE['SessionID'];
-
-//            log("vor if mit: " + SessionID +"  und raumid:  " + raumID.toString());
-
-                 //checkt anhand der sessionID ob dieser vorschlag für diese Session ist
-                  if (SessionID == raumID.toString()) {
-
-                   //   log("nach if");
-
-
+            if (SessionID == raumID.toString()) {
                 var name = suggestionINSIDE['name'];                          // name der angezeigt wird
                 var link = suggestionINSIDE['link'];                         // Link der im neuen tab gezeigt wird
 
@@ -193,32 +219,18 @@ socket.onmessage = function (event) {
                 var DokumentenID = suggestionINSIDE['DokumentenID'];
                 var prio = suggestionINSIDE['prio'];                         // 0 oder 1 also errechnet sich daraus die farbe (hohe zahlen 1 = 100)
                 var DokuTyp = suggestionINSIDE['DokuTyp'];
-                var folder = suggestionINSIDE['folder'];                    // eregibt farbe der unterscheidlichen zahlen (niedrige zahlen je nach farben 1 - 50)
+                var folder = suggestionINSIDE['folder'];
 
-                  //    alert("pushe vor arrays");
+             //   upgradeArrays(nameArray, name, folderArray, folder, parentArray, 'StarCars', sizeArray, prio + 1, colorArray, prio * 5 + 1 + getFolderArrayIndex(folderArray, folder)) ;
+    //            log(name);
+  //              log(link);
+//                log(folder);
 
-                      log(in_array(nameArray, name )+ " name "+name+"  " +nameArray );
-
-                      //prüft ob dokument schon vorhanden ist !!! keine doppelanmen zulässig !!!
-                      if(in_array(nameArray, name ) == false) {
-
-                         // log("pushe in arrays " + name);
-                          folderArray.push(folder);
-
-                          nameArray.push(name);
-                          parentArray.push('StarCars');
-                          sizeArray.push(prio* 5 + 1);   // Aufpassen!!! prio muss min 1 haben, sonst wird es nicht angezeigt!!!
-                          colorArray.push( prio* 5 + 1 + getFolderArrayIndex(folderArray, folder)  );
-                      }
-
-
-                      log("name " + name + " Link " + link);
-
-               log("*****************************************************************");
-
-
+                upgradeArrays( name, folder ,'StarCars', prio + 1, prio + 1 ) ;
             }
 
+           //    log("name " + name + " Link " + link);
+            //    log("*****************************************************************");
 
 
 
@@ -228,11 +240,11 @@ socket.onmessage = function (event) {
 
         function selectHandler(e) {
             addTab(1, 'name auf Namensarray');
-           // alert('A table row was selected' +'______hier später neuen tab öffenen');
+            // alert('A table row was selected' +'______hier später neuen tab öffenen');
         }
 
-        function parameterFunction( ){
-            google.charts.load('current', {'packages':['treemap']});
+        function parameterFunction() {
+            google.charts.load('current', {'packages': ['treemap']});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
 
@@ -245,15 +257,14 @@ socket.onmessage = function (event) {
 
                 var rowArray = [];
 
-                for(var y= 0; y < nameArray.length; y++) {
+                for (var y = 0; y < nameArray.length; y++) {
 
                     rowArray.push([nameArray[y], parentArray[y], sizeArray[y], colorArray[y]]);
-                //    log("pushe: " +[[nameArray[y], parentArray[y], sizeArray[y], colorArray[y]]] );
+                    //    log("pushe: " +[[nameArray[y], parentArray[y], sizeArray[y], colorArray[y]]] );
                 }
 
 
-                data.addRows( rowArray);
-
+                data.addRows(rowArray);
 
 
                 tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
@@ -261,12 +272,12 @@ socket.onmessage = function (event) {
                 google.visualization.events.addListener(tree, 'select', selectHandler);
 
 
-          /*      function showStaticTooltip(row, size, value) {
-                    return '<div style="background:#fd9; padding:10px; border-style:solid; ">' +
-                        'Read more about the <a href="http://en.wikipedia.org/wiki/Kingdom_(biology)">kingdoms of life</a>.</div>';
-                }
+                /*      function showStaticTooltip(row, size, value) {
+                 return '<div style="background:#fd9; padding:10px; border-style:solid; ">' +
+                 'Read more about the <a href="http://en.wikipedia.org/wiki/Kingdom_(biology)">kingdoms of life</a>.</div>';
+                 }
 
-                */
+                 */
                 function showFullTooltip(row, size, value) {
                     return '<div style="background:#fd9; padding:10px; z-index: +10; border-style:solid">' +
                         '<span style="font-family:Courier"><b>' + data.getValue(row, 0) +
@@ -295,14 +306,13 @@ socket.onmessage = function (event) {
         }
 
         document.getElementById("drawButton").onclick = parameterFunction;
-       //document.getElementById("drawButton").onclick = alert(rowArray);
-
+        //document.getElementById("drawButton").onclick = alert(rowArray);
 
 
     }
     catch
         (ex) {
-    //    console.error(ex);
+        //    console.error(ex);
     }
 
     try {
@@ -313,11 +323,10 @@ socket.onmessage = function (event) {
 
 
     } catch (e) {
-    //    alert("problem");
-     //   alert(resOb.responseText);
-      //  stoppeAnwendung();
+        //    alert("problem");
+        //   alert(resOb.responseText);
+        //  stoppeAnwendung();
     }
-
 
 
 }
