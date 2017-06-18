@@ -14,8 +14,23 @@ public class Constants {
 		 * Keys for the message attributes
 		 */
 		public static class AttributeKey{
+			// general
 			public static final String EVENT_SOURCE	= "EventSource";
 			public static final String EVENT_TYPE	= "EventType";
+
+			// ML
+			public static final String USER_ID		= "userId";
+			public static final String DOCUMENT_ID	= "documentId";
+			public static final String PROJECT_ID	= "projectId";
+			public static final String USERCLICK	= "userclick";
+
+			// SemRep
+
+			// Event
+
+			// GUI
+
+			// Speech
 		}
 
 		/**
@@ -64,8 +79,6 @@ public class Constants {
 			public static final String TOKEN 			= "token";
 			public static final String INFORMATION		= "information";
 			
-
-
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
 				TOPIC_1,
@@ -84,8 +97,9 @@ public class Constants {
 		}
 
 		/**
-		 * Type of events.
+		 * Type of event.
 		 */
+		// TODO: is this still up-to-date ?
 		public static class EventType {
 			public static final String ACTION 		= "action";
 			public static final String USER_INFO		= "user-information";
@@ -133,33 +147,33 @@ public class Constants {
 		}
 
 		// NEVER CHANGE ANY OF THIS! except you know what you are doing..
+		/**
+		 * Config for using PubSub
+		 */
 		public static class Config {
 			public static final String PUSH_ENDPOINT_PREFIX		= "/_ah/push-handlers";
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";
 			public static final String PUBLISH_ENDPOINT 		= "/publish";
-			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + "/push";
-			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
+			public static final String HANDLER					= "/event";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
+
+			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
+			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
 		}
 
+		/**
+		 * The two types of subscription
+		 */
 		public class SubscriptionType{
 			public static final String PUSH	= "push";
 			public static final String PULL = "pull";
 		}
-
 	}
 
-	public class WeekDays {
-		public static final String monday 		= "monday";
-		public static final String tuesday 		= "tuesday";
-		public static final String wednesday 	= "wednesday";
-		public static final String thursday		= "thursday";
-		public static final String friday		= "friday";
-		public static final String saturday 	= "saturday";
-		public static final String sunday 		= "sunday";
-	}
-
+	/**
+	 * Http request parameters
+	 */
 	public class RequestParameters {
 		public static final String TOPIC 			= "topic";
 		public static final String ATTRIBUTES 		= "attributes";
