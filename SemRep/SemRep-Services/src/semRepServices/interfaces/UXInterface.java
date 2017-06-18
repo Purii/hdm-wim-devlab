@@ -63,8 +63,8 @@ public class UXInterface {
 
 	public static void main(String[] args) {
 
-		produceOfferEvent();
-		//produceInformationToAllDocumentsEvent();
+		//produceOfferEvent();
+		produceInformationToAllDocumentsEvent();
 		
 	}
 	
@@ -194,7 +194,7 @@ public class UXInterface {
 				// prio bei allen Dokumenten irrelevant (0)
 				prioStr = "0";
 				dokumentvorschlagObj.setPrio(prioStr);
-				dokOfferLinkedHashMap.put("Dokument_" + i,
+				dokOfferLinkedHashMap.put("Dokument" + i,
 						"SessionID=" + dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
 								+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID="
 								+ dokumentvorschlagObj.getDok_IDStr() + ", " + "DokName="
