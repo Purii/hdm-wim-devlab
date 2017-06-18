@@ -7,6 +7,7 @@ public class Person {
 	public String klasse;
 	public String vorname;
 	public String nachname;
+	public String name;
 	public String mail;
 	public String person_arbeitet_an_Projekt;
 	public String person_hat_Projektrolle;
@@ -23,6 +24,12 @@ public class Person {
 
 		this.sessionID = sessionID;
 		this.objectValue = objectValue;
+
+	}
+	
+	public Person(String name) {
+
+		this.name = name;
 
 	}
 
@@ -53,9 +60,17 @@ public class Person {
 
 	public String toStringPersonObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + "Person=" + "{" + this.objectValue + "}";
+				+ "; " + this.objectValue;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getSessionID() {
 		return sessionID;
 	}

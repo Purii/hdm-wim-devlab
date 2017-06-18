@@ -121,7 +121,7 @@ Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
 | `attributes` | `string` |
 
 Beispiel:
-`https://hdm-wim-devlab.appspot.com/publishtopic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
+`https://hdm-wim-devlab.appspot.com/publish?topic=topic-1&payload=blubb_1&attributes=%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
  
 Value des `attributes` Parameters ist ein url codierter json string : `{"EventType":"insight","EventSource":"user-interface"}` => `%7B%22EventType%22%3A%22insight%22%2C%22EventSource%22%3A%22user-interface%22%7D`
 
@@ -162,6 +162,14 @@ sh.Subscribe(subscription, receiver);
 ```
 
 **(2) Empfang der Message bestätigen.** 
+
+Sobald eine Message an einen Subscription/Abonnent gesendet wird, muss der Abonnent entweder die Message bestätigen oder eine negative Rückmeldung an Pub/Sub geben. 
+
+Es können zwei unterschiedliche Rückmeldungs-Varianten auftreten.
+
+***positive acknowledgement(abbr.: ACK)*** Mit `consumer.ack` wird ein erfolgreicher Empfang einer Message ausgedrückt. 
+
+***negative acknowledgement(abbr.: NACK)*** Mit `consumer.nack` wird Pub/Sub mitgeteilt, dass der Subscription/Abonnent die Message nicht verarbeiten konnte oder auch die aktuelle Message vom Abonnenten momentan nicht benötigt wird.
 
 @bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
 findet im receiver statt => `consumer.ack` oder `consumer.nack`

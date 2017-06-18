@@ -2,8 +2,6 @@ package semRepServices.businessObjects;
 
 public class Dokumentvorschlag {
 	
-	public String sessionID;
-	public String timeStamp;
 	public String dok_IDStr;
 	public String dok_NameStr;
 	public String prio;
@@ -11,8 +9,14 @@ public class Dokumentvorschlag {
 	public String dok_URLStr;
 	public String dok_folder;
 	
-	public Dokumentvorschlag(){
-		
+	public String sessionID;
+	public String timeStamp;
+	private String objectValue;
+	
+	public Dokumentvorschlag(String sessionID, String timeStamp, String objectValue) {
+		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
+		this.objectValue = objectValue;
 	}
 	
 	public Dokumentvorschlag(String sessionID, String timeStamp, String dok_IDStr, String dok_NameStr, String prio,
@@ -45,6 +49,16 @@ public class Dokumentvorschlag {
 		setDok_TypStr("");
 		setDok_URLStr("");
 		setDok_folder("");
+	}
+	
+	public String toStringFavoritDokumentObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
+				+ "; " + "Dokument=" + this.objectValue;
+	}
+	
+	public String toStringDokumentvorschlagsObjekt() {
+		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
+				+ "; " + "Dokument=" + this.objectValue;
 	}
 
 	public String getSessionID() {
@@ -109,6 +123,14 @@ public class Dokumentvorschlag {
 
 	public void setDok_folder(String dok_folder) {
 		this.dok_folder = dok_folder;
+	}
+
+	public String getObjectValue() {
+		return objectValue;
+	}
+
+	public void setObjectValue(String objectValue) {
+		this.objectValue = objectValue;
 	}
 	
 }

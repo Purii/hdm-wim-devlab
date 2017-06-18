@@ -1,5 +1,4 @@
-package driveAPI;
-
+package controller;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -14,6 +13,9 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.*;
+
+import rest.Rest;
+
 import com.google.api.services.drive.Drive;
 
 import java.io.IOException;
@@ -23,17 +25,23 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 
-public class DriveAPITest 
-{
+public class GoogleDriveCommunication {
+	final static Logger logger = Logger.getLogger(Rest.class);
 	/** Application name. */
     private static final String APPLICATION_NAME =
         "Drive API Java Quickstart";
 
     /** Directory to store user credentials for this application. */
-    private static final java.io.File DATA_STORE_DIR = new java.io.File(
-        System.getProperty("user.home"), ".credentials/drive-java-quickstart");
+    //	private static final java.io.File DATA_STORE_DIR = new java.io.File(
+    //     System.getProperty("user.home"), ".credentials/drive-java-quickstart");
 
+    
+    //linux
+    private static final java.io.File DATA_STORE_DIR = new java.io.File("/opt/logs");
+    	
+    	
     /** Global instance of the {@link FileDataStoreFactory}. */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
 
@@ -70,7 +78,7 @@ public class DriveAPITest
     public static Credential authorize() throws Exception {
         // Load client secrets.
         InputStream in =
-            DriveAPITest.class.getResourceAsStream("client_secret.json");
+            GoogleDriveCommunication.class.getResourceAsStream("client_secret.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -101,20 +109,27 @@ public class DriveAPITest
                 .build();
     }
 
-    public static void main(String[] args) throws Exception {
-        // Build a new authorized API client service.
-        Drive service = getDriveService();   
+    public static void saveProtocolOnGoogleDrive(String protocolName) throws Exception{
+    	// Build a new authorized API client service.
         
-        String folderId = "0B6rkNNvwifY2WTBRSEl2dmpwd28";
-        File fileMetadata = new File();
-        fileMetadata.setName("Gespraech.txt");
-        fileMetadata.setMimeType("application/vnd.google-apps.document");
-        fileMetadata.setParents(Collections.singletonList(folderId));
-        java.io.File filePath = new java.io.File("Gespraech.txt");
-        FileContent mediaContent = new FileContent("application/text/plain", filePath);
-        File file = service.files().create(fileMetadata, mediaContent)
-                .setFields("id, parents")
-                .execute();
-        System.out.println("File ID: " + file.getId());
+    	try{
+    		Drive service = getDriveService();   
+            logger.info("Start writing protocol:" +protocolName);
+            String folderId = "0B6rkNNvwifY2WTBRSEl2dmpwd28";
+            File fileMetadata = new File();
+            fileMetadata.setName(protocolName);
+            fileMetadata.setMimeType("application/vnd.google-apps.document");
+            fileMetadata.setParents(Collections.singletonList(folderId));
+            java.io.File filePath = new java.io.File(protocolName);
+            FileContent mediaContent = new FileContent("application/text/plain", filePath);
+            File file = service.files().create(fileMetadata, mediaContent)
+                    .setFields("id, parents")
+                    .execute();
+            logger.info("Protocol created:" +file.getId());
+    	} catch(Exception err){
+    		logger.info("Protocol creation error:" +err);
+    	}
+    	
     }
+    
 }

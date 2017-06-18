@@ -1,0 +1,25 @@
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
+SELECT DISTINCT ?PersonNachname ?PersonVorname 	
+WHERE { 
+
+?Person ontology:Person_Vorname ?PersonVorname .
+?Person ontology:Person_Nachname ?PersonNachname .
+
+?Person ontology:Person_ID '6' .
+}
+
+
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> 
+SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ 
+?Dok_URL ?Dok_Keywords ?Dok_Ordner
+WHERE { 
+?Dokument ontology:Dok_ID ?Dok_ID . 
+?Dokument ontology:Dok_Name ?Dok_Name . 
+?Dokument ontology:Dok_Typ ?Dok_Typ . 
+?Dokument ontology:Dok_URL ?Dok_URL . 
+?Dokument ontology:Dok_Ordner ?Dok_Ordner . 
+?Dokument ontology:Dok_Kontext ?Kontext . 
+?Dokument ontology:Dok_Keywords ?Dok_Keywords . 
+
+?Dokument ontology:Dokument_favorisiert_von_Person ontology:Lisa_Meier .
+}
