@@ -642,8 +642,8 @@
            :Phase_Name "Abschluss"^^xsd:string .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis
-:Anforderungen-Big_Data_Diagnosis rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Anforderungen_Big_Data_Diagnosis
+:Anforderungen_Big_Data_Diagnosis rdf:type owl:NamedIndividual ,
                                            :Dokument ;
                                   :Dokument_favorisiert_von_Person :Mateos_Alliaj ;
                                   :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
@@ -669,8 +669,8 @@
                                   :Dok_Version "1.1"^^xsd:double .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet
-:Aufgabenliste-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste_HighNet
+:Aufgabenliste_HighNet rdf:type owl:NamedIndividual ,
                                 :Dokument ;
                        :Dokument_favorisiert_von_Person :Björn_Zimmermann ;
                        :Dokument_gehoert_zu_Phase :Definition ;
@@ -717,7 +717,7 @@
                              :Projekt ;
                     :Projekt_gehoert_zu_Abteilung :IT ;
                     :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
-                    :Projekt_hat_Dokument :Anforderungen-Big_Data_Diagnosis ;
+                    :Projekt_hat_Dokument :Anforderungen_Big_Data_Diagnosis ;
                     :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
                     :Projekt_hat_keyword :Big_Data ;
                     :Projekt_ID 3 ;
@@ -733,13 +733,13 @@
 :Björn_Zimmermann rdf:type owl:NamedIndividual ,
                            :Externer_Mitarbeiter ;
                   :Person_arbeitet_an_Projekt :HighNet ;
-                  :Person_favorisiert_Dokument :KickOff-HighNet ,
-                                               :Kostenaufstellung-HighNet ;
+                  :Person_favorisiert_Dokument :KickOff_HighNet ,
+                                               :Kostenaufstellung_HighNet ;
                   :Person_gehoert_zu_Abteilung :IT ;
-                  :Person_hat_Dokument_verfasst :Kostenaufstellung-HighNet ;
+                  :Person_hat_Dokument_verfasst :Kostenaufstellung_HighNet ;
                   :Person_hat_Projektrolle :Entwickler ;
-                  :Person_ruft_Dokument_auf :KickOff-HighNet ,
-                                            :Kostenaufstellung-HighNet ;
+                  :Person_ruft_Dokument_auf :KickOff_HighNet ,
+                                            :Kostenaufstellung_HighNet ;
                   :Person_Email "bjconcepts.de@gmail.com"^^xsd:string ;
                   :Person_ID "3"^^xsd:string ;
                   :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -752,7 +752,7 @@
                      :Projekt ;
             :Projekt_gehoert_zu_Abteilung :Finance ;
             :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
-            :Projekt_hat_Dokument :Finanzreport-BlackWater ;
+            :Projekt_hat_Dokument :Finanzreport_BlackWater ;
             :Projekt_hat_Projektmitglied :Donald_Trump ;
             :Projekt_ID 2 ;
             :Projekt_Name "BlackWater"^^xsd:string .
@@ -791,12 +791,12 @@
 :Donald_Trump rdf:type owl:NamedIndividual ,
                        :Interner_Mitarbeiter ;
               :Person_arbeitet_an_Projekt :BlackWater ;
-              :Person_favorisiert_Dokument :KickOff-HighNet ;
+              :Person_favorisiert_Dokument :KickOff_HighNet ;
               :Person_gehoert_zu_Abteilung :Finance ;
-              :Person_hat_Dokument_verfasst :Finanzreport-BlackWater ;
+              :Person_hat_Dokument_verfasst :Finanzreport_BlackWater ;
               :Person_hat_Projektrolle :Projektleiter ;
               :Person_hat_Unternehmensrolle :Chief_Financial_Officer ;
-              :Person_ruft_Dokument_auf :KickOff-HighNet ;
+              :Person_ruft_Dokument_auf :KickOff_HighNet ;
               :Person_Email "donald.trump@starcars.com"^^xsd:string ;
               :Person_ID "7"^^xsd:string ;
               :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
@@ -825,8 +825,8 @@
          :Abteilung_Name "Finance"^^xsd:string .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater
-:Finanzreport-BlackWater rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Finanzreport_BlackWater
+:Finanzreport_BlackWater rdf:type owl:NamedIndividual ,
                                   :Dokument ;
                          :Dokument_favorisiert_von_Person :Donald_Trump ;
                          :Dokument_gehoert_zu_Phase :Sonstige ;
@@ -866,12 +866,12 @@
 :Haruki_Murakami rdf:type owl:NamedIndividual ,
                           :Interner_Mitarbeiter ;
                  :Person_arbeitet_an_Projekt :HighNet ;
-                 :Person_favorisiert_Dokument :KickOff-HighNet ;
+                 :Person_favorisiert_Dokument :KickOff_HighNet ;
                  :Person_gehoert_zu_Abteilung :Research_and_Development ;
-                 :Person_hat_Dokument_verfasst :Projektplanung-HighNet ;
+                 :Person_hat_Dokument_verfasst :Projektplanung_HighNet ;
                  :Person_hat_Projektrolle :Projektmitarbeiter ;
-                 :Person_ruft_Dokument_auf :KickOff-HighNet ,
-                                           :Projektplanung-HighNet ;
+                 :Person_ruft_Dokument_auf :KickOff_HighNet ,
+                                           :Projektplanung_HighNet ;
                  :Person_Email "haruki.murakami@starcars.com"^^xsd:string ;
                  :Person_ID "5"^^xsd:string ;
                  :Person_Mitarbeiter "Interner Mitarbeiter"^^xsd:string ;
@@ -884,7 +884,7 @@
                   :Projekt ;
          :Projekt_gehoert_zu_Abteilung :Research_and_Development ;
          :Projekt_gehoert_zu_Unternehmen :Star_Cars ;
-         :Projekt_hat_Dokument :Meilensteine-HighNet ;
+         :Projekt_hat_Dokument :Meilensteine_HighNet ;
          :Projekt_hat_Projektmitglied :Mateos_Alliaj ;
          :hatKeyword :milestone ;
          :Projekt_ID 1 ;
@@ -916,12 +916,12 @@
 :Ivan_Kurtovic rdf:type owl:NamedIndividual ,
                         :Externer_Mitarbeiter ;
                :Person_arbeitet_an_Projekt :HighNet ;
-               :Person_favorisiert_Dokument :KickOff-HighNet ;
+               :Person_favorisiert_Dokument :KickOff_HighNet ;
                :Person_gehoert_zu_Abteilung :IT ;
-               :Person_hat_Dokument_verfasst :Kostenplanung-HighNet ;
+               :Person_hat_Dokument_verfasst :Kostenplanung_HighNet ;
                :Person_hat_Projektrolle :Entwickler ;
-               :Person_ruft_Dokument_auf :KickOff-HighNet ,
-                                         :Kostenplanung-HighNet ;
+               :Person_ruft_Dokument_auf :KickOff_HighNet ,
+                                         :Kostenplanung_HighNet ;
                :Person_Email "ivankurtovic2016@gmail.com"^^xsd:string ;
                :Person_ID "4"^^xsd:string ;
                :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -929,8 +929,8 @@
                :Person_Vorname "Ivan"^^xsd:string .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet
-:KickOff-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#KickOff_HighNet
+:KickOff_HighNet rdf:type owl:NamedIndividual ,
                           :Dokument ;
                  :Dokument_favorisiert_von_Person :Donald_Trump ,
                                                   :Kristjan_Alliaj ,
@@ -964,8 +964,8 @@
                  :Dok_Version "1.2"^^xsd:double .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet
-:Kostenaufstellung-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung_HighNet
+:Kostenaufstellung_HighNet rdf:type owl:NamedIndividual ,
                                     :Dokument ;
                            :Dokument_favorisiert_von_Person :Björn_Zimmermann ,
                                                             :Ivan_Kurtovic ;
@@ -995,8 +995,8 @@
                            :Dok_Version "1.2"^^xsd:double .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet
-:Kostenplanung-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Kostenplanung_HighNet
+:Kostenplanung_HighNet rdf:type owl:NamedIndividual ,
                                 :Dokument ;
                        :Dokument_favorisiert_von_Person :Lisa_Meier ;
                        :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
@@ -1030,12 +1030,12 @@
 :Kristjan_Alliaj rdf:type owl:NamedIndividual ,
                           :Externer_Mitarbeiter ;
                  :Person_arbeitet_an_Projekt :HighNet ;
-                 :Person_favorisiert_Dokument :KickOff-HighNet ;
+                 :Person_favorisiert_Dokument :KickOff_HighNet ;
                  :Person_gehoert_zu_Abteilung :IT ;
-                 :Person_hat_Dokument_verfasst :Aufgabenliste-HighNet ;
+                 :Person_hat_Dokument_verfasst :Aufgabenliste_HighNet ;
                  :Person_hat_Projektrolle :Entwickler ;
-                 :Person_ruft_Dokument_auf :Aufgabenliste-HighNet ,
-                                           :KickOff-HighNet ;
+                 :Person_ruft_Dokument_auf :Aufgabenliste_HighNet ,
+                                           :KickOff_HighNet ;
                  :Person_Email "kristjan.alliaj@gmail.com"^^xsd:string ;
                  :Person_ID "2"^^xsd:string ;
                  :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -1047,11 +1047,13 @@
 :Lisa_Meier rdf:type owl:NamedIndividual ,
                      :Externer_Mitarbeiter ;
             :Person_arbeitet_an_Projekt :HighNet ;
-            :Person_favorisiert_Dokument :KickOff-HighNet ;
+            :Person_favorisiert_Dokument :KickOff_HighNet ,
+                                         :Kostenplanung_HighNet ,
+                                         :Projektplanung_HighNet ;
             :Person_gehoert_zu_Abteilung :IT ;
-            :Person_hat_Dokument_verfasst :KickOff-HighNet ;
+            :Person_hat_Dokument_verfasst :KickOff_HighNet ;
             :Person_hat_Projektrolle :Projektmitarbeiter ;
-            :Person_ruft_Dokument_auf :KickOff-HighNet ;
+            :Person_ruft_Dokument_auf :KickOff_HighNet ;
             :Person_Email "lisa.meier@brokenbits.com"^^xsd:string ;
             :Person_ID "6"^^xsd:string ;
             :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -1064,15 +1066,15 @@
                         :Externer_Mitarbeiter ;
                :Person_arbeitet_an_Projekt :Big_Data_Diagnosis ,
                                            :HighNet ;
-               :Person_favorisiert_Dokument :KickOff-HighNet ;
+               :Person_favorisiert_Dokument :KickOff_HighNet ;
                :Person_gehoert_zu_Abteilung :IT ;
-               :Person_hat_Dokument_verfasst :Meilensteine-HighNet ,
-                                             :Projektplanung-HighNet ;
+               :Person_hat_Dokument_verfasst :Meilensteine_HighNet ,
+                                             :Projektplanung_HighNet ;
                :Person_hat_Projektrolle :Entwickler ,
                                         :Projektleiter ;
-               :Person_ruft_Dokument_auf :KickOff-HighNet ,
-                                         :Meilensteine-HighNet ,
-                                         :Projektplanung-HighNet ;
+               :Person_ruft_Dokument_auf :KickOff_HighNet ,
+                                         :Meilensteine_HighNet ,
+                                         :Projektplanung_HighNet ;
                :Person_Email "mateos.alliaj@gmail.com"^^xsd:string ;
                :Person_ID "1"^^xsd:string ;
                :Person_Mitarbeiter "Externer Mitarbeiter"^^xsd:string ;
@@ -1080,8 +1082,8 @@
                :Person_Vorname "Mateos"^^xsd:string .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet
-:Meilensteine-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Meilensteine_HighNet
+:Meilensteine_HighNet rdf:type owl:NamedIndividual ,
                                :Dokument ;
                       :Dokument_favorisiert_von_Person :Haruki_Murakami ;
                       :Dokument_gehoert_zu_Phase :Definition ;
@@ -1140,8 +1142,8 @@
                     :Projektrolle_Bezeichnung "Projektmitarbeiter"^^xsd:string .
 
 
-###  http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet
-:Projektplanung-HighNet rdf:type owl:NamedIndividual ,
+###  http://www.semanticweb.org/sem-rep/ontology#Projektplanung_HighNet
+:Projektplanung_HighNet rdf:type owl:NamedIndividual ,
                                  :Dokument ;
                         :Dokument_favorisiert_von_Person :Lisa_Meier ;
                         :Dokument_gehoert_zu_Phase :SpezifikationUndPlanung ;
