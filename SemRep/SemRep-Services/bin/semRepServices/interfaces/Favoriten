@@ -1,28 +1,25 @@
 PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
-SELECT DISTINCT ?Dokument ?Person ?PersonID ?PersonFavoritDok ?Dok_Name 	
+SELECT DISTINCT ?PersonNachname ?PersonVorname 	
 WHERE { 
 
-?Person ontology:Person_ID ?PersonID .
-?Person ontology:Person_favorisiert_Dokument ?PersonFavoritDok .
-?PersonFavoritDok ontology:Dok_Name ?Dok_Name . 
+?Person ontology:Person_Vorname ?PersonVorname .
+?Person ontology:Person_Nachname ?PersonNachname .
+
 ?Person ontology:Person_ID '6' .
-?Person ontology:Person_favorisiert_Dokument ontology:KickOff_HighNet .
-
 }
-ORDER BY ?Dok_Name
 
 
-PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
-SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Keywords ?Dok_Ordner 
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> 
+SELECT DISTINCT ?Kontext ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ 
+?Dok_URL ?Dok_Keywords ?Dok_Ordner
 WHERE { 
-?Dokument ontology:Dok_ID ?Dok_ID .
-?Dokument ontology:Dok_Name ?Dok_Name .
-?Dokument ontology:Dok_Typ ?Dok_Typ .
-?Dokument ontology:Dok_URL ?Dok_URL .
-?Dokument ontology:Dok_Ordner ?Dok_Ordner .
-?Dokument ontology:Dokument_hat_Kontext ?Kontext .
-?Dokument ontology:Dokument_hat_Keyword ?Dok_Keywords .
+?Dokument ontology:Dok_ID ?Dok_ID . 
+?Dokument ontology:Dok_Name ?Dok_Name . 
+?Dokument ontology:Dok_Typ ?Dok_Typ . 
+?Dokument ontology:Dok_URL ?Dok_URL . 
+?Dokument ontology:Dok_Ordner ?Dok_Ordner . 
+?Dokument ontology:Dok_Kontext ?Kontext . 
+?Dokument ontology:Dok_Keywords ?Dok_Keywords . 
 
-?Dokument ontology:Dok_Name 'KickOff' .
-
+?Dokument ontology:Dokument_favorisiert_von_Person ontology:Lisa_Meier .
 }

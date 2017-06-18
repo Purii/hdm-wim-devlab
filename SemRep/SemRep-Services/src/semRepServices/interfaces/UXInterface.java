@@ -48,7 +48,7 @@ public class UXInterface {
 	
 	public static Dokumentvorschlag dokumentvorschlagObj = null;
 	public static Person personObj = null;
-	public static FavoritDokument favDokObj = null;
+	public static Person personFavDokObj = null;
 	
 	// dokument
 	public static String sessionIDStr = "";
@@ -60,7 +60,7 @@ public class UXInterface {
 	public static String dok_URLStr = "";
 	public static String dok_folder = "";
 	//favoritDok
-	public static String favDok_Str = "";
+	public static String personName_Str = "";
 	public static int numFavDoks = 0;
 
 	public static void main(String[] args) {
@@ -160,33 +160,40 @@ public class UXInterface {
 				if (y == 1) {
 					
 					// einmaliges befüllen der nachfolgenden Werte
-					if (((favDokObj.getFavoritDokNameStr() == "") == true)) {
+					if (((personFavDokObj.getName() == "") == true)) {
 
 						switch (results) {
-						case "Dok_Name":
-							favDok_Str = splitResult;
-							favDokObj.setFavoritDokNameStr(favDok_Str);
+						case "PersonVorname":
+							personName_Str = splitResult;
+							personFavDokObj.setName(personName_Str);
+							numFavDoks = numFavDoks + 1;
+							break;
+						case "PersonNachname":
+							personName_Str = splitResult;
+							personFavDokObj.setName(personName_Str);
+							numFavDoks = numFavDoks + 1;
 							break;
 						}
 
 					}
 					// mehr als ein Vorkommen
-					else if (((favDokObj.getFavoritDokNameStr() == "") == false)) {
+					else if (((personFavDokObj.getName() == "") == false)) {
 
 						switch (results) {
 						case "Dok_Name":
-							favDok_Str = splitResult;
+							personName_Str = splitResult;
 							splitKeywordsList = Arrays.asList(
-									favDokObj.getFavoritDokNameStr().toString().split(", "));
+									personFavDokObj.getName().toString().split(", "));
 
-							if (splitKeywordsList.contains(favDok_Str)) {
+							if (splitKeywordsList.contains(personName_Str)) {
 
 								break;
 
 							} else {
 
-								favDokObj.setFavoritDokNameStr(
-										favDokObj.getFavoritDokNameStr() + ", " + favDok_Str);
+								personFavDokObj.setName(
+										personFavDokObj.getName() + ", " + personName_Str);
+								numFavDoks = numFavDoks + 1;
 								break;
 							}
 						}
@@ -286,7 +293,7 @@ public class UXInterface {
 			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 			//favoritDok
-			favDokObj = new FavoritDokument(favDok_Str);
+			personFavDokObj = new Person(personName_Str);
 
 			for (int z = 0; z <= inputArray.length; z++) {
 
@@ -303,30 +310,37 @@ public class UXInterface {
 				//ermittle FavoritDok
 				if (z == 1) {
 					sparql = "PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Dok_Name "
+							+ "SELECT DISTINCT ?PersonNachname ?PersonVorname "
 							+ "WHERE { "
-							+ "?Person ontology:Person_ID ?PersonID . "
-							+ "?Person ontology:Person_favorisiert_Dokument ?PersonFavoritDok . "
-							+ "?PersonFavoritDok ontology:Dok_Name ?Dok_Name . "
+							+ "?Person ontology:Person_Vorname ?PersonVorname . "
+							+ "?Person ontology:Person_Nachname ?PersonNachname . "
 							+ "?Person ontology:Person_ID '" + inputArray[z].toString() + "' . "
-							+ "}"
-							+ "ORDER BY ?Dok_Name";
+							+ "}";
 				}
 				if (z == 2) {
-					
-					while (favDokObj.getFavoritDokNameStr() != "") {
 
-						String[] favDokStringArr = personObj.getPerson_arbeitet_an_Projekt()
+						String[] favDokStringArr = personFavDokObj.getName()
 								.toString().split(", ");
-						String splittedProjektString = "";
+						String splittedFavDokString = "";
 
-						if (favDokStringArr.length > 0) {
-							splittedProjektString = favDokStringArr[0];
-						} else {
-							splittedProjektString = personObj.getPerson_arbeitet_an_Projekt();
-						}
+					for (int loopFavDoks = 0; loopFavDoks < favDokStringArr.length; loopFavDoks++) {
+							
+							splittedFavDokString = favDokStringArr[loopFavDoks];
+	
+							sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+									+ "SELECT DISTINCT ?Kontext ?Dokument ?Dok_ID ?Dok_Name ?Dok_Typ "
+									+ "?Dok_URL ?Dok_Keywords ?Dok_Ordner " 
+									+ "WHERE { "
+									+ "?Dokument ontology:Dok_ID ?Dok_ID . " 
+									+ "?Dokument ontology:Dok_Name ?Dok_Name . "
+									+ "?Dokument ontology:Dok_Typ ?Dok_Typ . " 
+									+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+									+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
+									+ "?Dokument ontology:Dok_Kontext ?Kontext . "
+									+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
+									+ "?Dokument ontology:Dokument_favorisiert_von_Person ontology:" + personFavDokObj.getName() +" ."
+									+ "}";
 					}
-					sparql = "";
 					
 				}
 				if (z == 3) {
