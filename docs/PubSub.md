@@ -31,7 +31,7 @@ Für die erste Authentifizierung muss der Default-Login definiert werden. Hierf�
 
 Den Befehl `gcloud beta pubsub topics list` in der Shell ausführen. Die Shell zeigt als Ergebnis die Liste der momentan vorhandenen Topics an.
 
-## ShareLib-Klassen
+## SharedLib-Klassen
 
 Über die `SharedLib` werden Klassen zur Verfügung gestellt, um die Integration mit PubSub zu vereinfachen.
 
