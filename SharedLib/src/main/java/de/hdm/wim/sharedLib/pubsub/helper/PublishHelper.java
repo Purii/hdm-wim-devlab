@@ -10,6 +10,7 @@ import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.Event;
+import de.hdm.wim.sharedLib.events.IEvent;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -72,11 +73,11 @@ public class PublishHelper {
 	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
 	 * @throws Exception the exception
 	 */
-	public void Publish(Event event, String topicId) throws Exception{
+	public void Publish(IEvent event, String topicId) throws Exception{
 		publish(event,topicId, USE_REST);
 	}
 
-	private void publish(Event event, String topicId, boolean useREST) throws Exception{
+	private void publish(IEvent event, String topicId, boolean useREST) throws Exception{
 		if(useREST) {
 			LOGGER.info("using REST");
 
@@ -103,7 +104,7 @@ public class PublishHelper {
 	 * @param topicId the topic you want to publish to
 	 * @throws Exception the exception
 	 */
-	private static void publishPUBSUB(Event event, String topicId) throws Exception{
+	private static void publishPUBSUB(IEvent event, String topicId) throws Exception{
 
 		TopicName topicName 						= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
 		List<ApiFuture<String>> messageIdFutures 	= new ArrayList<>();
@@ -117,7 +118,6 @@ public class PublishHelper {
 														.putAllAttributes(event.getAttributes())
 														.build();
 
-			//TODO: add attributes to message
 			// Once published, returns a server-assigned message id (unique within the topic)
 			ApiFuture<String> messageIdFuture 	= publisher.publish(pubsubMessage);
 			messageIdFutures.add(messageIdFuture);
