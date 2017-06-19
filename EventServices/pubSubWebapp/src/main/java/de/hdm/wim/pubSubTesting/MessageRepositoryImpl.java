@@ -23,6 +23,17 @@ public class MessageRepositoryImpl implements MessageRepository {
 	private String messagesKind = "messages";
 	private KeyFactory keyFactory = getDatastoreInstance().newKeyFactory().setKind(messagesKind);
 
+	private MessageRepositoryImpl() {
+	}
+
+	// retrieve a singleton instance
+	public static synchronized MessageRepositoryImpl getInstance() {
+		if (instance == null) {
+			instance = new MessageRepositoryImpl();
+		}
+		return instance;
+	}
+
 	@Override
 	public void save(Event event) {
 		// Save message to "messages"
@@ -82,16 +93,5 @@ public class MessageRepositoryImpl implements MessageRepository {
 
 	private Datastore getDatastoreInstance() {
 		return DatastoreOptions.getDefaultInstance().getService();
-	}
-
-	private MessageRepositoryImpl() {
-	}
-
-	// retrieve a singleton instance
-	public static synchronized  MessageRepositoryImpl getInstance() {
-		if (instance == null) {
-			instance = new MessageRepositoryImpl();
-		}
-		return instance;
 	}
 }

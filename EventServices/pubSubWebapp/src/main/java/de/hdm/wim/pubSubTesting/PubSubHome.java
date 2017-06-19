@@ -12,6 +12,9 @@ public class PubSubHome {
 	private static MessageRepository messageRepository = MessageRepositoryImpl.getInstance();
 	private static int MAX_MESSAGES = 10;
 
+	private PubSubHome() {
+	}
+
 	/**
 	 * Retrieve received messages in html.
 	 *
@@ -45,6 +48,4 @@ public class PubSubHome {
 		}
 		return sb.toString();
 	}
-
-	private PubSubHome() { }
 }
