@@ -164,10 +164,12 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>token: \<Object\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { Token } ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
+| `data` | `string (bytes format)` | |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `contexts` | `ArrayList<string>` | ``` { Context1, Context2, ... } ```  |
+| `tokens` | `ArrayList<string>` |``` { Token1, Token2, ... } ``` |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` | 
 
 
