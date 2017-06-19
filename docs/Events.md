@@ -27,6 +27,18 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 import  de.hdm.wim.sharedLib.Constants;
 ```
 
+## DepartmentInformationEvent
+*erstellt durch CEP; Detailinformationen über die Abteilung*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.TOKEN_ID: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_ID: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_NAME: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_SHORT: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_PROJECTS: Array(String)</code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_WORKER: Array(String)</code></li><li><code>constants.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_CONTEXT</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { Document Context } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
 ## DocumentContextEvent
 *erstellt durch CEP; die Dokumentinformationen lassen auf einen Projekt-Kontext schließen*
 
@@ -56,7 +68,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>documentId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_INFO</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_URL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ADDED: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_VERSION: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_TYPE: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_WRITTEN_BY: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FAVORED_BY: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_KEYWORDS: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FOLDER: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` Document Information ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -176,7 +188,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userIds: Array(String)</code></li><li><code>userNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_CONTEXT</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>userIds: Array\<String\></code></li><li><code>userNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_CONTEXT</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User Context } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -188,7 +200,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li>...</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFO</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.PERSON: Object(constants.AttributeKey.USER_ID: \<String\>, constants.AttributeKey.PRENAME: \<String\>, constants.AttributeKey.SURNAME: \<String\>, constants.AttributeKey.EMAIL: \<String\>, constants.AttributeKey.PROJECT_NAME: \<String\>, constants.AttributeKey.PROJECT_ROLE: \<String\>, constants.AttributeKey.DEPARTMENT_SHORT: \<String\>, constants.AttributeKey.DOCUMENT_AUTHOR: \<String\>, constants.AttributeKey.DOCUMENT_CALL: \<String\>, constants.AttributeKey.DOCUMENT_FAVORIT: \<String\>)</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
