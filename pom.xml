@@ -9,7 +9,7 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
-    <!-- TODO: Add other groups, if they have maven projects -->
+    <!-- TODO: Add other groups, if they have maven projects! -->
     <modules>
         <module>eventServices</module>
         <module>sharedLib</module>
