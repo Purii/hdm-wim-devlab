@@ -50,6 +50,14 @@ public class Constants {
 			public static final String DOCUMENT_FAVORED_BY		= "documentType";
 			public static final String DOCUMENT_KEYWORDS		= "documentKeywords";
 			public static final String DOCUMENT_FOLDER		= "documentFolder";
+			public static final String PROJECT_BELONGS_TO_COMPANY	= "projectBelongsToCompany";
+			public static final String DOCUMENT_PRIO	= "documentPriority";
+			public static final String PROJECT_BELONGS_TO_DEPARTMENT	= "projectBelongsToDepartment";
+			public static final String PROJECT_HAS_MEMBERS	= "projectHasMembers";
+			public static final String PROJECT_HAS_DOCUMENTS	= "projectHasDocuments";
+			public static final String DOCUMENT	= "document";
+			public static final String DOCUMENT_OFFER	= "documentOffer";
+			public static final String FAVORITE	= "favorite";
 			
 			// Event
 
@@ -152,6 +160,8 @@ public class Constants {
 			public static final String TOKEN		= "token";
 			public static final String RICHTOKEN	= "richtoken";
 			public static final String FEEDBACK		= "feedback";
+			public static final String PROJECT_INFO = "project-information";
+			public static final String INFO_TOALL_DOCUMENTS = "info-toall-documents";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
