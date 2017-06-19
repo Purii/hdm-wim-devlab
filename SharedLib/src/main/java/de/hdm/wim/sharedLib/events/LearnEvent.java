@@ -3,7 +3,6 @@ package de.hdm.wim.sharedLib.events;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**
