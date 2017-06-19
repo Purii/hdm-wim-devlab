@@ -4,9 +4,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- parent coordinates -->
+    <parent>
+        <groupId>de.hdm.wim</groupId>
+        <artifactId>devlab</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <!-- project coordinates -->
     <groupId>de.hdm.wim</groupId>
     <artifactId>eventServices</artifactId>
-    <name>eventServices</name>
     <version>1.0</version>
 
     <modules>
@@ -18,7 +25,6 @@
     <packaging>pom</packaging>
 
     <properties>
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -35,10 +41,6 @@
 
         <joda.version>2.9.2</joda.version>
 
-        <!-- PubSub -->
-        <pubsub.version>0.13.0-alpha</pubsub.version>
-        <!-- <pubsub.version>0.18.0-alpha</pubsub.version>-->
-
         <!-- Apache Flink -->
         <flink.version>1.2.0</flink.version>
 
@@ -48,7 +50,88 @@
         <!-- Test -->
         <grpc.version>1.2.0</grpc.version>
 
+        <google.pubsub.version>0.19.0-alpha</google.pubsub.version>
+        <google.auth.version>0.6.1</google.auth.version>
+        <google.guava.version>22.0</google.guava.version>
+        <google.gson.version>2.8.0</google.gson.version>
+
     </properties>
+
+
+    <!--
+        Dependency Management allows to consolidate and centralize the management of dependency
+        versions without adding dependencies which are inherited by all children. This is especially
+        useful when you have a set of projects (i.e. more than one) that inherits a common parent.
+    -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google.guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.auth</groupId>
+                <artifactId>google-auth-library-credentials</artifactId>
+                <version>${google.auth.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.auth</groupId>
+                <artifactId>google-auth-library-oauth2-http</artifactId>
+                <version>${google.auth.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${google.gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>google-cloud-pubsub</artifactId>
+                <version>${google.pubsub.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <!--               <exclusion>
+                                        <groupId>com.google.auth</groupId>
+                                        <artifactId>google-auth-library-oauth2-http</artifactId>
+                                    </exclusion>
+                                    <exclusion>
+                                        <groupId>com.google.auth</groupId>
+                                        <artifactId>google-auth-library-credentials</artifactId>
+                                    </exclusion>-->
+                    <exclusion>
+                        <groupId>com.google.code.gson</groupId>
+                        <artifactId>gson</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 

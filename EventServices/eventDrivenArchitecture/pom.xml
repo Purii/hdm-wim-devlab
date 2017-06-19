@@ -4,22 +4,26 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- parent coordinates -->
     <parent>
         <artifactId>eventServices</artifactId>
         <groupId>de.hdm.wim</groupId>
         <version>1.0</version>
     </parent>
 
+    <!-- project coordinates -->
+    <groupId>de.hdm.wim</groupId>
     <artifactId>eventDrivenArchitecture</artifactId>
+    <version>1.0</version>
 
     <dependencies>
 
-        <!-- dependency to parent -->
+<!--        &lt;!&ndash; dependency to parent &ndash;&gt;
         <dependency>
             <groupId>de.hdm.wim</groupId>
             <artifactId>eventServices</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
         <dependency>
@@ -81,14 +85,12 @@
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-credentials</artifactId>
-            <version>0.6.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.auth/google-auth-library-oauth2-http -->
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
-            <version>0.6.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.auth</groupId>
@@ -121,7 +123,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>21.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.grpc/grpc-all -->
@@ -219,118 +220,6 @@
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-pubsub</artifactId>
-            <version>${pubsub.version}</version>
-            <!--
-                        <exclusions>
-            &lt;!&ndash;                <exclusion>
-                                <groupId>com.google.api</groupId>
-                                <artifactId>api-common</artifactId>
-                            </exclusion>&ndash;&gt;
-                            <exclusion>
-                                <groupId>com.google.api.grpc</groupId>
-                                <artifactId>com.google.api.grpc</artifactId>
-                            </exclusion>
-            &lt;!&ndash;                <exclusion>
-                                <groupId>com.google.api.grpc</groupId>
-                                <artifactId>grpc-google-iam-v1</artifactId>
-                            </exclusion>&ndash;&gt;
-                            <exclusion>
-                                <groupId>com.google.api.grpc</groupId>
-                                <artifactId>grpc-google-common-protos</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.auto.value</groupId>
-                                <artifactId>auto-value</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.auth</groupId>
-                                <artifactId>google-auth-library-credentials</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>com.google.auth</groupId>
-                                <artifactId>google-auth-library-oauth2-http</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.code.findbugs</groupId>
-                                <artifactId>jsr305</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.guava</groupId>
-                                <artifactId>guava</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.http-client</groupId>
-                                <artifactId>google-http-client-jackson2</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>com.google.http-client</groupId>
-                                <artifactId>google-http-client</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>com.google.http-client</groupId>
-                                <artifactId>google-http-client-appengine</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>com.google.http-client</groupId>
-                                <artifactId>google-http-client-jackson</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.oauth-client</groupId>
-                                <artifactId>google-oauth-client</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>com.google.protobuf</groupId>
-                                <artifactId>protobuf-java</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>com.google.protobuf</groupId>
-                                <artifactId>protobuf-java-util</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>io.netty</groupId>
-                                <artifactId>netty-tcnative-boringssl-static</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>io.grpc</groupId>
-                                <artifactId>grpc-all</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>io.grpc</groupId>
-                                <artifactId>grpc-protobuf</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>io.grpc</groupId>
-                                <artifactId>grpc-stub</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>io.grpc</groupId>
-                                <artifactId>grpc-netty</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>io.grpc</groupId>
-                                <artifactId>grpc-auth</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>joda-time</groupId>
-                                <artifactId>joda-time</artifactId>
-                            </exclusion>
-
-                            <exclusion>
-                                <groupId>org.codehouse.jackson</groupId>
-                                <artifactId>jackson-core-asl</artifactId>
-                            </exclusion>
-                        </exclusions>
-            -->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.thoughtworks.paranamer/paranamer -->

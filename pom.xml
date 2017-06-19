@@ -1,157 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>speechtokenizer</groupId>
-  <artifactId>speechtokenizer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <warSourceDirectory>WebContent</warSourceDirectory>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
-   <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <!-- https://mvnrepository.com/artifact/asm/asm -->
-<dependency>
-    <groupId>asm</groupId>
-    <artifactId>asm</artifactId>
-    <version>3.1</version>
-</dependency>
-  <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-core-asl</artifactId>
-    <version>1.8.3</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-jaxrs -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-jaxrs</artifactId>
-    <version>1.8.3</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-mapper-asl</artifactId>
-    <version>1.8.3</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-xc -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-xc</artifactId>
-    <version>1.8.3</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
-<dependency>
-    <groupId>com.sun.jersey</groupId>
-    <artifactId>jersey-client</artifactId>
-    <version>1.9.1</version>
-</dependency>
+    <modelVersion>4.0.0</modelVersion>
 
-<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-core -->
-<dependency>
-    <groupId>com.sun.jersey</groupId>
-    <artifactId>jersey-core</artifactId>
-    <version>1.9.1</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
-<dependency>
-    <groupId>com.sun.jersey</groupId>
-    <artifactId>jersey-server</artifactId>
-    <version>1.9.1</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.codehaus.jettison/jettison -->
-<dependency>
-    <groupId>org.codehaus.jettison</groupId>
-    <artifactId>jettison</artifactId>
-    <version>1.1</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/javax.ws.rs/jsr311-api -->
-<dependency>
-    <groupId>javax.ws.rs</groupId>
-    <artifactId>jsr311-api</artifactId>
-    <version>1.1.1</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.json/json -->
-<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20160810</version>
-</dependency>
+    <!-- project coordinates -->
+    <groupId>de.hdm.wim</groupId>
+    <artifactId>devlab</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
 
-<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.18</version>
-</dependency>
+    <!-- TODO: Add other groups, if they have maven projects -->
+    <modules>
+        <module>eventServices</module>
+        <module>sharedLib</module>
+    </modules>
 
-<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-json -->
-<dependency>
-    <groupId>com.sun.jersey</groupId>
-    <artifactId>jersey-json</artifactId>
-    <version>1.9.1</version>
-</dependency>
-<dependency>
-	<groupId>log4j</groupId>
-	<artifactId>log4j</artifactId>
-	<version>1.2.17</version>
-</dependency>
-
-
-
-<dependency>
-    <groupId>com.google.api-client</groupId>
-    <artifactId>google-api-client</artifactId>
-    <version>1.22.0</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client-extensions -->
-<dependency>
-    <groupId>com.google.api-client</groupId>
-    <artifactId>google-api-client-extensions</artifactId>
-    <version>1.6.0-beta</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive -->
-<dependency>
-    <groupId>com.google.apis</groupId>
-    <artifactId>google-api-services-drive</artifactId>
-    <version>v3-rev76-1.22.0</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-java6 -->
-<dependency>
-    <groupId>com.google.oauth-client</groupId>
-    <artifactId>google-oauth-client-java6</artifactId>
-    <version>1.11.0-beta</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
-<dependency>
-    <groupId>com.google.oauth-client</groupId>
-    <artifactId>google-oauth-client-jetty</artifactId>
-    <version>1.11.0-beta</version>
-</dependency>
-  </dependencies>
 </project>
