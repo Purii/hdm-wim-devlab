@@ -4,7 +4,7 @@ import com.google.common.io.BaseEncoding;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import de.hdm.wim.sharedLib.testing.Helper;
+import de.hdm.wim.sharedLib.helper.Helper;
 import java.time.LocalDateTime;
 import java.util.Hashtable;
 
@@ -35,39 +35,38 @@ public class PubSubMessage {
 	}
 
 	/**
+	 * Generate a pubSub message.
+	 *
+	 * @param data the data
+	 * @param id the id
+	 * @return PubSubMessage
+	 */
+
+	public static PubSubMessage getRandom(String data, String id) {
+
+		Helper helper = new Helper();
+		Hashtable attributes = new Hashtable();
+
+		attributes.put(
+			AttributeKey.EVENT_SOURCE,
+			helper.getRandomStringFromList(EventSource.list)
+		);
+
+		attributes.put(
+			AttributeKey.EVENT_TYPE,
+			helper.getRandomStringFromList(EventType.list)
+		);
+
+		return new PubSubMessage(data, id, LocalDateTime.now(), attributes);
+	}
+
+	/**
 	 * Gets data.
 	 *
 	 * @return the data
 	 */
 	public String getData() {
 		return new String(BaseEncoding.base64().decode(this.data));
-	}
-
-	/**
-	 * Gets message id.
-	 *
-	 * @return the message id
-	 */
-	public String getMessageId() {
-		return messageId;
-	}
-
-	/**
-	 * Gets publish time.
-	 *
-	 * @return the publish time
-	 */
-	public LocalDateTime getPublishTime() {
-		return publishTime;
-	}
-
-	/**
-	 * Gets attributes.
-	 *
-	 * @return the attributes
-	 */
-	public Hashtable getAttributes() {
-		return attributes;
 	}
 
 	/**
@@ -80,12 +79,30 @@ public class PubSubMessage {
 	}
 
 	/**
+	 * Gets message id.
+	 *
+	 * @return the message id
+	 */
+	public String getMessageId() {
+		return messageId;
+	}
+
+	/**
 	 * Sets message id.
 	 *
 	 * @param messageId the message id
 	 */
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
+	}
+
+	/**
+	 * Gets publish time.
+	 *
+	 * @return the publish time
+	 */
+	public LocalDateTime getPublishTime() {
+		return publishTime;
 	}
 
 	/**
@@ -98,37 +115,20 @@ public class PubSubMessage {
 	}
 
 	/**
+	 * Gets attributes.
+	 *
+	 * @return the attributes
+	 */
+	public Hashtable getAttributes() {
+		return attributes;
+	}
+
+	/**
 	 * Sets attributes.
 	 *
 	 * @param attributes the attributes
 	 */
 	public void setAttributes(Hashtable attributes) {
 		this.attributes = attributes;
-	}
-
-	/**
-	 * Generate a pubSub message.
-	 *
-	 * @param data the data
-	 * @param id the id
-	 * @return PubSubMessage
-	 */
-
-	public static PubSubMessage getRandom(String data, String id){
-
-		Helper helper 			= new Helper();
-		Hashtable attributes 	= new Hashtable();
-
-		attributes.put(
-				AttributeKey.EVENT_SOURCE,
-				helper.getRandomStringFromList(EventSource.list)
-		);
-
-		attributes.put(
-				AttributeKey.EVENT_TYPE,
-				helper.getRandomStringFromList(EventType.list)
-		);
-
-		return new PubSubMessage(data, id, LocalDateTime.now(), attributes);
 	}
 }

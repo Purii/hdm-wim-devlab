@@ -3,7 +3,7 @@ package de.hdm.wim.sharedLib.events;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import de.hdm.wim.sharedLib.testing.Helper;
+import de.hdm.wim.sharedLib.helper.Helper;
 import java.util.Hashtable;
 
 public class Event implements IEvent {
@@ -24,22 +24,6 @@ public class Event implements IEvent {
 
 	public Event(){}
 
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public Hashtable<String, String> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Hashtable attributes) {
-		this.attributes = attributes;
-	}
-
 	public static Event generate(String data){
 
 		Helper helper 			= new Helper();
@@ -56,6 +40,22 @@ public class Event implements IEvent {
 		);
 
 		return new Event(data, attributes);
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public Hashtable<String, String> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(Hashtable attributes) {
+		this.attributes = attributes;
 	}
 
 	public String getId() {
