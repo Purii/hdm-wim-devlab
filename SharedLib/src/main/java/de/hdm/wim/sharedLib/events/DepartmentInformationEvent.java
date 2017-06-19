@@ -2,7 +2,6 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-
 import java.lang.reflect.Array;
 import java.util.Hashtable;
 
@@ -17,65 +16,63 @@ public class DepartmentInformationEvent implements IEvent {
 	private String publishTime;
 	private Hashtable attributes = new Hashtable<String, String>();
 
+	//TODO: Update Event Type
 
 	public DepartmentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
-
 	}
-	@Override
+
 	public String getData() {
-		return null;
+		return data;
 	}
 
-	@Override
 	public void setData(String data) {
-
+		this.data = data;
 	}
 
-	@Override
 	public String getId() {
-		return null;
+		return id;
 	}
 
-	@Override
 	public void setId(String id) {
-
+	this.id= id;
 	}
 
-	@Override
 	public String getPublishTime() {
-		return null;
+		return publishTime;
 	}
 
-	@Override
 	public void setPublishTime(String publishTime) {
-
+	this.publishTime = publishTime;
 	}
 
-	@Override
 	public String getEventType() {
-		return null;
+		return attributes.get(AttributeKey.EVENT_TYPE).toString();
 	}
 
-	@Override
+	/*
+	public void setEventType(String EventType){
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType);
+	}
+	*/
+
 	public String getEventSource() {
-		return null;
+		return attributes.get(AttributeKey.EVENT_SOURCE).toString();
 	}
 
-	@Override
 	public void setEventSource(String EventSource) {
-
+		this.attributes.put(AttributeKey.EVENT_SOURCE, EventSource);
 	}
 
-	@Override
 	public Hashtable<String, String> getAttributes() {
-		return null;
+		return this.attributes;
 	}
 
-	@Override
 	public void setAttributes(Hashtable<String, String> attributes) {
-
+		this.attributes = attributes;
 	}
+
+
 
 	public String getSessionId(){
 		return this.attributes.get(AttributeKey.SESSION_ID).toString();
