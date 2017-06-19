@@ -21,6 +21,7 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [UserLogoutEvent](#userlogoutevent)
 * [UserJoinedSessionEvent](#userjoinedsessionevent)
 * [UserLeftSessionEvent](#userleftsessionevent)
+* [UserStartEvent](#userstartevent)
 
 *Um die Konstanten nutzen zu können, muss die entsprechende Datei wie folgt implementiert werden*
 ```
@@ -88,6 +89,17 @@ import  de.hdm.wim.sharedLib.Constants;
 
 
 ## FeedbackEvent
+*erstellt durch GUI; ein Dokument wurde dem User angezeigt*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { Offer is shown } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
+
+## SuccessfulFeedbackEvent
 *erstellt durch GUI; ein Nutzer hat ein Dokument angeklickt*
 
 | Feld | Datentyp | Wert |
