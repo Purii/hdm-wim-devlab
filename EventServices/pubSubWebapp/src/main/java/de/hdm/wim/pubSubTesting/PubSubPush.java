@@ -8,6 +8,7 @@ import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.Event;
+import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,16 +30,6 @@ public class PubSubPush extends HttpServlet {
 	private final Gson gson 			= new Gson();
 	private final JsonParser jsonParser = new JsonParser();
 
-/*	private MessageRepository messageRepository;
-
-	PubSubPush(MessageRepository messageRepository) {
-		this.messageRepository = messageRepository;
-	}
-
-	public PubSubPush() {
-		this.messageRepository = MessageRepositoryImpl.getInstance();
-	}*/
-
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
@@ -53,23 +44,22 @@ public class PubSubPush extends HttpServlet {
 
 		Event event = getEvent(req);
 
-
-
 		try {
 			LOGGER.info("event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
 
+			//And write the string to output
 			resp.setContentLength(output.length());
-			//And write the string to output.
 			resp.getOutputStream().write(output.getBytes());
 			resp.getOutputStream().flush();
 			resp.getOutputStream().close();
 
-			//messageRepository.save(event);
-			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system
+			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
 			//resp.setStatus(HttpServletResponse.SC_OK);
+
+			// NACK
 			//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -77,6 +67,7 @@ public class PubSubPush extends HttpServlet {
 	}
 
 	private Event getEvent(HttpServletRequest request) throws IOException {
+		Helper helper = new Helper();
 
 		// parse message object from "message" field in the request body json
 		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
@@ -85,16 +76,10 @@ public class PubSubPush extends HttpServlet {
 		Event event 			= gson.fromJson(eventStr, Event.class);
 
 		// decode from base64
-		String decoded = decodeBase64(event.getData());
+		String decoded = helper.decodeBase64(event.getData());
 		event.setData(decoded);
 		return event;
 	}
 
-	private String encodeBase64(String data) throws Exception{
-		byte[] byteString = data.getBytes(data);
-		return new String(BaseEncoding.base64().encode(byteString));
-	}
-	private String decodeBase64(String data) {
-		return new String(BaseEncoding.base64().decode(data));
-	}
+
 }

@@ -9,20 +9,9 @@ import java.util.List;
  */
 public class PubSubHome {
 
-	private static MessageRepository messageRepository = MessageRepositoryImpl.getInstance();
 	private static int MAX_MESSAGES = 10;
 
 	private PubSubHome() {
-	}
-
-	/**
-	 * Retrieve received messages in html.
-	 *
-	 * @return html representation of messages (one per row)
-	 */
-	public static String getReceivedEvents() {
-		List<Event> eventList = messageRepository.retrieve(MAX_MESSAGES);
-		return convertToHtmlTable(eventList);
 	}
 
 	public static String getListOfTopics(){
