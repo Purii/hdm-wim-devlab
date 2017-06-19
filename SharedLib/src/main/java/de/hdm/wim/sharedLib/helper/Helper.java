@@ -2,15 +2,12 @@ package de.hdm.wim.sharedLib.helper;
 
 import com.google.common.io.BaseEncoding;
 import com.google.pubsub.v1.PubsubMessage;
-import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.LearnEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
