@@ -29,7 +29,7 @@ public class PubSubPush extends HttpServlet {
 	private final Gson gson 			= new Gson();
 	private final JsonParser jsonParser = new JsonParser();
 
-	private MessageRepository messageRepository;
+/*	private MessageRepository messageRepository;
 
 	PubSubPush(MessageRepository messageRepository) {
 		this.messageRepository = messageRepository;
@@ -37,7 +37,7 @@ public class PubSubPush extends HttpServlet {
 
 	public PubSubPush() {
 		this.messageRepository = MessageRepositoryImpl.getInstance();
-	}
+	}*/
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -51,20 +51,32 @@ public class PubSubPush extends HttpServlet {
 			return;
 		}
 
-		Event event = getEvents(req);
+		Event event = getEvent(req);
+
+
+
 		try {
 			LOGGER.info("event.getData(): " + event.getData());
 
+			//Here we serialize the event to a String.
+			final String output = new Gson().toJson(event);
+
+			resp.setContentLength(output.length());
+			//And write the string to output.
+			resp.getOutputStream().write(output.getBytes());
+			resp.getOutputStream().flush();
+			resp.getOutputStream().close();
+
 			//messageRepository.save(event);
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system
-			resp.setStatus(HttpServletResponse.SC_OK);
+			//resp.setStatus(HttpServletResponse.SC_OK);
+			//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} catch (Exception e) {
-			LOGGER.error(e);
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	private Event getEvents(HttpServletRequest request) throws IOException {
+	private Event getEvent(HttpServletRequest request) throws IOException {
 
 		// parse message object from "message" field in the request body json
 		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
@@ -73,19 +85,16 @@ public class PubSubPush extends HttpServlet {
 		Event event 			= gson.fromJson(eventStr, Event.class);
 
 		// decode from base64
-		String decoded = decode(event.getData());
+		String decoded = decodeBase64(event.getData());
 		event.setData(decoded);
 		return event;
 	}
 
-	/*
-	private String encode(String data) throws Exception{
+	private String encodeBase64(String data) throws Exception{
 		byte[] byteString = data.getBytes(data);
 		return new String(BaseEncoding.base64().encode(byteString));
 	}
-	*/
-
-	private String decode(String data) {
+	private String decodeBase64(String data) {
 		return new String(BaseEncoding.base64().decode(data));
 	}
 }

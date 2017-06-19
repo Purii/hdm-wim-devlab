@@ -99,16 +99,17 @@ import  de.hdm.wim.sharedLib.Constants;
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
 
-## SuccessfulFeedbackEvent
-*erstellt durch GUI; ein Nutzer hat ein Dokument angeklickt*
+
+## InformationToAllDocumentsEvent
+*erstellt durch SR; initialer Vorschlag aller geeigneten Dokumente*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.DOCUMENT: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.INFO_TOALL_DOCUMENTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Information to all ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
 
 
 ## LearnEvent
@@ -124,15 +125,27 @@ import  de.hdm.wim.sharedLib.Constants;
 
 
 ## OfferEvent
-*erstellt durch SR; Dokumentenvorschläge zur Anzeige*
+*erstellt durch SR; Vorschlag (Update) aller geeigneten Dokumente*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>relevance: \<Integer\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { Offer } ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.DOCUMENT: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.FAVORITE: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.DOCUMENT_OFFER: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Document Offer ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.OFFERS` |
+
+
+## ProjectInformationEvent
+*erstellt durch SR; Detailinformationen zu Projekten*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_NAME: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_COMPANY: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_MEMBERS: Array\<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_DOCUMENTS: Array\<String\></code></li><li><code>constants.Attribut<li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.PROJECT_INFO</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Project Information ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
 
 
 ## SessionEndEvent
@@ -169,6 +182,18 @@ import  de.hdm.wim.sharedLib.Constants;
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
+
+## SuccessfulFeedbackEvent
+*erstellt durch GUI; ein Nutzer hat ein Dokument angeklickt*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
 
 
 ## TokenEvent

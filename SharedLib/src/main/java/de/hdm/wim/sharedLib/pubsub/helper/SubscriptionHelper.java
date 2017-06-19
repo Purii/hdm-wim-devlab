@@ -160,6 +160,9 @@ public class SubscriptionHelper {
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
 
+		LOGGER.info("subscriptionId: " + subscription.getName());
+		LOGGER.info("topic: " + subscription.getTopic());
+
 		ExecutorProvider executorProvider =	InstantiatingExecutorProvider.newBuilder()
 			.setExecutorThreadCount(1)
 			.build();
@@ -174,6 +177,9 @@ public class SubscriptionHelper {
 				.setExecutorProvider(executorProvider)
 				.build();
 
+
+			LOGGER.info("test2.1");
+
 			subscriber.addListener(
 				new Subscriber.Listener() {
 					@Override
@@ -185,17 +191,24 @@ public class SubscriptionHelper {
 				MoreExecutors.directExecutor()
 			);
 
+
+			LOGGER.info("test2.2");
+
 			subscriber.startAsync().awaitRunning();
+
+
+			LOGGER.info("test2.3");
 
 			Thread.sleep(1000); //5 Minutes = 300000
 		} catch (InterruptedException e){
 
-			LOGGER.info("test2");
+			LOGGER.info("test3");
+			LOGGER.error(e);
 
 			e.printStackTrace();
 		} finally {
 
-			LOGGER.info("test3");
+			LOGGER.info("test4");
 			// stop receiving messages
 			if (subscriber != null) {
 				subscriber.stopAsync();
