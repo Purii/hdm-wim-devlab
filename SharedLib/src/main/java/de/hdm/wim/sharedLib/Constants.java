@@ -18,10 +18,13 @@ public class Constants {
 			public static final String EVENT_SOURCE	= "EventSource";
 			public static final String EVENT_TYPE	= "EventType";
 
-			// ML
+
 			public static final String USER_ID		= "userId";
 			public static final String DOCUMENT_ID	= "documentId";
 			public static final String PROJECT_ID	= "projectId";
+			public static final String SESSION_ID	= "sessionId";
+
+			// ML
 			public static final String USERCLICK	= "userclick";
 
 			// SemRep
