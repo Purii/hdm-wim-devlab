@@ -23,6 +23,12 @@ public class InitializeArrayData {
 			inputArray[0] = "793dnj"; // sessionID
 			inputArray[1] = "6"; // userID
 			
+		} if (eventType == "DocumentInformationEvent") {
+			
+			inputArray = new String[2];
+			inputArray[0] = "793dnj"; // sessionID
+			inputArray[1] = "1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc"; // dokumentID
+			
 		}
 		
 		return inputArray;

@@ -2,8 +2,8 @@
 
 GUI-Events:
 
-- InsertNewUserEvent
 - DocumentInformationEvent
+- InsertNewUserEvent
 - ProjectInformationEvent
 - DepartmentInformationEvent
 - AllProjectsEvent
