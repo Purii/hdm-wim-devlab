@@ -1,6 +1,9 @@
+**out of date!**
 # SharedLib
 
 library für Klassen, die von allen Gruppen genutzt werden.
+
+ist ein Maven project, also je nach IDE als maven project hinzufügen.
 
 ## Install
 
