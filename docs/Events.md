@@ -57,7 +57,7 @@ import  de.hdm.wim.sharedLib.Constants;
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userId: \<String\></code></li><li><code>documentId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT</code></li></ul> |
 | `data` | `string (bytes format)` | ``` Document is relevant ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
