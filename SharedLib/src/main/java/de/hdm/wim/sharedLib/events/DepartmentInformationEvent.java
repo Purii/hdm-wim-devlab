@@ -2,9 +2,7 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import java.lang.reflect.Array;
 import java.util.Hashtable;
-
 
 /**
  * Created by GezimKrasniqi on 19.06.17.
@@ -16,8 +14,8 @@ public class DepartmentInformationEvent implements IEvent {
 	private String publishTime;
 	private Hashtable attributes = new Hashtable<String, String>();
 
-	//TODO: Update Event Type
-
+	// TODO: Update Event Type
+	// auto set EventType on init
 	public DepartmentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
 	}
@@ -71,8 +69,6 @@ public class DepartmentInformationEvent implements IEvent {
 	public void setAttributes(Hashtable<String, String> attributes) {
 		this.attributes = attributes;
 	}
-
-
 
 	public String getSessionId(){
 		return this.attributes.get(AttributeKey.SESSION_ID).toString();
@@ -137,8 +133,6 @@ public class DepartmentInformationEvent implements IEvent {
 	public void setDepartmentCompany(String[] departmentCompany ){
 		this.attributes.put(AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY, departmentCompany.toString());
 	}
-
-
 }
 
 

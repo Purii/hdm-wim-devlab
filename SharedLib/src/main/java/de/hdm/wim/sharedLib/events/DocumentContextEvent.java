@@ -15,11 +15,8 @@ public class DocumentContextEvent implements IEvent {
 	private String publishTime;
 	private Hashtable attributes = new Hashtable<String, String>();
 
-	//TODO: Update Event Type
-
-	/**
-	 * auto set EventType on init
-	 */
+	// TODO: Update Event Type
+	// auto set EventType on init
 	public DocumentContextEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
 	}
@@ -97,10 +94,4 @@ public class DocumentContextEvent implements IEvent {
 	public void setProjectId(String projectId){
 		this.attributes.put(AttributeKey.PROJECT_ID, projectId);
 	}
-
-
-
-
-
-
 }

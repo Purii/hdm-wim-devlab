@@ -1,7 +1,7 @@
 package de.hdm.wim.sharedLib.events;
 
-import de.hdm.wim.sharedLib.Constants;
-
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -13,13 +13,11 @@ public class TokenEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
-	private ArrayList<String> tokens;
-	private ArrayList<String> contexts;
 	private Hashtable attributes = new Hashtable<String, String>();
 
 	// auto set EventType on init
 	public TokenEvent() {
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.TOKEN);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.TOKEN);
 	}
 
 	public String getData() {
@@ -47,37 +45,39 @@ public class TokenEvent implements IEvent {
 	}
 
 	public String getUserId(){
-		return attributes.get(Constants.PubSub.AttributeKey.USER_ID).toString();
+		return attributes.get(AttributeKey.USER_ID).toString();
 	}
 
 	public void setUserId(String userId){
-		this.attributes.put(Constants.PubSub.AttributeKey.USER_ID, userId);
+		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 
 	public String getSessionId(){
-		return attributes.get(Constants.PubSub.AttributeKey.SESSION_ID).toString();
+		return attributes.get(AttributeKey.SESSION_ID).toString();
 	}
 
-	public void setSessionId(String sessionId) { this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, sessionId); }
+	public void setSessionId(String sessionId) {
+		this.attributes.put(AttributeKey.SESSION_ID, sessionId);
+	}
 
 	public String getEventType(){
-		return attributes.get(Constants.PubSub.AttributeKey.EVENT_TYPE).toString();
+		return attributes.get(AttributeKey.EVENT_TYPE).toString();
 	}
 
-	public ArrayList<String> getTokens() {
-		return tokens;
+	public String getTokens() {
+		return attributes.get(AttributeKey.TOKENS).toString();
 	}
 
 	public void setTokens(ArrayList<String> tokens) {
-		this.tokens = tokens;
+		this.attributes.put(AttributeKey.TOKENS, tokens.toString());
 	}
 
-	public ArrayList<String> getContexts() {
-		return contexts;
+	public String getContexts() {
+		return attributes.get(AttributeKey.CONTEXTS).toString();
 	}
 
 	public void setContexts(ArrayList<String> contexts) {
-		this.contexts = contexts;
+		this.attributes.put(AttributeKey.CONTEXTS, contexts.toString());
 	}
 
 	/*
@@ -87,11 +87,11 @@ public class TokenEvent implements IEvent {
 	*/
 
 	public String getEventSource(){
-		return attributes.get(Constants.PubSub.AttributeKey.EVENT_SOURCE).toString();
+		return attributes.get(AttributeKey.EVENT_SOURCE).toString();
 	}
 
 	public void setEventSource(String EventSource){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_SOURCE, EventSource);
+		this.attributes.put(AttributeKey.EVENT_SOURCE, EventSource);
 	}
 
 	public Hashtable<String, String> getAttributes() {

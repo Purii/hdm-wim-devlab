@@ -26,8 +26,7 @@ public interface IEvent {
 	String getEventSource();
 	void setEventSource(String EventSource);
 
-
-	// not sure if we need this
+	// not sure if we actually need this
 	/*
 	String getAttribute(String key);
 	void setAttribute(String key, String value);
