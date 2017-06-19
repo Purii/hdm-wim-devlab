@@ -18,17 +18,40 @@ public class Constants {
 			public static final String EVENT_SOURCE	= "EventSource";
 			public static final String EVENT_TYPE	= "EventType";
 
-
+			// ML
 			public static final String USER_ID		= "userId";
 			public static final String DOCUMENT_ID	= "documentId";
 			public static final String PROJECT_ID	= "projectId";
-			public static final String SESSION_ID	= "sessionId";
-
-			// ML
 			public static final String USERCLICK	= "userclick";
 
 			// SemRep
-
+			public static final String SESSION_ID	= "sessionId";
+			public static final String TOKEN_ID		= "tokenId";
+			public static final String DEPARTMENT_ID		= "departmentId";
+			public static final String DEPARTMENT_NAME		= "departmentName";
+			public static final String DEPARTMENT_SHORT		= "departmentShort";
+			public static final String DEPARTMENT_HAS_PROJECTS		= "departmentHasProjects";
+			public static final String DEPARTMENT_HAS_WORKER		= "departmentHasWorker";
+			public static final String DEPARTMENT_BELONGS_TO_COMPANY		= "departmentBelongsToCompany";
+			public static final String PERSON		= "person";
+			public static final String PRENAME		= "prename";
+			public static final String SURNAME		= "surname";
+			public static final String EMAIL		= "eMail";
+			public static final String PROJECT_NAME		= "projectName";
+			public static final String PROJECT_ROLE		= "projectRole";
+			public static final String SURNAME		= "surname";
+			public static final String DOCUMENT_AUTHOR		= "documentAuthor";
+			public static final String DOCUMENT_CALL		= "documentCall";
+			public static final String DOCUMENT_NAME		= "documentName";
+			public static final String DOCUMENT_URL		= "documentURL";
+			public static final String DOCUMENT_ADDED		= "documentAdded";
+			public static final String DOCUMENT_VERSION		= "documentVersion";
+			public static final String DOCUMENT_FAVORIT		= "documentFavorit";
+			public static final String DOCUMENT_WRITTEN_BY		= "documentType";
+			public static final String DOCUMENT_FAVORED_BY		= "documentType";
+			public static final String DOCUMENT_KEYWORDS		= "documentKeywords";
+			public static final String DOCUMENT_FOLDER		= "documentFolder";
+			
 			// Event
 
 			// GUI
