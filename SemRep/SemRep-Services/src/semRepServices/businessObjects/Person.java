@@ -1,5 +1,7 @@
 package semRepServices.businessObjects;
 
+import java.security.SecurityPermission;
+
 public class Person {
 
 	public String person;
@@ -57,12 +59,28 @@ public class Person {
 		this.person_ruft_Dokument_auf = person_ruft_Dokument_auf;
 		this.person_favorisiert_Dokument = person_favorisiert_Dokument;
 	}
+	
+	public void flushPersonObj(){
+		setPerson("");
+		setId("");
+		setKlasse("");
+		setVorname("");
+		setNachname("");
+		setMail("");
+		setPerson_arbeitet_an_Projekt("");
+		setPerson_hat_Projektrolle("");
+		setPerson_gehoert_zu_Abteilung("");
+		setPerson_hat_Dokument_verfasst("");
+		setPerson_ruft_Dokument_auf("");
+		setPerson_favorisiert_Dokument("");
+		
+	}
 
 	public String toStringPersonObjekt() {
 		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
 				+ "; " + this.objectValue;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

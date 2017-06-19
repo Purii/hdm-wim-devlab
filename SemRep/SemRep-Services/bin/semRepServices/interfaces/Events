@@ -1,0 +1,22 @@
+					OFFEN:
+
+GUI-Events:
+
+- InsertNewUserEvent
+- DocumentInformationEvent
+- ProjectInformationEvent
+- DepartmentInformationEvent
+- AllProjectsEvent
+- AllProjectRolesEvent
+- AllDepartmentsEvent
+
+ML-Events:
+- InsertDocumentVisitEvent (kommt von GUI)
+- InsertFavoritDocumentEvent
+
+					ERLEDIGT:
+					
+- InformationToAllDocumentsEvent (✓)
+- OfferEvent (✓)
+- UserInformationEvent (✓)
+

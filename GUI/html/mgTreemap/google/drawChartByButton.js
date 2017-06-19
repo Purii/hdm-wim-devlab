@@ -1,13 +1,16 @@
 
-var nameArray = ['starCars','mercedes1','bmw', 'porsche', 'porschedoku1' ];
+/*
+var nameArray = ['starCars','mercedes_1','bmw', 'porsche', 'porschedoku1' ];
 var parentArray = [null, 'starCars','starCars', 'starCars', 'starCars' ];
 var sizeArray = [1,1,1,1,1 ];
 var colorArray = [1,1,1, 25, 50, 100];
-
+*/
 
 
 
 function parameterFunction( ){
+
+
     google.charts.load('current', {'packages':['treemap']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -28,12 +31,23 @@ function parameterFunction( ){
 
         data.addRows( rowArray);
 
-        tree = new google.visualization.TreeMap(document.getElementById('curve_chart'));
+      //  var chart = document.getElementById('chart_div');
+       // chart.remove();
+  //      document.getElementById('chart_div').remove();
+    //        document.getElementById('ContentForchartDIV').innerHTML = '<div id="chart_div" style="width: 900px; height: 500px"></div>';
+
+
+        $("mouseOvertoKill").remove();
+
+
+        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
 
         function showFullTooltip(row, size, value) {
 
 
-            return '<div style="background:#fd9; padding:10px;  border-style:solid">' +
+
+            return '<div class="mouseOvertoKill" style="background:#fd9; padding:10px;  border-style:solid">' +
                 '<span style="font-family:Courier"><b>' + data.getValue(row, 0) +
                 '</b>, ' + data.getValue(row, 1) + ', ' + data.getValue(row, 2) +
                 ', ' + data.getValue(row, 3) + '</span><br>' +
@@ -41,6 +55,8 @@ function parameterFunction( ){
                 data.getColumnLabel(2) +
                 ' (total value of this cell and its children): ' + size + '<br>' +
                 data.getColumnLabel(3) + ': ' + value + ' </div>';
+
+
         }
 
 
@@ -70,7 +86,7 @@ function parameterFunction( ){
 }
 
 
-document.getElementById("drawButton").onclick = parameterFunction;
+document.getElementById("drawChartButton").onclick = parameterFunction;
 /*
  document.getElementById('drawButton').addEventListener('onclick',
  parameterFunction())

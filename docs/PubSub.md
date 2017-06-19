@@ -31,7 +31,7 @@ Für die erste Authentifizierung muss der Default-Login definiert werden. Hierf�
 
 Den Befehl `gcloud beta pubsub topics list` in der Shell ausführen. Die Shell zeigt als Ergebnis die Liste der momentan vorhandenen Topics an.
 
-## ShareLib-Klassen
+## SharedLib-Klassen
 
 Über die `SharedLib` werden Klassen zur Verfügung gestellt, um die Integration mit PubSub zu vereinfachen.
 
@@ -45,10 +45,10 @@ In der `SharedLib` wird die Klasse `Event` zur Verfügung gestellt. Ein Objekt d
 
 | Feld  | Datentyp | Methoden | Beschreibung |
 | :------ | :------ | :------ | :------ |
-| `data` | `string (bytes format)` | `String getData()` & `void setData(String data)` | `data` ist der Inhalt der Message und ist base64-encoded.|
-| `attributes` | `map (key: string, value: string)` | `String getAttribut(String attribute)` & `void setAttribut(String key, String value)` | <ul><li>**Event Source** von welcher Gruppe wird das Event gesendet.</li><li>**Event Type** spezifiziert die grundlegenden Eigenschaften einer Message.</li><li>**zusätzliche Attribute** kennzeichnen die Message mit weiteren Attributen.</li><li>**Es können bis zu 100 `attributes` als Metainformation zur Message festgelegt werden**</li></ul>|
+| `data` | `string (bytes format)` | `getData()` & `setData(String data)` | `data` ist der Inhalt der Message und ist base64-encoded.|
+| `attributes` | `map (key: string, value: string)` | `getAttribut(String attribute)` & ` setAttribut(String key, String value)` | <ul><li>**Event Source** von welcher Gruppe wird das Event gesendet.</li><li>**Event Type** spezifiziert die grundlegenden Eigenschaften einer Message.</li><li>**zusätzliche Attribute** kennzeichnen die Message mit weiteren Attributen.</li><li>**Es können bis zu 100 `attributes` als Metainformation zur Message festgelegt werden**</li></ul>|
 | `messageId` | `string` | `String getMessageId()` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp format)` | `String getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
+| `publishTime` | `string (Timestamp format)` | `getPublishTime()` | *wird von PubSub gesetzt*. Timestamp im RFC3339 UTC "Zulu" Format (Genauigkeit in Nanosekunden). Beispiel: `2014-10-02T15:01:23.045123456Z` |
 
 [Hier findet ihr alle Events, die gemeinsam vereinbart wurden](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md).
 
