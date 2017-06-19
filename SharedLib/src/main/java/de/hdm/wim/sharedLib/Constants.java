@@ -64,6 +64,8 @@ public class Constants {
 			// GUI
 
 			// Speech
+			public static final String CONTEXTS = "contexts";
+			public static final String TOKENS = "tokens";
 		}
 
 		/**
