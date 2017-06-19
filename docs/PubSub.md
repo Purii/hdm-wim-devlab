@@ -1,11 +1,11 @@
 # PubSub
 
-In diesem Dokument wird der Umgang mit der ShareLib demonstriert. Die ShareLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden. 
+In diesem Dokument wird der Umgang mit der SharedLib demonstriert. Die SharedLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden. 
 
 ## Verzeichnis
 
 * [Google Cloud](#google-cloud)
-* [ShareLib-Klassen](#sharelib-klassen)
+* [SharedLib-Klassen](#sharedlib-klassen)
 * [Hands-on: Nutzung der SharedLib zur Integration von PubSub](#pubsub)
     * [Events senden](#events-an-pubsub-senden-publish)
     * [Events empfangen](#events-aus-pubsub-empfangen-subscribe)
