@@ -4,14 +4,16 @@ import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.helper.Helper;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class Event implements IEvent {
 
 	private String data;
 	private String id;
 	private String publishTime;
-	private Hashtable<String, String> attributes = new Hashtable<String, String>();
+	private Map<String, String> attributes = new HashMap<String, String>();
 
 	public Event( String data, Hashtable attributes ){
 		this.data 		= data;
@@ -50,11 +52,11 @@ public class Event implements IEvent {
 		this.data = data;
 	}
 
-	public Hashtable<String, String> getAttributes() {
+	public Map<String, String> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Hashtable attributes) {
+	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 	}
 

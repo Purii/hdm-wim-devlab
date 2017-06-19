@@ -2,7 +2,9 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Created by ben on 18/06/2017.
@@ -22,7 +24,7 @@ public class LearnEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
-	private Hashtable attributes = new Hashtable<String, String>();
+	private Map<String, String> attributes = new HashMap<String, String>();
 
 	// auto set EventType on init
 	public LearnEvent() {
@@ -104,11 +106,11 @@ public class LearnEvent implements IEvent {
 		this.attributes.put(AttributeKey.EVENT_SOURCE, EventSource);
 	}
 
-	public Hashtable<String, String> getAttributes() {
+	public Map<String, String> getAttributes() {
 		return this.attributes;
 	}
 
-	public void setAttributes(Hashtable<String, String> attributes) {
+	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 	}
 }

@@ -3,7 +3,9 @@ package de.hdm.wim.sharedLib.events;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Created by nilsb on 19.06.2017.
@@ -13,7 +15,7 @@ public class TokenEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
-	private Hashtable attributes = new Hashtable<String, String>();
+	private Map<String, String> attributes = new HashMap<String, String>();
 
 	// auto set EventType on init
 	public TokenEvent() {
@@ -94,11 +96,11 @@ public class TokenEvent implements IEvent {
 		this.attributes.put(AttributeKey.EVENT_SOURCE, EventSource);
 	}
 
-	public Hashtable<String, String> getAttributes() {
+	public Map<String, String> getAttributes() {
 		return this.attributes;
 	}
 
-	public void setAttributes(Hashtable<String, String> attributes) {
+	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 	}
 }
