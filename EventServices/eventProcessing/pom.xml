@@ -2,12 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <!-- parent coordinates -->
     <parent>
-        <artifactId>eventServices</artifactId>
         <groupId>de.hdm.wim</groupId>
+        <artifactId>eventServices</artifactId>
         <version>1.0</version>
     </parent>
 
@@ -216,180 +217,6 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-
-
-    <!--<build>
-        <extensions>
-            &lt;!&ndash; Use os-maven-plugin to initialize the "os.detected" properties &ndash;&gt;
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.4.0.Final</version>
-            </extension>
-        </extensions>
-
-
-        &lt;!&ndash; Enable using of Java 8 Lambda Expressions &ndash;&gt;
-        <pluginManagement>
-            <plugins>
-
-                &lt;!&ndash; Use shading to fix wrong dependencies&ndash;&gt;
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-
-                        &lt;!&ndash; shade-netty &ndash;&gt;
-                        &lt;!&ndash;<execution>
-                            <id>shade-netty</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>shade</goal>
-                            </goals>
-                            <configuration>
-                                <relocations>
-                                    <relocation>
-                                        <pattern>io.netty.**</pattern>
-                                        <shadedPattern>de.hdm.wim.shaded.netty</shadedPattern>
-                                    </relocation>
-                                    <relocation>
-                                        <pattern>com.google.**</pattern>
-                                        <shadedPattern>de.hdm.wim.shaded.guava</shadedPattern>
-                                    </relocation>
-                                </relocations>
-                            </configuration>
-                        </execution>&ndash;&gt;
-
-                        &lt;!&ndash; shade-flink &ndash;&gt;
-                        &lt;!&ndash; new as of 30/05/2017 &ndash;&gt;
-                        <execution>
-                            <id>shade-flink</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>shade</goal>
-                            </goals>
-                            <configuration>
-
-                                <relocations>
-                                    <relocation>
-                                        <pattern>io.netty.**</pattern>
-                                        <shadedPattern>eventServices.shaded.netty</shadedPattern>
-                                    </relocation>
-                                    <relocation>
-                                        <pattern>com.google.**</pattern>
-                                        <shadedPattern>eventServices.shaded.guava</shadedPattern>
-                                    </relocation>
-                                </relocations>
-
-                                <createDependencyReducedPom>false</createDependencyReducedPom>
-                                <artifactSet>
-                                    <includes>
-                                        <include>io.netty.**</include>
-                                        <include>org.apache.flink:flink-cep*</include>
-                                    </includes>
-                                </artifactSet>
-                                <transformers>
-                                    &lt;!&ndash; add Main-Class to manifest file &ndash;&gt;
-                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                        <mainClass>eventServices.flink.RunFlink</mainClass>
-                                    </transformer>
-                                </transformers>
-                            </configuration>
-                        </execution>
-
-                    </executions>
-                </plugin>
-
-                &lt;!&ndash; Use Ant to configure the appropriate "tcnative.classifier" property &ndash;&gt;
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <phase>initialize</phase>
-                            <configuration>
-                                <exportAntProperties>true</exportAntProperties>
-                                <target>
-                                    <condition property="tcnative.classifier"
-                                        value="${os.detected.classifier}-fedora"
-                                        else="${os.detected.classifier}">
-                                        <isset property="os.detected.release.fedora"/>
-                                    </condition>
-                                </target>
-                            </configuration>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-
-
-
-
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                        <compilerId>jdt</compilerId>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.eclipse.tycho</groupId>
-                            <artifactId>tycho-compiler-jdt</artifactId>
-                            <version>0.21.0</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-assembly-plugin</artifactId>
-                                        <versionRange>[2.4,)</versionRange>
-                                        <goals>
-                                            <goal>single</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore/>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-compiler-plugin</artifactId>
-                                        <versionRange>[3.1,)</versionRange>
-                                        <goals>
-                                            <goal>testCompile</goal>
-                                            <goal>compile</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore/>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>-->
-
-
-
 
     <build>
         <!-- Enable using of Java 8 Lambda Expressions -->
