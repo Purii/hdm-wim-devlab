@@ -35,7 +35,6 @@ public class Constants {
 			public static final String DEPARTMENT_BELONGS_TO_COMPANY		= "departmentBelongsToCompany";
 			public static final String PERSON		= "person";
 			public static final String PRENAME		= "prename";
-			public static final String SURNAME		= "surname";
 			public static final String EMAIL		= "eMail";
 			public static final String PROJECT_NAME		= "projectName";
 			public static final String PROJECT_ROLE		= "projectRole";
