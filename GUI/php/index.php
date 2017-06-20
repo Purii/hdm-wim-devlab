@@ -64,15 +64,9 @@ if ($gClient->getAccessToken()) {
         $output .= '<br/>Logout from <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI_FINAL/php/logout.php">Google</a>';
         $output .= ' <h2> Bestehende Meetingräume: </h2>
     <br>
-    <a href="meetingraum3.php?&id=1" target="_blank" >Meetingraum 1 </a>
+   
     <br>
-    <a href="meetingraum3.php?&id=2" target="_blank">Meetingraum 2 </a>
-    <br>
-    <a href="meetingraum3.php?&id=3" target="_blank">Meetingraum 3 </a>;
-    <br>
-    <a href="chartByButton.html#id=1" target="_blank">Meetingraum 16846 </a>
-        <br>
-    <a href="../html/mgTreemap/google/chartByButton.php?&id=1" target="_blank">Meetingraum 3 </a>';
+    <a href="chartByButton.html#id=1" target="_blank">Meetingraum 16846 </a>    ';
 
   
     }else{
@@ -96,7 +90,7 @@ h1{font-family:Arial, Helvetica, sans-serif;color:#999999;}
 <body>
 <div id="loginGoogle"><?php echo $output; ?></div>
 
-<a href="https://docs.google.com/document/d/1ovUhO-KwaMMt_xalupOH-BWf2-xfzmNqCnl70a2a6m0/edit">link dokument</a>
+
 
 </body>
 </html>
