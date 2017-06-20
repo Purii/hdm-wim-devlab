@@ -216,8 +216,13 @@ public class Constants {
 			public static final String HANDLER_2				= "/gui";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 
+
 			//public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
+
+
+			public static final String SPEECH_TEST				= "https://" + PUSH_ENDPOINT_PREFIX + "";
+
 		}
 
 		/**
