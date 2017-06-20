@@ -19,7 +19,7 @@ public class FlinkReceiver implements MessageReceiver {
 
 		LOGGER.info("Id : " 		+ message.getMessageId());
 		LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
-		LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()).toString());
+		LOGGER.info("Attributes: " + new Gson().toJson(message.getAttributesMap()));
 
 		consumer.ack();
 	}
