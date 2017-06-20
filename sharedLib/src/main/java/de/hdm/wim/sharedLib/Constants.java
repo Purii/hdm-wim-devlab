@@ -73,6 +73,7 @@ public class Constants {
 			// Speech
 			public static final String CONTEXTS = "contexts";
 			public static final String TOKENS = "tokens";
+			public static final String TIMESTAMP = "timestamp";
 		}
 
 		/**
