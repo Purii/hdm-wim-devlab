@@ -72,11 +72,11 @@ public class AllDepartmentsEvent implements IEvent{
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
-	public String getDepartmentName(){
-		return attributes.get(Constants.PubSub.AttributeKey.DEPARTMENT_NAME).toString();
+	public String getDepartmentNames(){
+		return attributes.get(Constants.PubSub.AttributeKey.DEPARTMENT_NAMES).toString();
 	}
 
-	public void setDepartmentName(String departmentName) {
-		this.attributes.put(Constants.PubSub.AttributeKey.DEPARTMENT_NAME, departmentName);
+	public void setDepartmentNames(String departmentNames) {
+		this.attributes.put(Constants.PubSub.AttributeKey.DEPARTMENT_NAMES, departmentNames);
 	}
 }

@@ -29,14 +29,19 @@ public class Constants {
 			public static final String SESSION_ID	= "sessionId";
 			public static final String TOKEN_ID		= "tokenId";
 			public static final String DEPARTMENT_ID		= "departmentId";
+			public static final String DEPARTMENT_NAMES		= "departmentNames";
 			public static final String DEPARTMENT_NAME		= "departmentName";
 			public static final String DEPARTMENT_SHORT		= "departmentShort";
 			public static final String DEPARTMENT_HAS_PROJECTS		= "departmentHasProjects";
+			public static final String DEPARTMENT_HAS_PROJECT		= "departmentHasProject";
 			public static final String DEPARTMENT_HAS_WORKER		= "departmentHasWorker";
 			public static final String DEPARTMENT_BELONGS_TO_COMPANY		= "departmentBelongsToCompany";
 			public static final String PRENAME		= "prename";
 			public static final String EMAIL		= "eMail";
+			public static final String SURNAME		= "surname";
+			public static final String PROJECT_NAMES		= "projectNames";
 			public static final String PROJECT_NAME		= "projectName";
+			public static final String PROJECT_ROLES		= "projectRoles";
 			public static final String PROJECT_ROLE		= "projectRole";
 			public static final String DOCUMENT_AUTHOR		= "documentAuthor";
 			public static final String DOCUMENT_CALL		= "documentCall";
@@ -59,6 +64,7 @@ public class Constants {
 			public static final String DOCUMENT_OFFER	= "documentOffer";
 			public static final String FAVORITE	= "favorite";
 			public static final String DOCUMENT_BELONGS_TO_PROJECT ="belongsToProject";
+			public static final String CONTEXT = "context";
 
 			// Event
 
@@ -153,21 +159,19 @@ public class Constants {
 			public static final String USER 		= "user";
 			public static final String TIME			= "time";
 			public static final String DATE			= "date";
-			public static final String OFFER	    = "offer";
 
 			//Produktion
 			public static final String USER_INFO		= "user-information";
 			public static final String DOCUMENT_INFO		= "document-information";
 			public static final String USER_CONTEXT = "user-context";
 			public static final String DOCUMENT_CONTEXT		= "document-context";
-			public static final String DOCUMENT_RELEVANT	= "document-relevant";
+			public static final String DOCUMENT_CALL	= "document-call";
 			public static final String DOCUMENT_HIGHLY_RELEVANT	= "document-highly-relevant";
 			public static final String SESSION_START	= "session-start";
 			public static final String SESSION_END	= "session-end";
 			public static final String USER_INACTIVE	= "user-inactive";
 			public static final String USER_LOGIN	= "user-login";
 			public static final String USER_START	= "user-start";
-			public static final String USER_LOGOUT	= "user-logout";
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
 			public static final String ALL_DEPARTMENTS		= "all-departments";
@@ -181,7 +185,7 @@ public class Constants {
 			public static final String PROJECT_INFO = "project-information";
 			public static final String INFO_TOALL_DOCUMENTS = "information-toall-documents";
 			public static final String DEPARTMENT_INFO = "department-information";
-			public static final String OFFERS	    = "offer";
+			public static final String OFFER	    = "offer";
 			public static final String TOKEN		= "token";
 
 			// for message generator only

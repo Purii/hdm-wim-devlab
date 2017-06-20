@@ -79,11 +79,11 @@ public class FeedbackEvent implements IEvent{
 		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 
-	public String getDocumentId(){
-		return this.attributes.get(AttributeKey.DOCUMENT_ID).toString();
+	public String getDocumentName(){
+		return this.attributes.get(AttributeKey.DOCUMENT_NAME).toString();
 	}
 
-	public void setDocumentId(String documentId){
-		this.attributes.put(AttributeKey.DOCUMENT_ID, documentId);
+	public void setDocumentName(String documentName){
+		this.attributes.put(AttributeKey.DOCUMENT_NAME, documentName);
 	}
 }

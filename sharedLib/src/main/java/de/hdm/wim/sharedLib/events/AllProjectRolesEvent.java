@@ -72,11 +72,11 @@ public class AllProjectRolesEvent implements IEvent{
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
-	public String getProjectRole (){
-		return attributes.get(Constants.PubSub.AttributeKey.PROJECT_ROLE).toString();
+	public String getProjectRolse (){
+		return attributes.get(Constants.PubSub.AttributeKey.PROJECT_ROLES).toString();
 	}
 
-	public void setProjectRole(String projectRole) {
-		this.attributes.put(Constants.PubSub.AttributeKey.PROJECT_ROLE, projectRole);
+	public void setProjectRoles(String projectRoles) {
+		this.attributes.put(Constants.PubSub.AttributeKey.PROJECT_ROLES, projectRoles);
 	}
 }

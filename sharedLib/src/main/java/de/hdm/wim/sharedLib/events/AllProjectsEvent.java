@@ -72,11 +72,11 @@ public class AllProjectsEvent implements IEvent{
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
-	public String getProjectName(){
-		return attributes.get(Constants.PubSub.AttributeKey.PROJECT_NAME).toString();
+	public String getProjectNames(){
+		return attributes.get(Constants.PubSub.AttributeKey.PROJECT_NAMES).toString();
 	}
 
-	public void setProjectName(String projectName) {
-		this.attributes.put(Constants.PubSub.AttributeKey.PROJECT_NAME, projectName);
+	public void setProjectNames(String projectNames) {
+		this.attributes.put(Constants.PubSub.AttributeKey.PROJECT_NAMES, projectNames);
 	}
 }

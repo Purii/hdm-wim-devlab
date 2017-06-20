@@ -86,12 +86,12 @@ public class UserContextEvent implements IEvent{
 		this.attributes.put(AttributeKey.USER_NAMES, userNames);
 	}
 
-	public String getProjectId(){
-		return this.attributes.get(AttributeKey.PROJECT_ID).toString();
+	public String getContext(){
+		return this.attributes.get(AttributeKey.CONTEXT).toString();
 	}
 
-	public void setProjectId(String projectId){
-		this.attributes.put(AttributeKey.PROJECT_ID, projectId);
+	public void setContext(String context){
+		this.attributes.put(AttributeKey.CONTEXT, context);
 	}
 
 

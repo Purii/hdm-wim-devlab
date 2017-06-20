@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by GezimKrasniqi on 20.06.17.
  */
-public class DocumentRelevantEvent implements IEvent{
+public class DocumentCallEvent implements IEvent{
 
 	private String data;
 	private String id;
@@ -15,8 +15,8 @@ public class DocumentRelevantEvent implements IEvent{
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	//Todo: Update EventType
-	public DocumentRelevantEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.DOCUMENT_RELEVANT);
+	public DocumentCallEvent(){
+		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.DOCUMENT_CALL);
 	}
 
 	public String getData() {
@@ -78,11 +78,11 @@ public class DocumentRelevantEvent implements IEvent{
 		this.attributes.put(Constants.PubSub.AttributeKey.USER_ID, userId);
 	}
 
-	public String getDocumentId(){
-		return attributes.get(Constants.PubSub.AttributeKey.DOCUMENT_ID.toString());
+	public String getDocumentName(){
+		return attributes.get(Constants.PubSub.AttributeKey.DOCUMENT_NAME.toString());
 	}
 
-	public void setDocumentId(String documentId){
-		this.attributes.put(Constants.PubSub.AttributeKey.DOCUMENT_ID, documentId);
+	public void setDocumentName(String documentName){
+		this.attributes.put(Constants.PubSub.AttributeKey.DOCUMENT_NAME, documentName);
 	}
 }

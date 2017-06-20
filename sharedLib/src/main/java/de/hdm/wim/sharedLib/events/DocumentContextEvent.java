@@ -87,11 +87,11 @@ public class DocumentContextEvent implements IEvent {
 		attributes.put(AttributeKey.DOCUMENT_NAMES, documentNames.toString());
 	}
 
-	public String getProjectName(){
-		return this.attributes.get(AttributeKey.PROJECT_NAME).toString();
+	public String getContext(){
+		return this.attributes.get(AttributeKey.CONTEXT).toString();
 	}
 
-	public void setProjectName(String projectName){
-		this.attributes.put(AttributeKey.PROJECT_NAME, projectName);
+	public void setContext(String context){
+		this.attributes.put(AttributeKey.CONTEXT, context);
 	}
 }
