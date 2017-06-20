@@ -3,22 +3,28 @@
 Dieses Dokument dient der verbindlichen Definition der Events, welche durch unser Netzwerk geschickt werden.
 Werden weitere Events benötigt oder genügen die definierten Attribute nicht, ist dafür ein [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) zu erstellen.
 
+* [AllDepartmentsEvent](#alldepartmentsevent)
+* [AllProjectsEvent](#allprojectsevent)
+* [AllProjectRoles](#allprojectrolesevent)
+* [DepartmentInformationEvent](#departmentinformationevent)
 * [DocumentContextEvent](#documentcontextevent)
 * [DocumentInformationEvent](#documentinformationevent)
-* [DocumentRelevantEvent](#documentrelevantevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
+* [DocumentRelevantEvent](#documentrelevantevent)
 * [FeedbackEvent](#feedbackevent)
+* [InformationToAllDocumentsEvent](#informationtoalldocumentsevent)
 * [LearnEvent](#learnevent)
 * [OfferEvent](#offerevent)
+* [ProjectInformationEvent](#projectinformationevent)
 * [SessionEndEvent](sessionendevent)
 * [SessionStartEvent](#sessionstartevent)
 * [StayAliveEvent](#stayaliveevent)
+* [SuccessfulFeedbackEvent](#successfulfeedbackevent)
 * [TokenEvent](#tokenevent)
 * [UserContextEvent](#usercontextevent)
 * [UserInactiveEvent](#userinactiveevent)
 * [UserInformationEvent](#userinformationevent)
 * [UserLoginEvent](#userloginevent)
-* [UserLogoutEvent](#userlogoutevent)
 * [UserJoinedSessionEvent](#userjoinedsessionevent)
 * [UserLeftSessionEvent](#userleftsessionevent)
 * [UserStartEvent](#userstartevent)
@@ -49,13 +55,49 @@ String jsonString = gson.toJson(strings);  ==> ["Chris", "Bene", "Jimmy", "Patsc
 String names = gson.fromJson(jsonString, String.class); 
 ```
 
-## DepartmentInformationEvent
-*erstellt durch CEP; Detailinformationen über die Abteilung*
+## AllDepartmentsEvent
+*erstellt durch SR; alle Abteilungen einer Session*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.TOKEN_ID: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_ID: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_NAME: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_SHORT: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_PROJECTS: Array(String)</code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_WORKER: Array(String)</code></li><li><code>constants.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_CONTEXT</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { Document Context } ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_NAME: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_DEPARTMENTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { All departments } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
+## AllProjectsEvent
+*erstellt durch SR; alle Projekte einer Session*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.PROJECT_NAME: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_PROJECTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { All projects } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
+## AllProjectRolesEvent
+*erstellt durch SR; alle Projektrollen einer Session*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.PROJECT_ROLE: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_PROJECTROLES</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { All project roles } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
+## DepartmentInformationEvent
+*erstellt durch SR; Detailinformationen über die Abteilung*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_SHORT: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_PROJECTS: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_HAS_WORKER: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DEPARTMENT_INFO</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { Department Information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
@@ -66,20 +108,8 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>documentIds: Array(String)</code></li><li><code>documentNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_CONTEXT</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.DOCUMENT_IDS: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAMES: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_CONTEXT</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Document Context } ``` |
-| `messageId` | `string` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
-
-
-## DocumentRelevantEvent
-*erstellt durch CEP; ein Nutzer hat ein bestimmtes Dokument angeklickt; die SR kann die Verbindung höher gewichten*
-
-| Feld | Datentyp | Wert |
-| :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT</code></li></ul> |
-| `data` | `string (bytes format)` | ``` Document is relevant ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -90,7 +120,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_URL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ADDED: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_VERSION: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_TYPE: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_WRITTEN_BY: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FAVORED_BY: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_KEYWORDS: Array\<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FOLDER: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_INFO</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_URL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ADDED: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_VERSION: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_TYPE: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_WRITTEN_BY: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FAVORED_BY: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_KEYWORDS: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FOLDER: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` Document Information ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -104,6 +134,18 @@ String names = gson.fromJson(jsonString, String.class);
 | :---- | :---- | :---- |
 | `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_HIGHLY_RELEVANT</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Document is highly relevant } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+
+
+## DocumentRelevantEvent
+*erstellt durch CEP; ein Nutzer hat ein bestimmtes Dokument angeklickt; die SR kann die Verbindung höher gewichten*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.DOCUMENT_RELEVANT</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Document is relevant ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
@@ -126,8 +168,8 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.DOCUMENT: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.INFO_TOALL_DOCUMENTS</code></li></ul> |
-| `data` | `string (bytes format)` | ``` Information to all ``` |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_PRIO: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_TYPE: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_URL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FOLDER: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.INFO_TOALL_DOCUMENTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` Information to all documents ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
@@ -138,7 +180,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>projectId: \<String\></code><li><code>userclick: \<Boolean\></code></li></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.MACHINE_LEARNING</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.LEARN</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code><li><code>constants.AttributeKey.DOCUMENT_AFFILIATION: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.MACHINE_LEARNING</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.LEARN</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Learning } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -150,7 +192,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.DOCUMENT: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.FAVORITE: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.DOCUMENT_OFFER: Object(constants.AttributeKey.SESSION_ID: \<String\>, constants.AttributeKey.DOCUMENT_ID: \<String\>, constants.AttributeKey.DOCUMENT_NAME: \<String\>, constants.AttributeKey.DOCUMENT_PRIO: Integer, constants.AttributeKey.DOCUMENT_TYPE: \<String\>, constants.AttributeKey.DOCUMENT_URL: \<String\>, constants.AttributeKey.DOCUMENT_FOLDER: \<String\>)</li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_NAME: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_PRIO: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_TYPE: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_URL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FOLDER: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.OFFER</code></li></ul> |
 | `data` | `string (bytes format)` | ``` Document Offer ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -162,7 +204,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_NAME: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_COMPANY: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_MEMBERS: Array\<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_DOCUMENTS: Array\<String\></code></li><li><code>constants.Attribut<li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.PROJECT_INFO</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_NAME: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_COMPANY: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_MEMBERS: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_HAS_DOCUMENTS: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.PROJECT_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` Project Information ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -182,11 +224,11 @@ String names = gson.fromJson(jsonString, String.class);
 
 
 ## SessionStartEvent
-*erstellt durch GUI; ein User betritt eine Session*
+*erstellt durch GUI; ein User startet eine Session*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_START</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SESSION_START</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Session started } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -210,7 +252,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_AFFILIATION: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -222,13 +264,23 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>sessionId: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.CONTEXTS: \<String\></code></li><li><code>constants.AttributeKey.TOKENS: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Token } ```|
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `contexts` | `ArrayList<string>` | ``` { Context1, Context2, ... } ```  |
-| `tokens` | `ArrayList<string>` | ``` { Token1, Token2, ... } ``` |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` | 
+
+
+## UserContextEvent
+*erstellt durch CEP; die Nutzerinformationen lassen auf einen Projekt-Kontext schließen*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_IDS: \<String\></code></li><li><code>constants.AttributeKey.USER_NAMES: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_CONTEXT</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { User Context } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
 
 
 ## UserInactiveEvent
@@ -243,24 +295,12 @@ String names = gson.fromJson(jsonString, String.class);
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
 
-## UserContextEvent
-*erstellt durch CEP; die Nutzerinformationen lassen auf einen Projekt-Kontext schließen*
-
-| Feld | Datentyp | Wert |
-| :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>userIds: Array\<String\></code></li><li><code>userNames: Array(String)</code></li><li><code>projectId: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_CONTEXT</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { User Context } ``` |
-| `messageId` | `string` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
-
-
 ## UserInformationEvent
 *erstellt durch SR; Detailinformationen über den User, wird bspw. beim Login ausgelöst*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.PERSON: Object(constants.AttributeKey.USER_ID: \<String\>, constants.AttributeKey.PRENAME: \<String\>, constants.AttributeKey.SURNAME: \<String\>, constants.AttributeKey.EMAIL: \<String\>, constants.AttributeKey.PROJECT_NAME: \<String\>, constants.AttributeKey.PROJECT_ROLE: \<String\>, constants.AttributeKey.DEPARTMENT_SHORT: \<String\>, constants.AttributeKey.DOCUMENT_AUTHOR: \<String\>, constants.AttributeKey.DOCUMENT_CALL: \<String\>, constants.AttributeKey.DOCUMENT_FAVORIT: \<String\>)</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFO</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.TOKEN_ID: \<String\></code></li><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.PRENAME: \<String\></code></li><li><code>constants.AttributeKey.SURNAME: \<String\></code></li><li><code>constants.AttributeKey.EMAIL: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_NAME: \<String\></code></li><li><code>constants.AttributeKey.PROJECT_ROLE: \<String\></code></li><li><code>constants.AttributeKey.DEPARTMENT_SHORT: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_AUTHOR: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_CALL: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_FAVORIT: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_INFO</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -279,18 +319,6 @@ String names = gson.fromJson(jsonString, String.class);
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
 
-## UserLogoutEvent
-*erstellt durch GUI; ein User hat sich ausgeloggt*
-
-| Feld | Datentyp | Wert |
-| :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.EVENT(USER_INTERFACE)</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.USER_LOGOUT</code></li></ul> |
-| `data` | `string (bytes format)` | ``` { User logged out } ``` |
-| `messageId` | `string` | *wird von PubSub gesetzt* |
-| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
-
-
 ## UserJoinedSessionEvent
 *erstellt durch GUI; ein User hat sich an einer Session angemeldet*
 
@@ -301,6 +329,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+
 
 ## UserLeftSessionEvent
 *erstellt durch GUI; ein User hat sich von einer Session abgemeldet*
@@ -313,8 +342,9 @@ String names = gson.fromJson(jsonString, String.class);
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
 
+
 ## UserStartEvent
-*erstellt durch GUI; ein User hat sich von einer Session abgemeldet*
+*erstellt durch GUI; ein User startet die Recommender-Funktion (optional)*
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
