@@ -22,23 +22,23 @@ public class TestPattern2 {
 	 * @param psmStream 	the PubSubMessage stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<PubSubMessage> psmStream ) {
-
+		String docID;
 
 		//Test Pattern for successful User Request
 		//Successful means Offer Event follows Request Event and Feedback Event follows Offer Event within 2 minutes
 		Pattern<PubSubMessage, ?> successfulRequest = Pattern
 			.<PubSubMessage>begin("User Request")
-			.where(evt -> evt.getAttributes().containsValue(EventSource.SPEECH_TOKENIZATION)
-					&& evt.getAttributes().containsValue(EventType.REQUEST)
+			.where(evt1 -> evt1.getAttributes().containsValue(EventSource.SPEECH_TOKENIZATION)
+					&& evt1.getAttributes().containsValue(EventType.REQUEST)
 			)
 			.followedBy("Offer Event")
-			.where(evt -> evt.getAttributes().containsValue(EventSource.SEMANTIC_REPRESENTATION)
-					&& evt.getAttributes().containsValue(EventType.OFFER)
-			)
+			.where(evt2 -> evt2.getAttributes().containsValue(EventSource.SEMANTIC_REPRESENTATION)
+					&& evt2.getAttributes().containsValue(EventType.OFFER))
 			.followedBy("Feedback Event")
 			.within(Time.minutes(10))
-			.where(evt -> evt.getAttributes().containsValue(EventSource.USER_INTERFACE)
-					&& evt.getAttributes().containsValue(EventType.FEEDBACK)
+			.where(evt3 -> evt3.getAttributes().containsValue(EventSource.USER_INTERFACE)
+					&& evt3.getAttributes().containsValue(EventType.FEEDBACK)
+
 			);
 
 

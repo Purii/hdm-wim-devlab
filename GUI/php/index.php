@@ -90,6 +90,10 @@ h1{font-family:Arial, Helvetica, sans-serif;color:#999999;}
 <body>
 <div id="loginGoogle"><?php echo $output; ?></div>
 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<div class="g-hangout" data-render="createhangout"></div>
+
+
 
 
 </body>
