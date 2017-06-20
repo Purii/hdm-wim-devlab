@@ -1,6 +1,8 @@
 # PubSub
 
-In diesem Dokument wird der Umgang mit der SharedLib demonstriert. Die SharedLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden. 
+In diesem Dokument wird der Umgang mit der SharedLib demonstriert. Die SharedLib stellt die Kommunikation mit PubSub sicher und soll von allen Gruppen als gemeinsame Lösung verwendet werden.
+
+Jede Gruppe hat alternativ die Möglichkeit auf eine bestehende Integration zurückzugreifen, welche auf der Google App Engine läuft. ([Doku hier](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/PubSubAppEngine.md)).
 
 ## Verzeichnis
 
