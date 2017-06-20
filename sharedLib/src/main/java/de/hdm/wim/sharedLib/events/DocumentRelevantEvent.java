@@ -16,7 +16,7 @@ public class DocumentRelevantEvent implements IEvent{
 
 	//Todo: Update EventType
 	public DocumentRelevantEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.INSIGHT);
+		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.DOCUMENT_RELEVANT);
 	}
 
 	public String getData() {

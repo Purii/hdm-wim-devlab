@@ -78,13 +78,12 @@ public class LearnEvent implements IEvent {
 		this.attributes.put(AttributeKey.PROJECT_ID, ProjectId);
 	}
 
-	public boolean getUserclick(){
-		String val = attributes.get(AttributeKey.USERCLICK).toString();
-		return Boolean.parseBoolean(val);
+	public String getDocumentAffiliation(){
+		return attributes.get(AttributeKey.DOCUMENT_AFFILIATION).toString();
 	}
 
-	public void setUserclick(boolean Userclick){
-		this.attributes.put(AttributeKey.USERCLICK, Boolean.toString(Userclick));
+	public void setDocumentAffiliation(String documentAffiliation){
+		this.attributes.put(AttributeKey.DOCUMENT_AFFILIATION, documentAffiliation);
 	}
 
 	public String getEventType(){

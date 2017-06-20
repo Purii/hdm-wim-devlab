@@ -69,14 +69,99 @@ public class UserInformationEvent implements IEvent{
 		this.attributes = attributes;
 	}
 
-	public String getBsp(){
-		return this.attributes.get(AttributeKey.DEPARTMENT_NAME).toString();
+	public String getSessionId(){
+		return this.attributes.get(AttributeKey.SESSION_ID).toString();
 	}
 
-	public void setBsp(String departmentName){
-		this.attributes.put(AttributeKey.TOKEN_ID, departmentName);
+	public void setSessionId(String sessionId){
+		this.attributes.put(AttributeKey.SESSION_ID, sessionId);
 	}
 
+	public String getTokenId(){
+		return this.attributes.get(AttributeKey.TOKEN_ID).toString();
+	}
 
+	public void setTokenId(String tokenId){
+		this.attributes.put(AttributeKey.TOKEN_ID, tokenId);
+	}
 
+	public String getUserId(){
+		return this.attributes.get(AttributeKey.USER_ID).toString();
+	}
+
+	public void setUserId(String userId){
+		this.attributes.put(AttributeKey.USER_ID, userId);
+	}
+
+	public String getPrename(){
+		return this.attributes.get(AttributeKey.PRENAME).toString();
+	}
+
+	public void setPrename(String prename){
+		this.attributes.put(AttributeKey.PRENAME, prename);
+	}
+
+	public String getSurname(){
+		return this.attributes.get(AttributeKey.SURNAME).toString();
+	}
+
+	public void setSurname(String surname){
+		this.attributes.put(AttributeKey.SURNAME, surname);
+	}
+
+	public String getEmail(){
+		return this.attributes.get(AttributeKey.EMAIL).toString();
+	}
+
+	public void setEmail(String email){
+		this.attributes.put(AttributeKey.EMAIL, email);
+	}
+
+	public String getProjectName(){
+		return this.attributes.get(AttributeKey.PROJECT_NAME).toString();
+	}
+
+	public void setProjectName(String projectName){
+		this.attributes.put(AttributeKey.PROJECT_NAME, projectName);
+	}
+
+	public String getProjectRole(){
+		return this.attributes.get(AttributeKey.PROJECT_ROLE).toString();
+	}
+
+	public void setProjectRole(String projectRole){
+		this.attributes.put(AttributeKey.PROJECT_ROLE, projectRole);
+	}
+
+	public String getDepartmentShort(){
+		return this.attributes.get(AttributeKey.DEPARTMENT_SHORT).toString();
+	}
+
+	public void setDepartmentShort(String departmentShort){
+		this.attributes.put(AttributeKey.DEPARTMENT_SHORT, departmentShort);
+	}
+
+	public String getDocumentAuthor(){
+		return this.attributes.get(AttributeKey.DOCUMENT_AUTHOR).toString();
+	}
+
+	public void setDocumentAuthor(String documentAuthor){
+		this.attributes.put(AttributeKey.DOCUMENT_AUTHOR, documentAuthor);
+	}
+
+	public String getDocumentCall(){
+		return this.attributes.get(AttributeKey.DOCUMENT_CALL).toString();
+	}
+
+	public void setDocumentCall(String documentCall){
+		this.attributes.put(AttributeKey.DOCUMENT_CALL, documentCall);
+	}
+
+	public String getDocumentFavorit(){
+		return this.attributes.get(AttributeKey.DOCUMENT_FAVORIT).toString();
+	}
+
+	public void setDocumentFavorit(String documentFavorit){
+		this.attributes.put(AttributeKey.DOCUMENT_FAVORIT, documentFavorit);
+	}
 }

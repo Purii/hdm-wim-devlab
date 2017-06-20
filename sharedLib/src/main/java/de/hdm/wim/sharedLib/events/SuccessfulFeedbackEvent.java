@@ -17,7 +17,7 @@ public class SuccessfulFeedbackEvent implements IEvent {
 
 	// TODO: Update Event Type
 	public SuccessfulFeedbackEvent(){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.FEEDBACK);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.SUCCESSFUL_FEEDBACK);
 	}
 
 	public String getData() {
@@ -86,6 +86,12 @@ public class SuccessfulFeedbackEvent implements IEvent {
 		this.attributes.put(AttributeKey.DOCUMENT_ID, documentId);
 	}
 
+	public String getDocumentAffiliation(){
+		return this.attributes.get(AttributeKey.DOCUMENT_AFFILIATION).toString();
+	}
 
+	public void setDocumentAffiliation(String documentAffiliation){
+		this.attributes.put(AttributeKey.DOCUMENT_AFFILIATION, documentAffiliation);
+	}
 
 }
