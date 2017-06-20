@@ -1,4 +1,4 @@
-package de.hdm.wim.pubSubTesting;
+package de.hdm.wim.pubSubWebapp;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.Publisher;

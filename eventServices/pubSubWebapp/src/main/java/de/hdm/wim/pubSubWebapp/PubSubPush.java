@@ -1,6 +1,5 @@
-package de.hdm.wim.pubSubTesting;
+package de.hdm.wim.pubSubWebapp;
 
-import com.google.common.io.BaseEncoding;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
