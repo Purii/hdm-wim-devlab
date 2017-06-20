@@ -17,7 +17,7 @@ public class UserStartEvent implements IEvent {
 
 	// TODO: Update Event Type -> User Start
 	public UserStartEvent(){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_LOGIN);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_START);
 	}
 
 	public String getData() {

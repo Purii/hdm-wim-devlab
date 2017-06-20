@@ -75,7 +75,7 @@ public class SessionEndEvent implements IEvent{
 	}
 
 	public void setSessionId(String sessionId){
-		this.attributes.put(AttributeKey.TOKEN_ID, sessionId);
+		this.attributes.put(AttributeKey.SESSION_ID, sessionId);
 	}
 
 

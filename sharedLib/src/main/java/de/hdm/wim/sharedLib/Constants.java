@@ -166,6 +166,7 @@ public class Constants {
 			public static final String SESSION_END	= "session-end";
 			public static final String USER_INACTIVE	= "user-inactive";
 			public static final String USER_LOGIN	= "user-login";
+			public static final String USER_START	= "user-start";
 			public static final String USER_LOGOUT	= "user-logout";
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
@@ -176,6 +177,7 @@ public class Constants {
 			public static final String STAYALIVE 	= "stayalive";
 			public static final String INSIGHT  	= "insight";
 			public static final String FEEDBACK		= "feedback";
+			public static final String SUCCESSFUL_FEEDBACK		= "successful-feedback";
 			public static final String PROJECT_INFO = "project-information";
 			public static final String INFO_TOALL_DOCUMENTS = "information-toall-documents";
 			public static final String DEPARTMENT_INFO = "department-information";
