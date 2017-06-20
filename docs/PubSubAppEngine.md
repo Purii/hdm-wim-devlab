@@ -1,4 +1,4 @@
-# PubSub über AppEngine
+# PubSub über App Engine
 
 Um mit PubSub zu interagieren kann die offizielle Dokumentation genutzt werden.
 Unsere PubSub Instanz wird von Benedikt Benz verwaltet.
