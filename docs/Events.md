@@ -28,6 +28,27 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 import  de.hdm.wim.sharedLib.Constants;
 ```
 
+**WICHTIG:**
+
+Da `key` und `value` der `attributes` jeweils vom Datentyp `String` sind, müssen andere Datentypen erst zu einem `String` konvertiert werden.
+
+Dies kann mit Hilfe von `JSON` gemacht werden, dazu bitte die [gson lib](https://github.com/google/gson/blob/master/UserGuide.md) von google benutzen.
+
+Beispiel:
+```
+import com.google.gson.Gson;
+
+
+Gson gson = new Gson();
+String[] names = {"Chris", "Bene", "Jimmy", "Patscho"};
+
+// Serialization
+String jsonString = gson.toJson(strings);  ==> ["Chris", "Bene", "Jimmy", "Patscho"]
+
+// Deserialization
+String names = gson.fromJson(jsonString, String.class); 
+```
+
 ## DepartmentInformationEvent
 *erstellt durch CEP; Detailinformationen über die Abteilung*
 
