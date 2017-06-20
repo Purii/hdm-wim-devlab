@@ -45,6 +45,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>de.hdm.wim</groupId>
+            <artifactId>sharedLib</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/asm/asm -->
         <dependency>
             <groupId>asm</groupId>

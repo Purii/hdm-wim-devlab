@@ -61,7 +61,7 @@ public class PublishHelper {
 	 * @param useREST true if you want to use REST
 	 * @throws Exception the exception
 	 */
-	public void Publish(Event event, String topicId, boolean useREST) throws Exception{
+	public void Publish(IEvent event, String topicId, boolean useREST) throws Exception{
 		publish(event, topicId, useREST);
 	}
 
