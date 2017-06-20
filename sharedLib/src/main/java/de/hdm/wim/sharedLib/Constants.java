@@ -207,10 +207,11 @@ public class Constants {
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";
 			public static final String PUBLISH_ENDPOINT 		= "/publish";
-			public static final String HANDLER					= "/event";
+			public static final String HANDLER_1				= "/event";
+			public static final String HANDLER_2				= "/gui";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 
-			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
+			//public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
 		}
 
