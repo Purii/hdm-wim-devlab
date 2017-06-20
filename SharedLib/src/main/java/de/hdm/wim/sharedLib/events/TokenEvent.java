@@ -81,12 +81,6 @@ public class TokenEvent implements IEvent {
 		this.attributes.put(AttributeKey.CONTEXTS, contexts.toString());
 	}
 
-	/*
-	public void setEventType(String EventType){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType);
-	}
-	*/
-
 	public String getEventSource(){
 		return attributes.get(AttributeKey.EVENT_SOURCE).toString();
 	}

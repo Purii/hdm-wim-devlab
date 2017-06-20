@@ -91,12 +91,6 @@ public class LearnEvent implements IEvent {
 		return attributes.get(AttributeKey.EVENT_TYPE).toString();
 	}
 
-	/*
-	public void setEventType(String EventType){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType);
-	}
-	*/
-
 	public String getEventSource(){
 		return attributes.get(AttributeKey.EVENT_SOURCE).toString();
 	}
