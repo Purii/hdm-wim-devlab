@@ -264,7 +264,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.CONTEXTS: \<String\></code></li><li><code>constants.AttributeKey.TOKENS: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.SESSION_ID: \<String\></code></li><li><code>constants.AttributeKey.CONTEXTS: \<String\></code></li><li><code>constants.AttributeKey.TOKENS: \<String\></code></li><li><code>constants.AttributeKey.TIMESTAMP: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SPEECH_TOKENIZATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.TOKEN</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { Token } ```|
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
