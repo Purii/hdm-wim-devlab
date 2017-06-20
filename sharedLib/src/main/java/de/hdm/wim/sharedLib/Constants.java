@@ -59,7 +59,7 @@ public class Constants {
 			public static final String DOCUMENT	= "document";
 			public static final String DOCUMENT_OFFER	= "documentOffer";
 			public static final String FAVORITE	= "favorite";
-			public static final String BELONGS_TO_PROJECT ="belongsToProject";
+			public static final String DOCUMENT_BELONGS_TO_PROJECT ="belongsToProject";
 
 			// Event
 
