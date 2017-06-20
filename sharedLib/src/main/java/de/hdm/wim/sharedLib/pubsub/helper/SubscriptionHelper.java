@@ -26,7 +26,6 @@ public class SubscriptionHelper {
 	private static boolean IS_LOCAL 	= false;
 	private static String PROJECT_ID	= Config.APP_ID;
 	private String ENDPOINT;
-	private String HANDLER;
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
@@ -98,9 +97,11 @@ public class SubscriptionHelper {
 
 		TopicName topicName 	= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
 		final String namePrefix = "subscription-";
-		ENDPOINT 				= EndpointHelper.GetPushEndpoint(IS_LOCAL, HANDLER);
-		String	subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + handler;
+		ENDPOINT 				= EndpointHelper.GetPushEndpoint(IS_LOCAL, handler);
+		String	subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + handler.replace("/","");
 		PushConfig	pushConfig 	= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
+
+		LOGGER.info("Endpoint: " + ENDPOINT);
 
 		return subscribe(subscriptionId, topicName, pushConfig);
 	}
