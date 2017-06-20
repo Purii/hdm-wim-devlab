@@ -1,15 +1,12 @@
 package de.hdm.wim.pubSubWebapp;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
-import de.hdm.wim.sharedLib.events.Event;
+import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +24,7 @@ import org.apache.log4j.Logger;
 public class PubSubPushHandler1 extends HttpServlet {
 
 	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler1.class);
-	private final Gson gson 			= new Gson();
-	private final JsonParser jsonParser = new JsonParser();
+	private Helper helper 				= new Helper();
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -41,8 +37,11 @@ public class PubSubPushHandler1 extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+		String requestBody = req.getReader()
+									.lines()
+									.reduce("\n", (accumulator, actual) -> accumulator + actual);
 
-		Event event = getEvent(req);
+		IEvent event = helper.GetEventFromJson(requestBody);
 
 		try {
 			LOGGER.info("Handler: " + Config.HANDLER_1 + " event.getData(): " + event.getData());
@@ -64,20 +63,5 @@ public class PubSubPushHandler1 extends HttpServlet {
 		} catch (Exception e) {
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-	}
-
-	private Event getEvent(HttpServletRequest request) throws IOException {
-		Helper helper = new Helper();
-
-		// parse message object from "message" field in the request body json
-		String requestBody 		= request.getReader().lines() .reduce("\n", (accumulator, actual) -> accumulator + actual);
-		JsonElement jsonRoot 	= jsonParser.parse(requestBody);
-		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
-		Event event 			= gson.fromJson(eventStr, Event.class);
-
-		// decode from base64
-		String decoded = helper.decodeBase64(event.getData());
-		event.setData(decoded);
-		return event;
 	}
 }
