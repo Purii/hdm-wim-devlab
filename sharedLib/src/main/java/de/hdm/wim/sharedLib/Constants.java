@@ -38,7 +38,6 @@ public class Constants {
 			public static final String EMAIL		= "eMail";
 			public static final String PROJECT_NAME		= "projectName";
 			public static final String PROJECT_ROLE		= "projectRole";
-			public static final String SURNAME		= "surname";
 			public static final String DOCUMENT_AUTHOR		= "documentAuthor";
 			public static final String DOCUMENT_CALL		= "documentCall";
 			public static final String DOCUMENT_NAME		= "documentName";
