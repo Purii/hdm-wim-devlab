@@ -1,6 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
+import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.events.TokenEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
@@ -43,7 +44,7 @@ public class Rest {
 		return Response.status(200).entity("test").build();
 	}
 
-	@POST @Path("pushtest")
+	@POST @Path(Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SPEECH)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receivePush(String json) throws Exception {
