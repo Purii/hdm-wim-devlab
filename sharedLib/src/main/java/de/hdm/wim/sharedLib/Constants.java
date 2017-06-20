@@ -22,7 +22,7 @@ public class Constants {
 			public static final String USER_ID		= "userId";
 			public static final String DOCUMENT_ID	= "documentId";
 			public static final String PROJECT_ID	= "projectId";
-			public static final String USERCLICK	= "userclick";
+			public static final String DOCUMENT_AFFILIATION	= "documentAffiliation";
 
 			// SemRep
 			public static final String SESSION_ID	= "sessionId";
@@ -62,6 +62,8 @@ public class Constants {
 
 			public static final String DOCUMENT_IDS	= "documentIds";
 			public static final String DOCUMENT_NAMES	= "documentNames";
+			public static final String USER_IDS	= "userIds";
+			public static final String USER_NAMES	= "userNames";
 
 			// GUI
 
@@ -143,13 +145,12 @@ public class Constants {
 			//Test
 			public static final String ACTION 		= "action";
 			public static final String GOOGLEOFFER 	= "googleoffer";
-			public static final String OFFER	    = "offer";
-			public static final String TOKEN		= "token";
 			public static final String RICHTOKEN	= "richtoken";
 			public static final String REQUEST 		= "request";
 			public static final String USER 		= "user";
 			public static final String TIME			= "time";
 			public static final String DATE			= "date";
+			public static final String OFFER	    = "offer";
 
 			//Produktion
 			public static final String USER_INFO		= "user-information";
@@ -173,7 +174,10 @@ public class Constants {
 			public static final String INSIGHT  	= "insight";
 			public static final String FEEDBACK		= "feedback";
 			public static final String PROJECT_INFO = "project-information";
-			public static final String INFO_TOALL_DOCUMENTS = "info-toall-documents";
+			public static final String INFO_TOALL_DOCUMENTS = "information-toall-documents";
+			public static final String DEPARTMENT_INFO = "department-information";
+			public static final String OFFERS	    = "offer";
+			public static final String TOKEN		= "token";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(

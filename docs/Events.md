@@ -6,7 +6,7 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [AllDepartmentsEvent](#alldepartmentsevent)
 * [AllProjectsEvent](#allprojectsevent)
 * [AllProjectRoles](#allprojectrolesevent)
-* [DepartmentInformationEvent](#documentcontextevent)
+* [DepartmentInformationEvent](#departmentinformationevent)
 * [DocumentContextEvent](#documentcontextevent)
 * [DocumentInformationEvent](#documentinformationevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
