@@ -14,7 +14,7 @@
 
     <!-- project coordinates -->
     <groupId>de.hdm.wim</groupId>
-    <artifactId>pubSubTesting</artifactId>
+    <artifactId>pubSubWebapp</artifactId>
     <version>1.0</version>
 
     <packaging>war</packaging>
