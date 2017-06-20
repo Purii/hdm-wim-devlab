@@ -7,7 +7,7 @@ import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.LearnEvent;
-import de.hdm.wim.sharedLib.events.TokenEvent;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
