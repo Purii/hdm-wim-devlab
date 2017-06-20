@@ -15,7 +15,7 @@ public class DepartmentInformationEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type
+	// TODO: Update Event Type!
 	public DepartmentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
 	}
