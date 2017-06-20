@@ -32,6 +32,8 @@ public class PubSubPushHandler2 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
+
+
 		String pubsubVerificationToken = Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
@@ -43,8 +45,7 @@ public class PubSubPushHandler2 extends HttpServlet {
 		Event event = getEvent(req);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_2);
-			LOGGER.info("event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_2 + " event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);

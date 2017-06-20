@@ -45,8 +45,7 @@ public class PubSubPushHandler1 extends HttpServlet {
 		Event event = getEvent(req);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_1);
-			LOGGER.info("event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_1 + " event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
