@@ -52,12 +52,14 @@ public class Constants {
 			public static final String DOCUMENT_FOLDER		= "documentFolder";
 			public static final String PROJECT_BELONGS_TO_COMPANY	= "projectBelongsToCompany";
 			public static final String DOCUMENT_PRIO	= "documentPriority";
+			public static final String DOCUMENT_TYPE = "documentType";
 			public static final String PROJECT_BELONGS_TO_DEPARTMENT	= "projectBelongsToDepartment";
 			public static final String PROJECT_HAS_MEMBERS	= "projectHasMembers";
 			public static final String PROJECT_HAS_DOCUMENTS	= "projectHasDocuments";
 			public static final String DOCUMENT	= "document";
 			public static final String DOCUMENT_OFFER	= "documentOffer";
 			public static final String FAVORITE	= "favorite";
+			public static final String DOCUMENT_BELONGS_TO_PROJECT ="belongsToProject";
 
 			// Event
 
