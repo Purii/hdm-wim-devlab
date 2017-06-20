@@ -25,7 +25,6 @@ public class Constants {
 			public static final String DOCUMENT_AFFILIATION	= "documentAffiliation";
 			public static final String USERCLICK	= "userClick";
 
-
 			// SemRep
 			public static final String SESSION_ID	= "sessionId";
 			public static final String TOKEN_ID		= "tokenId";
@@ -59,7 +58,7 @@ public class Constants {
 			public static final String DOCUMENT	= "document";
 			public static final String DOCUMENT_OFFER	= "documentOffer";
 			public static final String FAVORITE	= "favorite";
-			
+
 			// Event
 
 			public static final String DOCUMENT_IDS	= "documentIds";
@@ -111,7 +110,7 @@ public class Constants {
 			public static final String TOPIC_GUI 		= "topic-gui";
 			public static final String PUSH_TEST 		= "topic-push-test-123";
 			public static final String RICHTOKEN 		= "richtoken";
-			
+
 			// für die Produktion
 			public static final String FEEDBACK_GUI 	= "feedback-gui";
 			public static final String INSIGHTS 		= "insights";
@@ -119,7 +118,7 @@ public class Constants {
 			public static final String SESSIONINSIGHTS 	= "sessioninsights";
 			public static final String TOKEN 			= "token";
 			public static final String INFORMATION		= "information";
-			
+
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
 				TOPIC_1,
