@@ -10,6 +10,8 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
+import java.util.Map;
+
 /**
  * Created by Ben on 30.05.2017.
  */
@@ -56,6 +58,12 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999)
 				.flatMap(new Splitter());
 
+			DataStream<IEvent> eventStream = env
+				.socketTextStream("localhost", 9999)
+				.flatMap(new EventSplitter());
+
+	//		DataStream<IEvent> eventStream = messageStream;
+
 	//		TestPattern2 testPattern2 = new TestPattern2();
 	//		testPattern2.run(env, messageStream);
 
@@ -68,10 +76,17 @@ public class RunFlink {
 	public static class Splitter implements FlatMapFunction<String, PubsubMessage> {
 		@Override
 		public void flatMap(String value, Collector<PubsubMessage> out) throws Exception {
-			PubsubMessage psm = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
-			Helper helper = new Helper();
-			//out.collect(new PubsubMessage(psm.getData(),psm.getMessageId(), psm.getPublishTime(), psm.getAttributesMap()));
+			PubsubMessage evt = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
+			out.collect(evt);
 		}
 	}
-
+	public static class EventSplitter implements FlatMapFunction<String, IEvent> {
+		@Override
+		public void flatMap(String value, Collector<IEvent> out) throws Exception {
+			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
+			Helper helper = new Helper();
+			IEvent evt = helper.convertPubsubMessageToIEvent(msg);
+			out.collect(evt);
+		}
+	}
 }
