@@ -17,7 +17,7 @@ public class DepartmentInformationEvent implements IEvent {
 
 	// TODO: Update Event Type!
 	public DepartmentInformationEvent(){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DEPARTMENT_INFO);
 	}
 
 	public String getData() {
@@ -33,7 +33,7 @@ public class DepartmentInformationEvent implements IEvent {
 	}
 
 	public void setId(String id) {
-	this.id= id;
+		this.id= id;
 	}
 
 	public String getPublishTime() {
@@ -41,7 +41,7 @@ public class DepartmentInformationEvent implements IEvent {
 	}
 
 	public void setPublishTime(String publishTime) {
-	this.publishTime = publishTime;
+		this.publishTime = publishTime;
 	}
 
 	public String getEventType() {
@@ -85,7 +85,7 @@ public class DepartmentInformationEvent implements IEvent {
 	}
 
 	public void setDepartmentId(String departmentId){
-		this.attributes.put(AttributeKey.TOKEN_ID, departmentId);
+		this.attributes.put(AttributeKey.DEPARTMENT_ID, departmentId);
 	}
 
 	public String getDepartmentName(){
@@ -93,7 +93,7 @@ public class DepartmentInformationEvent implements IEvent {
 	}
 
 	public void setDepartmentName(String departmentName){
-		this.attributes.put(AttributeKey.TOKEN_ID, departmentName);
+		this.attributes.put(AttributeKey.DEPARTMENT_NAME, departmentName);
 	}
 
 	public String getDepartmentShort(){
@@ -101,7 +101,7 @@ public class DepartmentInformationEvent implements IEvent {
 	}
 
 	public void setDepartmentShort(String departmentShort){
-		this.attributes.put(AttributeKey.TOKEN_ID, departmentShort);
+		this.attributes.put(AttributeKey.DEPARTMENT_SHORT, departmentShort);
 	}
 
 	public String getDepartmentProjects(){
@@ -124,7 +124,7 @@ public class DepartmentInformationEvent implements IEvent {
 		return this.attributes.get(AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY).toString();
 	}
 
-	public void setDepartmentCompany(String[] departmentCompany){
+	public void setDepartmentCompany(String departmentCompany){
 		this.attributes.put(AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY, departmentCompany.toString());
 	}
 }

@@ -69,15 +69,23 @@ public class TokenEvent implements IEvent {
 		return attributes.get(AttributeKey.TOKENS).toString();
 	}
 
-	public void setTokens(ArrayList<String> tokens) {
+	public void setTokens(String tokens) {
 		this.attributes.put(AttributeKey.TOKENS, tokens.toString());
+	}
+
+	public String getTimestamp() {
+		return attributes.get(AttributeKey.TIMESTAMP).toString();
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.attributes.put(AttributeKey.TIMESTAMP, timestamp.toString());
 	}
 
 	public String getContexts() {
 		return attributes.get(AttributeKey.CONTEXTS).toString();
 	}
 
-	public void setContexts(ArrayList<String> contexts) {
+	public void setContexts(String contexts) {
 		this.attributes.put(AttributeKey.CONTEXTS, contexts.toString());
 	}
 

@@ -75,7 +75,7 @@ public class StayAliveEvent {
 	}
 
 	public void setUserId(String userId){
-		this.attributes.put(AttributeKey.TOKEN_ID, userId);
+		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 
 

@@ -15,10 +15,9 @@ public class TestCreateSubscription {
 		SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
 
 		Subscription subscription1 = sh
-			.CreateSubscription(SubscriptionType.PUSH, Topic.TOPIC_1, "test1");
+			.CreatePushSubscription(Topic.TOPIC_1, Config.HANDLER_1);
 
 		Subscription subscription2 = sh
-			.CreateSubscription(SubscriptionType.PUSH, Topic.TOPIC_2, "test1");
-
+			.CreatePushSubscription(Topic.TOPIC_1, Config.HANDLER_2);
 	}
 }

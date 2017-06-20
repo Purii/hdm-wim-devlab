@@ -16,7 +16,7 @@ public class DocumentHighlyRelevantEvent implements IEvent{
 
 	// TODO: Update Event Type
 	public DocumentHighlyRelevantEvent(){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DOCUMENT_HIGHLY_RELEVANT);
 	}
 
 	public String getData() {

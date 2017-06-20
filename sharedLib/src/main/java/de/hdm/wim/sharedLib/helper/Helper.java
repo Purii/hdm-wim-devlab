@@ -1,5 +1,7 @@
 package de.hdm.wim.sharedLib.helper;
 
+import static de.hdm.wim.sharedLib.events.IEvent.publishTime;
+
 import com.google.common.io.BaseEncoding;
 import com.google.pubsub.v1.PubsubMessage;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
@@ -13,6 +15,7 @@ import de.hdm.wim.sharedLib.events.TokenEvent;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import jdk.nashorn.internal.parser.Token;
 import org.apache.log4j.Logger;
 
 /**
@@ -68,7 +71,7 @@ public class Helper {
 	 * @param message the PubsubMessage
 	 * @return event
 	 */
-	public IEvent eventConverter(PubsubMessage message) {
+	public IEvent convertPubsubMessageToIEvent(PubsubMessage message) {
 		IEvent event = new Event();
 
 		// get message content & transform
@@ -80,18 +83,23 @@ public class Helper {
 		// get eventType from attributes
 		String eventType = attributes.get(AttributeKey.EVENT_TYPE);
 
-		// TODO: update
+
+
+		/*
 		// init event based on type
 		switch (eventType) {
 			case EventType.LEARN:
 				event = new LearnEvent();
+				type  = LearnEvent.class;
 				break;
 			case EventType.TOKEN:
 				event = new TokenEvent();
+				type  = TokenEvent.class;
 				break;
 			default:
 				LOGGER.warn("Invalid EventType");
 		}
+		 */
 
 		// fill new message object
 		event.setData(data);
@@ -99,6 +107,7 @@ public class Helper {
 		event.setId(messageId);
 		event.setPublishTime(publishTime);
 
+		//return event;
 		return event;
 	}
 }

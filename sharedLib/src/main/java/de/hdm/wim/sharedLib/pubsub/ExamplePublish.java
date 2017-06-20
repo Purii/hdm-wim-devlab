@@ -13,6 +13,7 @@ import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 /**
  * Created by ben on 11/06/2017.
@@ -34,8 +35,8 @@ public class ExamplePublish {
 		 * this will create a subscription with id: "subscription-pull-topic-1-test1"
 		 * if the subscription already exists, we will use it
 		 */
-		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
-		sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test2");
+		sh.CreatePullSubscription(PubSub.Topic.TOPIC_1, "test1");
+		sh.CreatePullSubscription(PubSub.Topic.TOPIC_1, "test2");
 
 		PublishHelper ph = new PublishHelper(false);
 
@@ -55,7 +56,7 @@ public class ExamplePublish {
 		learnEvent.setDocumentId("");
 		learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
 		learnEvent.setProjectId("test project id");
-		learnEvent.setUserclick(false);
+		learnEvent.setDocumentAffiliation("false");
 		learnEvent.setUserId("test user id");
 		ph.Publish(learnEvent, Topic.TOPIC_1);
 

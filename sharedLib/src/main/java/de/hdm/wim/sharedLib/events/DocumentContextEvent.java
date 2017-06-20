@@ -18,7 +18,7 @@ public class DocumentContextEvent implements IEvent {
 	// TODO: Update Event Type
 	// auto set EventType on init
 	public DocumentContextEvent(){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DOCUMENT_CONTEXT);
 	}
 
 	public String getData() {
@@ -71,27 +71,27 @@ public class DocumentContextEvent implements IEvent {
 		this.attributes = attributes;
 	}
 
-	public String getDocumentId() {
-		return attributes.get(AttributeKey.DOCUMENT_ID).toString();
+	public String getDocumentIds() {
+		return attributes.get(AttributeKey.DOCUMENT_IDS).toString();
 	}
 
-	public void setDocumentId(String[] documentId) {
-		attributes.put(AttributeKey.DOCUMENT_ID, documentId.toString());
+	public void setDocumentIds(String documentIds) {
+		attributes.put(AttributeKey.DOCUMENT_IDS, documentIds.toString());
 	}
 
 	public String getDocumentNames() {
-		return attributes.get(AttributeKey.DOCUMENT_NAME).toString();
+		return attributes.get(AttributeKey.DOCUMENT_NAMES).toString();
 	}
 
-	public void setDocumentNames(String[] documentName) {
-		attributes.put(AttributeKey.DOCUMENT_NAME, documentName.toString());
+	public void setDocumentNames(String documentNames) {
+		attributes.put(AttributeKey.DOCUMENT_NAMES, documentNames.toString());
 	}
 
-	public String getProjectId(){
-		return this.attributes.get(AttributeKey.PROJECT_ID).toString();
+	public String getProjectName(){
+		return this.attributes.get(AttributeKey.PROJECT_NAME).toString();
 	}
 
-	public void setProjectId(String projectId){
-		this.attributes.put(AttributeKey.PROJECT_ID, projectId);
+	public void setProjectName(String projectName){
+		this.attributes.put(AttributeKey.PROJECT_NAME, projectName);
 	}
 }

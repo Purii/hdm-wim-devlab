@@ -25,7 +25,6 @@ public class Constants {
 			public static final String DOCUMENT_AFFILIATION	= "documentAffiliation";
 			public static final String USERCLICK	= "userClick";
 
-
 			// SemRep
 			public static final String SESSION_ID	= "sessionId";
 			public static final String TOKEN_ID		= "tokenId";
@@ -53,13 +52,15 @@ public class Constants {
 			public static final String DOCUMENT_FOLDER		= "documentFolder";
 			public static final String PROJECT_BELONGS_TO_COMPANY	= "projectBelongsToCompany";
 			public static final String DOCUMENT_PRIO	= "documentPriority";
+			public static final String DOCUMENT_TYPE = "documentType";
 			public static final String PROJECT_BELONGS_TO_DEPARTMENT	= "projectBelongsToDepartment";
 			public static final String PROJECT_HAS_MEMBERS	= "projectHasMembers";
 			public static final String PROJECT_HAS_DOCUMENTS	= "projectHasDocuments";
 			public static final String DOCUMENT	= "document";
 			public static final String DOCUMENT_OFFER	= "documentOffer";
 			public static final String FAVORITE	= "favorite";
-			
+			public static final String DOCUMENT_BELONGS_TO_PROJECT ="belongsToProject";
+
 			// Event
 
 			public static final String DOCUMENT_IDS	= "documentIds";
@@ -72,6 +73,7 @@ public class Constants {
 			// Speech
 			public static final String CONTEXTS = "contexts";
 			public static final String TOKENS = "tokens";
+			public static final String TIMESTAMP = "timestamp";
 		}
 
 		/**
@@ -111,7 +113,7 @@ public class Constants {
 			public static final String TOPIC_GUI 		= "topic-gui";
 			public static final String PUSH_TEST 		= "topic-push-test-123";
 			public static final String RICHTOKEN 		= "richtoken";
-			
+
 			// für die Produktion
 			public static final String FEEDBACK_GUI 	= "feedback-gui";
 			public static final String INSIGHTS 		= "insights";
@@ -119,7 +121,7 @@ public class Constants {
 			public static final String SESSIONINSIGHTS 	= "sessioninsights";
 			public static final String TOKEN 			= "token";
 			public static final String INFORMATION		= "information";
-			
+
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
 				TOPIC_1,
@@ -165,6 +167,7 @@ public class Constants {
 			public static final String SESSION_END	= "session-end";
 			public static final String USER_INACTIVE	= "user-inactive";
 			public static final String USER_LOGIN	= "user-login";
+			public static final String USER_START	= "user-start";
 			public static final String USER_LOGOUT	= "user-logout";
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
@@ -175,6 +178,7 @@ public class Constants {
 			public static final String STAYALIVE 	= "stayalive";
 			public static final String INSIGHT  	= "insight";
 			public static final String FEEDBACK		= "feedback";
+			public static final String SUCCESSFUL_FEEDBACK		= "successful-feedback";
 			public static final String PROJECT_INFO = "project-information";
 			public static final String INFO_TOALL_DOCUMENTS = "information-toall-documents";
 			public static final String DEPARTMENT_INFO = "department-information";
@@ -208,10 +212,11 @@ public class Constants {
 			public static final String SECRET_TOKEN 			= "secretToken123";
 			public static final String APP_ID					= "hdm-wim-devlab";
 			public static final String PUBLISH_ENDPOINT 		= "/publish";
-			public static final String HANDLER					= "/event";
+			public static final String HANDLER_1				= "/event";
+			public static final String HANDLER_2				= "/gui";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 
-			public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
+			//public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
 		}
 

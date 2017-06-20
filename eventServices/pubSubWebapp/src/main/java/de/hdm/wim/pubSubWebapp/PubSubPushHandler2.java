@@ -1,10 +1,8 @@
-package de.hdm.wim.pubSubTesting;
+package de.hdm.wim.pubSubWebapp;
 
-import com.google.common.io.BaseEncoding;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.Event;
@@ -21,12 +19,12 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub",
-	value = Config.PUSH_ENDPOINT
+	name = "Push with PubSub " + Config.HANDLER_2,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_2
 )
-public class PubSubPush extends HttpServlet {
+public class PubSubPushHandler2 extends HttpServlet {
 
-	private static final Logger LOGGER 	= Logger.getLogger(PubSubPush.class);
+	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler2.class);
 	private final Gson gson 			= new Gson();
 	private final JsonParser jsonParser = new JsonParser();
 
@@ -34,7 +32,7 @@ public class PubSubPush extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+		String pubsubVerificationToken = Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
@@ -45,6 +43,7 @@ public class PubSubPush extends HttpServlet {
 		Event event = getEvent(req);
 
 		try {
+			LOGGER.info("Handler: " + Config.HANDLER_2);
 			LOGGER.info("event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
@@ -80,6 +79,4 @@ public class PubSubPush extends HttpServlet {
 		event.setData(decoded);
 		return event;
 	}
-
-
 }

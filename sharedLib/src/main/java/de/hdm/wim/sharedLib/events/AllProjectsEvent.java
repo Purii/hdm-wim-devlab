@@ -1,22 +1,23 @@
 package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by GezimKrasniqi on 20.06.17.
+ * Created by Chris on 20.06.2017.
  */
-public class DocumentRelevantEvent implements IEvent{
+public class AllProjectsEvent implements IEvent{
 
 	private String data;
 	private String id;
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	//Todo: Update EventType
-	public DocumentRelevantEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.DOCUMENT_RELEVANT);
+	// TODO: Update Event Type!
+	public AllProjectsEvent(){
+		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.ALL_PROJECTS);
 	}
 
 	public String getData() {
@@ -47,12 +48,6 @@ public class DocumentRelevantEvent implements IEvent{
 		return attributes.get(Constants.PubSub.AttributeKey.EVENT_TYPE).toString();
 	}
 
-	/*
-	public void setEventType(String EventType){
-		this.attributes.put(AttributeKey.EVENT_TYPE, EventType);
-	}
-	*/
-
 	public String getEventSource() {
 		return attributes.get(Constants.PubSub.AttributeKey.EVENT_SOURCE).toString();
 	}
@@ -69,20 +64,19 @@ public class DocumentRelevantEvent implements IEvent{
 		this.attributes = attributes;
 	}
 
-
-	public String getUserId(){
-		return attributes.get(Constants.PubSub.AttributeKey.USER_ID).toString();
+	public String getSessionId(){
+		return attributes.get(Constants.PubSub.AttributeKey.SESSION_ID).toString();
 	}
 
-	public void setUserId(String userId){
-		this.attributes.put(Constants.PubSub.AttributeKey.USER_ID, userId);
+	public void setSessionId(String SessionId){
+		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
-	public String getDocumentId(){
-		return attributes.get(Constants.PubSub.AttributeKey.DOCUMENT_ID.toString());
+	public String getProjectName(){
+		return attributes.get(Constants.PubSub.AttributeKey.PROJECT_NAME).toString();
 	}
 
-	public void setDocumentId(String documentId){
-		this.attributes.put(Constants.PubSub.AttributeKey.DOCUMENT_ID, documentId);
+	public void setProjectName(String projectName) {
+		this.attributes.put(Constants.PubSub.AttributeKey.PROJECT_NAME, projectName);
 	}
 }

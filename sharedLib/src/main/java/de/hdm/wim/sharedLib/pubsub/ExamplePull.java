@@ -27,7 +27,7 @@ public class ExamplePull {
 		 * make sure to create the subscription(s) BEFORE publishing
 		 * this example will work because the subscriptions already exist
 		 */
-		Subscription subscription = sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
+		Subscription subscription = sh.CreatePullSubscription(PubSub.Topic.TOPIC_1, "test1");
 
 		// subscribe using the existing subscription
 		sh.Subscribe(subscription, receiver);

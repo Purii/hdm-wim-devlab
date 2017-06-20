@@ -8,7 +8,7 @@ import de.hdm.wim.sharedLib.Constants.RequestParameters;
  */
 public class EndpointHelper {
 
-	public static String GetPushEndpoint(boolean isLocal){
+	public static String GetPushEndpoint(boolean isLocal, String handler){
 		String endpoint;
 
 		if(isLocal)
@@ -16,7 +16,7 @@ public class EndpointHelper {
 		else
 			endpoint = Config.APPSPOT_URL;
 
-		return endpoint + Config.PUSH_ENDPOINT + "?" + RequestParameters.SECRET_TOKEN + "=" + Config.SECRET_TOKEN;
+		return endpoint + Config.PUSH_ENDPOINT_PREFIX + handler + "?" + RequestParameters.SECRET_TOKEN + "=" + Config.SECRET_TOKEN;
 	}
 
 	public static String GetPublishEndpoint(boolean isLocal){

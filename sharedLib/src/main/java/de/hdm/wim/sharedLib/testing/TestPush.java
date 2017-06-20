@@ -19,7 +19,7 @@ public class TestPush {
 
 		// create the subscription
 		SubscriptionHelper sh 		= new SubscriptionHelper(false, Config.APP_ID);
-		Subscription subscription 	= sh.CreateSubscription(SubscriptionType.PUSH, PubSub.Topic.TOPIC_1, "test1");
+		Subscription subscription 	= sh.CreatePushSubscription(PubSub.Topic.TOPIC_1, Config.HANDLER_1);
 
 		sh.Subscribe(subscription, receiver);
 	}

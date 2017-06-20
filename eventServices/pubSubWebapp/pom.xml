@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -38,18 +38,18 @@
                 <artifactId>grpc-core</artifactId>
                 <version>1.2.0</version>
             </dependency>
-<!--    &lt;!&ndash; end of FIXME &ndash;&gt;
+            <!--    &lt;!&ndash; end of FIXME &ndash;&gt;
 
-            <dependency>
-                <groupId>com.google.auth</groupId>
-                <artifactId>google-auth-library-credentials</artifactId>
-                <version>0.6.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.auth</groupId>
-                <artifactId>google-auth-library-oauth2-http</artifactId>
-                <version>0.6.1</version>
-            </dependency>-->
+                        <dependency>
+                            <groupId>com.google.auth</groupId>
+                            <artifactId>google-auth-library-credentials</artifactId>
+                            <version>0.6.1</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.auth</groupId>
+                            <artifactId>google-auth-library-oauth2-http</artifactId>
+                            <version>0.6.1</version>
+                        </dependency>-->
         </dependencies>
     </dependencyManagement>
 
