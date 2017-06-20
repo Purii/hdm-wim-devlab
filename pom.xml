@@ -15,6 +15,7 @@
     <modules>
         <module>eventServices</module>
         <module>sharedLib</module>
+        <module>SpeechTokenizer</module>
     </modules>
 
 </project>
