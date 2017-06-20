@@ -78,4 +78,11 @@ public class SessionStartEvent implements IEvent{
 		this.attributes.put(Constants.PubSub.AttributeKey.TOKEN_ID, sessionId);
 	}
 
+	public String getUserId(){
+		return this.attributes.get(Constants.PubSub.AttributeKey.USER_ID).toString();
+	}
+
+	public void setUserId(String userId){
+		this.attributes.put(Constants.PubSub.AttributeKey.USER_ID, userId);
+	}
 }

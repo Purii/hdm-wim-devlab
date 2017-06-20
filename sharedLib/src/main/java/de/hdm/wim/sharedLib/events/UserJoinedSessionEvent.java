@@ -75,7 +75,7 @@ public class UserJoinedSessionEvent implements IEvent {
 	}
 
 	public void setUserId(String userId){
-		this.attributes.put(AttributeKey.TOKEN_ID, userId);
+		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 	public String getSessionId(){
 		return this.attributes.get(AttributeKey.SESSION_ID).toString();

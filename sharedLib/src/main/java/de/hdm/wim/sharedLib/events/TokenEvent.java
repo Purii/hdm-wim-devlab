@@ -69,7 +69,7 @@ public class TokenEvent implements IEvent {
 		return attributes.get(AttributeKey.TOKENS).toString();
 	}
 
-	public void setTokens(ArrayList<String> tokens) {
+	public void setTokens(String tokens) {
 		this.attributes.put(AttributeKey.TOKENS, tokens.toString());
 	}
 
@@ -77,7 +77,7 @@ public class TokenEvent implements IEvent {
 		return attributes.get(AttributeKey.CONTEXTS).toString();
 	}
 
-	public void setContexts(ArrayList<String> contexts) {
+	public void setContexts(String contexts) {
 		this.attributes.put(AttributeKey.CONTEXTS, contexts.toString());
 	}
 
