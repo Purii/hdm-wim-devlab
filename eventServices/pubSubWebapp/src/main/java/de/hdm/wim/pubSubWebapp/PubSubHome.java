@@ -1,4 +1,4 @@
-package de.hdm.wim.pubSubTesting;
+package de.hdm.wim.pubSubWebapp;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.events.Event;

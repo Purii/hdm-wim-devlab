@@ -5,7 +5,7 @@
   Time: 10:42 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="de.hdm.wim.pubSubTesting.PubSubHome" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="de.hdm.wim.pubSubWebapp.PubSubHome" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="de.hdm.wim.sharedLib.Constants.RequestParameters" %>
 <!doctype html>
 <html lang="en">
