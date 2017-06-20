@@ -93,6 +93,14 @@ public class UserInformationEvent implements IEvent{
 		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 
+	public String getPrename(){
+		return this.attributes.get(AttributeKey.PRENAME).toString();
+	}
+
+	public void setPrename(String prename){
+		this.attributes.put(AttributeKey.PRENAME, prename);
+	}
+
 	public String getSurname(){
 		return this.attributes.get(AttributeKey.SURNAME).toString();
 	}
