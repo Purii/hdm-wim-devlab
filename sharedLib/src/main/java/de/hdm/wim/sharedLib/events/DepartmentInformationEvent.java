@@ -15,8 +15,7 @@ public class DepartmentInformationEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type
-	// auto set EventType on init
+	// TODO: Update Event Type!
 	public DepartmentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);
 	}
@@ -109,23 +108,23 @@ public class DepartmentInformationEvent implements IEvent {
 		return this.attributes.get(AttributeKey.DEPARTMENT_HAS_PROJECTS).toString();
 	}
 
-	public void setDepartmentProjects(String[] project ){
-		this.attributes.put(AttributeKey.DEPARTMENT_HAS_PROJECTS, project.toString());
+	public void setDepartmentProjects(String project){
+		this.attributes.put(AttributeKey.DEPARTMENT_HAS_PROJECTS, project);
 	}
 
 	public String getDepartmentWorker(){
 		return this.attributes.get(AttributeKey.DEPARTMENT_HAS_WORKER).toString();
 	}
 
-	public void setDepartmentWorker(String[] worker ){
-		this.attributes.put(AttributeKey.DEPARTMENT_HAS_WORKER, worker.toString());
+	public void setDepartmentWorker(String worker){
+		this.attributes.put(AttributeKey.DEPARTMENT_HAS_WORKER, worker);
 	}
 
 	public String getDepartmentCompany(){
 		return this.attributes.get(AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY).toString();
 	}
 
-	public void setDepartmentCompany(String[] departmentCompany ){
+	public void setDepartmentCompany(String[] departmentCompany){
 		this.attributes.put(AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY, departmentCompany.toString());
 	}
 }
