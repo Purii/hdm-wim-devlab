@@ -219,7 +219,7 @@ public class Constants {
 
 			//public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
-
+			public static final String HANDLER_SPEECH			= "/speedPush";
 
 			public static final String SPEECH_TEST				= "https://" + PUSH_ENDPOINT_PREFIX + "";
 
