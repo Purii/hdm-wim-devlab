@@ -34,7 +34,8 @@ public class PublishHelper {
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value PublishHelper#IS_LOCAL}
+	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * PublishHelper#IS_LOCAL}
 	 */
 	public PublishHelper(boolean isLocal){
 		IS_LOCAL = isLocal;
@@ -44,7 +45,8 @@ public class PublishHelper {
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value PublishHelper#IS_LOCAL}
+	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * PublishHelper#IS_LOCAL}
 	 * @param projectId set the projectId, by default {@value PublishHelper#PROJECT_ID}
 	 */
 	public PublishHelper(boolean isLocal, String projectId){
@@ -64,7 +66,6 @@ public class PublishHelper {
 	public void Publish(IEvent event, String topicId, boolean useREST) throws Exception{
 		publish(event, topicId, useREST);
 	}
-
 
 	/**
 	 * Publish an event. Using useREST default: {@value PublishHelper#USE_REST}
@@ -95,7 +96,6 @@ public class PublishHelper {
 			publishPUBSUB(event, topicId);
 		}
 	}
-
 
 	/**
 	 * Publish an event using PubSub.

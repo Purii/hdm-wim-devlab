@@ -8,6 +8,13 @@ import de.hdm.wim.sharedLib.Constants.RequestParameters;
  */
 public class EndpointHelper {
 
+	/**
+	 * Get push endpoint string.
+	 *
+	 * @param isLocal the is local
+	 * @param handler the handler
+	 * @return the string
+	 */
 	public static String GetPushEndpoint(boolean isLocal, String handler){
 		String endpoint;
 
@@ -19,6 +26,12 @@ public class EndpointHelper {
 		return endpoint + Config.PUSH_ENDPOINT_PREFIX + handler + "?" + RequestParameters.SECRET_TOKEN + "=" + Config.SECRET_TOKEN;
 	}
 
+	/**
+	 * Get publish endpoint string.
+	 *
+	 * @param isLocal the is local
+	 * @return the string
+	 */
 	public static String GetPublishEndpoint(boolean isLocal){
 		String endpoint;
 

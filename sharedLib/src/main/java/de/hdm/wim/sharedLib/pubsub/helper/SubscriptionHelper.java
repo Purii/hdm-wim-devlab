@@ -169,9 +169,6 @@ public class SubscriptionHelper {
 	 * @throws Exception the exception
 	 */
 	public void Subscribe(Subscription subscription, MessageReceiver receiver) throws Exception{
-
-		LOGGER.info("test0");
-
 		SubscriptionName subscriptionName 	= subscription.getNameAsSubscriptionName();
 		Subscriber subscriber 				= null;
 
@@ -182,18 +179,12 @@ public class SubscriptionHelper {
 			.setExecutorThreadCount(1)
 			.build();
 
-		LOGGER.info("test1");
-
 		try {
-			LOGGER.info("test2");
 			// Create a subscriber bound to the message receiver
 			subscriber = Subscriber
 				.defaultBuilder(subscriptionName, receiver)
 				.setExecutorProvider(executorProvider)
 				.build();
-
-
-			LOGGER.info("test2.1");
 
 			subscriber.addListener(
 				new Subscriber.Listener() {
@@ -205,25 +196,14 @@ public class SubscriptionHelper {
 				},
 				MoreExecutors.directExecutor()
 			);
-
-
-			LOGGER.info("test2.2");
-
 			subscriber.startAsync().awaitRunning();
-
-
-			LOGGER.info("test2.3");
 
 			Thread.sleep(1000); //5 Minutes = 300000
 		} catch (InterruptedException e){
-
-			LOGGER.info("test3");
 			LOGGER.error(e);
 
 			e.printStackTrace();
 		} finally {
-
-			LOGGER.info("test4");
 			// stop receiving messages
 			if (subscriber != null) {
 				subscriber.stopAsync();
