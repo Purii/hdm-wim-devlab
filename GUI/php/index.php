@@ -1,7 +1,8 @@
 <?php
 //Include GP config file && User class
 include_once 'gpConfig.php';
-include_once 'User.php';
+
+
 
 if(isset($_GET['code'])){
 	$gClient->authenticate($_GET['code']);
@@ -13,12 +14,13 @@ if (isset($_SESSION['token'])) {
 	$gClient->setAccessToken($_SESSION['token']);
 }
 
+
 if ($gClient->getAccessToken()) {
 	//Get user profile data from google
 	$gpUserProfile = $google_oauthV2->userinfo->get();
 	
 	//Initialize User class
-	$user = new User();
+	//$user = new User();
 	
 	//Insert or update user data to the database
     $gpUserData = array(
@@ -34,14 +36,14 @@ if ($gClient->getAccessToken()) {
     );
     
     //checkuser datet db ab oder trägt User beim ersten login in die mysql Datenbank ein
-    $userData = $user->checkUser($gpUserData);
+   // $userData = $user->checkUser($gpUserData);
     
 	
 	//Storing user data into session
-	$_SESSION['userData'] = $userData;
+//	$_SESSION['userData'] = $gpUserData;
 
     $cookieConten = ('GoogleID_'.$gpUserData['oauth_uid'] .'_FirstName_'.$gpUserData['first_name' ].'_LastName_'.$gpUserData['last_name' ].'_mail_'.$gpUserData['email']);
-   echo $cookieConten;
+   echo "schreibe in cookie" . $cookieConten;
 
 	//Setze cookie mit google id
     setcookie("Google_ID", $cookieConten);
@@ -49,16 +51,16 @@ if ($gClient->getAccessToken()) {
 
 	
 	//Render Google profile data
-    if(!empty($userData)){
+    if(!empty($gpUserData)){
         $output = '<h1>Google Profile Details </h1>';
-        $output .= '<img src="'.$userData['picture'].'" width="300" height="220">';
-        $output .= '<br/>Google ID : ' . $userData['oauth_uid'];
-        $output .= '<br/>Name : ' . $userData['first_name'].' '.$userData['last_name'];
-        $output .= '<br/>Email : ' . $userData['email'];
-        $output .= '<br/>Gender : ' . $userData['gender'];
-        $output .= '<br/>Locale : ' . $userData['locale'];
+        $output .= '<img src="'.$gpUserData['picture'].'" width="300" height="220">';
+        $output .= '<br/>Google ID : ' . $gpUserData['oauth_uid'];
+        $output .= '<br/>Name : ' . $gpUserData['first_name'].' '.$gpUserData['last_name'];
+        $output .= '<br/>Email : ' . $gpUserData['email'];
+        $output .= '<br/>Gender : ' . $gpUserData['gender'];
+        $output .= '<br/>Locale : ' . $gpUserData['locale'];
         $output .= '<br/>Logged in with : Google';
-        $output .= '<br/><a href="'.$userData['link'].'" target="_blank">Click to Visit Google+ Page</a>';
+        $output .= '<br/><a href="'.$gpUserData['link'].'" target="_blank">Click to Visit Google+ Page</a>';
         $output .= '<br/>Logout from <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI_FINAL/php/logout.php">Google</a>';
         $output .= ' <h2> Bestehende Meetingräume: </h2>
     <br>
@@ -66,7 +68,13 @@ if ($gClient->getAccessToken()) {
     <br>
     <a href="meetingraum3.php?&id=2" target="_blank">Meetingraum 2 </a>
     <br>
-    <a href="meetingraum3.php?&id=3" target="_blank">Meetingraum 3 </a>';
+    <a href="meetingraum3.php?&id=3" target="_blank">Meetingraum 3 </a>;
+    <br>
+    <a href="chartByButton.html#id=1" target="_blank">Meetingraum 16846 </a>
+        <br>
+    <a href="../html/mgTreemap/google/chartByButton.php?&id=1" target="_blank">Meetingraum 3 </a>';
+
+  
     }else{
         $output = '<h3 style="color:red">Some problem occurred, please try again.</h3>';
     }

@@ -1,0 +1,77 @@
+<head>
+    <meta charset="utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <link rel="stylesheet" href="styleTabs.css">
+    <link rel="stylesheet" type="text/css" href="fancybox-master/dist/jquery.fancybox.min.css">
+
+</head>
+<body>
+
+<div class="naviButtonList">
+    <a data-fancybox data-type="iframe" data-src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" href="javascript:;">
+        <button id="calendar" >Calendar</button>
+    </a>
+
+
+    <!--- sehr wichtig!!!! embeddedfolderview!!!!!   -->
+    <a data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
+        <button id="showDirive">GoogleDrive</button>
+    </a>
+
+
+    <a data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
+        <button id="changeMe">ChangeMyData</button>
+    </a>
+
+
+
+
+</div>
+
+<br><br><br><br><br><br>
+
+
+<div class="tab" id="tabList">
+    <button class="tablinks" onclick="openTab(event, 'KoBoRa')"  id="defaultOpen">KoBoRa</button>
+
+</div>
+
+
+<div id="contentForTabs">
+    <div id="KoBoRaBody" class="tabcontent">
+
+        <h3>KoBoRa System</h3>
+        <p>bla bla</p>
+
+        <div id="ContentForchartDIV" style="width: 900px; height: 500px">
+        <div id="chart_div" style="width: 900px; height: 500px"></div>
+        </div>
+
+        <button id="drawChartButton">
+            Zeichne
+        </button>
+    </div>
+   <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+
+
+
+</div>
+<ul id="log"></ul>
+
+<script type="text/javascript" src="drawChartByButton.js"></script>
+<script type="text/javascript" src="tabs.js"></script>
+<script type="text/javascript" src="controlFunctions.js"></script>
+<script src="fancybox-master/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="../../../js/client.js"></script>
+
+<!-- Markus JS für Inhalt -->
+
+
+
+
+</body>

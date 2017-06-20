@@ -49,7 +49,7 @@ function upgradeArrays( name,  folderName,  parentName,  sizeName,  colorName) {
     for (var g = 0; g < nameArray.length; g++) {
 
 
-        if (nameArray[g] == name) {
+        if (nameArray[g] == name && sizeArray[g] != sizeName && colorArray[g] != colorName ) {
 
             nameArray[g] = name;
             folderArray[g] = folderName;
@@ -72,8 +72,10 @@ function upgradeArrays( name,  folderName,  parentName,  sizeName,  colorName) {
 
     try {
 
-        document.getElementById("defaultOpen").click();
-      //  document.getElementById("drawButton").click();
+parameterFunction();
+     //   document.getElementById("defaultOpen").click();
+     //   document.getElementById("drawButton").click();
+
     }catch (e){
         console.log("fehler beim chart aktualisieren in upgradeArrays methode im client.js")
     }
@@ -98,14 +100,15 @@ function getFolderArrayIndex(arrayName, needle) {
 
 
 function readCookie(name) {
-    name += '=';
-    for (var ca = document.cookie.split(/;\s*/), i = ca.length - 1; i >= 0; i--)
-        if (!ca[i].indexOf(name))
-            return ca[i].replace(name, '');
+   // alert(document.cookie)
+    var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-var googleTokenId = readCookie("Google_ID");
 
+var googleTokenId = readCookie("Google_ID");
+//alert(readCookie("Google_ID"));
 
 socket.onopen = function (event) {
 
@@ -145,24 +148,7 @@ socket.onmessage = function (event) {
 
         var obj = JSON.parse(event.data); // this is how you parse a string into JSON
 
-        //    alert("in obj" +obj['0'] );
-
-    //    log("<br><br><br><br> event . data: ");
-      //   log(event.data);
-
-
-
-      //  log("<br><br><br><br> event.date aN STELLE obj: ");
-       // log(event.data[obj]);
-
-        /*
-         folderArray.splice(0,folderArray.length);
-         nameArray.splice(0,nameArray.length);
-         parentArray.splice(0, parentArray.length);
-         sizeArray.splice(0,sizeArray.length);
-         colorArray.splice(0,colorArray.length);
-         */
-
+      
         for (var key in obj) {
 
 
@@ -238,10 +224,6 @@ socket.onmessage = function (event) {
 
         //zeichen google chart
 
-        function selectHandler(e) {
-            addTab(1, 'name auf Namensarray');
-            // alert('A table row was selected' +'______hier später neuen tab öffenen');
-        }
 
         function parameterFunction() {
             google.charts.load('current', {'packages': ['treemap']});

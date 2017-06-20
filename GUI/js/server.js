@@ -42,22 +42,23 @@ wss.on('connection', function(socket) {
 
 var broadcast = function() {
   var timeInMs = Date.now();
-    var Dokument1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument1 '+ counter, 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var Dokument2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument2", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var Dokument3= JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument3', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
-    var Dokument4 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument4", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var Dokument5 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument5', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var Dokument6 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument6", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Wede" } );
-    var Dokument7 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument7', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var Dokument8 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument8", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var Dokument9 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument9', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
-    var Dokument10 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument10", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var Dokument11 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument11', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var Dokument12 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument12", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    /*
+    var Dokument1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument1', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument2", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument3= JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument3', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+    var Dokument4 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument4", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument5 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument5', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument6 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument6", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Wede" } );
+    var Dokument7 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument7', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument8 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument8", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument9 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument9', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+    var Dokument10 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument10", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokument11 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument11', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokument12 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument12", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
   //Vorschläge
-    var Dokumentvorschlag1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument13', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
-    var Dokumentvorschlag2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument14", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
-    var Dokumentvorschlag3 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument15', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokumentvorschlag1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument13', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+    var Dokumentvorschlag2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument14", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+    var Dokumentvorschlag3 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument15', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
  //Favouriten
     var Favorit1 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument16", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
     var Favorit2 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument17', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
@@ -70,6 +71,39 @@ var broadcast = function() {
 
 
 
+     */
+
+
+    var Dokument1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument1', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokument2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument2", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokument3= JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument3', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+     var Dokument4 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument4", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokument5 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument5', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokument6 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument6", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Wede" } );
+     var Dokument7 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument7', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokument8 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument8", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokument9 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument9', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Lisa' } );
+     var Dokument10 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument10", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokument11 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument11', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokument12 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument12", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     //Vorschläge
+     var Dokumentvorschlag1 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument13', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokumentvorschlag2 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument14", "prio":Math.round(Math.random()), "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokumentvorschlag3 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument15', 'prio':Math.round(Math.random()), 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     //Favouriten
+     var Favorit1 = JSON.stringify({ "SessionID":"1","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument16", "prio":1, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Favorit2 = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument17', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+
+     //Nicht verwendet
+     var Dokument = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument18", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Lisa" } );
+     var Dokument = JSON.stringify({ 'SessionID':'1','TimeStamp':timeInMs, 'DokumentenID': '098765', 'name':'Dokument19', 'prio':1, 'DokuTyp':'gdoc', 'link': 'https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit', 'folder': 'Mercedesprojekt' } );
+     var Dokument = JSON.stringify({ "SessionID":"2","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument20", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Mercedesprojekt" } );
+     var Dokument = JSON.stringify({ "SessionID":"3","TimeStamp":timeInMs, "DokumentenID": "32846","name":"Dokument21", "prio":0, "DokuTyp":"gsheet", "link": "https://docs.google.com/document/d/1bkLCvEBX56OBrECe89SFxpaqhlfQfZtOUNHNxM2Rlmc/edit", "folder": "Jan" } );
+
+
+
+
+
   var json = JSON.stringify({
        info1: Dokument1, info2: Dokument2, info3: Dokument3, info4: Dokument4, info5: Dokument5, info6: Dokument6, info7: Dokument7, info8: Dokument8,info9: Dokument9, info10: Dokument10,info12: Dokument12, info13: Dokumentvorschlag1, info14: Dokumentvorschlag2, info15: Dokumentvorschlag3, info16: Favorit1, info17: Favorit2
   });
@@ -78,11 +112,11 @@ var broadcast = function() {
 
   wss.clients.forEach(function each(client) {
     client.send(json);
-   console.log('Sent: ' + json);
+ //  console.log('Sent: ' + json);
    counter++;
   });
 }
-setInterval(broadcast, 3000);
+setInterval(broadcast, 6000);
 var counter = 0;
 
 

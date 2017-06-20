@@ -8,11 +8,12 @@ var colorArray = [1,1,1, 25, 50, 100];
 
 
 
-function parameterFunction( ){
 
-    if(doDraw == true ) {
+function parameterFunction() {
 
-        google.charts.load('current', {'packages': ['treemap']});
+    if (doDraw == true) {
+
+        google.charts.load('current', { 'packages': ['treemap'] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
 
@@ -38,7 +39,8 @@ function parameterFunction( ){
             function showFullTooltip(row, size, value) {
 
 
-                return '<div class="mouseOvertoKill" style="background:#fd9; padding:10px;  border-style:solid">' +
+
+                return '<div class="mouseOvertoKill' + '" style="background:#fd9; padding:10px;  border-style:solid">' +
                     '<span style="font-family:Courier"><b>' + data.getValue(row, 0) +
                     '</b>, ' + data.getValue(row, 1) + ', ' + data.getValue(row, 2) +
                     ', ' + data.getValue(row, 3) + '</span><br>' +
@@ -50,13 +52,7 @@ function parameterFunction( ){
             }
 
 
-            var divs = document.getElementsByClassName("mouseOvertoKill");
-            for (var i = 0; i < divs.length; i++) {
-                divs[i].parentNode.remove();
-                console.log(divs[i].parentNode);
-
-            }
-
+     
 
             google.visualization.events.addListener(tree, 'select', function () {
                 var sel = tree.getSelection()[0];
@@ -77,7 +73,20 @@ function parameterFunction( ){
                 showScale: true,
                 generateTooltip: showFullTooltip
             });
+       deleteOldDivs();
         }
+    }
+}
+
+function deleteOldDivs() {
+
+
+
+    var divs = document.getElementsByClassName("mouseOvertoKill");
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].parentNode.remove();
+        console.log(divs[i].parentNode);
+
     }
 }
 
