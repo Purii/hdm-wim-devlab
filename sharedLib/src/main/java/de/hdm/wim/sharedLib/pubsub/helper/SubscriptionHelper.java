@@ -26,6 +26,7 @@ public class SubscriptionHelper {
 	private static boolean IS_LOCAL 	= false;
 	private static String PROJECT_ID	= Config.APP_ID;
 	private String ENDPOINT;
+	private String HANDLER;
 
 	/**
 	 * Instantiates a new SubscriptionHelper.
@@ -59,39 +60,52 @@ public class SubscriptionHelper {
 	public SubscriptionHelper(boolean isLocal, String projectId) {
 		IS_LOCAL 	= isLocal;
 		PROJECT_ID	= projectId;
-		ENDPOINT 	= EndpointHelper.GetPushEndpoint(IS_LOCAL);
+		//HANDLER     = handler;
 	}
 
 	/**
-	 * Create a subscription to the given topic or return an existing subscription.
+	 * Create a pull subscription to the given topic or return an existing subscription.
 	 *
-	 * @param subscriptionType type of subscription: push or pull, see {@link
-	 * de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType}!
 	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
 	 * @param suffix suffix to separate subscriptions, result: "subscription-push/pull-topicId-suffix"
 	 * @return Subscription subscription
 	 * @throws Exception the exception
 	 */
-	public Subscription CreateSubscription(String subscriptionType, String topicId, String suffix) throws Exception{
+	public Subscription CreatePullSubscription(String topicId, String suffix) throws Exception{
 
-		LOGGER.info("creating subscription...");
+		LOGGER.info("creating pull subscription...");
 
-		TopicName topicName 		= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
-		final String namePrefix 	= "subscription-";
-		PushConfig pushConfig		= null;
-		String subscriptionId		= "";
+		TopicName topicName 	= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		final String namePrefix = "subscription-";
 
-		if(subscriptionType.equals(SubscriptionType.PULL)){
-			subscriptionId 		= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
-			pushConfig 			= PushConfig.getDefaultInstance();
-		}else if(subscriptionType.equals(SubscriptionType.PUSH)){
-			subscriptionId 		= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + suffix;
-			pushConfig 			= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
-		}else{
-			LOGGER.error("wrong subscription type: " + subscriptionType);
-			return null;
-		}
+		String	subscriptionId 	= namePrefix + SubscriptionType.PULL + "-" + topicName.getTopic() + "-" + suffix;
+		PushConfig pushConfig 	= PushConfig.getDefaultInstance();
 
+		return subscribe(subscriptionId, topicName, pushConfig);
+	}
+
+	/**
+	 * Create a push subscription to the given topic or return an existing subscription.
+	 *
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
+	 * @param handler endpoint handler
+	 * @return Subscription subscription
+	 * @throws Exception the exception
+	 */
+	public Subscription CreatePushSubscription(String topicId, String handler) throws  Exception
+	{
+		LOGGER.info("creating push subscription...");
+
+		TopicName topicName 	= TopicName.newBuilder().setTopic(topicId).setProject(PROJECT_ID).build();
+		final String namePrefix = "subscription-";
+		ENDPOINT 				= EndpointHelper.GetPushEndpoint(IS_LOCAL, HANDLER);
+		String	subscriptionId 	= namePrefix + SubscriptionType.PUSH + "-" + topicName.getTopic() + "-" + handler;
+		PushConfig	pushConfig 	= PushConfig.newBuilder().setPushEndpoint(ENDPOINT).build();
+
+		return subscribe(subscriptionId, topicName, pushConfig);
+	}
+
+	private Subscription subscribe(String subscriptionId, TopicName topicName, PushConfig pushConfig) throws Exception{
 		try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
 
 			// check if subscription with same name exists, if yes use it
