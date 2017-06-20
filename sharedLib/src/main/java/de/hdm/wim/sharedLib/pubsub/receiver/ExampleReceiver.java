@@ -19,9 +19,7 @@ public class ExampleReceiver implements MessageReceiver {
 
 		LOGGER.info("Id : " 		+ message.getMessageId());
 		LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
-		LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()).toString());
-
-		System.out.println("test123");
+		LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap().toString()));
 
 		consumer.ack();
 	}
