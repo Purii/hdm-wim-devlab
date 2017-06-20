@@ -1,21 +1,19 @@
 package de.hdm.wim.sharedLib.helper;
 
-import static de.hdm.wim.sharedLib.events.IEvent.publishTime;
-
 import com.google.common.io.BaseEncoding;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.pubsub.v1.PubsubMessage;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
-import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.events.LearnEvent;
-import de.hdm.wim.sharedLib.events.TokenEvent;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import jdk.nashorn.internal.parser.Token;
 import org.apache.log4j.Logger;
 
 /**
@@ -23,7 +21,9 @@ import org.apache.log4j.Logger;
  */
 public class Helper {
 
-	private static final Logger LOGGER = Logger.getLogger(Helper.class);
+	private static final Logger LOGGER 	= Logger.getLogger(Helper.class);
+	private final Gson gson 			= new Gson();
+	private final JsonParser jsonParser = new JsonParser();
 
 	/**
 	 * Instantiates a new Helper.
@@ -69,8 +69,9 @@ public class Helper {
 	 * Event converter to convert a PubsubMessage to an Event based on eventtype
 	 *
 	 * @param message the PubsubMessage
-	 * @return event
+	 * @return event event
 	 */
+	//TODO: update this
 	public IEvent convertPubsubMessageToIEvent(PubsubMessage message) {
 		IEvent event = new Event();
 
@@ -108,6 +109,24 @@ public class Helper {
 		event.setPublishTime(publishTime);
 
 		//return event;
+		return event;
+	}
+
+	/**
+	 * Get event from json string.
+	 *
+	 * @param json the json string of the event
+	 * @return IEvent
+	 */
+	public IEvent GetEventFromJson(String json) {
+
+		JsonElement jsonRoot 	= jsonParser.parse(json);
+		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
+		Event event 			= gson.fromJson(eventStr, Event.class);
+
+		// decode from base64
+		String decoded = decodeBase64(event.getData());
+		event.setData(decoded);
 		return event;
 	}
 }

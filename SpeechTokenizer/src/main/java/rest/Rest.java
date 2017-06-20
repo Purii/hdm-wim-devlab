@@ -1,9 +1,13 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.pubsub.v1.PubsubMessage;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
+import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
+import de.hdm.wim.sharedLib.helper.Helper;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +20,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import models.Token;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -37,6 +40,7 @@ public class Rest {
 	private ElasticsearchCommunication elasticsearchCommunication = new ElasticsearchCommunication();
 	private CustomKeywordFilter customKeywordFilter = new CustomKeywordFilter();
 	private Protocol protocol = new Protocol();
+	private final Helper helper = new Helper();
 
 	@GET @Path("test")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -48,7 +52,38 @@ public class Rest {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receivePush(String json) throws Exception {
-		return Response.status(200).entity(json).build();
+
+		/*
+		Use this json for testing with SoapUI:
+		{
+			"message":
+				{
+					"data":"dGVzdA==",
+					"attributes":
+					{
+						"EventType":"token"
+					},
+					"messageId":"91010751788941",
+					"publishTime":"2017-04-05T23:16:42.302Z"
+				}
+			}
+		 */
+
+
+		// TODO: change to TokenEvent in production
+		IEvent event = helper.GetEventFromJson(json);
+
+		// just to display converted event in response
+		String eventJson = new Gson().toJson(event);
+
+		// statuscode 200 to ACK messages, so pubsub knows they arrived and it does not have to re-send them
+		if(true){
+			return Response.status(200).entity(eventJson).build();
+		}
+		// statuscode 500 to NACK messages, so pubsub know sth. went wrong and the message has to be re-sent
+		else{
+			return Response.status(500).entity(eventJson).build();
+		}
 	}
 
 	@POST @Path("token")
