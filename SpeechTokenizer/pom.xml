@@ -15,15 +15,15 @@
     <packaging>war</packaging>
 
     <build>
-<!--        <sourceDirectory>src</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>-->
+        <!--        <sourceDirectory>src</sourceDirectory>
+                <resources>
+                    <resource>
+                        <directory>src</directory>
+                        <excludes>
+                            <exclude>**/*.java</exclude>
+                        </excludes>
+                    </resource>
+                </resources>-->
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -44,6 +44,12 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>de.hdm.wim</groupId>
+            <artifactId>sharedLib</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/asm/asm -->
         <dependency>
