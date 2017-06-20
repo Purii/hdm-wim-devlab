@@ -23,6 +23,8 @@ public class Constants {
 			public static final String DOCUMENT_ID	= "documentId";
 			public static final String PROJECT_ID	= "projectId";
 			public static final String DOCUMENT_AFFILIATION	= "documentAffiliation";
+			public static final String USERCLICK	= "userClick";
+
 
 			// SemRep
 			public static final String SESSION_ID	= "sessionId";
