@@ -55,7 +55,7 @@ public class ExamplePublish {
 		learnEvent.setDocumentId("");
 		learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
 		learnEvent.setProjectId("test project id");
-		learnEvent.setUserclick(false);
+		learnEvent.setDocumentAffiliation("false");
 		learnEvent.setUserId("test user id");
 		ph.Publish(learnEvent, Topic.TOPIC_1);
 
