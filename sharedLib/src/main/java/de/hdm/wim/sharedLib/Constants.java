@@ -33,7 +33,6 @@ public class Constants {
 			public static final String DEPARTMENT_HAS_PROJECTS		= "departmentHasProjects";
 			public static final String DEPARTMENT_HAS_WORKER		= "departmentHasWorker";
 			public static final String DEPARTMENT_BELONGS_TO_COMPANY		= "departmentBelongsToCompany";
-			public static final String PERSON		= "person";
 			public static final String PRENAME		= "prename";
 			public static final String EMAIL		= "eMail";
 			public static final String PROJECT_NAME		= "projectName";
@@ -60,6 +59,9 @@ public class Constants {
 			public static final String FAVORITE	= "favorite";
 			
 			// Event
+
+			public static final String DOCUMENT_IDS	= "documentIds";
+			public static final String DOCUMENT_NAMES	= "documentNames";
 
 			// GUI
 
@@ -136,7 +138,20 @@ public class Constants {
 		 */
 		// TODO: is this still up-to-date ?
 		public static class EventType {
+
+
+			//Test
 			public static final String ACTION 		= "action";
+			public static final String GOOGLEOFFER 	= "googleoffer";
+			public static final String OFFER	    = "offer";
+			public static final String TOKEN		= "token";
+			public static final String RICHTOKEN	= "richtoken";
+			public static final String REQUEST 		= "request";
+			public static final String USER 		= "user";
+			public static final String TIME			= "time";
+			public static final String DATE			= "date";
+
+			//Produktion
 			public static final String USER_INFO		= "user-information";
 			public static final String DOCUMENT_INFO		= "document-information";
 			public static final String USER_CONTEXT = "user-context";
@@ -150,17 +165,12 @@ public class Constants {
 			public static final String USER_LOGOUT	= "user-logout";
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
+			public static final String ALL_DEPARTMENTS		= "all-departments";
+			public static final String ALL_PROJECTS		= "all-projects";
+			public static final String ALL_PROJECTROLES		= "all-projectroles";
 			public static final String LEARN		= "learning";
-			public static final String REQUEST 		= "request";
-			public static final String USER 		= "user";
-			public static final String TIME			= "time";
-			public static final String DATE			= "date";
 			public static final String STAYALIVE 	= "stayalive";
 			public static final String INSIGHT  	= "insight";
-			public static final String GOOGLEOFFER 	= "googleoffer";
-			public static final String OFFER	    = "offer";
-			public static final String TOKEN		= "token";
-			public static final String RICHTOKEN	= "richtoken";
 			public static final String FEEDBACK		= "feedback";
 			public static final String PROJECT_INFO = "project-information";
 			public static final String INFO_TOALL_DOCUMENTS = "info-toall-documents";
