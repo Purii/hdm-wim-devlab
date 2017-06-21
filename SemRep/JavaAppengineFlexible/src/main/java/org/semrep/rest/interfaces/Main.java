@@ -27,9 +27,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.*;
 
 import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
-import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag2;
-import main.java.org.semrep.rest.businessObjects.Person;
-import main.java.org.semrep.rest.businessObjects.Person2;;
+import main.java.org.semrep.rest.businessObjects.Person;;
 
 @Path("/main")
 public class Main {
