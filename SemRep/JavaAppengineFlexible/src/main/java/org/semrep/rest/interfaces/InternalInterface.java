@@ -233,7 +233,7 @@ public class InternalInterface {
 									switch (results) {
 									case "Projekte":
 										projektNameStr = splitResult;
-										projektHashMap.put("Projekt_" + i, projektNameStr);
+										projektHashMap.put("" + i, projektNameStr);
 										break;
 									}
 								}

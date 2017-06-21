@@ -28,14 +28,16 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 
-import de.hdm.wim.sharedLib.Constants;
+import main.java.org.semrep.rest.businessObjects.Abteilung;
+import main.java.org.semrep.rest.businessObjects.Dokument;
 import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
 import main.java.org.semrep.rest.businessObjects.Person;
+import main.java.org.semrep.rest.businessObjects.Projekt;
 
 @Path("/eventInterface")
 public class EventInterface {
 	
-	Constants constant = new Constants();
+	//Constants constant = new Constants();
 	
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(Main.class.getName());
@@ -65,6 +67,9 @@ public class EventInterface {
 	private static Dokumentvorschlag dokumentvorschlagObj = null;
 	private static Person personObj = null;
 	public static Person personFavDokObj = null;
+	public static Projekt projektObj = null;
+	public static Abteilung abteilungObj = null;
+	public static Unternehmen unternehmenObj = null;
 	
 	// ### initialisiere globale Variablen
 	// inputArray
@@ -79,6 +84,19 @@ public class EventInterface {
 	private static String dok_TypStr = "";
 	private static String dok_URLStr = "";
 	private static String dok_folder = "";
+	private static String dok_Str = "";
+	private static String dok_KlasseStr = "";
+	private static String dok_erstelldatumStr = "";
+	private static String dok_UpdatedatumStr = "";
+	private static String dok_VersionStr = "";
+	private static String dok_VerfasserStr = "";
+	private static String dok_PhaseStr = "";
+	private static String dok_kategorieStr = "";
+	private static String dok_ProjektStr = "";
+	private static String dok_favorisiertVonString = "";
+	private static String dok_Kontext = "";
+	private static String dok_KeywordsStr = "";
+
 	//FavoritDok-Objekt bezogen
 	private static String personVorname_Str = "";
 	private static String personNachname_Str = "";
@@ -546,7 +564,6 @@ public class EventInterface {
 		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringUserInformationEvent());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
-
 	}
 
 	@GET
@@ -572,18 +589,15 @@ public class EventInterface {
 
 
 			try {
-//				File file = new File(filePath);
-//				FileReader fileReader = new FileReader(file);
-//				ontologyModel.read(fileReader, null, "TTL");
-
 				// initialisiere Variablen
 				// sparql
 				String sparql = "";
 
 				// initialisiere Objekte
-				//person
-				personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, 
-						mailStr, projektStr, projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
+				// dokument
+				dokumentObj = new Dokument(dok_NameStr, dok_IDStr, dok_URLStr, dok_erstelldatumStr, dok_VersionStr,
+						dok_TypStr, dok_folder, dok_VerfasserStr, dok_ProjektStr, dok_favorisiertVonString,
+						dok_KeywordsStr);
 				
 				for (int z = 0; z < inputArray.length; z++) {
 
@@ -591,20 +605,22 @@ public class EventInterface {
 					if (z == 1) {
 						
 						sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-									+ "SELECT DISTINCT ?Person ?Dokument ?Dok_Name ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
-									+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
-									+ "?Person ontology:Person_Vorname ?Vorname . "
-									+ "?Person ontology:Person_Nachname ?Nachname . " + "?Person ontology:Person_Email ?Mail . "
-									+ "?Person ontology:Person_arbeitet_an_Projekt ?Projekt . "
-									+ "?Person ontology:Person_hat_Projektrolle ?Projektrolle . "
-									+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
-									+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
-									+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
-									+ "?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok . "
-									+ "?Dokument ontology:Dok_Name ?Dok_Name . " 
-									//+ "?Favorit_Dok ontology:Dok_Name ?Dok_Name . "
-									// Eingrenzung auf userID
-									+ "?Person ontology:Person_ID '" + inputArray[z].toString() + "' . " + "}";
+								+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
+								+ "?Projekt ?Dok_ID ?Dok_URL ?Erstelldatum "
+								+ "?Dok_Version ?Dok_Typ ?Favorisiert_Von ?Dok_Ordner " + "WHERE { "
+								+ "?Dokument ontology:Dokument_verfasst_von_Person ?Verfasser . "
+								+ "?Dokument ontology:Dokument_gehoert_zu_Projekt ?Projekt . "
+								+ "?Dokument ontology:Dok_Name ?Dok_Name . " + "?Dokument ontology:Dok_ID ?Dok_ID . "
+								+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+								+ "?Dokument ontology:Dok_Erstelldatum ?Erstelldatum . "
+								+ "?Dokument ontology:Dok_Version ?Dok_Version . "
+								+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
+								+ "?Dokument ontology:Dokument_favorisiert_von_Person ?Favorisiert_Von . "
+								+ "?Dokument ontology:Dok_Kontext ?Kontext . "
+								+ "?Dokument ontology:Dok_Keywords ?Dok_Keywords . "
+								+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
+								// Eingrenzung auf userID
+								+ "?Dokument ontology:Dok_ID '" + inputArray[z].toString() + "' . " + "}";
 				
 					}
 				
