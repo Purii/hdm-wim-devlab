@@ -66,7 +66,11 @@ if ($gClient->getAccessToken()) {
     <br>
    
     <br>
-    <a href="chartByButton.html#id=1" target="_blank">Meetingraum 16846 </a>    ';
+    <a href="chartByButton.html#id=1" target="_blank">Meetingraum 16846 </a>  
+    
+     <br> <br>
+     <button type="button" id="createSession">Create a new Session</button>
+      ';
 
   
     }else{
@@ -90,7 +94,7 @@ h1{font-family:Arial, Helvetica, sans-serif;color:#999999;}
 <body>
 <div id="loginGoogle"><?php echo $output; ?></div>
 
-
+<script language="javascript" type="text/javascript" src="loginSite.js"></script>
 
 </body>
 </html>
