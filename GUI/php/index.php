@@ -61,7 +61,7 @@ if ($gClient->getAccessToken()) {
         $output .= '<br/>Locale : ' . $gpUserData['locale'];
         $output .= '<br/>Logged in with : Google';
         $output .= '<br/><a href="'.$gpUserData['link'].'" target="_blank">Click to Visit Google+ Page</a>';
-        $output .= '<br/>Logout from <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI_FINAL/php/logout.php">Google</a>';
+        $output .= '<br/>Logout from <a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">Google</a>';
         $output .= ' <h2> Bestehende Meetingräume: </h2>
     <br>
    
@@ -89,10 +89,6 @@ h1{font-family:Arial, Helvetica, sans-serif;color:#999999;}
 </head>
 <body>
 <div id="loginGoogle"><?php echo $output; ?></div>
-
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<div class="g-hangout" data-render="createhangout"></div>
-
 
 
 
