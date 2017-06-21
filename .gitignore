@@ -10,9 +10,6 @@ cmake-build-debug/
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
-## File-based project format:
-*.iws
-
 ## Plugin-specific files:
 
 # IntelliJ
@@ -36,7 +33,6 @@ fabric.properties
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
 dist/*
-target/
 lib_managed/
 src_managed/
 project/boot/
@@ -65,9 +61,16 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
-## Ignore IDEA completely
-.idea
+# IntelliJ project files
 *.iml
+*.iws
+*.ipr
+.idea/
+
+# eclipse project file
+.settings/
+.classpath
+.project
 
 ## MISC
 applog.txt
