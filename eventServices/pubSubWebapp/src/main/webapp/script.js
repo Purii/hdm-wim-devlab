@@ -2,48 +2,65 @@
  * Created by ben on 7/06/2017.
  */
 
-/*(function() {
-
-}());*/
-
 $(document).ready(function() {
     "use strict";
     //window["counter"] = 0;
 
+    var jsonExample =
+        {
+            "data": "test123",
+            "attributes": {
+                "EventType": "Token",
+                "EventSource": "Event"
+            }
+        };
+
+    // using JSON.stringify pretty print capability:
+    var jsonExamplePretty = JSON.stringify(jsonExample, undefined, 4);
+
+    $("#json-input").html(jsonExamplePretty);
+
     // snackbar
-    var snackbarContainer   = document.querySelector("#toast-container");
-    //var showToastButton     = document.querySelector("#show-toast");
+    var snackbarContainer = document.querySelector("#toast-container");
 
     // key value stuff
-    var max_fields          = 10; //maximum input boxes allowed
-    var wrapper             = $(".wrapper_input_spawner"); //Fields wrapper
-    var add_button          = $(".btn_add_kv"); //Add button ID
-    var x                   = 1; //initial text box count
+    var max_fields              = 10; //maximum input boxes allowed
+    var wrapperAttributes       = $(".wrapper_all_inputs");
+    var wrapperAttributesSpawn  = $(".wrapper_input_spawner");
+    var btn_add                 = $(".btn_add_kv"); //Add button ID
+    var x                       = 1; //initial text box count
 
-/*    showToastButton.addEventListener("click", function () {
-        "use strict";
-        var data = {message: "Example Message # " + ++counter};
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    });*/
+    /*    showToastButton.addEventListener("click", function () {
+     "use strict";
+     var data = {message: "Example Message # " + ++counter};
+     snackbarContainer.MaterialSnackbar.showSnackbar(data);
+     });*/
+
+    // hide input fields which are out of focus
+    $(".mdl-tabs__tab").on("click", function () {
+        // get inactive & active panels
+        var $inactivePanel  = $(".mdl-tabs__panel").not(".is-active");
+        var $activePanel    = $(".mdl-tabs__panel.is-active");
+
+        // show active & hide inactive
+        $(":input", $inactivePanel).hide().prop("required", false).prop("disabled", true);
+        $(":input", $activePanel).show().prop("required", true).prop("disabled", false);
+    });
 
     // process the form
     $("#send-pubsub-message-form").submit(function (event) {
 
-        // get the form data
-/*        var formData = {
-            "topic": $("select[name=topic]").val(),
-            "payload": $("input[name=payload]").val(),
-            "attributes": $("input[name=attributes]").val()
-        };*/
+        var message;
 
-        var formData =  $("#send-pubsub-message-form").serializeArray();
+        // get input data from active tab
+        var formData = $(this).serializeArray();
 
-        //console.log(formData);
+        console.log(formData);
 
         // process the form
         $.ajax({
             type: "POST",
-            url: "/pubsub/publish",
+            url: $(this).attr("action"),
             data: formData,
             //dataType: "json", // what type of data do we expect back from the server
             encode: true
@@ -51,11 +68,15 @@ $(document).ready(function() {
         // using the done promise callback
         .done(function (response) {
             console.log(response.status);
-            var data1 = {message: "message sent!"};
-            snackbarContainer.MaterialSnackbar.showSnackbar(data1);
+
+            message = {message: "message sent!"};
+            snackbarContainer.MaterialSnackbar.showSnackbar(message);
         })
         .fail(function (response) {
             console.log(response.status);
+
+            message = {message: "failed to send!" + response.status};
+            snackbarContainer.MaterialSnackbar.showSnackbar(message);
         })
         .always(function (response) {
             console.log("always? ...always");
@@ -68,21 +89,27 @@ $(document).ready(function() {
     });
 
     // button for adding key/value fields
-    $(add_button).click(function (e) { //on add input button click
+    $(btn_add).click(function (e) { //on add input button click
         e.preventDefault();
 
         if (x < max_fields) { //max input box allowed
             x++; //text box increment
-            $(wrapper).append(
+            $(wrapperAttributesSpawn).append(
                 "<div class='mdl-grid remove_me'>" +
-                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--6-col'>" +
-                "<input class='my-input-field' id='attribute_key_" + x + "' type='input' name='key' placeholder='key' required>" +
+                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--6-col'>"
+                +
+                "<input class='my-input-field' id='attribute_key_" + x
+                + "' type='input' name='key' placeholder='key' required>" +
                 "</div>" +
-                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--5-col'>" +
-                "<input class='my-input-field' id='attribute_value_" + x + "' type='input' name='value' placeholder='value' >" +
+                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--5-col'>"
+                +
+                "<input class='my-input-field' id='attribute_value_" + x
+                + "' type='input' name='value' placeholder='value' >" +
                 "</div>" +
-                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--1-col'>" +
-                "<input class='btn_remove_this' type='button' name='delete' value='X'>" +
+                "<div class='mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--1-col'>"
+                +
+                "<input class='btn_remove_this' type='button' name='delete' value='X'>"
+                +
                 "</div>" +
                 "</div>"
             );
@@ -91,9 +118,10 @@ $(document).ready(function() {
         componentHandler.upgradeDom(".wrapper_all_inputs");
     });
 
-    $(wrapper).on("click", ".btn_remove_this", function (e) { //user click on remove btn
+    //user click on remove btn
+    $(wrapperAttributes).on("click", ".btn_remove_this", function (e) {
         e.preventDefault();
         $(this).closest("div.remove_me").remove();
         x--;
-    })
+    });
 })

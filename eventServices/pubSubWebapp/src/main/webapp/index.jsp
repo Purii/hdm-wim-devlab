@@ -7,6 +7,7 @@
 --%>
 <%@ page import="de.hdm.wim.pubSubWebapp.PubSubHome" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="de.hdm.wim.sharedLib.Constants.RequestParameters" %>
+<%@ page import="de.hdm.wim.sharedLib.Constants.PubSub.Config" %>
 <!doctype html>
 <html lang="en">
 
@@ -36,14 +37,9 @@
             <div class="mdl-layout-spacer"></div>
             <div class="mdl-cell--6-col">
                 <h4>Publish a message</h4>
-
-                <%--
-                                <button id="show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="button">Show Toast</button>
-                --%>
-
-                <form name="sendMessage" action="/pubsub/publish" method="post" id="send-pubsub-message-form">
-
+                <form name="sendMessage" action="<%= Config.PUBLISH_ENDPOINT%>" method="post" id="send-pubsub-message-form">
                     <div class="form-wrapper">
+
                         <div class="mdl-grid">
                             <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell mdl-cell--12-col">
                                 <select class="mdl-selectfield__select" id="topic" name="<%= RequestParameters.TOPIC%>" required>
@@ -53,66 +49,62 @@
                             </div>
                         </div>
 
-                        <div class="mdl-grid">
-                            <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--12-col">
-                                <input class="my-input-field" id="payload" type="input" name="<%= RequestParameters.PAYLOAD%>" required placeholder="Payload">
-                            </div>
-                        </div>
-                        <div class="wrapper_all_inputs">
-                            <div class="mdl-grid remove_me">
-                                <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--6-col">
-                                    <input class="my-input-field" id="attribute_key" type="input" name="<%= RequestParameters.ATTRIBUTE_KEY%>" placeholder="Key" required>
-                                </div>
-                                <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--5-col">
-                                    <input class="my-input-field" id="attribute_value" type="input" name="<%= RequestParameters.ATTRIBUTE_VALUE%>" placeholder="Value">
-                                </div>
-                                <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--1-col">
-                                    <input class="btn_remove_this" type="button" name="delete" value="X">
-                                </div>
+                        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div class="mdl-tabs__tab-bar">
+                                <a href="#manual-panel" class="mdl-tabs__tab is-active">Manual Input</a>
+                                <a href="#json-panel" class="mdl-tabs__tab">JSON Input</a>
                             </div>
 
-                            <div class="wrapper_input_spawner">
-                                <!-- Dynamic Fields go here -->
+                            <div class="mdl-tabs__panel is-active" id="manual-panel">
+
+                                <div class="mdl-grid">
+                                    <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--12-col">
+                                        <input class="my-input-field" id="payload" type="input" name="<%= RequestParameters.PAYLOAD%>" required placeholder="Payload">
+                                    </div>
+                                </div>
+                                <div class="wrapper_all_inputs">
+                                    <div class="mdl-grid remove_me">
+                                        <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--6-col">
+                                            <input class="my-input-field" id="attribute_key" type="input" name="<%= RequestParameters.ATTRIBUTE_KEY%>" placeholder="Key" required>
+                                        </div>
+                                        <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--5-col">
+                                            <input class="my-input-field" id="attribute_value" type="input" name="<%= RequestParameters.ATTRIBUTE_VALUE%>" placeholder="Value">
+                                        </div>
+                                        <div class="mdl-textfield my-textfield-wrapper mdl-cell mdl-cell--1-col">
+                                            <input class="btn_remove_this" type="button" name="delete" value="X">
+                                        </div>
+                                    </div>
+
+                                    <div class="wrapper_input_spawner">
+                                        <!-- Dynamic Fields go here -->
+                                    </div>
+                                </div>
+
+                                <div class="mdl-grid">
+                                    <div class="mdl-cell mdl-cell--12-col">
+                                        <button class="btn_add_kv mdl-cell--12-col mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                                            Add item
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mdl-tabs__panel" id="json-panel">
+                                <div class="mdl-cell mdl-cell--12-col">
+                                    <textarea class="my-input-field" id="json-input" type="input" name="<%= RequestParameters.JSON_INPUT%>" cols="50" rows="10" disabled="disabled" >
+                                    </textarea>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--12-col">
-                                <button class="btn_add_kv mdl-cell--12-col mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">Add item</button>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="mdl-grid">
-                        <button type="submit" name="button" value="send" id="submit" class="mdl-cell--2-col mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">Send</button>
+                        <button type="submit" name="button" value="send" id="submit" class="mdl-cell--2-col mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                            Send
+                        </button>
                     </div>
                 </form>
             </div>
             <div class="mdl-layout-spacer"></div>
         </div>
-
-        <div class="centeritems mdl-grid">
-            <div class="mdl-layout-spacer"></div>
-            <div class="mdl-cell--6-col">
-                <h4>Last received messages</h4>
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th class="mdl-data-table__cell--non-numeric">Topic</th>
-                        <th class="mdl-data-table__cell--non-numeric">Data</th>
-                        <th class="mdl-data-table__cell--non-numeric">Attributes</th>
-                        <th>PublishTime</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%= PubSubHome.getReceivedEvents() %>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mdl-layout-spacer"></div>
-        </div>
-
     </main>
 </div>
 
@@ -124,7 +116,8 @@
 <script
     src="https://code.jquery.com/jquery-3.2.1.js"
     integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous">
+</script>
 
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script defer src="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.js"></script>

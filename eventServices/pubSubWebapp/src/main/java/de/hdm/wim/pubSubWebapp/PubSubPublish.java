@@ -2,6 +2,7 @@ package de.hdm.wim.pubSubWebapp;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.Publisher;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
@@ -10,6 +11,7 @@ import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.pubsub.helper.TopicHelper;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 /**
  * Created by ben on 4/06/2017.
@@ -33,58 +36,77 @@ import org.apache.log4j.Logger;
 public class PubSubPublish extends HttpServlet {
 
 	private static final Logger LOGGER 		= Logger.getLogger(PubSubPublish.class);
-
-	private Publisher publisher;
+	private Publisher PUBLISHER;
 
 	public PubSubPublish() { }
 
 	public PubSubPublish(Publisher publisher) {
-		this.publisher = publisher;
+		this.PUBLISHER = publisher;
 	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		Publisher publisher 					= this.publisher;
+		Publisher publisher 					= this.PUBLISHER;
 		HashMap<String, Boolean> responseToAjax = new HashMap<>();
+		Map<String,String> attributes 			= new HashMap<String, String>();
 		Gson gson 								= new Gson();
+
+		String topicId;
+		String payload;
 
 		try {
 			// get the parameters
-			String topicId 						= req.getParameter(RequestParameters.TOPIC);
-			String payload 						= req.getParameter(RequestParameters.PAYLOAD);
-			Enumeration<String> parameterNames 	= req.getParameterNames();
+			topicId = req.getParameter(RequestParameters.TOPIC);
 
-			Map<String,String> attributes 	= new HashMap<>();
-			List<String> keyNames 			= new ArrayList<>();
-			List<String> valueNames			= new ArrayList<>();
+			// check if it is jsonInput
+			if (req.getParameterMap().containsKey(RequestParameters.JSON_INPUT)) {
 
-			while(parameterNames.hasMoreElements()){
+				String jsonInput 	= req.getParameter(RequestParameters.JSON_INPUT);
 
-				String paramName 		= parameterNames.nextElement();
-				String[] paramValues 	= req.getParameterValues(paramName);
+				// get values by key
+				JSONObject json 	= new JSONObject(jsonInput);
+				payload 			= json.getString("data");
+				String attr 		= json.get("attributes").toString();
 
-				if(paramName.equals(RequestParameters.ATTRIBUTE_KEY))
-					for (int i = 0; i < paramValues.length; i++)
-						keyNames.add(paramValues[i]);
-
-				if(paramName.equals(RequestParameters.ATTRIBUTE_VALUE))
-					for (int i = 0; i < paramValues.length; i++)
-						valueNames.add(paramValues[i]);
+				// convert json string to Map<String, String>
+				Type type 			= new TypeToken<Map<String, String>>(){}.getType();
+				attributes			= gson.fromJson(attr, type);
 			}
+			else
+			{
+				payload 							= req.getParameter(RequestParameters.PAYLOAD);
+				Enumeration<String> parameterNames 	= req.getParameterNames();
+				List<String> keyNames 				= new ArrayList<>();
+				List<String> valueNames				= new ArrayList<>();
 
-			// fill in attributes
-			if(keyNames.size() == valueNames.size()) {
-				for (int i = 0; i < keyNames.size(); i++) {
+				while(parameterNames.hasMoreElements()){
 
-					LOGGER.info("keyNames.get(" + i + ") - " + keyNames.get(i));
-					LOGGER.info("valueNames.get(" + i + ") - " + valueNames.get(i));
+					String paramName 		= parameterNames.nextElement();
+					String[] paramValues 	= req.getParameterValues(paramName);
 
-					attributes.put(
-						keyNames.get(i),
-						valueNames.get(i)
-					);
+					if(paramName.equals(RequestParameters.ATTRIBUTE_KEY))
+						for (int i = 0; i < paramValues.length; i++)
+							keyNames.add(paramValues[i]);
+
+					if(paramName.equals(RequestParameters.ATTRIBUTE_VALUE))
+						for (int i = 0; i < paramValues.length; i++)
+							valueNames.add(paramValues[i]);
+				}
+
+				// fill in attributes
+				if(keyNames.size() == valueNames.size()) {
+					for (int i = 0; i < keyNames.size(); i++) {
+
+						LOGGER.info("keyNames.get(" + i + ") - " + keyNames.get(i));
+						LOGGER.info("valueNames.get(" + i + ") - " + valueNames.get(i));
+
+						attributes.put(
+							keyNames.get(i),
+							valueNames.get(i)
+						);
+					}
 				}
 			}
 
@@ -125,11 +147,10 @@ public class PubSubPublish extends HttpServlet {
 			responseToAjax.put("success", true);
 			String jsonResponse = new Gson().toJson(responseToAjax);
 
-			LOGGER.info(jsonResponse);
-
 			// send success response
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("UTF-8");
+			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.getWriter().write(jsonResponse);
 
 		} catch (Exception e) {
@@ -139,11 +160,10 @@ public class PubSubPublish extends HttpServlet {
 			responseToAjax.put("success", false);
 			String jsonResponse = new Gson().toJson(responseToAjax);
 
-			LOGGER.info(jsonResponse);
-
 			// send error response
 			resp.setContentType("application/json");
 			resp.setCharacterEncoding("UTF-8");
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			resp.getWriter().write(jsonResponse);
 		}
 	}
