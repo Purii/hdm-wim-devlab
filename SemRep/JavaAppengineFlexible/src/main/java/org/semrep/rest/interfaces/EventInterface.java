@@ -33,6 +33,7 @@ import main.java.org.semrep.rest.businessObjects.Dokument;
 import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
 import main.java.org.semrep.rest.businessObjects.Person;
 import main.java.org.semrep.rest.businessObjects.Projekt;
+import main.java.org.semrep.rest.businessObjects.Unternehmen;
 
 @Path("/eventInterface")
 public class EventInterface {
@@ -64,20 +65,19 @@ public class EventInterface {
 	private static long timestampLong;
 	
 	// ### initialisiere globale Objekte
-	private static Dokumentvorschlag dokumentvorschlagObj = null;
 	private static Person personObj = null;
 	public static Person personFavDokObj = null;
+	public static Dokument dokumentObj = null;
 	public static Projekt projektObj = null;
 	public static Abteilung abteilungObj = null;
 	public static Unternehmen unternehmenObj = null;
 	
 	// ### initialisiere globale Variablen
-	// inputArray
-	//public static String[] inputArray = null;
-	// Dokument-Objekt bezogen
+	//Standard Variablen
 	private static String sessionIDStr = "";
 	public static String eventUniqueID = "'null'";
 	private static String timeStampStr = "";
+	// Dokument-Objekt bezogen
 	private static String dok_IDStr = "";
 	private static String dok_NameStr = "";
 	private static String prioStr = "";
@@ -96,7 +96,6 @@ public class EventInterface {
 	private static String dok_favorisiertVonString = "";
 	private static String dok_Kontext = "";
 	private static String dok_KeywordsStr = "";
-
 	//FavoritDok-Objekt bezogen
 	private static String personVorname_Str = "";
 	private static String personNachname_Str = "";
@@ -129,6 +128,8 @@ public class EventInterface {
 	private static String abteilung_hat_ProjektStr = "";
 	private static String abteilung_hat_MitarbeiterStr = "";
 	private static String abteilung_gehoert_zu_UnternehmenStr = "";
+	//unternehmen
+	private static String unternehmensNameStr = "";
 	
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 	
@@ -176,32 +177,32 @@ public class EventInterface {
 				if ((y == 0 || y == 2 || y == 3) && eventType == "DocumentInformationEvent") {
 
 					// einmaliges befüllen der nachfolgenden Werte
-					if (((dokumentvorschlagObj.getDok_IDStr() == "") == true)
-							|| ((dokumentvorschlagObj.getDok_NameStr() == "") == true)
-							|| ((dokumentvorschlagObj.getDok_TypStr() == "") == true)
-							|| ((dokumentvorschlagObj.getDok_URLStr() == "") == true)
-							|| ((dokumentvorschlagObj.getDok_folder() == "") == true)) {
+					if (((dokumentObj.getDok_IDStr() == "") == true)
+							|| ((dokumentObj.getDok_NameStr() == "") == true)
+							|| ((dokumentObj.getDok_TypStr() == "") == true)
+							|| ((dokumentObj.getDok_URLStr() == "") == true)
+							|| ((dokumentObj.getDok_folder() == "") == true)) {
 
 						switch (results) {
 						case "Dok_ID":
 							dok_IDStr = splitResult;
-							dokumentvorschlagObj.setDok_IDStr(dok_IDStr);
+							dokumentObj.setDok_IDStr(dok_IDStr);
 							break;
 						case "Dok_Name":
 							dok_NameStr = splitResult;
-							dokumentvorschlagObj.setDok_NameStr(dok_NameStr);
+							dokumentObj.setDok_NameStr(dok_NameStr);
 							break;
 						case "Dok_Typ":
 							dok_TypStr = splitResult;
-							dokumentvorschlagObj.setDok_TypStr(dok_TypStr);
+							dokumentObj.setDok_TypStr(dok_TypStr);
 							break;
 						case "Dok_URL":
 							dok_URLStr = splitResult;
-							dokumentvorschlagObj.setDok_URLStr(dok_URLStr);
+							dokumentObj.setDok_URLStr(dok_URLStr);
 							break;
 						case "Dok_Ordner":
 							dok_folder = splitResult;
-							dokumentvorschlagObj.setDok_folder(dok_folder);
+							dokumentObj.setDok_folder(dok_folder);
 							break;
 						}
 
@@ -402,18 +403,16 @@ public class EventInterface {
 			// ablegen eines vollständigen Objekts in einer der entsprechenden
 			// Maps
 			if (y == 0) {
-				// prio bei allen Dokumenten irrelevant (0)
-				prioStr = "0";
-				dokumentvorschlagObj.setPrio(prioStr);
-				dokOfferLinkedHashMap.put("Dokument" + i, "SessionID=" + dokumentvorschlagObj.getSessionID() + ", "
-						+ "TimeStamp=" + dokumentvorschlagObj.getTimeStamp() + ", " + "DokID="
-						+ dokumentvorschlagObj.getDok_IDStr() + ", " + "DokName="
-						+ dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio=" + dokumentvorschlagObj.getPrio()
-						+ ", " + "DokTyp=" + dokumentvorschlagObj.getDok_TypStr() + ", " + "DokURL="
-						+ dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
-						+ dokumentvorschlagObj.getDok_folder());
+				//Dokumente
+				eventLinkedHashMap.put("Dokument" + i, "SessionID=" + dokumentObj.getSessionID() + ", "
+						+ "TimeStamp=" + dokumentObj.getTimeStamp() + ", " + "DokID="
+						+ dokumentObj.getDok_IDStr() + ", " + "DokName="
+						+ dokumentObj.getDok_NameStr() + ", " 
+						+ "DokTyp=" + dokumentObj.getDok_TypStr() + ", " + "DokURL="
+						+ dokumentObj.getDok_URLStr() + ", " + "DokOrdner="
+						+ dokumentObj.getDok_folder());
 
-				dokumentvorschlagObj.flushDokumentvorschlag();
+				dokumentObj.flushDokumentObjekt();
 			} else if (y == 1 && eventType == "UserInformationEvent") {
 				// bei Person
 				eventLinkedHashMap.put("Person",
@@ -427,19 +426,17 @@ public class EventInterface {
 								+ personObj.getPerson_favorisiert_Dokument());
 
 			} else if (y == 3) {
-				// prio bei Dokumentvorschlägen relevant (1)
-				prioStr = "1";
-				dokumentvorschlagObj.setPrio(prioStr);
-				dokOfferHashMap.put("Dokumentvorschlag_" + countDokOffersInLoop, "SessionID="
-						+ dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
-						+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID=" + dokumentvorschlagObj.getDok_IDStr()
-						+ ", " + "DokName=" + dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio="
-						+ dokumentvorschlagObj.getPrio() + ", " + "DokTyp=" + dokumentvorschlagObj.getDok_TypStr()
-						+ ", " + "DokURL=" + dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
-						+ dokumentvorschlagObj.getDok_folder());
-
-				countDokOffersInLoop = countDokOffersInLoop + 1;
-				dokumentvorschlagObj.flushDokumentvorschlag();
+				//Abteilung
+//				dokOfferHashMap.put("Dokumentvorschlag_" + countDokOffersInLoop, "SessionID="
+//						+ dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
+//						+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID=" + dokumentvorschlagObj.getDok_IDStr()
+//						+ ", " + "DokName=" + dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio="
+//						+ dokumentvorschlagObj.getPrio() + ", " + "DokTyp=" + dokumentvorschlagObj.getDok_TypStr()
+//						+ ", " + "DokURL=" + dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
+//						+ dokumentvorschlagObj.getDok_folder());
+//
+//				countDokOffersInLoop = countDokOffersInLoop + 1;
+//				dokumentvorschlagObj.flushDokumentvorschlag();
 			}
 
 		}
