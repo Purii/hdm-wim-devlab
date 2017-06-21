@@ -75,8 +75,13 @@ public class Person {
 	}
 
 	public String toStringPersonObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + this.objectValue;
+		return "SessionID=" + this.sessionID + ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
+	}
+	
+	public String toStringUserInformationEvent() {
+		return "SessionID=" + this.sessionID + ", " + "TimeStamp=" + this.identity
+				+ ", " + this.objectValue;
 	}
 	
 	public String getName() {

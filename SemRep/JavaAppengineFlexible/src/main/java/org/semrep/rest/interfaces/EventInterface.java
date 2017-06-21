@@ -56,6 +56,7 @@ public class EventInterface {
 	
 	// ### time stamp
 	private static Timestamp timestamp = null;
+	private static long timestampLong;
 	
 	// ### initialisiere globale Objekte
 	private static Dokumentvorschlag dokumentvorschlagObj = null;
@@ -439,9 +440,12 @@ public class EventInterface {
 		jsonObj = new JSONObject();
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
+		
+		//timestamp = new Timestamp(System.currentTimeMillis());
 		timestamp = new Timestamp(System.currentTimeMillis());
-		timeStampStr = timestamp.toString();
+		timestampLong = timestamp.getTime();
+		String test = String.valueOf(timestampLong);
+		System.out.println(test);
 		
 		String eventTypeStr = "UserInformationEvent";
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
@@ -492,16 +496,16 @@ public class EventInterface {
 					if (resultSet.hasNext() == true) {
 						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
 					} else {
-						personObj.setId(null);
-						personObj.setVorname(null);
-						personObj.setNachname(null);
-						personObj.setMail(null);
-						personObj.setPerson_arbeitet_an_Projekt(null);
-						personObj.setPerson_hat_Projektrolle(null);
-						personObj.setPerson_gehoert_zu_Abteilung(null); 
-						personObj.setPerson_hat_Dokument_verfasst(null); 
-						personObj.setPerson_ruft_Dokument_auf(null);
-						personObj.setPerson_favorisiert_Dokument(null);
+						personObj.setId("'null'");
+						personObj.setVorname("'null'");
+						personObj.setNachname("'null'");
+						personObj.setMail("'null'");
+						personObj.setPerson_arbeitet_an_Projekt("'null'");
+						personObj.setPerson_hat_Projektrolle("'null'");
+						personObj.setPerson_gehoert_zu_Abteilung("'null'"); 
+						personObj.setPerson_hat_Dokument_verfasst("'null'"); 
+						personObj.setPerson_ruft_Dokument_auf("'null'");
+						personObj.setPerson_favorisiert_Dokument("'null'");
 						
 						eventLinkedHashMap.put("Person",
 								"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
@@ -530,92 +534,132 @@ public class EventInterface {
 		for (String key : eventLinkedHashMap.keySet()) {
 
 			if (key.equals("Person")) {
-				userInformationEventObject = new Person(sessionIDStr, timeStampStr, eventLinkedHashMap.get(key).toString());
+				userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventLinkedHashMap.get(key).toString());
 				System.out.println(userInformationEventObject.toStringPersonObjekt());
 			}
 
 		}
 		
 		//return personObj.toStringPersonObjekt();
-		jsonObj.put("UserInformationEvent", personObj.toStringPersonObjekt());
+		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringUserInformationEvent());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 
 	}
 
-	public static String produceDocumentInformationEvent() {
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/produceDocumentInformationEvent")
+	public static Response produceDocumentInformationEvent() {
 		
-		String eventTypeStr = "DocumentInformationEvent";
-		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		eventUniqueID = UUID.randomUUID().toString();
-
-		try {
-			File file = new File(filePath);
-			FileReader fileReader = new FileReader(file);
-			ontologyModel.read(fileReader, null, "TTL");
-
-			// initialisiere Variablen
-			// sparql
-			String sparql = "";
-
-			// initialisiere Objekte
-			//person
-			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, 
-					mailStr, projektStr, projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
+			//@Path: /rest/eventInterface/produceDocumentInformationEvent
 			
-			for (int z = 0; z <= inputArray.length; z++) {
+			jsonObj = new JSONObject();
 
-				//ermittle UserInformation
-				if (z == 1) {
-					
-					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-								+ "SELECT DISTINCT ?Person ?Dokument ?Dok_Name ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
-								+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
-								+ "?Person ontology:Person_Vorname ?Vorname . "
-								+ "?Person ontology:Person_Nachname ?Nachname . " + "?Person ontology:Person_Email ?Mail . "
-								+ "?Person ontology:Person_arbeitet_an_Projekt ?Projekt . "
-								+ "?Person ontology:Person_hat_Projektrolle ?Projektrolle . "
-								+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
-								+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
-								+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
-								+ "?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok . "
-								+ "?Dokument ontology:Dok_Name ?Dok_Name . " 
-								//+ "?Favorit_Dok ontology:Dok_Name ?Dok_Name . "
-								// Eingrenzung auf userID
-								+ "?Person ontology:Person_ID '" + inputArray[z].toString() + "' . " + "}";
+			eventLinkedHashMap = new LinkedHashMap<String, String>();
 			
-				}
+			//timestamp = new Timestamp(System.currentTimeMillis());
+			timestamp = new Timestamp(System.currentTimeMillis());
+			timestampLong = timestamp.getTime();
+			String test = String.valueOf(timestampLong);
+			System.out.println(test);
 			
-				if(sparql != ""){
-					
-					executeSparql(sparql);
-					eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+			String eventTypeStr = "DocumentInformationEvent";
+			String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+			sessionIDStr = inputArray[0].toString();
+
+
+			try {
+//				File file = new File(filePath);
+//				FileReader fileReader = new FileReader(file);
+//				ontologyModel.read(fileReader, null, "TTL");
+
+				// initialisiere Variablen
+				// sparql
+				String sparql = "";
+
+				// initialisiere Objekte
+				//person
+				personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, 
+						mailStr, projektStr, projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
+				
+				for (int z = 0; z < inputArray.length; z++) {
+
+					//ermittle UserInformation
+					if (z == 1) {
 						
+						sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+									+ "SELECT DISTINCT ?Person ?Dokument ?Dok_Name ?ID ?Klasse ?Vorname ?Nachname ?Mail ?Projekt ?Projektrolle ?Abteilung ?Dokument ?Aufruf ?Favorit_Dok "
+									+ "WHERE { " + "?Person a ?Klasse . " + "?Person ontology:Person_ID ?ID . "
+									+ "?Person ontology:Person_Vorname ?Vorname . "
+									+ "?Person ontology:Person_Nachname ?Nachname . " + "?Person ontology:Person_Email ?Mail . "
+									+ "?Person ontology:Person_arbeitet_an_Projekt ?Projekt . "
+									+ "?Person ontology:Person_hat_Projektrolle ?Projektrolle . "
+									+ "?Person ontology:Person_gehoert_zu_Abteilung ?Abteilung . "
+									+ "?Person ontology:Person_hat_Dokument_verfasst ?Dokument ."
+									+ "?Person ontology:Person_ruft_Dokument_auf ?Aufruf ."
+									+ "?Person ontology:Person_favorisiert_Dokument ?Favorit_Dok . "
+									+ "?Dokument ontology:Dok_Name ?Dok_Name . " 
+									//+ "?Favorit_Dok ontology:Dok_Name ?Dok_Name . "
+									// Eingrenzung auf userID
+									+ "?Person ontology:Person_ID '" + inputArray[z].toString() + "' . " + "}";
+				
+					}
+				
+					if(sparql != ""){
+						
+						executeSparql(sparql);
+						
+						if (resultSet.hasNext() == true) {
+							eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+						} else {
+							personObj.setId("'null'");
+							personObj.setVorname("'null'");
+							personObj.setNachname("'null'");
+							personObj.setMail("'null'");
+							personObj.setPerson_arbeitet_an_Projekt("'null'");
+							personObj.setPerson_hat_Projektrolle("'null'");
+							personObj.setPerson_gehoert_zu_Abteilung("'null'"); 
+							personObj.setPerson_hat_Dokument_verfasst("'null'"); 
+							personObj.setPerson_ruft_Dokument_auf("'null'");
+							personObj.setPerson_favorisiert_Dokument("'null'");
+							
+							eventLinkedHashMap.put("Person",
+									"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
+											+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
+											+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
+											+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
+											+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
+											+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
+											+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+											+ personObj.getPerson_favorisiert_Dokument());
+						}
+							
+					}
+				
 				}
+
+			} catch (Exception e) {
+				loggger.error("Fehler in EventInterface: " + e);
+			}
+
+			personObj.flushPersonObj();
 			
+			Person userInformationEventObject = null;
+
+			// drucke alles im richTokenHashMap aus
+			for (String key : eventLinkedHashMap.keySet()) {
+
+				if (key.equals("Person")) {
+					userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventLinkedHashMap.get(key).toString());
+					System.out.println(userInformationEventObject.toStringPersonObjekt());
+				}
+
 			}
-
-		} catch (Exception e) {
-			loggger.error("Fehler in EventInterface: " + e);
-		}
-
-		personObj.flushPersonObj();
-		
-		Person userInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : eventLinkedHashMap.keySet()) {
-
-			if (key.equals("Person")) {
-				userInformationEventObject = new Person(sessionIDStr, eventUniqueID, eventLinkedHashMap.get(key).toString());
-				System.out.println(userInformationEventObject.toStringPersonObjekt());
-			}
-
-		}
-		return personObj.toStringPersonObjekt();
+			
+			//return personObj.toStringPersonObjekt();
+			jsonObj.put("DocumentInformationEvent", userInformationEventObject.toStringUserInformationEvent());
+			return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 	
