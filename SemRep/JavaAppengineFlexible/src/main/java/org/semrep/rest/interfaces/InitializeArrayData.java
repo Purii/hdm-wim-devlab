@@ -2,9 +2,9 @@ package main.java.org.semrep.rest.interfaces;
 
 public class InitializeArrayData {
 	
-	public static String[] inputArray = null;
+	public String[] inputArray;
 	
-	public static String[] initializeArrayDemoData(String eventType) {
+	public String[] initializeArrayDemoData(String eventType) {
 
 		if (eventType == "OfferEvent"){
 		

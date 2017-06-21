@@ -74,38 +74,7 @@ public class UXInterface {
 	public static String personNachname_Str = "";
 	public static String personName_Str = "";
 	public static int numFavDoks = 0;
-
-//	public static void main(String[] args) {
-//
-//		//produceOfferEvent();
-//		produceInformationToAllDocumentsEvent();
-//		
-//	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceOfferEvent")
-	public static void produceOfferEvent() {
-
-		//@Path: /rest/uxInterface/produceOfferEvent
 		
-		setArrayDemoData();
-		getDocumentOffers();
-		
-	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceInformationToAllDocumentsEvent")
-	public static void produceInformationToAllDocumentsEvent() {
-
-		//@Path: /rest/uxInterface/produceInformationToAllDocumentsEvent
-				
-		setArrayDemoData();
-		getAllDocuments();
-		
-	}
-
 	public static void setArrayDemoData() {
 
 		// richToken
@@ -276,10 +245,17 @@ public class UXInterface {
 	}
 	
 
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/produceOfferEvent")
 	public static Response getDocumentOffers() {
 		
+		//@Path: /rest/uxInterface/produceOfferEvent
+		
+		
 		JSONObject jsonObj = new JSONObject();
+		
+		setArrayDemoData();
 
 		dokOfferLinkedHashMap = new LinkedHashMap<String, String>();
 		dokOfferHashMap = new LinkedHashMap<String, String>();
@@ -437,10 +413,14 @@ public class UXInterface {
 
 	}
 	
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/produceInformationToAllDocumentsEvent")
 	public static Response getAllDocuments() {
 		
 		JSONObject jsonObj = new JSONObject();
+		
+		setArrayDemoData();
 		
 		dokOfferLinkedHashMap = new LinkedHashMap<String, String>();
 		

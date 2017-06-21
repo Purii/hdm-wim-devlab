@@ -9,7 +9,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -21,12 +25,18 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 
 import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
 import main.java.org.semrep.rest.businessObjects.Person;
 
 @Path("/eventInterface")
 public class EventInterface {
+	
+	private static JSONObject jsonObj;
+	private static Logger loggger = Logger.getLogger(Main.class.getName());
+
 	
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -98,18 +108,22 @@ public class EventInterface {
 	private static String abteilung_hat_MitarbeiterStr = "";
 	private static String abteilung_gehoert_zu_UnternehmenStr = "";
 	
+	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
+	
 	public static void main(String[] args) {
 		produceUserInformationEvent();
 	}
-	
-	public static void initializeInputArray(){
 		
-	}
-	
 	public static void executeSparql(String sparql){
 		// Initialisierung und Ausführung einer SPARQL-Query
+//		Query query = QueryFactory.create(sparql);
+//		queryExecution = QueryExecutionFactory.create(query, ontologyModel);
+		
 		Query query = QueryFactory.create(sparql);
-		queryExecution = QueryExecutionFactory.create(query, ontologyModel);
+		// queryExecution = QueryExecutionFactory.create(query,
+		// ontologyModel);
+		queryExecution = QueryExecutionFactory
+				.sparqlService("http://35.187.45.171:3030/ontology/query", query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
@@ -414,7 +428,15 @@ public class EventInterface {
 
 	}
 	
-	public static String produceUserInformationEvent() {
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/produceUserInformationEvent")
+	public static Response produceUserInformationEvent() {
+		
+		//@Path: /rest/eventInterface/produceUserInformationEvent
+		
+		jsonObj = new JSONObject();
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 
@@ -422,14 +444,14 @@ public class EventInterface {
 		timeStampStr = timestamp.toString();
 		
 		String eventTypeStr = "UserInformationEvent";
-		String[] inputArray = InitializeArrayData.initializeArrayDemoData(eventTypeStr);
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
-		eventUniqueID = UUID.randomUUID().toString();
+
 
 		try {
-			File file = new File(filePath);
-			FileReader fileReader = new FileReader(file);
-			ontologyModel.read(fileReader, null, "TTL");
+//			File file = new File(filePath);
+//			FileReader fileReader = new FileReader(file);
+//			ontologyModel.read(fileReader, null, "TTL");
 
 			// initialisiere Variablen
 			// sparql
@@ -440,7 +462,7 @@ public class EventInterface {
 			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, 
 					mailStr, projektStr, projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 			
-			for (int z = 0; z <= inputArray.length; z++) {
+			for (int z = 0; z < inputArray.length; z++) {
 
 				//ermittle UserInformation
 				if (z == 1) {
@@ -466,14 +488,38 @@ public class EventInterface {
 				if(sparql != ""){
 					
 					executeSparql(sparql);
-					eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						personObj.setId(null);
+						personObj.setVorname(null);
+						personObj.setNachname(null);
+						personObj.setMail(null);
+						personObj.setPerson_arbeitet_an_Projekt(null);
+						personObj.setPerson_hat_Projektrolle(null);
+						personObj.setPerson_gehoert_zu_Abteilung(null); 
+						personObj.setPerson_hat_Dokument_verfasst(null); 
+						personObj.setPerson_ruft_Dokument_auf(null);
+						personObj.setPerson_favorisiert_Dokument(null);
+						
+						eventLinkedHashMap.put("Person",
+								"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
+										+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
+										+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
+										+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
+										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
+										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
+										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+										+ personObj.getPerson_favorisiert_Dokument());
+					}
 						
 				}
 			
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			loggger.error("Fehler in EventInterface: " + e);
 		}
 
 		personObj.flushPersonObj();
@@ -484,12 +530,16 @@ public class EventInterface {
 		for (String key : eventLinkedHashMap.keySet()) {
 
 			if (key.equals("Person")) {
-				userInformationEventObject = new Person(sessionIDStr, eventUniqueID, eventLinkedHashMap.get(key).toString());
+				userInformationEventObject = new Person(sessionIDStr, timeStampStr, eventLinkedHashMap.get(key).toString());
 				System.out.println(userInformationEventObject.toStringPersonObjekt());
 			}
 
 		}
-		return personObj.toStringPersonObjekt();
+		
+		//return personObj.toStringPersonObjekt();
+		jsonObj.put("UserInformationEvent", personObj.toStringPersonObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
 
 	}
 
@@ -498,7 +548,7 @@ public class EventInterface {
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 		
 		String eventTypeStr = "DocumentInformationEvent";
-		String[] inputArray = InitializeArrayData.initializeArrayDemoData(eventTypeStr);
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 		eventUniqueID = UUID.randomUUID().toString();
 
@@ -549,7 +599,7 @@ public class EventInterface {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			loggger.error("Fehler in EventInterface: " + e);
 		}
 
 		personObj.flushPersonObj();
