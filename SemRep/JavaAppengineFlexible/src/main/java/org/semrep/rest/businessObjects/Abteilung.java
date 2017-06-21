@@ -10,11 +10,13 @@ public class Abteilung {
 	public String abteilung_gehoert_zu_Unternehmen;
 	
 	private String sessionID; 
+	public String timeStamp;
 	private String identity; 
 	private String objectValue;
 	
-	public Abteilung(String sessionID, String identity, String objectValue){
+	public Abteilung(String sessionID, String timeStamp, String identity, String objectValue){
 		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
 		this.identity = identity;
 		this.objectValue = objectValue;	
 	}
@@ -30,8 +32,10 @@ public class Abteilung {
 	}
 	
 	public String toStringAbteilungsObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 	
 	public void flushAbteilungsObjekt() {
@@ -57,6 +61,14 @@ public class Abteilung {
 
 	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
+	}
+	
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 	public String getIdentity() {

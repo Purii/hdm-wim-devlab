@@ -28,11 +28,14 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 
+import de.hdm.wim.sharedLib.Constants;
 import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
 import main.java.org.semrep.rest.businessObjects.Person;
 
 @Path("/eventInterface")
 public class EventInterface {
+	
+	Constants constant = new Constants();
 	
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(Main.class.getName());
@@ -68,7 +71,7 @@ public class EventInterface {
 	//public static String[] inputArray = null;
 	// Dokument-Objekt bezogen
 	private static String sessionIDStr = "";
-	public static String eventUniqueID = "";
+	public static String eventUniqueID = "'null'";
 	private static String timeStampStr = "";
 	private static String dok_IDStr = "";
 	private static String dok_NameStr = "";
@@ -124,7 +127,7 @@ public class EventInterface {
 		// queryExecution = QueryExecutionFactory.create(query,
 		// ontologyModel);
 		queryExecution = QueryExecutionFactory
-				.sparqlService("http://35.187.45.171:3030/ontology/query", query);
+				.sparqlService("http://35.187.45.171:3030/20170621newOntology/query", query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
@@ -444,8 +447,6 @@ public class EventInterface {
 		//timestamp = new Timestamp(System.currentTimeMillis());
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
-		String test = String.valueOf(timestampLong);
-		System.out.println(test);
 		
 		String eventTypeStr = "UserInformationEvent";
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
@@ -507,15 +508,16 @@ public class EventInterface {
 						personObj.setPerson_ruft_Dokument_auf("'null'");
 						personObj.setPerson_favorisiert_Dokument("'null'");
 						
-						eventLinkedHashMap.put("Person",
-								"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
-										+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
-										+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
-										+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
-										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
-										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
-										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
-										+ personObj.getPerson_favorisiert_Dokument());
+//						eventLinkedHashMap.put("Person",
+//								"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", "
+//										+ "Nachname=" + personObj.getNachname() + ", " + "Mail=" + personObj.getMail()
+//										+ ", " + "Projekt=" + personObj.getPerson_arbeitet_an_Projekt() + ", "
+//										+ "Projektrolle=" + personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
+//										+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
+//										+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
+//										+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+//										+ personObj.getPerson_favorisiert_Dokument());
+						
 					}
 						
 				}
@@ -534,7 +536,7 @@ public class EventInterface {
 		for (String key : eventLinkedHashMap.keySet()) {
 
 			if (key.equals("Person")) {
-				userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventLinkedHashMap.get(key).toString());
+				userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventUniqueID, eventLinkedHashMap.get(key).toString());
 				System.out.println(userInformationEventObject.toStringPersonObjekt());
 			}
 
@@ -651,7 +653,7 @@ public class EventInterface {
 			for (String key : eventLinkedHashMap.keySet()) {
 
 				if (key.equals("Person")) {
-					userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventLinkedHashMap.get(key).toString());
+					userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventUniqueID, eventLinkedHashMap.get(key).toString());
 					System.out.println(userInformationEventObject.toStringPersonObjekt());
 				}
 

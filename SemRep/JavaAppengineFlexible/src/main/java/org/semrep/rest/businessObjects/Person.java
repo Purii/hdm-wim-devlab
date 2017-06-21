@@ -17,6 +17,7 @@ public class Person {
 	public String person_favorisiert_Dokument;
 
 	private String sessionID;
+	private String timeStamp;
 	private String identity;
 	private String objectValue;
 	
@@ -36,6 +37,15 @@ public class Person {
 	public Person(String sessionID, String identity, String objectValue) {
 
 		this.sessionID = sessionID;
+		this.identity = identity;
+		this.objectValue = objectValue;
+
+	}
+	
+	public Person(String sessionID, String timeStamp, String identity, String objectValue) {
+
+		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
 		this.identity = identity;
 		this.objectValue = objectValue;
 
@@ -75,12 +85,16 @@ public class Person {
 	}
 
 	public String toStringPersonObjekt() {
-		return "SessionID=" + this.sessionID + ", " + "TokenID=" + this.identity
+		return "SessionID=" + this.sessionID
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
 				+ ", " + this.objectValue;
 	}
 	
 	public String toStringUserInformationEvent() {
-		return "SessionID=" + this.sessionID + ", " + "TimeStamp=" + this.identity
+		return "SessionID=" + this.sessionID
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
 				+ ", " + this.objectValue;
 	}
 	
@@ -210,6 +224,14 @@ public class Person {
 
 	public void setObjectValue(String objectValue) {
 		this.objectValue = objectValue;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 }

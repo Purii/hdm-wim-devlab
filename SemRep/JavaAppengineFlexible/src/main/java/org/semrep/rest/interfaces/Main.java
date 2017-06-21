@@ -192,7 +192,7 @@ public class Main {
 						// Initialisierung und Ausführung einer SPARQL-Query
 						Query query = QueryFactory.create(sparql);
 						//queryExecution = QueryExecutionFactory.create(query, ontologyModel);
-						queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/ontology/query",
+						queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/20170621newOntology/query",
 						 query);
 
 

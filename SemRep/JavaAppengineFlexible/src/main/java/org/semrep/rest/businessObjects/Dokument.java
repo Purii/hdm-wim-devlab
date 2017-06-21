@@ -19,9 +19,10 @@ public class Dokument {
 	private String identity; 
 	private String objectValue;
 	
-	public Dokument(String sessionID, String identity, String objectValue) {
+	public Dokument(String sessionID, String timeStamp, String identity, String objectValue) {
 
 		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
 		this.identity = identity;
 		this.objectValue = objectValue;
 
@@ -46,13 +47,17 @@ public class Dokument {
 	}
 	
 	public String toStringAlleDokumentObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
-				+ "; " + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 	
 	public String toStringDokumentObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 
 	public void flushDokumentObjekt() {

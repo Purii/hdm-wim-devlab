@@ -42,8 +42,13 @@ public class TokenizerInterface {
 	public static LinkedHashMap<String, String> richTokenHashMap = null;
 	public static LinkedHashMap<String, String> dokumentHashMap = null;
 	public static String eventSessionID = "";
-	public static String eventUniqueID = "";
+	public static String eventUniqueID = "'null'";
 	public static int anzahlDokumente = 0;
+	
+	// ### time stamp
+	private static Timestamp timestamp = null;
+	private static long timestampLong;
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -70,7 +75,7 @@ public class TokenizerInterface {
 		// drucke alles im richTokenHashMap aus
 		for (String key : richTokenHashMap.keySet()) {
 			if (key.equals("Projekt")) {
-				projectInformationEventObject = new Projekt(eventSessionID, eventUniqueID,
+				projectInformationEventObject = new Projekt(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 						richTokenHashMap.get(key).toString());
 				System.out.println(projectInformationEventObject.toStringProjektObjekt());
 			}
@@ -107,7 +112,7 @@ public class TokenizerInterface {
 		for (String key : richTokenHashMap.keySet()) {
 
 			if (key.equals("Dokument" + dokIndex)) {
-				documentInformationEventObject = new Dokument(eventSessionID, eventUniqueID,
+				documentInformationEventObject = new Dokument(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 						richTokenHashMap.get(key).toString());
 				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
 				break;
@@ -130,7 +135,7 @@ public class TokenizerInterface {
 		// drucke alles im richTokenHashMap aus
 		for (String key : richTokenHashMap.keySet()) {
 			if (key.equals("Abteilung")) {
-				departmentInformationEventObject = new Abteilung(eventSessionID, eventUniqueID,
+				departmentInformationEventObject = new Abteilung(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 						richTokenHashMap.get(key).toString());
 				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
 			}
@@ -153,7 +158,7 @@ public class TokenizerInterface {
 		for (String key : richTokenHashMap.keySet()) {
 
 			if (key.equals("Person")) {
-				userInformationEventObject = new Person(eventSessionID, eventUniqueID,
+				userInformationEventObject = new Person(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 						richTokenHashMap.get(key).toString());
 				System.out.println(userInformationEventObject.toStringPersonObjekt());
 			}
@@ -181,6 +186,8 @@ public class TokenizerInterface {
 
 		eventSessionID = inputArray[0].toString();
 		eventUniqueID = UUID.randomUUID().toString();
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
 
 	}
 
@@ -430,7 +437,7 @@ public class TokenizerInterface {
 					// queryExecution = QueryExecutionFactory.create(query,
 					// ontologyModel);
 					QueryExecution queryExecution = QueryExecutionFactory
-							.sparqlService("http://35.187.45.171:3030/ontology/query", query);
+							.sparqlService("http://35.187.45.171:3030/20170621newOntology/query", query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query

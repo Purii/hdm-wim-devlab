@@ -21,7 +21,7 @@ public class InitializeArrayData {
 			
 			inputArray = new String[2];
 			inputArray[0] = "793dnj"; // sessionID
-			inputArray[1] = "38"; // 6 userID
+			inputArray[1] = "6"; // 6 userID
 			
 		} if (eventType == "DocumentInformationEvent") {
 			

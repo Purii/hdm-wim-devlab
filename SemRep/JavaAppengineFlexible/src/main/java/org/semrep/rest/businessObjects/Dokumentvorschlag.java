@@ -11,6 +11,7 @@ public class Dokumentvorschlag {
 	
 	public String sessionID;
 	public String timeStamp;
+	private String identity;
 	private String objectValue;
 	
 	public Dokumentvorschlag(String sessionID, String timeStamp, String objectValue) {
@@ -52,13 +53,17 @@ public class Dokumentvorschlag {
 	}
 	
 	public String toStringFavoritDokumentObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
-				+ "; " + "Dokument=" + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 	
 	public String toStringDokumentvorschlagsObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TimeStamp=" + this.timeStamp
-				+ "; " + "Dokument=" + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 
 	public String getSessionID() {
@@ -75,6 +80,14 @@ public class Dokumentvorschlag {
 
 	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
+	}
+	
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
 	}
 
 	public String getDok_NameStr() {

@@ -10,12 +10,14 @@ public class Projekt {
 	public String projekt_hat_Dokument;
 
 	private String sessionID;
+	private String timeStamp;
 	private String identity;
 	private String objectValue;
 
-	public Projekt(String sessionID, String identity, String objectValue) {
+	public Projekt(String sessionID, String timestamp, String identity, String objectValue) {
 		
 		this.sessionID = sessionID;
+		this.setTimeStamp(timestamp);
 		this.identity = identity;
 		this.objectValue = objectValue;
 		
@@ -32,8 +34,10 @@ public class Projekt {
 	}
 	
 	public String toStringProjektObjekt() {
-		return "SessionID=" + this.sessionID + "; " + "TokenID=" + this.identity
-				+ "; " + this.objectValue;
+		return "SessionID=" + this.sessionID 
+				+ ", " + "TimeStamp=" + this.timeStamp
+				+ ", " + "TokenID=" + this.identity
+				+ ", " + this.objectValue;
 	}
 
 	public void flushProjektObjekt() {
@@ -115,6 +119,14 @@ public class Projekt {
 
 	public void setObjectValue(String objectValue) {
 		this.objectValue = objectValue;
+	}
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 
 }
