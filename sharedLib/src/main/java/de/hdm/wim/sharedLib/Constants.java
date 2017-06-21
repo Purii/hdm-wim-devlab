@@ -250,5 +250,6 @@ public class Constants {
 		public static final String ATTRIBUTE_VALUE 	= "value";
 		public static final String PAYLOAD 			= "payload";
 		public static final String SECRET_TOKEN 	= "secretToken";
+		public static final String JSON_INPUT		= "json-input";
 	}
 }
