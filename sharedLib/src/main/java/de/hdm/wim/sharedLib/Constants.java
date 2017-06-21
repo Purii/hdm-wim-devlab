@@ -29,6 +29,7 @@ public class Constants {
 			public static final String SESSION_ID	= "sessionId";
 			public static final String TOKEN_ID		= "tokenId";
 			public static final String DEPARTMENT_ID		= "departmentId";
+			public static final String COMPANY_NAMES		= "companyNames";
 			public static final String DEPARTMENT_NAMES		= "departmentNames";
 			public static final String DEPARTMENT_NAME		= "departmentName";
 			public static final String DEPARTMENT_SHORT		= "departmentShort";
@@ -162,6 +163,7 @@ public class Constants {
 
 			//Produktion
 			public static final String USER_INFO		= "user-information";
+			public static final String ADDITIONAL_USER_INFO		= "additional-user-information";
 			public static final String DOCUMENT_INFO		= "document-information";
 			public static final String USER_CONTEXT = "user-context";
 			public static final String DOCUMENT_CONTEXT		= "document-context";
@@ -175,6 +177,7 @@ public class Constants {
 			public static final String USER_JOINED_SESSION	= "user-joined-session";
 			public static final String USER_LEFT_SESSION	= "user-left-session";
 			public static final String ALL_DEPARTMENTS		= "all-departments";
+			public static final String ALL_COMPANIES		= "all-companies";
 			public static final String ALL_PROJECTS		= "all-projects";
 			public static final String ALL_PROJECTROLES		= "all-projectroles";
 			public static final String LEARN		= "learning";

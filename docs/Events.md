@@ -55,6 +55,30 @@ String jsonString = gson.toJson(strings);  ==> ["Chris", "Bene", "Jimmy", "Patsc
 String names = gson.fromJson(jsonString, String.class); 
 ```
 
+## AdditionalUserInformationEvent
+*erstellt durch GUI; abgefragte Zusatzinformationen des Users (warte auf Rückmeldung für weitere Attribute, s. Issue)*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_DEPARTMENTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { All departments } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
+## AllCompaniesEvent
+*erstellt durch SR; alle Unternehmen einer Session*
+
+| Feld | Datentyp | Wert |
+| :---- | :---- | :---- |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.SESSION_ID: String</code></li><li><code>constants.AttributeKey.COMPANY_NAMES: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_DEPARTMENTS</code></li></ul> |
+| `data` | `string (bytes format)` | ``` { All departments } ``` |
+| `messageId` | `string` | *wird von PubSub gesetzt* |
+| `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+
+
 ## AllDepartmentsEvent
 *erstellt durch SR; alle Abteilungen einer Session*
 
