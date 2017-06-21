@@ -110,6 +110,7 @@ function readCookie(name) {
 var googleTokenId = readCookie("Google_ID");
 //alert(readCookie("Google_ID"));
 
+
 socket.onopen = function (event) {
 
     log('Opened connection 🎉');
@@ -148,6 +149,9 @@ socket.onmessage = function (event) {
 
         var obj = JSON.parse(event.data); // this is how you parse a string into JSON
 
+
+
+
       
         for (var key in obj) {
 
@@ -175,6 +179,11 @@ socket.onmessage = function (event) {
                 var googleTokenId = readCookie("Google_ID");
 
                 var googleTokenData = googleTokenId.split('_');
+
+                
+
+
+
 
 
                 if (googleTokenData[1] != newClient[2]) {
@@ -345,6 +354,24 @@ function log(text) {
  }
 
  */
+
+
+function imAliveEvent(){
+
+    var time = Date.now();
+     
+     var json = JSON.stringify({imAlive: 'Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
+
+    socket.send(json);
+    log('Sent: ' + json);
+}
+
+
+setInterval(imAliveEvent, 6000);
+
+
+
+
 window.addEventListener('beforeunload', function () {
     socket.close();
 });

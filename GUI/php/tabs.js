@@ -3,6 +3,16 @@
  */
 
 
+function hasClickedEvent(documentName){
+
+      var time = Date.now();
+     
+     var json = JSON.stringify({hasClicked:'_DocumentName_'+documentName+ '_Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
+
+    socket.send(json);
+    log('Sent: ' + json);
+}
+
 
 
 function openTab(evt, tabName) {
@@ -35,6 +45,8 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 //    evt.currentTarget.className += "tab-background";
 
+var documentName = tabName.split("_");
+hasClickedEvent(documentName[0]);
 }
 
 
@@ -62,7 +74,7 @@ function closeTab(tab, name) {
 function addTab(name) {
 
     var timeStamp = Math.floor(Date.now() / 10000);
-    var nameAndTimeStampID = name+timeStamp;
+    var nameAndTimeStampID = name+'_'+timeStamp;
 
     // tab body erzeugen
     document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs"></iframe> </div>';
