@@ -1,0 +1,14 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>
+DELETE { ?x ?y ?z
+}
+
+INSERT 
+{ ?x ontology:Dok_Name '2_TestDokument_NEU' ;
+ontology:Dok_Updatedatum '2017-04-30T00:00:01^^xsd:dateTime' ; 
+ontology:Dok_Kontext 'Videokonferenz' ;
+ontology:Dok_Keywords  'test' ; 
+}
+WHERE  { ?x ?y ?z . 
+         ?x ontology:Dok_name '2_TestDokument' . 
+}

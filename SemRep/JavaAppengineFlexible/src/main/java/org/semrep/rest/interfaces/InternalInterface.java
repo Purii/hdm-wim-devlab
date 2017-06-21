@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.interfaces;
+package main.java.org.semrep.rest.interfaces;
 
 import java.util.LinkedHashMap;
 import java.util.UUID;
@@ -278,5 +278,10 @@ public class InternalInterface {
 				return false;
 	 
 	 }
+
+
+
+	public static void main(String[] args) {
+	}
 
 }

@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest;
+package main.java.org.semrep.rest;
 
  
 	 

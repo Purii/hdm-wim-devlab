@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.org.semprep.rest;
+package main.java.org.semrep.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-// [START example]
+ 
 @WebServlet(name = "helloworld", value = "")
 @SuppressWarnings("serial")
 public class HelloServlet /*extends HttpServlet */{

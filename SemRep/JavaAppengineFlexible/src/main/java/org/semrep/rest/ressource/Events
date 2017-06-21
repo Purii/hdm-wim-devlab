@@ -1,0 +1,42 @@
+					OFFEN:
+
+GUI-Events:
+
+- DocumentInformationEvent
+- InsertNewUserEvent
+- ProjectInformationEvent
+- DepartmentInformationEvent
+- AllProjectsEvent
+- AllProjectRolesEvent
+- AllDepartmentsEvent
+
+ML-Events:
+- InsertDocumentVisitEvent (kommt von GUI)
+- InsertFavoritDocumentEvent
+
+					ERLEDIGT:
+					
+- InformationToAllDocumentsEvent (✓)
+- OfferEvent (✓)
+- UserInformationEvent (✓)
+
+
+AllProjectRolesEvent:
+{
+  "data": string,
+  "attributes": {
+    string: string,
+    ...
+  },
+  "messageId": string,
+  "publishTime": string,
+}
+
+{
+	"data": { 
+	"sessionId": "s283jdkbk",
+		"projectRoles": {
+			"Projektmitarbeiter", "Projektleiter", "Entwickler"
+		}
+	}
+}

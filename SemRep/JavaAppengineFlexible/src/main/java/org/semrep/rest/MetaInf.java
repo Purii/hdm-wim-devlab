@@ -1,21 +1,21 @@
-package main.java.org.semprep.rest;
+package main.java.org.semrep.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-@ApplicationPath("/v")
+@ApplicationPath("/klasse2")
 
 public class MetaInf {
 
 	 
 	 @GET 
-	 @Path("/v") 
+	 @Path("/geht") 
 	 @Produces("text/plain")
 	
 	 public String getEmployee() {
-	        return "juuu!";
+	        return "jo";
 	    }
 	 
 	 

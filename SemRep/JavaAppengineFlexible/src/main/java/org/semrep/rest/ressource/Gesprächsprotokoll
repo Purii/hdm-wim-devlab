@@ -1,0 +1,31 @@
+Lisa:	Good Morning.
+Haruki:	Hello.
+
+[Gesprächshistorie von Gesprächen der beiden beteiligten; Protokoll des letzten Gesprächs]
+Lisa:	Let´s talk about current activities concerning the HighNet project.
+[Projektdokumente]
+### {Kontext: activities_concerning_the_HighNet_project} ###
+
+Haruki:	Ok. Shall we look at the tasks leading to the milestone ahead?
+[Projektplanung, Meilensteine, Aufgabenliste]
+### {Kontext: activities_concerning_the_HighNet_project} + Keyword: milestone ###
+
+Lisa: 	Sure. We have been working on network issues for the diagnosis module. It is item 3 on the task list. I think, we will come up with something viable shortly.
+{Kontext: network issues, diagnosis module}
+[-] -> [Aufgabenliste???]
+### network_issues, diagnosis_module ??? ###
+
+Haruki:	That sounds great. What about expenses? Do you think, you will be able to stay within the limits we aggreed upon last week?
+[Kostenaufstellung, Kostenplanung]
+### {Kontext: expenses} ### 
+
+Lisa:	That should be no problem. I'll leave a detailed report on Google drive.
+[Google keep; Google drive]
+### report_on_Google_drive ??? ###
+
+Haruki:	Ok, thanks. Let's make an appointment for our next meeting.
+[Google calendar]
+### appointment_for_our_next_meeting ??? ###
+Lisa: 	Let me check my calendar …. How about next Thursday at 16 hours your time?
+Haruki:	Perfect. See you then. Bye.
+Lisa:	Have a nice day. Bye.
