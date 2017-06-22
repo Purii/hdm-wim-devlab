@@ -5,6 +5,8 @@ import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.events.TokenEvent;
+import de.hdm.wim.sharedLib.events.UserInformationEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -26,6 +28,7 @@ public class PubSubHandler1 extends HttpServlet {
 	private static final Logger LOGGER 	= Logger.getLogger(PubSubHandler1.class);
 	private Helper helper 				= new Helper();
 
+	//Pro Topic hier passiert die ganze action
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
@@ -54,6 +57,14 @@ public class PubSubHandler1 extends HttpServlet {
 			resp.getOutputStream().write(output.getBytes());
 			resp.getOutputStream().flush();
 			resp.getOutputStream().close();
+
+			// Beispiel für UserInformationEvent
+			// aufruf methode getUserInformation hier: diese kann vom
+			// return type her auch void haben und braucht keine annotations
+			if (event.getEventType().equals(Constants.PubSub.EventType.USER_INFO)){
+				UserInformationEvent userInfEvent = (UserInformationEvent) event;
+				userInfEvent.getEmail();
+			}
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
 			resp.setStatus(HttpServletResponse.SC_OK);
