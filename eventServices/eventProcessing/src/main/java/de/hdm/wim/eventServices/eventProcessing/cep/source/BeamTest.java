@@ -1,39 +1,27 @@
-package de.hdm.wim.sharedLib.testing;
+package de.hdm.wim.eventServices.eventProcessing.cep.source;
 
 import com.google.common.io.BaseEncoding;
 import org.apache.log4j.Logger;
 
-/*import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.coders.StringUtf8Coder;
-import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO;
-import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO.Read;
 import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessage;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Count;
 import org.apache.beam.sdk.transforms.DoFn;
-import org.apache.beam.sdk.transforms.Filter;
-import org.apache.beam.sdk.transforms.FlatMapElements;
-import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ParDo;
-import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.values.PInput;
-import org.apache.beam.sdk.values.POutput;
-import org.apache.beam.sdk.values.TypeDescriptors;*/
 
 
 /**
  * Created by ben on 17/06/2017.
  */
-public class TEST123 {
+public class BeamTest {
 
-	private static final Logger LOGGER 	= Logger.getLogger(TEST123.class);
+	private static final Logger LOGGER 	= Logger.getLogger(BeamTest.class);
 
-/*	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
 		// Start by defining the options for the pipeline.
 		PipelineOptions options = PipelineOptionsFactory.create();
@@ -48,7 +36,6 @@ public class TEST123 {
 						.readMessages()
 						.fromSubscription("projects/hdm-wim-devlab/subscriptions/subscription-pull-topic-1")
 				)
-
 				//.setCoder(StringUtf8Coder.of())
 			;
 
@@ -56,12 +43,10 @@ public class TEST123 {
 			ParDo.of(new test())
 		);
 
-
 		p.run().waitUntilFinish();
-	}*/
+	}
 
-
-/*	public static class ShowMessages extends PTransform<PCollection<PubsubMessage>,
+	public static class ShowMessages extends PTransform<PCollection<PubsubMessage>,
       PCollection<PubsubMessage>> {
 
 		@Override
@@ -72,12 +57,11 @@ public class TEST123 {
 
 			return data;
 		}
-	}*/
+	}
 
-	/*private static class test extends DoFn<PubsubMessage, PubsubMessage> {
+	private static class test extends DoFn<PubsubMessage, PubsubMessage> {
 		@ProcessElement
 		public void processElement(ProcessContext c) throws Exception {
-
 
 			// Get the input element from ProcessContext.
 			String payload = new String(c.element().getPayload(), "UTF-8");
@@ -86,13 +70,9 @@ public class TEST123 {
 			// Use ProcessContext.output to emit the output element.
 			c.output(c.element());
 		}
-	}*/
+	}
 
 	private static String decodeBase64(String data) {
 		return new String(BaseEncoding.base64().decode(data));
 	}
-
-
-
-
 }

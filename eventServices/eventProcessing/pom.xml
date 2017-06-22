@@ -17,6 +17,42 @@
     <artifactId>eventProcessing</artifactId>
     <version>1.0</version>
 
+    <properties>
+        <beam.version>2.0.0</beam.version>
+    </properties>
+
+    <profiles>
+        <!--
+          The direct runner is available by default.
+          You can also include it on the classpath explicitly with -P direct-runner
+        -->
+            <profile>
+                <id>direct-runner</id>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <dependencies>
+                    <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-runners-direct-java -->
+                    <dependency>
+                        <groupId>org.apache.beam</groupId>
+                        <artifactId>beam-runners-direct-java</artifactId>
+                        <version>${beam.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+
+                    <!--
+                    <dependency>
+                        <groupId>org.apache.beam</groupId>
+                        <artifactId>beam-runners-flink_2.10</artifactId>
+                        <version>${beam.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    -->
+
+                </dependencies>
+            </profile>
+        </profiles>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java_2.10 -->
         <dependency>
@@ -140,10 +176,10 @@
                     <artifactId>protobuf-java</artifactId>
                 </exclusion>
 
-<!--                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-core</artifactId>
-                </exclusion>-->
+                <!--                <exclusion>
+                                    <groupId>com.fasterxml.jackson.core</groupId>
+                                    <artifactId>jackson-core</artifactId>
+                                </exclusion>-->
 
                 <exclusion>
                     <groupId>com.thoughtworks.paranamer</groupId>
@@ -214,6 +250,170 @@
                     <groupId>com.esotericsoftware.kryo</groupId>
                     <artifactId>kryo</artifactId>
                 </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-core -->
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-core</artifactId>
+            <version>${beam.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+                <!--                <exclusion>
+                                    <groupId>org.xerial.snappy</groupId>
+                                    <artifactId>snappy-java</artifactId>
+                                </exclusion>-->
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-extensions-google-cloud-platform-core -->
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-extensions-google-cloud-platform-core</artifactId>
+            <version>${beam.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+                <!--                <exclusion>
+                                    <groupId>org.xerial.snappy</groupId>
+                                    <artifactId>snappy-java</artifactId>
+                                </exclusion>-->
+                <exclusion>
+                    <groupId>com.google.auth</groupId>
+                    <artifactId>google-auth-library-credentials</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.http-client</groupId>
+                    <artifactId>google-http-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.http-client</groupId>
+                    <artifactId>google-http-client-jackson2</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <!--                <exclusion>
+                                    <groupId>com.google.api-client</groupId>
+                                    <artifactId>google-api-client</artifactId>
+                                </exclusion>-->
+                <!--            <exclusion>
+                                <groupId>com.google.apis</groupId>
+                                <artifactId>google-api-services-storage</artifactId>
+                            </exclusion>-->
+                <exclusion>
+                    <groupId>com.google.oauth-client</groupId>
+                    <artifactId>google-oauth-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-io-google-cloud-platform -->
+        <dependency>
+            <groupId>org.apache.beam</groupId>
+            <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
+            <version>2.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.api-client</groupId>
+                    <artifactId>google-api-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.apis</groupId>
+                    <artifactId>google-api-services-storage</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.oauth-client</groupId>
+                    <artifactId>google-oauth-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.jackson</groupId>
+                    <artifactId>jackson-core-asl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.api.grpc</groupId>
+                    <artifactId>grpc-google-common-protos</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.auth</groupId>
+                    <artifactId>google-auth-library-credentials</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.auth</groupId>
+                    <artifactId>google-auth-library-oauth2-http</artifactId>
+                </exclusion>
+                <!--                <exclusion>
+                                    <groupId>com.google.http-client</groupId>
+                                    <artifactId>google-http-client</artifactId>
+                                </exclusion>-->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+                <!--                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-auth</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-context</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-protobuf</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-netty</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-stub</artifactId>
+                                </exclusion>
+                                <exclusion>
+                                    <groupId>io.grpc</groupId>
+                                    <artifactId>grpc-protobuf-lite</artifactId>
+                                </exclusion>-->
             </exclusions>
         </dependency>
     </dependencies>
