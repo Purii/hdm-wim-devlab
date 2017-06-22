@@ -2,6 +2,15 @@
  * Created by Markus on 15.06.2017.
  */
 
+function hasClickedEvent(documentName){
+
+      var time = Date.now();
+     
+     var json = JSON.stringify({hasClicked:'_DocumentName_'+documentName+'_didClicked_'+true+'_Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
+
+    socket.send(json);
+    log('Sent: ' + json);
+}
 
 
 
@@ -34,7 +43,8 @@ function openTab(evt, tabName) {
   //  document.getElementById(tabName+"Body").style.display = "block";
     evt.currentTarget.className += " active";
 //    evt.currentTarget.className += "tab-background";
-
+var documentName = tabName.split("_");
+hasClickedEvent(documentName[0]);
 }
 
 
@@ -59,13 +69,31 @@ function closeTab(tab, name) {
     doDraw == true;
 }
 
+
 function addTab(name) {
 
-    var timeStamp = Math.floor(Date.now() / 10000);
-    var nameAndTimeStampID = name+timeStamp;
 
+
+    var timeStamp = Math.floor(Date.now() / 10000);
+    var nameAndTimeStampID = name+'_'+timeStamp;
+
+
+    /* chartData.push(nameArray[i]);
+                chartData.push(folderArray[i]);
+               chartData.push(parentArray[i]);
+                 chartData.push(sizeArray[i]);
+                chartData.push(colorArray[i]);
+               chartData.push(dokuTypArray[i]);
+                chartData.push(linkArray[i]);
+                chartData.push(DokumentenIDArray[i]);
+
+                */
+
+    var chartData =    getChartDataByName(name);
+    var link = chartData[6];
+//alert(link);
     // tab body erzeugen
-    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="https://docs.google.com/document/d/1PepcbDl6-aEOFPkNZ-5sxLPVOO5fpzVU4XmaMb49P2w/edit#heading=h.gjdgxs"></iframe> </div>';
+    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="'+link+'" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="'+link+'"></iframe> </div>';
 
    // Buttons erzeugen und in tabList schreiben
     var codeForButton = "<button class=\"tablinks\" id="+nameAndTimeStampID+"TAB onclick=\"openTab(event, "+ "'"+ nameAndTimeStampID + "'"+")\"> " + name + "</button>"
