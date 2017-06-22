@@ -59,6 +59,8 @@ public class PubSubHandler1 extends HttpServlet {
 			resp.getOutputStream().close();
 
 			// Beispiel für UserInformationEvent
+			// aufruf methode getUserInformation hier: diese kann vom
+			// return type her auch void haben und braucht keine annotations
 			if (event.getEventType().equals(Constants.PubSub.EventType.USER_INFO)){
 				UserInformationEvent userInfEvent = (UserInformationEvent) event;
 				userInfEvent.getEmail();
