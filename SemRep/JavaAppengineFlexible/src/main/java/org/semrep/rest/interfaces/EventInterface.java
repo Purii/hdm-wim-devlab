@@ -139,7 +139,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			produceDocumentInformationEvent();
+			getDocumentInformation();
 		} catch (JsonProcessingException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -457,12 +457,15 @@ public class EventInterface {
 
 	}
 
+	// produce
+	// consume
+	// produce UserInformationEvent
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceUserInformationEvent")
-	public static Response produceUserInformationEvent() {
+	@Path("/getUserInformation")
+	public static Response getUserInformation() {
 
-		// @Path: /rest/eventInterface/produceUserInformationEvent
+		// @Path: /rest/eventInterface/getUserInformation
 
 		jsonObj = new JSONObject();
 
@@ -576,12 +579,15 @@ public class EventInterface {
 
 	}
 
+	// produce
+	// consume
+	// produce DocumentInformationEvent
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceDocumentInformationEvent")
-	public static Response produceDocumentInformationEvent() throws JSONException, JsonProcessingException {
+	@Path("/getDocumentInformation")
+	public static Response getDocumentInformation() throws JSONException, JsonProcessingException {
 
-		// @Path: /rest/eventInterface/produceDocumentInformationEvent
+		// @Path: /rest/eventInterface/getDocumentInformation
 		
 		jsonObj = new JSONObject();
 
@@ -684,4 +690,115 @@ public class EventInterface {
 
 	}
 
+	// produce
+	// consume 
+	// produce ProjectInformationEvent
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getProjectInformation")
+	public static Response getProjectInformation() throws JSONException, JsonProcessingException {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+		
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		// timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = "DocumentInformationEvent";
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			dokumentObj = new Dokument(dok_IDStr, dok_NameStr, prioStr, dok_TypStr, dok_URLStr, dok_folder);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 1) {
+
+					String dokID = inputArray[z].toString();
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+							+ "SELECT DISTINCT ?Dokument ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Ordner " 
+							+ "WHERE { "
+							+ "?Dokument ontology:Dok_ID ?Dok_ID . "
+							+ "?Dokument ontology:Dok_Name ?Dok_Name . "
+							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
+							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
+							// Eingrenzung auf userID
+							// + "?Dokument ontology:Dok_ID '" +
+							// inputArray[z].toString() + "' . " + "}";
+							+ " Filter (?Dok_ID = \"" + dokID + "\" ) . "
+							// + "FILTER regex(str(?Dok_ID), '" + inputArray[z]
+							// + "') . "
+							+ "}";
+
+				}
+
+				if (sparql != "") {
+
+					ClassLoader loader = URLEncodedUtils.class.getClassLoader();
+					loggger.info(loader.getResource("org.apache.http.client.utils‌​.URLEncodedUtils.cla‌​ss"));
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						dokumentObj.setDok_IDStr("'null'");
+						dokumentObj.setPrio("0");
+						dokumentObj.setDok_NameStr("'null'");
+						dokumentObj.setDok_TypStr("'null'");
+						dokumentObj.setDok_URLStr("'null'");
+						dokumentObj.setDok_folder("'null'");
+
+						eventLinkedHashMap.put("Dokument",
+								"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() 
+										+ ", " + "DokPrio=" + dokumentObj.getPrio() 
+										+ ", " + "DokTyp=" + dokumentObj.getDok_TypStr() 
+										+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() 
+										+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
+
+						dokumentObj.flushDokumentObjekt();
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Dokument documentInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals("Dokument")) {
+				documentInformationEventObject = new Dokument(sessionIDStr, String.valueOf(timestampLong),
+						eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+	
 }
