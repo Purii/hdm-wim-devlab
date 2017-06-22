@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hdm-wim-devlab",
+  "private_key_id": "dc7a7e5f7241c15c42af9ee4e216528da48a5e6d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDNpPSiPI4TjupV\nU9Tkd7uVQbnRVWFT2LhrNY34tvh5/fNAQPpCQyOjgnholK8ZsSUDuNdQ5DeOKd4J\nr7233LarbxQ74/cYrE3t0iK8/PoguJNfS17Kso3YY1ell07Tf4vGZaYEkyOUGFKD\nWbVNFjp3RFhH4OxbcvCaxxoIUyoEZYqwZ/L9jTkbL+YbwSzjH7hEwxDr4WLkig1o\nx/JDzkXgZRH4n/LWHUGPvhgVHMVaWTSFFZJxU4gsQqWweuUIGd5ExSSm7Y5ydVLK\nqQBszzW0lgYuLlM2kO/jAn+cX5Y4aucMZZeYErFYXH514BFLhTqpDpL4bSk4rxua\nL7epbvbHAgMBAAECggEAHRloIIOZxdIQU2NZxGaI8wrqOgvvNMfS+MtgO+na6UWd\nI+IjR43BP5mZDjtpN6UlzAwI3oJyC2Td7YL3wUpdyDkfT4Y86I82i8joxNNgquao\nu/BUs9wQ+aYSY0qGNfleFFnn5HfUWK1vEkp3FDcUA4fL8jKKtOS5KpMH76uiTh1g\nl7UJggzapAZhOjlUvryM4cIzeHjuirnAD1sFNoeYd5E8vvGH69BNak83fUHaWaK5\nJxtKwa3w5eoPkzubGpGGWPvtdYcNTcUjDLgmZ1CcfOkn46Eb8yfHsBWmElhQbf3M\nI9w6rHd2WBxBYYUFyXJUd8NseQutqy1e6GxBeSiAuQKBgQDwIbeQVeHb1j8xYuSm\nMsrm4laMENEZqPCXVtRitzvAJlJ21o7J/XA5PTZ8qr2HPcGc94a3En86ay1tVqIM\n3PAWV6jQJlATjPZ4Y06xjZKCMf4rFMCqr3LSFCwMmyTHZ9IFSm0BJrX7/I/LYc19\n+fyONjg2JbkIUUGArlKVzfFkVQKBgQDbO9HWNQ/IGE/AmmzdVHjTTuxaAzMPD148\nZBxrPhP9eRk7VFGoaw8uN2dz6Kfaz+KJTeN2AWdeEqN28SB9FeYwDoq/SzQk1C8n\nNHZCaMiQIjcker7RzvZvFLlw8/f5G0WTTe15x13TuguK61Wz1V9S2Wb89MhQ0jeZ\nH55l5s8qqwKBgQDtcTmUhAdwHFqiF9plqIXPZXEU0LAiQlWcH+Sks/BmIL6b+a55\ndpwYTTnqbd44s00WS/+uWKDrf/0MR4S3WWQhg45OPAQkQNeZ1QCEOqvrB0n/CWc1\nn4TWy9F+qY3livg1+RDt+XwrbeI1xkCuV5lueZh9mjFrUwWFG1pX/Kq7fQKBgQDA\nS3wGs4wgKpLpkYojqNBCKFvPqDbE4un5dqYmutC1595l19O4Mg+irh4j4NI6b1V4\nscTt4NVWAms3DNE+ZlL9nAO/PquCEks5zB5eqaIiKqDLco6lYS9ux3LQzG2ZJn6k\nchn2UxTNfcZaF4mYr3NpLB/ViK+blIgH22AIaacU+QKBgDyWm51EsxnIV3rboThl\nvM53EDGltQArubJHlFoa1yJNPR3xmN2cu/mz91twmQHn2z+ZLbXIFR1NXpwv+fp+\nD6AeN+3XPc7cUvkT1PdI05gopRoEqlPyrQ97KEC70suec4XPaErGS0TZSD01uZCA\nd+JhHhSyRhvPsQRjTYm3eExA\n-----END PRIVATE KEY-----\n",
+  "client_email": "hdm-wim-devlab@appspot.gserviceaccount.com",
+  "client_id": "116281031680933868796",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hdm-wim-devlab%40appspot.gserviceaccount.com"
+}

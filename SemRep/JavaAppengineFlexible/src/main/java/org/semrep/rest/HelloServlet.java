@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.org.semrep.rest;
+package org.semrep.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;

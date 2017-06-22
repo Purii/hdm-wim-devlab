@@ -1,8 +1,11 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.FalseUserFeedback;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.TestPattern2;
+import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.events.StayAliveEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import com.google.pubsub.v1.PubsubMessage;
 import org.apache.flink.api.common.functions.FlatMapFunction;
@@ -62,10 +65,14 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999)
 				.flatMap(new EventSplitter());
 
+			DataStream<StayAliveEvent> stayAliveEventDataStream = env
+				.socketTextStream("localhost", 9999)
+				.flatMap(new StayAliveEventSplitter());
+
 	//		DataStream<IEvent> eventStream = messageStream;
 
-	//		TestPattern2 testPattern2 = new TestPattern2();
-	//		testPattern2.run(env, messageStream);
+			FalseUserFeedback falseUserFeedback = new FalseUserFeedback();
+			falseUserFeedback.run(env, eventStream);
 
             // print message stream
 
@@ -86,6 +93,15 @@ public class RunFlink {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			Helper helper = new Helper();
 			IEvent evt = helper.convertPubsubMessageToIEvent(msg);
+			out.collect(evt);
+		}
+	}
+	public static class StayAliveEventSplitter implements FlatMapFunction<String, StayAliveEvent> {
+		@Override
+		public void flatMap(String value, Collector<StayAliveEvent> out) throws Exception {
+			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
+			Helper helper = new Helper();
+			StayAliveEvent evt = (StayAliveEvent) helper.convertPubsubMessageToIEvent(msg);
 			out.collect(evt);
 		}
 	}

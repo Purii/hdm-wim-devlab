@@ -168,11 +168,11 @@ public class PubSubPublish extends HttpServlet {
 		}
 	}
 
-	private String validateParameter(HttpServletRequest request, String parameterName, String defaultValue){
+/*	private String validateParameter(HttpServletRequest request, String parameterName, String defaultValue){
 
 		if(request.getParameter(parameterName) != null)
 			return request.getParameter(parameterName);
 		else
 			return defaultValue;
-	}
+	}*/
 }

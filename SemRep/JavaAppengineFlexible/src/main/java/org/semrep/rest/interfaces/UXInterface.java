@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,10 +25,10 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 
-import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
-import main.java.org.semrep.rest.businessObjects.Person;
 
 import java.sql.Timestamp;
+import org.semrep.rest.businessObjects.Dokumentvorschlag;
+import org.semrep.rest.businessObjects.Person;
 
 @Path("/uxInterface")
 public class UXInterface {

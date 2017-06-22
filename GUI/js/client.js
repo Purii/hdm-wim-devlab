@@ -9,6 +9,9 @@ var nameArray = [];
 var parentArray = [];
 var sizeArray = [];
 var colorArray = [];
+var dokuTypArray = [];
+var linkArray = [];
+var DokumentenIDArray = [];
 
 //wird für unterscheidliche farbabstufungen genutzt
 var folderArray = [];
@@ -19,6 +22,9 @@ nameArray.push('StarCars');
 parentArray.push(null);
 sizeArray.push(1);
 colorArray.push(1);
+dokuTypArray.push(1);
+linkArray.push(1);
+DokumentenIDArray.push(1);
 
 
 function in_array(arrayName, needle) {
@@ -38,8 +44,8 @@ function in_array(arrayName, needle) {
     return isInside;
 }
 
-
-function upgradeArrays( name,  folderName,  parentName,  sizeName,  colorName) {
+        
+function upgradeArrays( name,  folderName,  parentName,  sizeName,  colorName, DokuTyp, link, DokumentenID) {
 
     //alert("upgrade arrays: " + name);
 if(name != null &&  name != 'null' ){
@@ -56,6 +62,9 @@ if(name != null &&  name != 'null' ){
             parentArray[g] = parentName;
             sizeArray[g] = sizeName;
             colorArray[g] = colorName;
+            dokuTypArray[g] = DokuTyp;
+            linkArray[g] = link;
+            DokumentenIDArray[g] = DokumentenID;
 
            // document.getElementById("drawButton").click();
         }
@@ -67,6 +76,9 @@ if(name != null &&  name != 'null' ){
         parentArray.push(parentName);
         sizeArray.push(sizeName);
         colorArray.push(colorName);
+        dokuTypArray.push(DokuTyp);
+        linkArray.push(link);
+        DokumentenIDArray.push(DokumentenID);
      //   document.getElementById("drawButton").click();
     }
 
@@ -82,6 +94,29 @@ parameterFunction();
 }
 }
 
+
+function getChartDataByName (name){
+
+ var chartData = []; 
+    for(var i = 0; i < nameArray.length; i++){
+
+        if(nameArray[i] == name){
+
+                chartData.push(nameArray[i]);
+                chartData.push(folderArray[i]);
+               chartData.push(parentArray[i]);
+                 chartData.push(sizeArray[i]);
+                chartData.push(colorArray[i]);
+               chartData.push(dokuTypArray[i]);
+                chartData.push(linkArray[i]);
+                chartData.push(DokumentenIDArray[i]);
+         return chartData;
+        }
+    }
+
+
+
+}
 
 function getFolderArrayIndex(arrayName, needle) {
     var arrayIndex = 0;
@@ -220,7 +255,9 @@ socket.onmessage = function (event) {
   //              log(link);
 //                log(folder);
 
-                upgradeArrays( name, folder ,'StarCars', prio + 1, prio + 1 ) ;
+                 name = name.replace(" ", "_");
+
+                upgradeArrays( name, folder ,'StarCars', prio + 1, prio + 1, DokuTyp, link, DokumentenID ) ;
             }
 
            //    log("name " + name + " Link " + link);
@@ -353,6 +390,18 @@ function log(text) {
  }
 
  */
+function imAliveEvent(){
+
+    var time = Date.now();
+     
+     var json = JSON.stringify({imAlive: 'Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
+
+    socket.send(json);
+    log('Sent: ' + json);
+}
+
+
+setInterval(imAliveEvent, 6000);
 window.addEventListener('beforeunload', function () {
     socket.close();
 });

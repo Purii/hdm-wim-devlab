@@ -83,7 +83,7 @@
                                 <div class="mdl-grid">
                                     <div class="mdl-cell mdl-cell--12-col">
                                         <button class="btn_add_kv mdl-cell--12-col mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
-                                            Add item
+                                            Add attribute
                                         </button>
                                     </div>
                                 </div>

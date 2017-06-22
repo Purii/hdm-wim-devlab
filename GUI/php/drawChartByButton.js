@@ -81,13 +81,16 @@ function parameterFunction() {
 function deleteOldDivs() {
 
 
+try{
 
     var divs = document.getElementsByClassName("mouseOvertoKill");
     for (var i = 0; i < divs.length; i++) {
         divs[i].parentNode.remove();
-        console.log(divs[i].parentNode);
+      //  console.log(divs[i].parentNode);
 
-    }
+    }}catch (e){
+
+}
 }
 
 var doDraw = true;

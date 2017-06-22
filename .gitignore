@@ -74,6 +74,4 @@ buildNumber.properties
 
 ## MISC
 applog.txt
-
-## IGNORE TOP LEVEL POM
 /pom.xml
