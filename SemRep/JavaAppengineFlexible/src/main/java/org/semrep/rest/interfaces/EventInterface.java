@@ -143,9 +143,8 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getProjectInformation();
+			getDepartmentInformation();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -518,6 +517,106 @@ public class EventInterface {
 					}
 
 				}
+				// abteilung
+				if (y == 1 && eventType == "DepartmentInformationEvent") {
+					// einmaliges befüllen der nachfolgenden Werte
+					if (((abteilungObj.getAbteilung_ID() == "") == true)
+						|| ((abteilungObj.getAbteilung_Name() == "") == true)
+						|| ((abteilungObj.getAbteilung_Kuerzel() == "") == true)
+						|| ((abteilungObj.getAbteilung_hat_Projekt() == "") == true)
+						|| ((abteilungObj.getAbteilung_hat_Mitarbeiter() == "") == true)
+						|| ((abteilungObj.getAbteilung_gehoert_zu_Unternehmen() == "") == true)) {
+
+						switch (results) {
+							case "Abteilung_ID":
+								abteilung_IDStr = rdfNode.toString().substring(0,
+									rdfNode.toString().indexOf("^^"));
+								abteilungObj.setAbteilung_ID(abteilung_IDStr);
+								break;
+							case "Abteilung_Name":
+								abteilung_NameStr = splitResult;
+								abteilungObj.setAbteilung_Name(abteilung_NameStr);
+								break;
+							case "Abteilung_Kuerzel":
+								abteilung_KuerzelStr = splitResult;
+								abteilungObj.setAbteilung_Kuerzel(abteilung_KuerzelStr);
+								break;
+							case "Abteilung_hat_Projekt":
+								abteilung_hat_ProjektStr = splitResult;
+								abteilungObj.setAbteilung_hat_Projekt(abteilung_hat_ProjektStr);
+								break;
+							case "Abteilung_hat_Mitarbeiter":
+								abteilung_hat_MitarbeiterStr = splitResult;
+								abteilungObj.setAbteilung_hat_Mitarbeiter(abteilung_hat_MitarbeiterStr);
+								break;
+							case "Abteilung_gehoert_zu_Unternehmen":
+								abteilung_gehoert_zu_UnternehmenStr = splitResult;
+								abteilungObj.setAbteilung_gehoert_zu_Unternehmen(
+									abteilung_gehoert_zu_UnternehmenStr);
+								break;
+						}
+
+					}
+					// befülle dynamisch Projekteattribute
+					else if (((abteilungObj.getAbteilung_hat_Projekt() == "") == false)
+						|| ((abteilungObj.getAbteilung_hat_Mitarbeiter() == "") == false)
+						|| ((abteilungObj.getAbteilung_gehoert_zu_Unternehmen() == "") == false)) {
+
+						switch (results) {
+							case "Abteilung_hat_Projekt":
+								abteilung_hat_ProjektStr = splitResult;
+								splitKeywordsList = Arrays
+									.asList(abteilungObj.getAbteilung_hat_Projekt().toString().split(", "));
+
+								if (splitKeywordsList.contains(abteilung_hat_ProjektStr)) {
+
+									break;
+
+								} else {
+
+									abteilungObj
+										.setAbteilung_hat_Projekt(abteilungObj.getAbteilung_hat_Projekt()
+											+ ", " + abteilung_hat_ProjektStr);
+									break;
+								}
+							case "Abteilung_hat_Mitarbeiter":
+								abteilung_hat_MitarbeiterStr = splitResult;
+								splitKeywordsList = Arrays.asList(
+									abteilungObj.getAbteilung_hat_Mitarbeiter().toString().split(", "));
+
+								if (splitKeywordsList.contains(abteilung_hat_MitarbeiterStr)) {
+
+									break;
+
+								} else {
+
+									abteilungObj.setAbteilung_hat_Mitarbeiter(
+										abteilungObj.getAbteilung_hat_Mitarbeiter() + ", "
+											+ abteilung_hat_MitarbeiterStr);
+									break;
+								}
+							case "Abteilung_gehoert_zu_Unternehmen":
+								abteilung_gehoert_zu_UnternehmenStr = splitResult;
+								splitKeywordsList = Arrays.asList(abteilungObj
+									.getAbteilung_gehoert_zu_Unternehmen().toString().split(", "));
+
+								if (splitKeywordsList.contains(abteilung_gehoert_zu_UnternehmenStr)) {
+
+									break;
+
+								} else {
+
+									abteilungObj.setAbteilung_gehoert_zu_Unternehmen(
+										abteilungObj.getAbteilung_gehoert_zu_Unternehmen() + ", "
+											+ abteilung_gehoert_zu_UnternehmenStr);
+									break;
+								}
+
+						}
+
+					}
+
+				}
 
 			}
 			// ablegen eines vollständigen Objekts in einer der entsprechenden
@@ -552,6 +651,17 @@ public class EventInterface {
 					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
 					+ projektObj.getProjekt_hat_Projektmitglied() + ", " + "ProjektHatDokument="
 					+ projektObj.getProjekt_hat_Dokument());
+
+  			} else if (y == 1 && eventType == "DepartmentInformationEvent") {
+
+				// bei Abteilung
+				eventLinkedHashMap.put("Abteilung",
+					"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
+					+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
+					+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
+					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
+					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+					+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 			}
 
@@ -948,22 +1058,22 @@ public class EventInterface {
 					if (resultSet.hasNext() == true) {
 						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
 					} else {
-						projektObj.setProjektID("'null'");
-						projektObj.setProjektName("'null'");
-						projektObj.setProjekt_gehoert_zu_Unternehmen("'null'");
-						projektObj.setProjekt_gehoert_zu_Abteilung("'null'");
-						projektObj.setProjekt_hat_Projektmitglied("'null'");
-						projektObj.setProjekt_hat_Dokument("'null'");
+						abteilungObj.setAbteilung_ID("'null'");
+						abteilungObj.setAbteilung_Name("'null'") ;
+						abteilungObj.setAbteilung_Kuerzel("'null'");
+						abteilungObj.setAbteilung_hat_Projekt("'null'");
+						abteilungObj.setAbteilung_hat_Mitarbeiter("'null'");
+						abteilungObj.setAbteilung_gehoert_zu_Unternehmen("'null'");
 
-						eventLinkedHashMap.put("Projekt",
-							"ProjektID" + "=" + projektObj.getProjektID()
-								+ ", " + "ProjektName=" + projektObj.getProjektName()
-								+ ", " + "ProjektGehoertZuUnternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
-								+ ", " + "ProjektGehoertZuAbteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
-								+ ", " + "ProjektHatProjektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
-								+ ", " + "ProjektHatDokument=" + projektObj.getProjekt_hat_Dokument());
+						eventLinkedHashMap.put("Abteilung",
+							"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
+								+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
+								+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
+								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
+								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+								+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
-						projektObj.flushProjektObjekt();
+						abteilungObj.flushAbteilungsObjekt();
 
 					}
 
@@ -975,22 +1085,22 @@ public class EventInterface {
 			loggger.error("Fehler in EventInterface: " + e);
 		}
 
-		Projekt projectInformationEventObject = null;
+		Abteilung departmentInformationEventObject = null;
 
 		// drucke alles im richTokenHashMap aus
 		for (String key : eventLinkedHashMap.keySet()) {
 
-			if (key.equals("Projekt")) {
-				projectInformationEventObject = new Projekt(sessionIDStr, String.valueOf(timestampLong),
+			if (key.equals("Abteilung")) {
+				departmentInformationEventObject = new Abteilung(sessionIDStr, String.valueOf(timestampLong),
 					eventUniqueID, eventLinkedHashMap.get(key).toString());
-				System.out.println(projectInformationEventObject.toStringProjektObjekt());
+				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
 				break;
 			}
 
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
+		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
