@@ -52,21 +52,38 @@ public class TokenizerInterface {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceTokenizerInterfaceEvents")
+	@Path("/getTokenizerInterfaceEvents")
 	public static void TokenizerInterfaceMain() {
 		//Path
-//		/tokenizerInterface/produceTokenizerInterfaceEvents
+//		/tokenizerInterface/getTokenizerInterfaceEvents
 		setArrayData();
 		getMetaData();
-		produceUserInformationEvent();
-		produceDepartmentInformationEvent();
-		produceProjectInformationEvent();
+		getUserInformation();
+		getDepartmentInformation();
+		getProjectInformation();
+		goThoughDocumentInstances();
+
+	}
+	
+	public static void main(String[] args) {
+		
+		//Path
+//		/tokenizerInterface/getTokenizerInterfaceEvents
+		setArrayData();
+		getMetaData();
+		getUserInformation();
+		getDepartmentInformation();
+		getProjectInformation();
 		goThoughDocumentInstances();
 
 	}
 
+
+	// produce
+	// consume
+	// produce ProjectInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
-	private static Response produceProjectInformationEvent() {
+	private static Response getProjectInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -93,7 +110,7 @@ public class TokenizerInterface {
 		JSONObject jsonObj = new JSONObject();
 
 		for (int goThoughNumDoks = 0; goThoughNumDoks < anzahlDokumente; goThoughNumDoks++) {
-			produceDocumentInformationEvent(goThoughNumDoks);
+			getDocumentInformation(goThoughNumDoks);
 		}
 
 		jsonObj.put("produceTokenizerInterfaceEvents", richTokenHashMap.toString());
@@ -101,8 +118,11 @@ public class TokenizerInterface {
 
 	}
 
+	// produce
+	// consume
+	// produce DocumentInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
-	private static Response produceDocumentInformationEvent(int dokIndex) {
+	private static Response getDocumentInformation(int dokIndex) {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -125,8 +145,11 @@ public class TokenizerInterface {
 
 	}
 
+	// produce
+	// consume
+	// produce DepartmentInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
-	public static Response produceDepartmentInformationEvent() {
+	public static Response getDepartmentInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -147,8 +170,11 @@ public class TokenizerInterface {
 
 	}
 
+	// produce
+	// consume
+	// produce UserInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
-	private static Response produceUserInformationEvent() {
+	public static Response getUserInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 

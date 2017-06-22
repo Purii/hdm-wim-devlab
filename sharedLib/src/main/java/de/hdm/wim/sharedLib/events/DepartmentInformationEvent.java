@@ -72,6 +72,14 @@ public class DepartmentInformationEvent implements IEvent {
 		this.attributes.put(AttributeKey.SESSION_ID, sessionId);
 	}
 
+	public String getTimestamp(){
+		return this.attributes.get(AttributeKey.TIMESTAMP).toString();
+	}
+
+	public void setTimestamp(String timestamp){
+		this.attributes.put(AttributeKey.TIMESTAMP, timestamp);
+	}
+
 	public String getTokenId(){
 		return this.attributes.get(AttributeKey.TOKEN_ID).toString();
 	}

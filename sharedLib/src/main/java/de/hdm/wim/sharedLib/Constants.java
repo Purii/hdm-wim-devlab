@@ -38,8 +38,8 @@ public class Constants {
 			public static final String DEPARTMENT_HAS_WORKER		= "departmentHasWorker";
 			public static final String DEPARTMENT_BELONGS_TO_COMPANY		= "departmentBelongsToCompany";
 			public static final String EMAIL		= "eMail";
-			public static final String SURNAME		= "surname";
-			public static final String PRENAME		= "prename";
+			public static final String LAST_NAME		= "lastName";
+			public static final String FIRST_NAME		= "firstName";
 			public static final String PROJECT_NAMES		= "projectNames";
 			public static final String PROJECT_NAME		= "projectName";
 			public static final String PROJECT_ROLES		= "projectRoles";

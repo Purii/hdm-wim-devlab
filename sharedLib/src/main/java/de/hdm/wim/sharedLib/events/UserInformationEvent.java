@@ -77,6 +77,14 @@ public class UserInformationEvent implements IEvent{
 		this.attributes.put(AttributeKey.SESSION_ID, sessionId);
 	}
 
+	public String getTimestamp(){
+		return this.attributes.get(AttributeKey.TIMESTAMP).toString();
+	}
+
+	public void setTimestamp(String timestamp){
+		this.attributes.put(AttributeKey.TIMESTAMP, timestamp);
+	}
+
 	public String getTokenId(){
 		return this.attributes.get(AttributeKey.TOKEN_ID).toString();
 	}
@@ -93,20 +101,20 @@ public class UserInformationEvent implements IEvent{
 		this.attributes.put(AttributeKey.USER_ID, userId);
 	}
 
-	public String getPrename(){
-		return this.attributes.get(AttributeKey.PRENAME).toString();
+	public String getFirstname(){
+		return this.attributes.get(AttributeKey.FIRST_NAME).toString();
 	}
 
-	public void setPrename(String prename){
-		this.attributes.put(AttributeKey.PRENAME, prename);
+	public void setFirstname(String firstname){
+		this.attributes.put(AttributeKey.FIRST_NAME, firstname);
 	}
 
-	public String getSurname(){
-		return this.attributes.get(AttributeKey.SURNAME).toString();
+	public String getLastname(){
+		return this.attributes.get(AttributeKey.LAST_NAME).toString();
 	}
 
-	public void setSurname(String surname){
-		this.attributes.put(AttributeKey.SURNAME, surname);
+	public void setLastname(String lastname){
+		this.attributes.put(AttributeKey.LAST_NAME, lastname);
 	}
 
 	public String getEmail(){
