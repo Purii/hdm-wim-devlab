@@ -23,8 +23,11 @@ import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
+import org.json.simple.JSONObject;
 
+/*
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+*/
 
 @Path("/rest")
 public class Ressourcee {
