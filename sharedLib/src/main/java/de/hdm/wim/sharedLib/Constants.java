@@ -220,6 +220,7 @@ public class Constants {
 			public static final String PUBLISH_ENDPOINT 		= "/publish";
 			public static final String HANDLER_1				= "/event";
 			public static final String HANDLER_2				= "/gui";
+			public static final String SEMREP_HANDLER_1			= "/semRepHandler1";
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 
 
