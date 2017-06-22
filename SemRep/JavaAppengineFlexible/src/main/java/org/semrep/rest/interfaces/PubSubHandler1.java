@@ -56,7 +56,7 @@ public class PubSubHandler1 extends HttpServlet {
 			resp.getOutputStream().close();
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
-			//resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setStatus(HttpServletResponse.SC_OK);
 
 			// NACK
 			//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

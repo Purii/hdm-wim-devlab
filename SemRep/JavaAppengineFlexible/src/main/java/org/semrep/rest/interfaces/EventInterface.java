@@ -140,7 +140,7 @@ public class EventInterface {
 		// produceUserInformationEvent();
 		try {
 			getUserInformation();
-		} catch (JsonProcessingException | JSONException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
