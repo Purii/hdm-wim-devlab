@@ -129,6 +129,23 @@ Value des `attributes` Parameters ist ein url codierter json string : `{"EventTy
 
 **Hinweis:** Es findet keine Prüfung statt, ob die `topic` existiert. Diese bitte den `Constants` entnehmen.
 
+**(5.1) Message über die Weboberfläche verschicken (zum testen)**
+
+über diese [Weboberfläche](https://hdm-wim-devlab.appspot.com/) können zum Testzweck Messages verschickt werden. 
+Dabei wird die manuelle Eingabe von Messages und das JSON-Format unterstützt.
+
+
+JSON-Format:
+```json
+{
+    "data": "test123",
+    "attributes": {
+        "EventType": "EventType",
+        "EventSource": "EventSource"
+    }
+}
+```
+
 ### Events aus PubSub empfangen (Subscribe)
 **(1) Message von PubSub empfangen.**
 
