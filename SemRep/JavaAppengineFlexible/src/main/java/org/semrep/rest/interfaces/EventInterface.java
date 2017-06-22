@@ -138,7 +138,12 @@ public class EventInterface {
 
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
-
+		try {
+			getUserInformation();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void executeSparql(String sparql) {
