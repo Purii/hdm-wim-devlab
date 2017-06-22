@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import de.hdm.wim.sharedLib.Constants;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
@@ -985,8 +986,7 @@ public class TokenizerInterface {
 
 								}
 
-								// Projekte
-							}
+							} // Projekte
 							if (y == inputArray.length) {
 
 								// einmaliges befüllen der nachfolgenden Werte
@@ -1137,7 +1137,8 @@ public class TokenizerInterface {
 					// bei Projekt
 					if (y == inputArray.length) {
 
-						richTokenHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
+						richTokenHashMap.put("Projekt",
+							"ProjektID" + "=" + projektObj.getProjektID() + ", "
 								+ "ProjektName=" + projektObj.getProjektName() + ", " + "ProjektGehoertZuUnternehmen="
 								+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "ProjektGehoertZuAbteilung="
 								+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
