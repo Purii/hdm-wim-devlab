@@ -181,7 +181,7 @@
                 <configuration>
 
 
-     <!--               <webResources>
+                <webResources>
                         <resource>
                             <filtering>true</filtering>
                             <directory>src/main/webapp</directory>
@@ -191,7 +191,7 @@
                         </resource>
                     </webResources>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>-->
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
 
                 <!--	 <configuration>

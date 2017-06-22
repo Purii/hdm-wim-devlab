@@ -31,12 +31,13 @@ import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
+
 import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
+import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
 import org.semrep.rest.businessObjects.Unternehmen;
-
 
 @Path("/eventInterface")
 public class EventInterface {
@@ -44,7 +45,7 @@ public class EventInterface {
 	// Constants constant = new Constants();
 
 	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(EventInterface.class);
+	private static Logger loggger = Logger.getLogger(Main.class.getName());
 
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -138,7 +139,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDocumentInformation();
+			getUserInformation();
 		} catch (JsonProcessingException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -407,15 +408,14 @@ public class EventInterface {
 			// ablegen eines vollständigen Objekts in einer der entsprechenden
 			// Maps
 			if (y == 1 && eventType == "DocumentInformationEvent") {
-				
-				dokumentObj.setPrio("0"); 
+
+				dokumentObj.setPrio("0");
 				// Dokumente
 				eventLinkedHashMap.put("Dokument",
-						"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() 
-								+ ", " + "DokPrio=" + dokumentObj.getPrio() 
-								+ ", " + "DokTyp=" + dokumentObj.getDok_TypStr() 
-								+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() 
-								+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
+						"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() + ", "
+								+ "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp=" + dokumentObj.getDok_TypStr()
+								+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() + ", " + "DokOrdner="
+								+ dokumentObj.getDok_folder());
 
 			} else if (y == 1 && eventType == "UserInformationEvent") {
 				// bei Person
@@ -587,7 +587,7 @@ public class EventInterface {
 	public static Response getDocumentInformation() throws JSONException, JsonProcessingException {
 
 		// @Path: /rest/eventInterface/getDocumentInformation
-		
+
 		jsonObj = new JSONObject();
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
@@ -618,12 +618,9 @@ public class EventInterface {
 					String dokID = inputArray[z].toString();
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Dokument ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Ordner " 
-							+ "WHERE { "
-							+ "?Dokument ontology:Dok_ID ?Dok_ID . "
-							+ "?Dokument ontology:Dok_Name ?Dok_Name . "
-							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
+							+ "SELECT DISTINCT ?Dokument ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Ordner " + "WHERE { "
+							+ "?Dokument ontology:Dok_ID ?Dok_ID . " + "?Dokument ontology:Dok_Name ?Dok_Name . "
+							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . " + "?Dokument ontology:Dok_URL ?Dok_URL . "
 							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
 							// Eingrenzung auf userID
 							// + "?Dokument ontology:Dok_ID '" +
@@ -652,10 +649,9 @@ public class EventInterface {
 						dokumentObj.setDok_folder("'null'");
 
 						eventLinkedHashMap.put("Dokument",
-								"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() 
-										+ ", " + "DokPrio=" + dokumentObj.getPrio() 
-										+ ", " + "DokTyp=" + dokumentObj.getDok_TypStr() 
-										+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() 
+								"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr()
+										+ ", " + "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp="
+										+ dokumentObj.getDok_TypStr() + ", " + "DokURL=" + dokumentObj.getDok_URLStr()
 										+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
 
 						dokumentObj.flushDokumentObjekt();
@@ -690,7 +686,7 @@ public class EventInterface {
 	}
 
 	// produce
-	// consume 
+	// consume
 	// produce ProjectInformationEvent
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -707,7 +703,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "DocumentInformationEvent";
+		String eventTypeStr = "ProjectInformationEvent";
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -719,37 +715,32 @@ public class EventInterface {
 			String prioStr = "0";
 			// initialisiere Objekte
 			// dokument
-			dokumentObj = new Dokument(dok_IDStr, dok_NameStr, prioStr, dok_TypStr, dok_URLStr, dok_folder);
+			projektObj = new Projekt(projektIDStr, projektNameStr, projekt_gehoert_zu_UnternehmenStr,
+					projekt_gehoert_zu_AbteilungStr, projekt_hat_ProjektmitgliedStr, projekt_hat_DokumentStr);
 
 			for (int z = 0; z < inputArray.length; z++) {
 
 				// ermittle UserInformation
 				if (z == 1) {
 
-					String dokID = inputArray[z].toString();
+					String projID = inputArray[z].toString();
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-							+ "SELECT DISTINCT ?Dokument ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Ordner " 
-							+ "WHERE { "
-							+ "?Dokument ontology:Dok_ID ?Dok_ID . "
-							+ "?Dokument ontology:Dok_Name ?Dok_Name . "
-							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . "
-							+ "?Dokument ontology:Dok_URL ?Dok_URL . "
-							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
-							// Eingrenzung auf userID
-							// + "?Dokument ontology:Dok_ID '" +
-							// inputArray[z].toString() + "' . " + "}";
-							+ " Filter (?Dok_ID = \"" + dokID + "\" ) . "
-							// + "FILTER regex(str(?Dok_ID), '" + inputArray[z]
-							// + "') . "
-							+ "}";
+							+ "SELECT DISTINCT ?Projekt ?ProjektID ?ProjektName ?Projekt_gehoert_zu_Unternehmen "
+							+ "?Projekt_gehoert_zu_Abteilung ?Projekt_hat_Projektmitglied ?Projekt_hat_Dokument "
+							+ "WHERE { " + "?Projekt ontology:Projekt_ID ?ProjektID . "
+							+ "?Projekt ontology:Projekt_Name ?ProjektName . "
+							+ "?Projekt ontology:Projekt_gehoert_zu_Unternehmen ?Projekt_gehoert_zu_Unternehmen . "
+							+ "?Projekt ontology:Projekt_gehoert_zu_Abteilung ?Projekt_gehoert_zu_Abteilung . "
+							+ "?Projekt ontology:Projekt_hat_Projektmitglied ?Projekt_hat_Projektmitglied . "
+							+ "?Projekt ontology:Projekt_hat_Dokument ?Projekt_hat_Dokument . "
+
+							+ "?Projekt ontology:Projekt_Name '" + projID + "' . " + "}";
 
 				}
 
 				if (sparql != "") {
 
-					ClassLoader loader = URLEncodedUtils.class.getClassLoader();
-					loggger.info(loader.getResource("org.apache.http.client.utils‌​.URLEncodedUtils.cla‌​ss"));
 					executeSparql(sparql);
 
 					if (resultSet.hasNext() == true) {
@@ -795,9 +786,9 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+		jsonObj.put("ProjectInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
-	
+
 }
