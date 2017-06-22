@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.businessObjects;
+package org.semrep.rest.businessObjects;
 
 public class Dokumentvorschlag {
 	

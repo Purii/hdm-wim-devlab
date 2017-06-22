@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces;
 
 import java.io.File;
 import java.io.FileReader;
@@ -31,13 +31,12 @@ import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
+import org.semrep.rest.businessObjects.Abteilung;
+import org.semrep.rest.businessObjects.Dokument;
+import org.semrep.rest.businessObjects.Person;
+import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.businessObjects.Unternehmen;
 
-import main.java.org.semrep.rest.businessObjects.Abteilung;
-import main.java.org.semrep.rest.businessObjects.Dokument;
-import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
-import main.java.org.semrep.rest.businessObjects.Person;
-import main.java.org.semrep.rest.businessObjects.Projekt;
-import main.java.org.semrep.rest.businessObjects.Unternehmen;
 
 @Path("/eventInterface")
 public class EventInterface {
@@ -45,7 +44,7 @@ public class EventInterface {
 	// Constants constant = new Constants();
 
 	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(Main.class.getName());
+	private static Logger loggger = Logger.getLogger(EventInterface.class);
 
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";

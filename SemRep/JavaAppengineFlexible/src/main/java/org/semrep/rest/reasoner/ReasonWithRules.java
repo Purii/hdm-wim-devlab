@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.reasoner;
+package org.semrep.rest.reasoner;
 
 //import com.hp.hpl.jena.rdf.model.Model;
 //import com.hp.hpl.jena.rdf.model.ModelFactory;

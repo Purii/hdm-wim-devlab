@@ -1,8 +1,8 @@
-package main.java.org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces;
 
 import javax.ws.rs.Path;
 
-@Path("/machineLearningInterface")
+//@Path("/machineLearningInterface")
 public class MachineLearningInterface {
 
 }

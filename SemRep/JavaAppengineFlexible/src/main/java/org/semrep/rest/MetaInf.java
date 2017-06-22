@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest;
+package org.semrep.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;

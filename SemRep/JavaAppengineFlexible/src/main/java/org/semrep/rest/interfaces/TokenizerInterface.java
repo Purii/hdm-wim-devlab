@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,17 +25,17 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+import org.semrep.rest.businessObjects.Abteilung;
+import org.semrep.rest.businessObjects.Dokument;
+import org.semrep.rest.businessObjects.Person;
+import org.semrep.rest.businessObjects.Projekt;
 
-import main.java.org.semrep.rest.businessObjects.Abteilung;
-import main.java.org.semrep.rest.businessObjects.Dokument;
-import main.java.org.semrep.rest.businessObjects.Person;
-import main.java.org.semrep.rest.businessObjects.Projekt;
 
 @Path("/tokenizerInterface")
 public class TokenizerInterface {
 
 	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(Main.class.getName());
+	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
 
 	public static String[] inputArray = null;
 	public static ArrayList<String> personArrayList = null;

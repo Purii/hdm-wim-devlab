@@ -1,4 +1,4 @@
-package main.java.org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces;
 
 public class InitializeArrayData {
 	
