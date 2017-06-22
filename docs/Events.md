@@ -9,7 +9,7 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [AllProjectsEvent](#allprojectsevent)
 * [AllProjectRolesEvent](#allprojectrolesevent)
 * [DepartmentInformationEvent](#departmentinformationevent)
-* [DocumentCallEvent](#documentcallevent)
+* [DocumentCallEvent (deprecated)](#documentcallevent-deprecated)
 * [DocumentContextEvent](#documentcontextevent)
 * [DocumentInformationEvent](#documentinformationevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
@@ -129,7 +129,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
 
 
-## DocumentCallEvent
+## DocumentCallEvent (deprecated)
 *erstellt durch CEP; ein Nutzer hat ein bestimmtes Dokument angeklickt; die SR kann die Verbindung höher gewichten*
 
 | Feld | Datentyp | Wert |
