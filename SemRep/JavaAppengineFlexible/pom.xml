@@ -180,8 +180,8 @@
 
                 <configuration>
 
-
-     <!--               <webResources>
+<!--
+                    <webResources>
                         <resource>
                             <filtering>true</filtering>
                             <directory>src/main/webapp</directory>
