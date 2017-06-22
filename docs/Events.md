@@ -9,7 +9,7 @@ Werden weitere Events benötigt oder genügen die definierten Attribute nicht, i
 * [AllProjectsEvent](#allprojectsevent)
 * [AllProjectRolesEvent](#allprojectrolesevent)
 * [DepartmentInformationEvent](#departmentinformationevent)
-* [DocumentCallEvent (deprecated)](#documentcallevent (deprecated))
+* [DocumentCallEvent (deprecated)](#documentcallevent-deprecated)
 * [DocumentContextEvent](#documentcontextevent)
 * [DocumentInformationEvent](#documentinformationevent)
 * [DocumentHighlyRelevantEvent](#documenthighlyrelevantevent)
