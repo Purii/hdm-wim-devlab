@@ -19,8 +19,11 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
+import org.json.simple.JSONObject;
 
+/*
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
+*/
 
 @Path("/internal")
 public class InternalInterface {

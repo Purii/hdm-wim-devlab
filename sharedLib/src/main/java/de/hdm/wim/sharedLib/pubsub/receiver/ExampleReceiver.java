@@ -17,9 +17,10 @@ public class ExampleReceiver implements MessageReceiver {
 		// handle incoming message, then ack/nack the received message
 		LOGGER.info("ExampleReceiver");
 
+
 		LOGGER.info("Id : " 		+ message.getMessageId());
 		LOGGER.info("Data : " 		+ message.getData().toStringUtf8());
-		LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap().toString()));
+		LOGGER.info("Attributes: "  + new Gson().toJson(message.getAttributesMap()));
 
 		consumer.ack();
 	}

@@ -34,7 +34,9 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+/*
 import com.google.appengine.labs.repackaged.org.json.JSONException;
+*/
 
 import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
@@ -790,7 +792,7 @@ public class EventInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDocumentInformation")
-	public static Response getDocumentInformation() throws JSONException, JsonProcessingException {
+	public static Response getDocumentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getDocumentInformation
 
@@ -897,7 +899,7 @@ public class EventInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getProjectInformation")
-	public static Response getProjectInformation() throws JSONException, JsonProcessingException {
+	public static Response getProjectInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
