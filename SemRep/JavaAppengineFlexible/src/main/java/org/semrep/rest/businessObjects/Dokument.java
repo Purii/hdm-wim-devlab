@@ -15,7 +15,8 @@ public class Dokument {
 	public String dok_folder;
 	
 	private String sessionID; 
-	public String timeStamp;
+	private String timeStamp;
+	private String prio;
 	private String identity; 
 	private String objectValue;
 	
@@ -26,6 +27,17 @@ public class Dokument {
 		this.identity = identity;
 		this.objectValue = objectValue;
 
+	}
+	
+	public Dokument(String dok_IDStr, String dok_NameStr, String prio, String dok_URLStr, 
+			String dok_TypStr, String dok_folder){
+		this.dok_IDStr = dok_IDStr;
+		this.dok_NameStr = dok_NameStr;
+		this.dok_URLStr = dok_URLStr;
+		this.dok_TypStr = dok_TypStr;
+		this.dok_folder = dok_folder;
+		this.setPrio(prio);
+		
 	}
 	
 	public Dokument(String dok_NameStr, String dok_IDStr, String dok_URLStr,
@@ -59,7 +71,7 @@ public class Dokument {
 				+ ", " + "TokenID=" + this.identity
 				+ ", " + this.objectValue;
 	}
-
+	
 	public void flushDokumentObjekt() {
 		setDok_erstelldatumStr("");
 		setDok_IDStr("");
@@ -192,6 +204,14 @@ public class Dokument {
 
 	public void setObjectValue(String objectValue) {
 		this.objectValue = objectValue;
+	}
+
+	public String getPrio() {
+		return prio;
+	}
+
+	public void setPrio(String prio) {
+		this.prio = prio;
 	}
 
 }

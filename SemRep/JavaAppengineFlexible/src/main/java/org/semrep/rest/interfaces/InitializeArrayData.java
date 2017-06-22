@@ -28,6 +28,7 @@ public class InitializeArrayData {
 			inputArray = new String[2];
 			inputArray[0] = "793dnj"; // sessionID
 			inputArray[1] = "1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc"; // dokumentID
+			//inputArray[1] = "1jQFZmcS__-abakhbfeuqh'Pidei#peahd"; //gibts nicht
 			
 		}
 		
