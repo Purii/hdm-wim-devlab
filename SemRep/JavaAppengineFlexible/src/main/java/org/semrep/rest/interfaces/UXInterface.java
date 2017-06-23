@@ -259,7 +259,7 @@ public class UXInterface {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceOfferEvent")
+	@Path("/getDocumentOffers")
 	public static Response getDocumentOffers() {
 		
 		//@Path: /rest/uxInterface/produceOfferEvent
@@ -274,9 +274,6 @@ public class UXInterface {
 		tmpDokOfferHashMap = new LinkedHashMap<String, String>();
 		favDokHashMap = new LinkedHashMap<String, String>();
 		tmpFavDokHashMap = new LinkedHashMap<String, String>();
-
-//		timestamp = new Timestamp(System.currentTimeMillis());
-//		timeStampStr = timestamp.toString();
 
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
@@ -426,7 +423,7 @@ public class UXInterface {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceInformationToAllDocumentsEvent")
+	@Path("/getAllDocuments")
 	public static Response getAllDocuments() {
 		
 		JSONObject jsonObj = new JSONObject();
@@ -435,9 +432,6 @@ public class UXInterface {
 		
 		dokOfferLinkedHashMap = new LinkedHashMap<String, String>();
 		
-//		timestamp = new Timestamp(System.currentTimeMillis());
-//		timeStampStr = timestamp.toString();
-
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
