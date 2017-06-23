@@ -1334,7 +1334,6 @@ public class EventInterface {
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 
-		// timestamp = new Timestamp(System.currentTimeMillis());
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
