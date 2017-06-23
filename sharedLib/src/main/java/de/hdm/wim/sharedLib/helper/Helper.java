@@ -9,8 +9,6 @@ import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -119,6 +117,8 @@ public class Helper {
 	 * @return IEvent
 	 */
 	public IEvent GetEventFromJson(String json) {
+
+		LOGGER.info("aa" + json);
 
 		JsonElement jsonRoot 	= jsonParser.parse(json);
 		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
