@@ -204,8 +204,9 @@ public class UXInterface {
 				dokumentvorschlagObj.setPrio(prioStr);
 				dokOfferLinkedHashMap.put("Dokument" + i,
 					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
-						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"	+ dokumentvorschlagObj.getTimeStamp()
+						+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + eventUniqueID
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
 								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
 								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
 								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
@@ -220,8 +221,9 @@ public class UXInterface {
 				dokumentvorschlagObj.setPrio(prioStr);
 				favDokHashMap.put("Favorit_" + countDokOffersInLoop,
 					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
-						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":" + dokumentvorschlagObj.getTimeStamp()
+						+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + eventUniqueID
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
 								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
 								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
 								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
@@ -237,8 +239,9 @@ public class UXInterface {
 				dokumentvorschlagObj.setPrio(prioStr);
 				dokOfferHashMap.put("Dokumentvorschlag_" + countDokOffersInLoop,
 					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
-						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":" + dokumentvorschlagObj.getTimeStamp()
+						+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + eventUniqueID
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
 								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
 								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
 								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
@@ -259,7 +262,7 @@ public class UXInterface {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceOfferEvent")
+	@Path("/getDocumentOffers")
 	public static Response getDocumentOffers() {
 		
 		//@Path: /rest/uxInterface/produceOfferEvent
@@ -274,9 +277,6 @@ public class UXInterface {
 		tmpDokOfferHashMap = new LinkedHashMap<String, String>();
 		favDokHashMap = new LinkedHashMap<String, String>();
 		tmpFavDokHashMap = new LinkedHashMap<String, String>();
-
-//		timestamp = new Timestamp(System.currentTimeMillis());
-//		timeStampStr = timestamp.toString();
 
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
@@ -426,7 +426,7 @@ public class UXInterface {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/produceInformationToAllDocumentsEvent")
+	@Path("/getAllDocuments")
 	public static Response getAllDocuments() {
 		
 		JSONObject jsonObj = new JSONObject();
@@ -435,9 +435,6 @@ public class UXInterface {
 		
 		dokOfferLinkedHashMap = new LinkedHashMap<String, String>();
 		
-//		timestamp = new Timestamp(System.currentTimeMillis());
-//		timeStampStr = timestamp.toString();
-
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
