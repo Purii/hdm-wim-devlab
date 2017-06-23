@@ -739,66 +739,66 @@ public class EventInterface {
 				dokumentObj.setPrio("0");
 				// Dokumente
 				eventLinkedHashMap.put("Dokument",
-					"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() + ", "
-						+ "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp=" + dokumentObj.getDok_TypStr()
-						+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr() + ", "
+						+ Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":" + dokumentObj.getDok_TypStr()
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 						+ dokumentObj.getDok_folder());
 
 			} else if (y == 1 && eventType == "UserInformationEvent") {
 				// bei Person
 				eventLinkedHashMap.put("Person",
-					"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", " + "Nachname="
-						+ personObj.getNachname() + ", " + "Mail=" + personObj.getMail() + ", " + "Projekt="
-						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + "Projektrolle="
-						+ personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
-						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
-						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
-						+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+					Constants.PubSub.AttributeKey.USER_ID + ":" + personObj.getId() + ", " + Constants.PubSub.AttributeKey.FIRST_NAME + ":" + personObj.getVorname() + ", " + Constants.PubSub.AttributeKey.LAST_NAME + ":"
+						+ personObj.getNachname() + ", " + Constants.PubSub.AttributeKey.EMAIL + ":" + personObj.getMail() + ", " + Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS + ":"
+						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + Constants.PubSub.AttributeKey.USER_HAS_PROJECTROLE + ":"
+						+ personObj.getPerson_hat_Projektrolle() + ", " + Constants.PubSub.AttributeKey.USER_BELONGS_TO_DEPARTMENT + ":"
+						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + Constants.PubSub.AttributeKey.USER_WRITES_DOCUMENT + ":"
+						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + Constants.PubSub.AttributeKey.USER_CALLS_DOCUMENT + ":"
+						+ personObj.getPerson_ruft_Dokument_auf() + ", " + Constants.PubSub.AttributeKey.USER_FAVOURS_DOCUMENT + ":"
 						+ personObj.getPerson_favorisiert_Dokument());
 
 			} else if (y == 1 && eventType == "ProjectInformationEvent") {
 				// bei Projekt
-				eventLinkedHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
-					+ "ProjektName=" + projektObj.getProjektName() + ", " + "ProjektGehoertZuUnternehmen="
-					+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "ProjektGehoertZuAbteilung="
-					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
-					+ projektObj.getProjekt_hat_Projektmitglied() + ", " + "ProjektHatDokument="
+				eventLinkedHashMap.put("Projekt", Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID() + ", "
+					+ Constants.PubSub.AttributeKey.PROJECT_NAME + ":" + projektObj.getProjektName() + ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_COMPANY + ":"
+					+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT + ":"
+					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_MEMBERS + ":"
+					+ projektObj.getProjekt_hat_Projektmitglied() + ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_DOCUMENTS +""
 					+ projektObj.getProjekt_hat_Dokument());
 
   			} else if (y == 1 && eventType == "DepartmentInformationEvent") {
 
 				// bei Abteilung
 				eventLinkedHashMap.put("Abteilung",
-					"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
-					+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
-					+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
-					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
-					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+					Constants.PubSub.AttributeKey.DEPARTMENT_ID + ":" + abteilungObj.getAbteilung_ID() + ", "
+					+ Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_SHORT + ":"
+					+ abteilungObj.getAbteilung_Kuerzel() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_PROJECT + ":"
+					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_WORKER + ":"
+					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY + ":"
 					+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 			} else if (y == 0 && eventType == "AllProjectsEvent") {
 
 				// alle Projektnamen
 				eventLinkedHashMap.put("AllProjectsEvent",
-					"ProjektName=" + projektObj.getProjektName());
+					Constants.PubSub.AttributeKey.PROJECT_NAMES + ":" + projektObj.getProjektName());
 
 			} else if (y == 0 && eventType == "AllProjectRolesEvent") {
 
 				// alle Projektrollen
 				eventLinkedHashMap.put("AllProjectRolesEvent",
-					"Projektrollen=" + projektRolleObj.getProjektrolle());
+					Constants.PubSub.AttributeKey.PROJECT_ROLES + ":" + projektRolleObj.getProjektrolle());
 
 			} else if (y == 0 && eventType == "AllDepartmentsEvent") {
 
 				// alle Abteilungsnamen
 				eventLinkedHashMap.put("AllDepartmentsEvent",
-					"AbteilungName=" + abteilungObj.getAbteilung_Name());
+					Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name());
 
 			} else if (y == 0 && eventType == "AllCompaniesEvent") {
 
 				// alle Unternehmensnamen
 				eventLinkedHashMap.put("AllCompaniesEvent",
-					"UnternehmenName=" + unternehmenObj.getUnternehmensName());
+					Constants.PubSub.AttributeKey.COMPANY_NAMES + ":" + unternehmenObj.getUnternehmensName());
 
 			}
 
@@ -993,10 +993,10 @@ public class EventInterface {
 						dokumentObj.setDok_folder("'null'");
 
 						eventLinkedHashMap.put("Dokument",
-							"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr()
-								+ ", " + "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp="
-								+ dokumentObj.getDok_TypStr() + ", " + "DokURL=" + dokumentObj.getDok_URLStr()
-								+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
+							Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":" + dokumentObj.getDok_folder());
 
 						dokumentObj.flushDokumentObjekt();
 					}
@@ -1098,12 +1098,12 @@ public class EventInterface {
 						projektObj.setProjekt_hat_Dokument("'null'");
 
 						eventLinkedHashMap.put("Projekt",
-							"ProjektID" + "=" + projektObj.getProjektID()
-								+ ", " + "ProjektName=" + projektObj.getProjektName()
-								+ ", " + "ProjektGehoertZuUnternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
-								+ ", " + "ProjektGehoertZuAbteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
-								+ ", " + "ProjektHatProjektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
-								+ ", " + "ProjektHatDokument=" + projektObj.getProjekt_hat_Dokument());
+							Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_NAME + ":" + projektObj.getProjektName()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_COMPANY + ":" + projektObj.getProjekt_gehoert_zu_Unternehmen()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT + ":" + projektObj.getProjekt_gehoert_zu_Abteilung()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_MEMBERS + ":" + projektObj.getProjekt_hat_Projektmitglied()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_DOCUMENTS + "" + projektObj.getProjekt_hat_Dokument());
 
 						projektObj.flushProjektObjekt();
 
@@ -1204,11 +1204,11 @@ public class EventInterface {
 						abteilungObj.setAbteilung_gehoert_zu_Unternehmen("'null'");
 
 						eventLinkedHashMap.put("Abteilung",
-							"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
-								+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
-								+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
-								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
-								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+							Constants.PubSub.AttributeKey.DEPARTMENT_ID + ":" + abteilungObj.getAbteilung_ID() + ", "
+								+ Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_SHORT + ":"
+								+ abteilungObj.getAbteilung_Kuerzel() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_PROJECT + ""
+								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_WORKER + ":"
+								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY + ":"
 								+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 						abteilungObj.flushAbteilungsObjekt();
@@ -1297,7 +1297,7 @@ public class EventInterface {
 						projektObj.setProjektName("'null'");
 
 						eventLinkedHashMap.put("AllProjectsEvent",
-								"ProjektName=" + projektObj.getProjektName());
+							Constants.PubSub.AttributeKey.PROJECT_NAMES + ":" + projektObj.getProjektName());
 
 					}
 
@@ -1383,7 +1383,7 @@ public class EventInterface {
 						projektRolleObj.setProjektrolle("'null'");
 
 						eventLinkedHashMap.put("AllProjectRolesEvent",
-							"Projektrollen=" + projektRolleObj.getProjektrolle());
+							Constants.PubSub.AttributeKey.PROJECT_ROLES + ":" + projektRolleObj.getProjektrolle());
 
 					}
 
