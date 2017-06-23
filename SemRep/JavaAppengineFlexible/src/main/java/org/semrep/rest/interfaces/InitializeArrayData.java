@@ -47,6 +47,11 @@ public class InitializeArrayData {
 			inputArray = new String[2];
 			inputArray[0] = "793dnj"; // sessionID
 
+		} if (eventType == "AllProjectRolesEvent") {
+
+			inputArray = new String[2];
+			inputArray[0] = "793dnj"; // sessionID
+
 		}
 
 		

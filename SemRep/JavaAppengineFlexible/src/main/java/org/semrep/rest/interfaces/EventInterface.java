@@ -38,12 +38,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
-import org.semrep.rest.businessObjects.Abteilung;
-import org.semrep.rest.businessObjects.Dokument;
-import org.semrep.rest.businessObjects.Dokumentvorschlag;
-import org.semrep.rest.businessObjects.Person;
-import org.semrep.rest.businessObjects.Projekt;
-import org.semrep.rest.businessObjects.Unternehmen;
+import org.semrep.rest.businessObjects.*;
 
 @Path("/eventInterface")
 public class EventInterface {
@@ -75,6 +70,7 @@ public class EventInterface {
 
 	// ### initialisiere globale Objekte
 	private static Person personObj = null;
+	private static Projektrolle projektRolleObj = null;
 	public static Person personFavDokObj = null;
 	public static Dokument dokumentObj = null;
 	public static Projekt projektObj = null;
@@ -139,13 +135,15 @@ public class EventInterface {
 	private static String abteilung_gehoert_zu_UnternehmenStr = "";
 	// unternehmen
 	private static String unternehmensNameStr = "";
+	// projektrolle
+	private static String rollenBezeichnungStr = "";
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getAllProjects();
+			getAllProjectRoles();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -658,6 +656,38 @@ public class EventInterface {
 				// AllProjectRoles
 				if (y == 0 && eventType == "AllProjectRolesEvent") {
 
+					if (((projektRolleObj.getProjektrolle() == "") == true)) {
+
+						switch (results) {
+							case "Bezeichnung":
+								projektrolleStr = splitResult;
+								projektRolleObj.setProjektrolle(projektrolleStr);
+								break;
+						}
+
+					} else if (((projektRolleObj.getProjektrolle() == "") == false)) {
+
+						switch (results) {
+							case "Bezeichnung":
+								projektrolleStr = splitResult;
+								splitKeywordsList = Arrays.asList(
+									projektRolleObj.getProjektrolle().toString().split(", "));
+
+								if (splitKeywordsList.contains(projektrolleStr)) {
+
+									break;
+
+								} else {
+
+									projektRolleObj.setProjektrolle(
+										projektRolleObj.getProjektrolle() + ", "
+											+ projektrolleStr);
+									break;
+								}
+						}
+
+					}
+
 				}
 				// AllDepartments
 				if (y == 0 && eventType == "AllDepartmentsEvent") {
@@ -700,10 +730,10 @@ public class EventInterface {
 
 				}
 
-
 			}
-			// ablegen eines vollständigen Objekts in einer der entsprechenden
-			// Maps
+			// end of inner loop
+
+			// fill HashMap
 			if (y == 1 && eventType == "DocumentInformationEvent") {
 
 				dokumentObj.setPrio("0");
@@ -748,31 +778,32 @@ public class EventInterface {
 
 			} else if (y == 0 && eventType == "AllProjectsEvent") {
 
-				// alle Projects
+				// alle Projektnamen
 				eventLinkedHashMap.put("AllProjectsEvent",
 					"ProjektName=" + projektObj.getProjektName());
 
 			} else if (y == 0 && eventType == "AllProjectRolesEvent") {
 
-				// alle Projects
+				// alle Projektrollen
 				eventLinkedHashMap.put("AllProjectRolesEvent",
-					"ProjektRollenName=" + personObj.getPerson_hat_Projektrolle());
+					"Projektrollen=" + projektRolleObj.getProjektrolle());
 
 			} else if (y == 0 && eventType == "AllDepartmentsEvent") {
 
-				// alle Projects
+				// alle Abteilungsnamen
 				eventLinkedHashMap.put("AllDepartmentsEvent",
 					"AbteilungName=" + abteilungObj.getAbteilung_Name());
 
 			} else if (y == 0 && eventType == "AllCompaniesEvent") {
 
-				// alle Projects
+				// alle Unternehmensnamen
 				eventLinkedHashMap.put("AllCompaniesEvent",
 					"UnternehmenName=" + unternehmenObj.getUnternehmensName());
 
 			}
 
 		}
+		// end of outer loop
 
 		queryExecution.close();
 
@@ -1294,6 +1325,92 @@ public class EventInterface {
 
 		// return personObj.toStringPersonObjekt();
 		jsonObj.put("AllProjectsEvent", AllProjectsInformationEventObject.toStringProjektObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllProjectRoles")
+	public static Response getAllProjectRoles() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		// timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = "AllProjectRolesEvent";
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			projektRolleObj = new Projektrolle(rollenBezeichnungStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Projektrolle ?Bezeichnung "
+						+ "WHERE { "
+						+ "?Projektrolle ontology:Projektrolle_Bezeichnung ?Bezeichnung . "
+						+ "}";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						projektRolleObj.setProjektrolle("'null'");
+
+						eventLinkedHashMap.put("AllProjectRolesEvent",
+							"Projektrollen=" + projektRolleObj.getProjektrolle());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Projektrolle AllProjectRolesEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals("AllProjectRolesEvent")) {
+				AllProjectRolesEventObject = new Projektrolle(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllProjectRolesEventObject.toStringProjektrolleObj());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put("AllProjectRolesEvent", AllProjectRolesEventObject.toStringProjektrolleObj());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
