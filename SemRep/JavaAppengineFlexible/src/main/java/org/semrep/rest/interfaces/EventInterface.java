@@ -739,16 +739,16 @@ public class EventInterface {
 				dokumentObj.setPrio("0");
 				// Dokumente
 				eventLinkedHashMap.put("Dokument",
-					"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() + ", "
-						+ "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp=" + dokumentObj.getDok_TypStr()
-						+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr() + ", "
+						+ Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":" + dokumentObj.getDok_TypStr()
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 						+ dokumentObj.getDok_folder());
 
 			} else if (y == 1 && eventType == "UserInformationEvent") {
 				// bei Person
 				eventLinkedHashMap.put("Person",
-					"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", " + "Nachname="
-						+ personObj.getNachname() + ", " + "Mail=" + personObj.getMail() + ", " + "Projekt="
+					Constants.PubSub.AttributeKey.USER_ID + ":" + personObj.getId() + ", " + Constants.PubSub.AttributeKey.FIRST_NAME + ":" + personObj.getVorname() + ", " + Constants.PubSub.AttributeKey.LAST_NAME + ":"
+						+ personObj.getNachname() + ", " + Constants.PubSub.AttributeKey.EMAIL + ":" + personObj.getMail() + ", " + "Projekt="
 						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + "Projektrolle="
 						+ personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
 						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
@@ -758,7 +758,7 @@ public class EventInterface {
 
 			} else if (y == 1 && eventType == "ProjectInformationEvent") {
 				// bei Projekt
-				eventLinkedHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
+				eventLinkedHashMap.put("Projekt", Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID() + ", "
 					+ "ProjektName=" + projektObj.getProjektName() + ", " + "ProjektGehoertZuUnternehmen="
 					+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "ProjektGehoertZuAbteilung="
 					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
@@ -993,10 +993,10 @@ public class EventInterface {
 						dokumentObj.setDok_folder("'null'");
 
 						eventLinkedHashMap.put("Dokument",
-							"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr()
-								+ ", " + "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp="
-								+ dokumentObj.getDok_TypStr() + ", " + "DokURL=" + dokumentObj.getDok_URLStr()
-								+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
+							Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":" + dokumentObj.getDok_folder());
 
 						dokumentObj.flushDokumentObjekt();
 					}
@@ -1098,7 +1098,7 @@ public class EventInterface {
 						projektObj.setProjekt_hat_Dokument("'null'");
 
 						eventLinkedHashMap.put("Projekt",
-							"ProjektID" + "=" + projektObj.getProjektID()
+							Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID()
 								+ ", " + "ProjektName=" + projektObj.getProjektName()
 								+ ", " + "ProjektGehoertZuUnternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
 								+ ", " + "ProjektGehoertZuAbteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
