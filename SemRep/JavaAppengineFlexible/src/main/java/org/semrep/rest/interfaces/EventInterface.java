@@ -725,6 +725,38 @@ public class EventInterface {
 				// AllCompanies
 				if (y == 0 && eventType == "AllCompaniesEvent") {
 
+					if (((unternehmenObj.getUnternehmensName() == "") == true)) {
+
+						switch (results) {
+							case "Unternehmensnamen":
+								unternehmensNameStr = splitResult;
+								unternehmenObj.setUnternehmensName(unternehmensNameStr);
+								break;
+						}
+
+					} else if (((unternehmenObj.getUnternehmensName() == "") == false)) {
+
+						switch (results) {
+							case "Unternehmensnamen":
+								unternehmensNameStr = splitResult;
+								splitKeywordsList = Arrays
+									.asList(unternehmenObj.getUnternehmensName().toString().split(", "));
+
+								if (splitKeywordsList.contains(unternehmensNameStr)) {
+
+									break;
+
+								} else {
+
+									unternehmenObj
+										.setUnternehmensName(unternehmenObj.getUnternehmensName()
+											+ ", " + unternehmensNameStr);
+									break;
+								}
+						}
+
+					}
+
 				}
 
 			}
