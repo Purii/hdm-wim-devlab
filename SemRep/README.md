@@ -28,7 +28,6 @@ docker run -d -p 8081:8081 flink local
 ```
 
 #Google App Script 
-Google App Script wird verwendet, um in `Google-Drive` mittels eines `Google App Script Addins` manuell eingegebene oder statisch hinterlegte Metadaten des Google Drive Dokuments abzufragen und an den `REST-S`
 
  
 

@@ -3,25 +3,23 @@
 In diesem Ordner befindet sich die Ontologie. 
 Die Ontologie repräesetiert Dokumente aus GoogleDrive 
 und Objekte in Zusammenhang mit Dokumenten stehen. 
-Wie zum Beispiel: Person. 
+Wie zum Beispiel: Person. Ontologie bestehen oftmals aus einer 
+A-Box und einer T-Box. Diese enthalten die Beschreibungslogik 
+häufig in form von Tripple-Notation  (Subjekt, Objekt, Relation). 
+OntologieNotoationen sind: Turle, RDF, etc.
 
-<b>A-Box</b>
+<b>T-Box-Statements</b>
 ```
-# Ausgabe der Logs
-docker run -t -p 8081:8081 flink local
+T-Box-Anweisungen beschreiben ein System in Bezug 
+auf kontrolliertes Vokabular, dass zum Beispiel eine Reihe von 
+Klassen und Eigenschaften besteht.
+```
+<b>A-Box-Statements</b>
+```
+In der ABox sind TBox-konforme Aussagen über dieses Vokabular.
 
-# Detached mode
-docker run -d -p 8081:8081 flink local
 ```
-
-<b>T-Box</b>
-```
-# Ausgabe der Logs
-docker run -t -p 8081:8081 flink local
-
-# Detached mode
-docker run -d -p 8081:8081 flink local
-```
+Weitere Informationen zur Beschreibungslogik [`hier`](https://de.wikipedia.org/wiki/Beschreibungslogik) 
 
 
 <b>Ontologie Modelling</b>
@@ -55,7 +53,6 @@ http://*host*/dataset/query -- the SPARQL query endpoint.
 http://*host*/dataset/update -- the SPARQL Update language endpoint.
 http://*host*/dataset/data -- the SPARQL Graph Store Protocol endpoint.
 http://*host*/dataset/upload -- the file upload endpoint.
- 
 ```
 
 
@@ -73,7 +70,7 @@ localhost:3030 in Ihrem Webrowser erreichbar. Lokal betrieben, wird die
 GUI geladen, auf einem Liveserver muss die Shiro.ini angepasst und eine 
 Konfiurationsdatei hinterlegt werden. 
 
-Download Fuseki (Linux):
+Download Fuseki (Linux):<br>
 https://jena.apache.org/download/#jena-fuseki
 ```
 # Download the latest jena-fuseki-*-distribution -curl/wget
@@ -83,7 +80,7 @@ https://jena.apache.org/download/#jena-fuseki
 ```
 <br>
 
- Start(Run) Fuseki https://jena.apache.org/documentation/fuseki2/fuseki-run.html
+Run Fuseki:<br>https://jena.apache.org/documentation/fuseki2/fuseki-run.html
 
  
 
