@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.InitializeArrayData;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.Event;
@@ -140,7 +141,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getAllCompanies();
+			insertNewUserInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -858,7 +859,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "UserInformationEvent";
+		String eventTypeStr = EventNameConstants.USER_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -946,7 +947,7 @@ public class EventInterface {
 
 		publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringUserInformationEvent());
+		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -969,7 +970,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "DocumentInformationEvent";
+		String eventTypeStr = EventNameConstants.DOCUMENT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1007,8 +1008,6 @@ public class EventInterface {
 
 				if (sparql != "") {
 
-					ClassLoader loader = URLEncodedUtils.class.getClassLoader();
-					loggger.info(loader.getResource("org.apache.http.client.utils‌​.URLEncodedUtils.cla‌​ss"));
 					executeSparql(sparql);
 
 					if (resultSet.hasNext() == true) {
@@ -1021,7 +1020,7 @@ public class EventInterface {
 						dokumentObj.setDok_URLStr("'null'");
 						dokumentObj.setDok_folder("'null'");
 
-						eventLinkedHashMap.put("Dokument",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr()
 								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
 								+ dokumentObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr()
@@ -1053,7 +1052,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+		jsonObj.put(eventTypeStr, documentInformationEventObject.toStringDokumentObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1076,7 +1075,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "ProjectInformationEvent";
+		String eventTypeStr = EventNameConstants.PROJECT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1126,7 +1125,7 @@ public class EventInterface {
 						projektObj.setProjekt_hat_Projektmitglied("'null'");
 						projektObj.setProjekt_hat_Dokument("'null'");
 
-						eventLinkedHashMap.put("Projekt",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID()
 								+ ", " + Constants.PubSub.AttributeKey.PROJECT_NAME + ":" + projektObj.getProjektName()
 								+ ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_COMPANY + ":" + projektObj.getProjekt_gehoert_zu_Unternehmen()
@@ -1161,7 +1160,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
+		jsonObj.put(eventTypeStr, projectInformationEventObject.toStringProjektObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1181,7 +1180,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "DepartmentInformationEvent";
+		String eventTypeStr = EventNameConstants.DEPARTMENT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1232,7 +1231,7 @@ public class EventInterface {
 						abteilungObj.setAbteilung_hat_Mitarbeiter("'null'");
 						abteilungObj.setAbteilung_gehoert_zu_Unternehmen("'null'");
 
-						eventLinkedHashMap.put("Abteilung",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.DEPARTMENT_ID + ":" + abteilungObj.getAbteilung_ID() + ", "
 								+ Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_SHORT + ":"
 								+ abteilungObj.getAbteilung_Kuerzel() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_PROJECT + ""
@@ -1266,8 +1265,7 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
+		jsonObj.put(eventTypeStr, departmentInformationEventObject.toStringAbteilungsObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1287,7 +1285,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "AllProjectsEvent";
+		String eventTypeStr = EventNameConstants.ALL_PROJECTS_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1310,7 +1308,8 @@ public class EventInterface {
 						+ "SELECT DISTINCT ?Projekt ?ProjektName "
 						+ "WHERE { "
 						+ "?Projekt ontology:Projekt_Name ?ProjektName . "
-						+ "}";
+						+ "} "
+						+ "ORDER BY ?ProjektName";
 
 				} else {
 					sparql = "";
@@ -1325,7 +1324,7 @@ public class EventInterface {
 					} else {
 						projektObj.setProjektName("'null'");
 
-						eventLinkedHashMap.put("AllProjectsEvent",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.PROJECT_NAMES + ":" + projektObj.getProjektName());
 
 					}
@@ -1353,7 +1352,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("AllProjectsEvent", AllProjectsInformationEventObject.toStringProjektObjekt());
+		jsonObj.put(eventTypeStr, AllProjectsInformationEventObject.toStringProjektObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1372,7 +1371,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "AllProjectRolesEvent";
+		String eventTypeStr = EventNameConstants.ALL_PROJECTROLES_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1395,7 +1394,8 @@ public class EventInterface {
 						+ "SELECT DISTINCT ?Projektrolle ?Bezeichnung "
 						+ "WHERE { "
 						+ "?Projektrolle ontology:Projektrolle_Bezeichnung ?Bezeichnung . "
-						+ "}";
+						+ "} "
+						+ "ORDER BY ?Bezeichnung";
 
 				} else {
 					sparql = "";
@@ -1410,7 +1410,7 @@ public class EventInterface {
 					} else {
 						projektRolleObj.setProjektrolle("'null'");
 
-						eventLinkedHashMap.put("AllProjectRolesEvent",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.PROJECT_ROLES + ":" + projektRolleObj.getProjektrolle());
 
 					}
@@ -1428,7 +1428,7 @@ public class EventInterface {
 		// drucke alles im richTokenHashMap aus
 		for (String key : eventLinkedHashMap.keySet()) {
 
-			if (key.equals("AllProjectRolesEvent")) {
+			if (key.equals(eventTypeStr)) {
 				AllProjectRolesEventObject = new Projektrolle(sessionIDStr, String.valueOf(timestampLong),
 					eventUniqueID, eventLinkedHashMap.get(key).toString());
 				System.out.println(AllProjectRolesEventObject.toStringProjektrolleObj());
@@ -1438,7 +1438,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("AllProjectRolesEvent", AllProjectRolesEventObject.toStringProjektrolleObj());
+		jsonObj.put(eventTypeStr, AllProjectRolesEventObject.toStringProjektrolleObj());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1457,7 +1457,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "AllDepartmentsEvent";
+		String eventTypeStr = EventNameConstants.ALL_DEPARTMENTS_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1480,7 +1480,8 @@ public class EventInterface {
 						+ "SELECT DISTINCT ?Abteilung ?AbteilungName "
 						+ "WHERE { "
 						+ "?Abteilung ontology:Abteilung_Name ?AbteilungName . "
-						+ "}";
+						+ "} "
+						+ "ORDER BY ?AbteilungName";
 
 				} else {
 					sparql = "";
@@ -1495,7 +1496,7 @@ public class EventInterface {
 					} else {
 						abteilungObj.setAbteilung_Name("'null'");
 
-						eventLinkedHashMap.put("AllDepartmentsEvent",
+						eventLinkedHashMap.put(eventTypeStr,
 							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + abteilungObj.getAbteilung_Name());
 
 					}
@@ -1513,7 +1514,7 @@ public class EventInterface {
 		// drucke alles im richTokenHashMap aus
 		for (String key : eventLinkedHashMap.keySet()) {
 
-			if (key.equals("AllDepartmentsEvent")) {
+			if (key.equals(eventTypeStr)) {
 				AllDepartmentsEventObject = new Abteilung(sessionIDStr, String.valueOf(timestampLong),
 					eventUniqueID, eventLinkedHashMap.get(key).toString());
 				System.out.println(AllDepartmentsEventObject.toStringAbteilungsObjekt());
@@ -1523,7 +1524,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("AllDepartmentsEvent", AllDepartmentsEventObject.toStringAbteilungsObjekt());
+		jsonObj.put(eventTypeStr, AllDepartmentsEventObject.toStringAbteilungsObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1542,7 +1543,92 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "AllCompaniesEvent";
+		String eventTypeStr = EventNameConstants.ALL_COMPANIES_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			// initialisiere Objekte
+			// dokument
+			unternehmenObj = new Unternehmen(unternehmensNameStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Unternehmen ?Unternehmensnamen "
+						+ "WHERE { "
+						+ "?Unternehmen ontology:Unternehmen_Name ?Unternehmensnamen . "
+						+ "} "
+						+ "ORDER BY ?Unternehmensnamen";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						unternehmenObj.setUnternehmensName("'null'");
+
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + unternehmenObj.getUnternehmensName());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Unternehmen AllCompaniesEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals(eventTypeStr)) {
+				AllCompaniesEventObject = new Unternehmen(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllCompaniesEventObject.toStringUnternehmenObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, AllCompaniesEventObject.toStringUnternehmenObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewUserInformation")
+	public static Response insertNewUserInformation() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 

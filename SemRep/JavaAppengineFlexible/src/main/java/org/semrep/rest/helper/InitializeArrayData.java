@@ -50,6 +50,11 @@ public class InitializeArrayData {
 			inputArray = new String[1];
 			inputArray[0] = "793dnj"; // sessionID
 
+		} if (eventType == "AdditionalUserInformationEvent") {
+
+			inputArray = new String[1];
+			inputArray[0] = "793dnj"; // sessionID
+
 		}
 
 		return inputArray;
