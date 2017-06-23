@@ -179,6 +179,7 @@ public class InternalInterface {
 
 			try {
 
+
 				//SPARQL-SELECT-Query um die in der A-Box hintlegten Projektphasen abzufragen
 				String sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 					+ "SELECT DISTINCT ?Projekte "
@@ -211,7 +212,7 @@ public class InternalInterface {
 						splitResult = rdfNode.toString().substring(indexOfToSplitCharacter + 1);
 
 						//Wert auf Poition 'j' wird ArrayList hinzugefügt
-						projectstageList.add(splitResult);
+						projectList.add(splitResult);
 					}
 				}
 				queryExecution.close();
@@ -221,14 +222,28 @@ public class InternalInterface {
 			}
 
 			// projektHasMap wird in String umgewandelt
-			String jsonInString = projectstageList.toString();
+			String jsonInString = projectList.toString();
 
 			// JASON-String wird zurückgegeben
 			return Response.status(200).entity(jsonInString).build();
 		}
 
 
+	/**
+	 * Die Methode 'insertMethode' gibt alle Projekte, die in der A-Box vorhanden sind, zurück.
+	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
+	 * alle Projekte darzustellen.
+	 */
 
-	
+
+
+
+
+
+
+
+	public static void main(String[] args) {
+	}
+
 
 }
