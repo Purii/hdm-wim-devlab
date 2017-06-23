@@ -2,6 +2,8 @@
 
 Für jedes Event werden gültige Topics festgestellt. Entsprechend gehen diese Topics aus der [Dokumentation der Events](https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md) hervor.
 
+Bei Fragen oder Vorschlägen bitte Issue [#32](https://github.com/Purii/hdm-wim-devlab/issues/32) nutzen.
+
 | Topic | Events | Publisher | Subscriber |
 | :---- | :---- | :---- |:---- |
 | SemRep_Information | <ul><li>DocumentInformationEvent</li><li>UserInformationEvent</li><li>AllCompaniesEvent</li><li>AllDepartmentsEvent</li><li>AllProjectsEvent</li><li>AllProjectRolesEvent</li><li>DepartmentInformationEvent</li><li>ProjectInformationEvent</li></ul> | SemRep | CEP, GUI |
