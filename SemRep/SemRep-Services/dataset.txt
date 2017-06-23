@@ -1,4 +1,0 @@
-@prefix : <http://oanaureche.com/prefix#> .
-@prefix pre: <http://jena.hpl.hp.com/prefix#> .
-:Joseph pre:father :Mary .
-:John pre:brother :Joseph .

@@ -6,22 +6,12 @@
 
 Die Realisierung der Gruppe: `Semantische Represenation von Dokumennte` wird mit [`Apache Jena`](https://jena.apache.org/). Die `Jena-Services` sind über das REST-Endpunkte  für `POST` und `GET` Anfragen für externe Komponenten erreichbar. Diese Komponente bietet Inferenzmechanismen, mit denen aus gegeben Keywörtern, Dokumentenvorschläge schlussfolgern kann. Realisiert wurde die REST-Enpunkte auf der Google App Eninge und mit dem Java Framework Jersey. Im Folgenden sind alle REST-Endpunkte definiert: 
 
-```
-# Ausgabe der Logs
-docker run -t -p 8081:8081 flink local
-
-# Detached mode
-docker run -d -p 8081:8081 flink local
-```
+ 
 
 #Endpoints SemRep
 ```
-# Ausgabe der Logs
-docker run -t -p 8081:8081 flink local
+# Endpoitnts .. 
 
-# Detached mode
-docker run -d -p 8081:8081 flink local
-```
 
 #Ontologie
 Die Daten werden in  Ontologie oder als Wissenbasis bezeichnet gespeichert. Diese besteht aus einer A-Box und einer T-Box. Die A-Box enthält Axiome, wobei die T-Box als Schablone gilt. 
