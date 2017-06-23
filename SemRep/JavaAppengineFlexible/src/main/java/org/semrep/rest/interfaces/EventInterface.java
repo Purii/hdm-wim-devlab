@@ -140,7 +140,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getAllDepartments();
+			getAllCompanies();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1492,6 +1492,90 @@ public class EventInterface {
 
 		// return personObj.toStringPersonObjekt();
 		jsonObj.put("AllDepartmentsEvent", AllDepartmentsEventObject.toStringAbteilungsObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllCompanies")
+	public static Response getAllCompanies() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = "AllCompaniesEvent";
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			// initialisiere Objekte
+			// dokument
+			unternehmenObj = new Unternehmen(unternehmensNameStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Unternehmen ?Unternehmensnamen "
+						+ "WHERE { "
+						+ "?Unternehmen ontology:Unternehmen_Name ?Unternehmensnamen . "
+						+ "}";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						unternehmenObj.setUnternehmensName("'null'");
+
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + unternehmenObj.getUnternehmensName());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Unternehmen AllCompaniesEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals(eventTypeStr)) {
+				AllCompaniesEventObject = new Unternehmen(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllCompaniesEventObject.toStringUnternehmenObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, AllCompaniesEventObject.toStringUnternehmenObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}

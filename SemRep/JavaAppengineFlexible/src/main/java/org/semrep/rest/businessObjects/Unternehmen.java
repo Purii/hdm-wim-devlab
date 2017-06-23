@@ -5,6 +5,8 @@ import de.hdm.wim.sharedLib.Constants;
 public class Unternehmen {
 	private String unternehmensName;
 	private String sessionID;
+	private String timeStamp;
+	private String identity;
 	private String objectValue;
 	
 	public Unternehmen(String unternehmensName){
@@ -12,8 +14,11 @@ public class Unternehmen {
 		this.unternehmensName = unternehmensName;
 	}
 	
-	public Unternehmen(String sessionID, String objectValue){
+	public Unternehmen(String sessionID, String timeStamp,
+					   String identity, String objectValue){
 		this.sessionID = sessionID;
+		this.timeStamp = timeStamp;
+		this.identity = identity;
 		this.objectValue = objectValue;
 	}
 	
@@ -24,7 +29,9 @@ public class Unternehmen {
 	
 	public String toStringUnternehmenObjekt() {
 		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
-				+ ", " + this.objectValue;
+			+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+			+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
+			+ ", " + this.objectValue;
 	}
 
 	public String getUnternehmensName() {
@@ -56,5 +63,20 @@ public class Unternehmen {
 
 		this.objectValue = objectValue;
 	}
-		
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 }

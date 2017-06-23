@@ -42,22 +42,16 @@ public class InitializeArrayData {
 			inputArray[0] = "793dnj"; // sessionID
 			inputArray[1] = "IT"; // departmentName
 
-		} if (eventType == "AllProjectsEvent") {
-
-			inputArray = new String[1];
-			inputArray[0] = "793dnj"; // sessionID
-
-		} if (eventType == "AllProjectRolesEvent") {
-
-			inputArray = new String[1];
-			inputArray[0] = "793dnj"; // sessionID
-
-		} if (eventType == "AllDepartmentsEvent") {
+		} if (eventType == "AllProjectsEvent"
+				|| eventType == "AllProjectRolesEvent"
+				|| eventType == "AllDepartmentsEvent"
+				|| eventType == "AllCompaniesEvent") {
 
 			inputArray = new String[1];
 			inputArray[0] = "793dnj"; // sessionID
 
 		}
+
 		return inputArray;
 
 	}
