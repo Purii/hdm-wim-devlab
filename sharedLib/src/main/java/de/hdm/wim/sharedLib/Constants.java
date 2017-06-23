@@ -66,6 +66,12 @@ public class Constants {
 			public static final String FAVORITE	= "favorite";
 			public static final String DOCUMENT_BELONGS_TO_PROJECT ="belongsToProject";
 			public static final String CONTEXT = "context";
+			public static final String USER_WORKS_ON_PROJECTS = "userWorksOnProject";
+			public static final String USER_HAS_PROJECTROLE ="userHasProjectrole";
+			public static final String USER_BELONGS_TO_DEPARTMENT="userBelongsToDepartment";
+			public static final String USER_WRITES_DOCUMENT ="userWritesDocument";
+			public static final String USER_CALLS_DOCUMENT="userCallsDocument";
+			public static final String USER_FAVOURS_DOCUMENT="userFavoursDocument";
 
 			// Event
 
