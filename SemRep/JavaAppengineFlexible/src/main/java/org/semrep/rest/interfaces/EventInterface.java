@@ -3,11 +3,7 @@ package org.semrep.rest.interfaces;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -42,8 +38,6 @@ import org.semrep.rest.businessObjects.*;
 
 @Path("/eventInterface")
 public class EventInterface {
-
-	// Constants constant = new Constants();
 
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(Main.class.getName());
@@ -1340,7 +1334,6 @@ public class EventInterface {
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 
-		// timestamp = new Timestamp(System.currentTimeMillis());
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 

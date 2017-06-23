@@ -111,7 +111,7 @@ public class Main {
 
 				// initialisiere Objekte
 				// dokument
-				dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
+				dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, "'null'", dok_IDStr, dok_NameStr, prioStr,
 						dok_TypStr, dok_URLStr, dok_folder);
 				// favoritDok
 				personFavDokObj = new Person(personName_Str);

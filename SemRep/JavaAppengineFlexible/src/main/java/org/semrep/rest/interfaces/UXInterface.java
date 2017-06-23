@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import de.hdm.wim.sharedLib.Constants;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
@@ -50,19 +51,27 @@ public class UXInterface {
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
 	public static HashMap<String, String> favDokHashMap = null;
 	public static HashMap<String, String> tmpFavDokHashMap = null;
+
+	// ### time stamp
 	public static Timestamp timestamp = null;
-	
+	private static long timestampLong;
+
 	// ### initialisiere globale Objekte
 	public static Dokumentvorschlag dokumentvorschlagObj = null;
 	public static Person personObj = null;
 	public static Person personFavDokObj = null;
 	
 	// ### initialisiere globale Variablen
+
 	// inputArray
 	public static String[] inputArray = null;
+
+	// Standard Variablen
+	private static String sessionIDStr = "";
+	public static String eventUniqueID = "'null'";
+	private static String timeStampStr = "";
+
 	// Dokument-Objekt bezogen
-	public static String sessionIDStr = "";
-	public static String timeStampStr = "";
 	public static String dok_IDStr = "";
 	public static String dok_NameStr = "";
 	public static String prioStr = "";
@@ -99,7 +108,7 @@ public class UXInterface {
 		// queryExecution = QueryExecutionFactory.create(query,
 		// ontologyModel);
 		queryExecution = QueryExecutionFactory
-				.sparqlService("http://35.187.45.171:3030/ontology/query", query);
+				.sparqlService("http://35.187.45.171:3030/20170621newOntology/query", query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
@@ -194,13 +203,14 @@ public class UXInterface {
 				prioStr = "0";
 				dokumentvorschlagObj.setPrio(prioStr);
 				dokOfferLinkedHashMap.put("Dokument" + i,
-						"SessionID=" + dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID="
-								+ dokumentvorschlagObj.getDok_IDStr() + ", " + "DokName="
-								+ dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio="
-								+ dokumentvorschlagObj.getPrio() + ", " + "DokTyp="
-								+ dokumentvorschlagObj.getDok_TypStr() + ", " + "DokURL="
-								+ dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
+								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
+								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
+								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentvorschlagObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":"
+								+ dokumentvorschlagObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 								+ dokumentvorschlagObj.getDok_folder());
 
 				dokumentvorschlagObj.flushDokumentvorschlag();
@@ -209,13 +219,14 @@ public class UXInterface {
 				prioStr = "1";
 				dokumentvorschlagObj.setPrio(prioStr);
 				favDokHashMap.put("Favorit_" + countDokOffersInLoop,
-						"SessionID=" + dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID="
-								+ dokumentvorschlagObj.getDok_IDStr() + ", " + "DokName="
-								+ dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio="
-								+ dokumentvorschlagObj.getPrio() + ", " + "DokTyp="
-								+ dokumentvorschlagObj.getDok_TypStr() + ", " + "DokURL="
-								+ dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
+								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
+								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
+								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentvorschlagObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":"
+								+ dokumentvorschlagObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 								+ dokumentvorschlagObj.getDok_folder());
 
 				countDokOffersInLoop = countDokOffersInLoop + 1;
@@ -225,13 +236,14 @@ public class UXInterface {
 				prioStr = "1";
 				dokumentvorschlagObj.setPrio(prioStr);
 				dokOfferHashMap.put("Dokumentvorschlag_" + countDokOffersInLoop,
-						"SessionID=" + dokumentvorschlagObj.getSessionID() + ", " + "TimeStamp="
-								+ dokumentvorschlagObj.getTimeStamp() + ", " + "DokID="
-								+ dokumentvorschlagObj.getDok_IDStr() + ", " + "DokName="
-								+ dokumentvorschlagObj.getDok_NameStr() + ", " + "DokPrio="
-								+ dokumentvorschlagObj.getPrio() + ", " + "DokTyp="
-								+ dokumentvorschlagObj.getDok_TypStr() + ", " + "DokURL="
-								+ dokumentvorschlagObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.SESSION_ID + ":" + dokumentvorschlagObj.getSessionID() + ", "
+						+ Constants.PubSub.AttributeKey.TIMESTAMP + ":"
+								+ dokumentvorschlagObj.getTimeStamp() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_ID + ":"
+								+ dokumentvorschlagObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":"
+								+ dokumentvorschlagObj.getDok_NameStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":"
+								+ dokumentvorschlagObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentvorschlagObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":"
+								+ dokumentvorschlagObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 								+ dokumentvorschlagObj.getDok_folder());
 
 				countDokOffersInLoop = countDokOffersInLoop + 1;
@@ -263,21 +275,20 @@ public class UXInterface {
 		favDokHashMap = new LinkedHashMap<String, String>();
 		tmpFavDokHashMap = new LinkedHashMap<String, String>();
 
+//		timestamp = new Timestamp(System.currentTimeMillis());
+//		timeStampStr = timestamp.toString();
+
 		timestamp = new Timestamp(System.currentTimeMillis());
-		timeStampStr = timestamp.toString();
+		timestampLong = timestamp.getTime();
 
 		try {
-//			File file = new File(filePath);
-//			FileReader fileReader = new FileReader(file);
-//			ontologyModel.read(fileReader, null, "TTL");
-
 			// initialisiere Variablen
 			// sparql
 			String sparql = "";
 
 			// initialisiere Objekte
 			// dokument
-			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
+			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, String.valueOf(timestampLong), eventUniqueID, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 			//favoritDok
 			personFavDokObj = new Person(personName_Str);
@@ -424,13 +435,13 @@ public class UXInterface {
 		
 		dokOfferLinkedHashMap = new LinkedHashMap<String, String>();
 		
+//		timestamp = new Timestamp(System.currentTimeMillis());
+//		timeStampStr = timestamp.toString();
+
 		timestamp = new Timestamp(System.currentTimeMillis());
-		timeStampStr = timestamp.toString();
+		timestampLong = timestamp.getTime();
 
 		try {
-//			File file = new File(filePath);
-//			FileReader fileReader = new FileReader(file);
-//			ontologyModel.read(fileReader, null, "TTL");
 
 			// initialisiere Variablen
 			// sparql
@@ -447,7 +458,7 @@ public class UXInterface {
 
 			// initialisiere Objekte
 			// dokument
-			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, timeStampStr, dok_IDStr, dok_NameStr, prioStr,
+			dokumentvorschlagObj = new Dokumentvorschlag(sessionIDStr, String.valueOf(timestampLong), eventUniqueID, dok_IDStr, dok_NameStr, prioStr,
 					dok_TypStr, dok_URLStr, dok_folder);
 
 					// Alle Dokumente abfragen

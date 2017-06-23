@@ -1,5 +1,7 @@
 package org.semrep.rest.businessObjects;
 
+import de.hdm.wim.sharedLib.Constants;
+
 public class Dokumentvorschlag {
 	
 	public String dok_IDStr;
@@ -20,10 +22,11 @@ public class Dokumentvorschlag {
 		this.objectValue = objectValue;
 	}
 	
-	public Dokumentvorschlag(String sessionID, String timeStamp, String dok_IDStr, String dok_NameStr, String prio,
+	public Dokumentvorschlag(String sessionID, String timeStamp, String identity, String dok_IDStr, String dok_NameStr, String prio,
 			String dok_TypStr, String dok_URLStr, String dok_folder) {
 		this.sessionID = sessionID;
 		this.timeStamp = timeStamp;
+		this.identity = identity;
 		this.dok_IDStr = dok_IDStr;
 		this.dok_NameStr = dok_NameStr;
 		this.prio = prio;
@@ -53,16 +56,16 @@ public class Dokumentvorschlag {
 	}
 	
 	public String toStringFavoritDokumentObjekt() {
-		return "SessionID=" + this.sessionID 
-				+ ", " + "TimeStamp=" + this.timeStamp
-				+ ", " + "TokenID=" + this.identity
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
+				+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+				+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
 				+ ", " + this.objectValue;
 	}
 	
 	public String toStringDokumentvorschlagsObjekt() {
-		return "SessionID=" + this.sessionID 
-				+ ", " + "TimeStamp=" + this.timeStamp
-				+ ", " + "TokenID=" + this.identity
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
+				+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+				+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
 				+ ", " + this.objectValue;
 	}
 

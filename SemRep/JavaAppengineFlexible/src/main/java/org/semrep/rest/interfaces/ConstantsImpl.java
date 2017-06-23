@@ -7,6 +7,12 @@ import de.hdm.wim.sharedLib.Constants;
  */
 public class ConstantsImpl {
 
+	// SessionID, TimeStamp, TokenID
+	String SessionID = Constants.PubSub.AttributeKey.SESSION_ID;
+	String TimeStamp = Constants.PubSub.AttributeKey.TIMESTAMP;
+	String TokenID = Constants.PubSub.AttributeKey.TOKEN_ID;
+
+
 	// fill HashMap
 
 	// "DocumentInformationEvent"
