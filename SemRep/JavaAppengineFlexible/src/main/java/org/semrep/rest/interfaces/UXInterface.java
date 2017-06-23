@@ -30,6 +30,7 @@ import org.json.simple.JSONObject;
 import java.sql.Timestamp;
 import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
+import org.semrep.rest.helper.FusekiConfigConstants;
 
 @Path("/uxInterface")
 public class UXInterface {
@@ -108,7 +109,7 @@ public class UXInterface {
 		// queryExecution = QueryExecutionFactory.create(query,
 		// ontologyModel);
 		queryExecution = QueryExecutionFactory
-				.sparqlService("http://35.187.45.171:3030/20170621newOntology/query", query);
+				.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();

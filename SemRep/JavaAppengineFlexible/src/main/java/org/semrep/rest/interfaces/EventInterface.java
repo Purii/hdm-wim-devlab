@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.semrep.rest.helper.EventNameConstants;
+import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.Event;
@@ -155,7 +156,7 @@ public class EventInterface {
 		Query query = QueryFactory.create(sparql);
 		// queryExecution = QueryExecutionFactory.create(query,
 		// ontologyModel);
-		queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/20170621newOntology/query",
+		queryExecution = QueryExecutionFactory.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS,
 			query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
@@ -1639,7 +1640,8 @@ public class EventInterface {
 
 			// initialisiere Objekte
 			// dokument
-			unternehmenObj = new Unternehmen(unternehmensNameStr);
+			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
+				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 
 			for (int z = 0; z < inputArray.length; z++) {
 
