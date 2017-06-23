@@ -145,7 +145,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDepartmentInformation();
+			getAllProjects();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -619,6 +619,87 @@ public class EventInterface {
 					}
 
 				}
+				// AllProjects
+				if (y == 0 && eventType == "AllProjectsEvent") {
+
+					if (((projektObj.getProjektName() == "") == true)) {
+
+						switch (results) {
+							case "ProjektName":
+								projektNameStr = splitResult;
+								projektObj.setProjektName(projektNameStr);
+								break;
+						}
+
+					} else if (((projektObj.getProjektName() == "") == false)) {
+
+						switch (results) {
+							case "ProjektName":
+								projektNameStr = splitResult;
+								splitKeywordsList = Arrays.asList(
+									projektObj.getProjektName().toString().split(", "));
+
+								if (splitKeywordsList.contains(projektNameStr)) {
+
+									break;
+
+								} else {
+
+									projektObj.setProjektName(
+										projektObj.getProjektName() + ", "
+											+ projektNameStr);
+									break;
+								}
+						}
+
+					}
+
+				}
+				// AllProjectRoles
+				if (y == 0 && eventType == "AllProjectRolesEvent") {
+
+				}
+				// AllDepartments
+				if (y == 0 && eventType == "AllDepartmentsEvent") {
+
+					if (((abteilungObj.getAbteilung_Name() == "") == true)) {
+
+						switch (results) {
+							case "Abteilung_Name":
+								abteilung_NameStr = splitResult;
+								abteilungObj.setAbteilung_Name(abteilung_NameStr);
+								break;
+						}
+
+					} else if (((abteilungObj.getAbteilung_Name() == "") == false)) {
+
+						switch (results) {
+							case "Abteilung_Name":
+								abteilung_NameStr = splitResult;
+								splitKeywordsList = Arrays
+									.asList(abteilungObj.getAbteilung_Name().toString().split(", "));
+
+								if (splitKeywordsList.contains(abteilung_NameStr)) {
+
+									break;
+
+								} else {
+
+									abteilungObj
+										.setAbteilung_Name(abteilungObj.getAbteilung_Name()
+											+ ", " + abteilung_NameStr);
+									break;
+								}
+						}
+
+					}
+
+				}
+				// AllCompanies
+				if (y == 0 && eventType == "AllCompaniesEvent") {
+
+				}
+
 
 			}
 			// ablegen eines vollständigen Objekts in einer der entsprechenden
@@ -664,6 +745,30 @@ public class EventInterface {
 					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
 					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
 					+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
+
+			} else if (y == 0 && eventType == "AllProjectsEvent") {
+
+				// alle Projects
+				eventLinkedHashMap.put("AllProjectsEvent",
+					"ProjektName=" + projektObj.getProjektName());
+
+			} else if (y == 0 && eventType == "AllProjectRolesEvent") {
+
+				// alle Projects
+				eventLinkedHashMap.put("AllProjectRolesEvent",
+					"ProjektRollenName=" + personObj.getPerson_hat_Projektrolle());
+
+			} else if (y == 0 && eventType == "AllDepartmentsEvent") {
+
+				// alle Projects
+				eventLinkedHashMap.put("AllDepartmentsEvent",
+					"AbteilungName=" + abteilungObj.getAbteilung_Name());
+
+			} else if (y == 0 && eventType == "AllCompaniesEvent") {
+
+				// alle Projects
+				eventLinkedHashMap.put("AllCompaniesEvent",
+					"UnternehmenName=" + unternehmenObj.getUnternehmensName());
 
 			}
 
@@ -1004,7 +1109,7 @@ public class EventInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDepartmentInformation")
-	public static Response getDepartmentInformation() throws Exception {
+	public static Response getDepartmentInformation() throws JsonProcessingException {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1103,6 +1208,92 @@ public class EventInterface {
 
 		// return personObj.toStringPersonObjekt();
 		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllProjects")
+	public static Response getAllProjects() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		// timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = "AllProjectsEvent";
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			projektObj = new Projekt(projektNameStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Projekt ?ProjektName "
+						+ "WHERE { "
+						+ "?Projekt ontology:Projekt_Name ?ProjektName . "
+						+ "}";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						projektObj.setProjektName("'null'");
+
+						eventLinkedHashMap.put("AllProjectsEvent",
+								"ProjektName=" + projektObj.getProjektName());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Projekt AllProjectsInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals("AllProjectsEvent")) {
+				AllProjectsInformationEventObject = new Projekt(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllProjectsInformationEventObject.toStringProjektObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put("AllProjectsEvent", AllProjectsInformationEventObject.toStringProjektObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}

@@ -17,10 +17,16 @@ public class Projekt {
 	public Projekt(String sessionID, String timestamp, String identity, String objectValue) {
 		
 		this.sessionID = sessionID;
-		this.setTimeStamp(timestamp);
+		this.timeStamp = timestamp;
 		this.identity = identity;
 		this.objectValue = objectValue;
 		
+	}
+
+	public Projekt(String projektName) {
+
+		this.projektName = projektName;
+
 	}
 
 	public Projekt(String projektID, String projektName, String projekt_gehoert_zu_Unternehmen,
