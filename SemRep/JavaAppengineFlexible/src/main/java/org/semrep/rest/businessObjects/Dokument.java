@@ -1,5 +1,7 @@
 package org.semrep.rest.businessObjects;
 
+import de.hdm.wim.sharedLib.Constants;
+
 public class Dokument {
 
 	public String dok_NameStr;
@@ -59,16 +61,16 @@ public class Dokument {
 	}
 	
 	public String toStringAlleDokumentObjekt() {
-		return "SessionID=" + this.sessionID 
-				+ ", " + "TimeStamp=" + this.timeStamp
-				+ ", " + "TokenID=" + this.identity
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
+				+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+				+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
 				+ ", " + this.objectValue;
 	}
 	
 	public String toStringDokumentObjekt() {
-		return "SessionID=" + this.sessionID 
-				+ ", " + "TimeStamp=" + this.timeStamp
-				+ ", " + "TokenID=" + this.identity
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
+				+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+				+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
 				+ ", " + this.objectValue;
 	}
 	

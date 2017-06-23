@@ -1,5 +1,7 @@
 package org.semrep.rest.businessObjects;
 
+import de.hdm.wim.sharedLib.Constants;
+
 public class Unternehmen {
 	private String unternehmensName;
 	private String sessionID;
@@ -19,7 +21,7 @@ public class Unternehmen {
 	}
 	
 	public String toStringUnternehmenObjekt() {
-		return "SessionID=" + this.sessionID
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
 				+ ", " + this.objectValue;
 	}
 

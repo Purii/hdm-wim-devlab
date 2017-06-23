@@ -1,5 +1,7 @@
 package org.semrep.rest.businessObjects;
 
+import de.hdm.wim.sharedLib.Constants;
+
 public class Projekt {
 
 	public String projektID;
@@ -40,9 +42,9 @@ public class Projekt {
 	}
 	
 	public String toStringProjektObjekt() {
-		return "SessionID=" + this.sessionID 
-				+ ", " + "TimeStamp=" + this.timeStamp
-				+ ", " + "TokenID=" + this.identity
+		return Constants.PubSub.AttributeKey.SESSION_ID + ":" + this.sessionID
+				+ ", " + Constants.PubSub.AttributeKey.TIMESTAMP + ":" + this.timeStamp
+				+ ", " + Constants.PubSub.AttributeKey.TOKEN_ID + ":" + this.identity
 				+ ", " + this.objectValue;
 	}
 
