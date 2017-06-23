@@ -25,6 +25,11 @@ public class Abteilung {
 		this.objectValue = objectValue;	
 	}
 
+	public Abteilung(String abteilung_Name)
+	{
+		this.abteilung_Name = abteilung_Name;
+	}
+
 	//Konstruktor 2
 	public Abteilung(String abteilung_ID, String abteilung_Name, String abteilung_Kuerzel,
 					 String abteilung_hat_Projekt, String abteilung_hat_Mitarbeiter,

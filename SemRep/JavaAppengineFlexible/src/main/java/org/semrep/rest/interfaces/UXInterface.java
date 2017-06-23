@@ -35,7 +35,7 @@ import org.semrep.rest.businessObjects.Person;
 public class UXInterface {
 	
 	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(Main.class.getName());
+	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
 
 
 	// ### initialisiere globale Jena-Variablen

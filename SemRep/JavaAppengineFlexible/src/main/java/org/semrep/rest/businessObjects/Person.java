@@ -262,7 +262,7 @@ public class Person {
 		return timeStamp;
 	}
 
-	public void setTimeStamp(String timeStamp) {7
+	public void setTimeStamp(String timeStamp) {
 
 		this.timeStamp = timeStamp;
 	}
