@@ -230,20 +230,161 @@ public class InternalInterface {
 
 
 	/**
-	 * Die Methode 'insertMethode' gibt alle Projekte, die in der A-Box vorhanden sind, zurück.
-	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
-	 * alle Projekte darzustellen.
+	 * Die Methode 'insertMethode' nimmt die Daten via Jason an und fügt diese in die A-Box hinzu
 	 */
 
 
+	@POST
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Path("/insertMetadata")
+	public Boolean insertMetadata(
+		@FormParam("docVersion") String doc_version,
+		@FormParam("docContext") String doc_have_context,
+		@FormParam("docCategpry") String doc_category,
+		@FormParam("docKeywords") String keywords,
+		@FormParam("docStage") String doc_stage,
+		@FormParam("docProjectlink") String doc_projectlink,
+		@FormParam("docID") String doc_id,
+		@FormParam("docUpdateTime") String doc_updateTime,
+		@FormParam("docUrl") String doc_url,
+		@FormParam("docCreationTime") String doc_creationTime,
+		@FormParam("docRootFolder") String doc_rootFolder,
+		@FormParam("docName") String doc_name,
+		@FormParam("docTyp") String doc_typ,
+		@FormParam("docFavoriten") String doc_favorite,
+		@FormParam("docAutor") String doc_autor)
+	{
 
 
 
+		Boolean response = null;
+
+		if (doc_id == "") {
+			response =false;
+ 		}else {
+			try {
+
+				//SPARQL, checkt ob DokId bereits in abox vorhanden ist
+				String checkSparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+					+ "SELECT DISTINCT ?" + doc_id
+					+ "WHERE { " + "?x ontology:"+doc_id +" ?Dokumente . "
+					+ "} "
+					+ "ORDER BY ?Dokumente";
+
+				// Initialisierung und Ausführung einer SPARQL-Query
+				QueryExecution queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/ontology/query", checkSparql);
+
+				//Ergebisse der Ausführung werden in ResultSet gespeichert
+				ResultSet resultSet = queryExecution.execSelect();
+
+				if (resultSet != null){
 
 
+				//DeleteQuery and InsertQuery
+				try {
 
-	public static void main(String[] args) {
+				String deleteQuery = "		PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+					+ " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>"
+					+ " DELETE { "
+					+ "	    a ontology:Dokument, owl:NamedIndividual ;"
+					+ "	    ontology:Dok_Name ' " +doc_name+ "';"
+					+ "		ontology:Dok_ID '" +doc_id+ "';"
+					+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
+					+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
+					+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
+					+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
+					+ "		ontology:Dok_Keywords '"+keywords+"' ;"
+					+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
+					+ "		ontology:Dok_URL '"+doc_url+"' ;"
+					+ "		ontology:Dok_Version '"+doc_version+"' ;"
+					+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
+					+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
+					+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
+					+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
+					+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;"
+					+ " }"
+					+ "INSERT DATA { "
+					+ "     <http://www.semanticweb.org/sem-rep/ontology#>"
+					+ "	    a ontology:Dokument, owl:NamedIndividual ;"
+					+ " 	ontology:Dok_Name ' " +doc_name+ "';"
+					+ "		ontology:Dok_ID '" +doc_id+ "';"
+					+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
+					+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
+					+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
+					+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
+					+ "		ontology:Dok_Keywords '"+keywords+"' ;"
+					+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
+					+ "		ontology:Dok_URL '"+doc_url+"' ;"
+					+ "		ontology:Dok_Version '"+doc_version+"' ;"
+					+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
+					+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
+					+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
+					+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
+					+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;"
+					+ " WHERE  "
+					+ " { "
+					+ " ?x <http://www.semanticweb.org/sem-rep/ontology#DokumentenID> '"+doc_id+"' "
+					+ " }";
+
+
+					String uuID = UUID.randomUUID().toString();
+					UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+						UpdateFactory.create(String.format(deleteQuery, uuID)), "http://35.187.45.171:3030/ontology/query");
+					uP.execute();
+				}
+
+					catch (Exception e) {
+					//("Fehler: Die Daten konnten nicht gespeichert werden" + e);
+					response = false;
+					}
+
+				}
+				else {
+
+					try {
+
+						//InsertQuery
+						String insertQuery = "		PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+							+ " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>"
+							+ "INSERT DATA { "
+							+ "		<http://www.semanticweb.org/sem-rep/ontology#2_TestDokument>"
+							+ "		a ontology:Dokument, owl:NamedIndividual ;"
+							+ "		ontology:Dok_Name ' " +doc_name+ "';"
+							+ "		ontology:Dok_ID '" +doc_id+ "';"
+							+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
+							+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
+							+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
+							+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
+							+ "		ontology:Dok_Keywords '"+keywords+"' ;"
+							+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
+							+ "		ontology:Dok_URL '"+doc_url+"' ;"
+							+ "		ontology:Dok_Version '"+doc_version+"' ;"
+							+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
+							+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
+							+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
+							+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
+							+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;";
+
+
+						String uuID = UUID.randomUUID().toString();
+						UpdateProcessor uP = UpdateExecutionFactory.createRemote(UpdateFactory.create(
+							String.format(insertQuery, uuID)), "http://35.187.45.171:3030/ontology/query");
+
+						uP.execute();
+						response = true;
+						}
+					  catch (Exception e) {
+						//("Fehler: Die Daten konnten nicht gespeichert werden" + e);
+						response = false;
+					}
+				}
+			}
+			 catch (Exception e) {
+				System.out.println(e.getMessage());
+				  response = false;
+			 }
+		}
+		return response;
 	}
-
-
 }
