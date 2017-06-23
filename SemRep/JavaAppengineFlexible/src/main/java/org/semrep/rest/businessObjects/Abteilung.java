@@ -15,6 +15,10 @@ public class Abteilung {
 	public String timeStamp;
 	private String identity; 
 	private String objectValue;
+
+	public Abteilung(String abteilung_Name){
+		this.abteilung_Name = abteilung_Name;
+	}
 	
 	public Abteilung(String sessionID, String timeStamp, String identity, String objectValue){
 		this.sessionID = sessionID;

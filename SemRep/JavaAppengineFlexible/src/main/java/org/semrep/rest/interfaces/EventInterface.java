@@ -127,6 +127,8 @@ public class EventInterface {
 	private static String abteilung_hat_ProjektStr = "";
 	private static String abteilung_hat_MitarbeiterStr = "";
 	private static String abteilung_gehoert_zu_UnternehmenStr = "";
+	// alle abteilungen
+	private static String abteilung_NamenStr = "";
 	// unternehmen
 	private static String unternehmensNameStr = "";
 	// projektrolle
@@ -137,7 +139,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getAllProjectRoles();
+			getAllDepartments();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -689,7 +691,7 @@ public class EventInterface {
 					if (((abteilungObj.getAbteilung_Name() == "") == true)) {
 
 						switch (results) {
-							case "Abteilung_Name":
+							case "AbteilungName":
 								abteilung_NameStr = splitResult;
 								abteilungObj.setAbteilung_Name(abteilung_NameStr);
 								break;
@@ -698,7 +700,7 @@ public class EventInterface {
 					} else if (((abteilungObj.getAbteilung_Name() == "") == false)) {
 
 						switch (results) {
-							case "Abteilung_Name":
+							case "AbteilungName":
 								abteilung_NameStr = splitResult;
 								splitKeywordsList = Arrays
 									.asList(abteilungObj.getAbteilung_Name().toString().split(", "));
@@ -786,7 +788,7 @@ public class EventInterface {
 
 				// alle Abteilungsnamen
 				eventLinkedHashMap.put("AllDepartmentsEvent",
-					Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name());
+					Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + abteilungObj.getAbteilung_Name());
 
 			} else if (y == 0 && eventType == "AllCompaniesEvent") {
 
@@ -1408,5 +1410,89 @@ public class EventInterface {
 
 	}
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllDepartments")
+	public static Response getAllDepartments() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = "AllDepartmentsEvent";
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			abteilungObj = new Abteilung(abteilung_NamenStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Abteilung ?AbteilungName "
+						+ "WHERE { "
+						+ "?Abteilung ontology:Abteilung_Name ?AbteilungName . "
+						+ "}";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						abteilungObj.setAbteilung_Name("'null'");
+
+						eventLinkedHashMap.put("AllDepartmentsEvent",
+							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + abteilungObj.getAbteilung_Name());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Abteilung AllDepartmentsEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals("AllDepartmentsEvent")) {
+				AllDepartmentsEventObject = new Abteilung(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllDepartmentsEventObject.toStringAbteilungsObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put("AllDepartmentsEvent", AllDepartmentsEventObject.toStringAbteilungsObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
 
 }
