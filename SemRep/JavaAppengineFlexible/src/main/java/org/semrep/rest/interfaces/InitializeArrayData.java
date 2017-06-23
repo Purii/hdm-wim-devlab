@@ -44,12 +44,17 @@ public class InitializeArrayData {
 
 		} if (eventType == "AllProjectsEvent") {
 
-			inputArray = new String[2];
+			inputArray = new String[1];
 			inputArray[0] = "793dnj"; // sessionID
 
 		} if (eventType == "AllProjectRolesEvent") {
 
-			inputArray = new String[2];
+			inputArray = new String[1];
+			inputArray[0] = "793dnj"; // sessionID
+
+		} if (eventType == "AllDepartmentsEvent") {
+
+			inputArray = new String[1];
 			inputArray[0] = "793dnj"; // sessionID
 
 		}
