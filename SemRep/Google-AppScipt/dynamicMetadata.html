@@ -3,107 +3,6 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-    <style>
-
-        body {
-            font-family: 'Open Sans', Arial, sans-serif;
-            margin: 0px;
-            font-size: 13px;
-        }
-
-        input.textInputField {
-            border: 0px;
-            border-bottom: 1px #ccc solid;
-            width: 302px;
-            margin-left: -27px;
-            font-size: 14px;
-            padding-left: 27px;
-            color: #000;
-            padding-right: 10px;
-        }
-
-        #metadataForm div {
-            font-size: 12px;
-            color: #999;
-        }
-
-        select#selectDD {
-            border: 0px #fff;
-            border-bottom: 1px solid #ccc;
-            border-top: 1px solid #ccc;
-        }
-
-        .textInputField  {
-            width: 250px;
-            height: 37px;
-        }
-
-        select#selectDD {
-            width: 301px;
-            height: 100%;
-            padding-left: 10px;
-            padding-right: 11px;
-        }
-
-        .staticDataWrap {
-            margin-top:15px;
-            /* background:#f1f1f1;
-            border: 1px solid #ccc; */
-            padding-left:25px;
-            padding-right:25px;
-        }
-
-        #output0 ,   #output1 ,   #output2 ,   #output3 ,   #output4 ,   #output5  ,   #output6  ,   #output7 {
-            margin-bottom: 10px;
-            font-family: 'Open Sans', Arial, sans-serif;
-            font-size: 13px;
-            padding: 5px;
-            background: #f1f1f1;
-            width: 100%;
-            word-wrap: break-word;
-        }
-
-        form#metadataForm {
-            margin-left: 25px !Important;
-        }
-
-        .textInputField{
-            width: 250px;
-            height:30px;
-        }
-
-        .logo {
-            margin-left: 36px;
-            width: 233px;
-            margin-top: 65px;
-            margin-bottom: 45px;
-        }
-
-        .sButton {
-            background-color: #4d90fe;
-            color: #fff;
-            padding: 7px;
-            font-size: 13px;
-            margin-top: 12px;
-            margin-left: 25px;
-            margin-right: 10px;
-        }
-
-        .cButton {    background-color: #f1f1f1;
-            color: #999;
-            padding: 7px;
-            font-size: 13px;
-            margin-top: 12px;
-        } 
-
-         .form {
-             margin-left: 25px;
-         }
-
-        h3 {
-            margin-top:25px;
-        }
-
     </style>
 
     <base target="_top">
@@ -247,13 +146,7 @@
 
 
         function addKeyToSelectedList() {
-            //  document.getElementById("edit-btn").disabled = true;
             document.getElementById("delete-btn").disabled = true;
-            //  document.getElementById("add-btn").disabled = true;
-
-
-
-
             var x = document.getElementById("keywordElement").value;
             if(x.length == 0) {
 
@@ -332,7 +225,6 @@
             }
         }
 
-        //google.script.run.withSuccessHandler(showProjects).getProjectsFromEndpoint2();
 
 
     </script>
@@ -393,17 +285,6 @@
 <?
 
 
-// Hinzufügen von metadata - ohne Property Service
-
-//var metadataItems =[
-//    ["Projektdokument von Projekt: ","projektDocAssization"], ["Projektleiter","projectManager"], ["Abteilung","projektUnit"], ["Version des Dokuments","docVersion"], ["Dokumenttyp","docType"],
-//]
-
-
-
-var metadataItems =[["Version des Dokuments","docVersion"], ["Kontext des Dokuments","docContext"]]
-var dataDynDD =[["Option1","test1"], ["Option2","test2"]]
-
 
 ?>
 
@@ -459,14 +340,8 @@ var metadata = PropertiesService.getDocumentProperties()
         class="sButton"
     />
 
-    <input
-        type="button"
-        value="Schließen"
-        onclick="google.script.host.close()"
-        class="cButton"
-    />
 
-</div>
+
 
 
 
