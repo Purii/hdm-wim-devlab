@@ -894,7 +894,7 @@ public class EventInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDepartmentInformation")
-	public static Response getDepartmentInformation() throws JSONException, JsonProcessingException {
+	public static Response getDepartmentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
