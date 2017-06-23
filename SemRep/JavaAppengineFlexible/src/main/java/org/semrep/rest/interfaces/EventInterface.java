@@ -748,12 +748,12 @@ public class EventInterface {
 				// bei Person
 				eventLinkedHashMap.put("Person",
 					Constants.PubSub.AttributeKey.USER_ID + ":" + personObj.getId() + ", " + Constants.PubSub.AttributeKey.FIRST_NAME + ":" + personObj.getVorname() + ", " + Constants.PubSub.AttributeKey.LAST_NAME + ":"
-						+ personObj.getNachname() + ", " + Constants.PubSub.AttributeKey.EMAIL + ":" + personObj.getMail() + ", " + "Projekt="
-						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + "Projektrolle="
-						+ personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
-						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
-						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
-						+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+						+ personObj.getNachname() + ", " + Constants.PubSub.AttributeKey.EMAIL + ":" + personObj.getMail() + ", " + Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS + ":"
+						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + Constants.PubSub.AttributeKey.USER_HAS_PROJECTROLE + ":"
+						+ personObj.getPerson_hat_Projektrolle() + ", " + Constants.PubSub.AttributeKey.USER_BELONGS_TO_DEPARTMENT + ":"
+						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + Constants.PubSub.AttributeKey.USER_WRITES_DOCUMENT + ":"
+						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + Constants.PubSub.AttributeKey.USER_CALLS_DOCUMENT + ":"
+						+ personObj.getPerson_ruft_Dokument_auf() + ", " + Constants.PubSub.AttributeKey.USER_FAVOURS_DOCUMENT + ":"
 						+ personObj.getPerson_favorisiert_Dokument());
 
 			} else if (y == 1 && eventType == "ProjectInformationEvent") {

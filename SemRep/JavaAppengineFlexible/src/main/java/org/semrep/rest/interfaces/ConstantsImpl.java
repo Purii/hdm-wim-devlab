@@ -22,13 +22,12 @@ public class ConstantsImpl {
 	String Vorname = Constants.PubSub.AttributeKey.FIRST_NAME;
 	String Nachname = Constants.PubSub.AttributeKey.LAST_NAME;
 	String Mail = Constants.PubSub.AttributeKey.EMAIL;
-	// Fehlen in Constants
-/*	String Projekt = Constants.PubSub.AttributeKey.;
-	String Projektrolle = Constants.PubSub.AttributeKey.;
-	String Abteilung = Constants.PubSub.AttributeKey.;
-	String DokAutor = Constants.PubSub.AttributeKey.;
-	String DokAufrufe = Constants.PubSub.AttributeKey.;
-	String DokFavorit = Constants.PubSub.AttributeKey.;*/
+	String Projekt = Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS;
+	String Projektrolle = Constants.PubSub.AttributeKey.USER_HAS_PROJECTROLE;
+	String Abteilung = Constants.PubSub.AttributeKey.USER_BELONGS_TO_DEPARTMENT;
+	String DokAutor = Constants.PubSub.AttributeKey.USER_WRITES_DOCUMENT;
+	String DokAufrufe = Constants.PubSub.AttributeKey.USER_CALLS_DOCUMENT;
+	String DokFavorit = Constants.PubSub.AttributeKey.USER_FAVOURS_DOCUMENT;
 
 
 
