@@ -2,6 +2,45 @@
 var http = require('http');
 var express = require('express');
 var WSS = require('ws').Server;
+var pubsub = require('@google-cloud/pubsub');
+
+
+
+var pubsubClient = require('@google-cloud/pubsub')({
+  projectId: 'hdm-wim-devlab',
+  keyFilename: 'keyfile.json'
+});
+
+// Reference a topic that has been previously created. 
+var topic = pubsubClient.topic('topic-1');
+ 
+
+
+// Publish a message to the topic. 
+topic.publish('Hallo Bene von FLo und MArkus', 'wie kommt es an? ', function(err) {});
+topic.publish( {data : 'wie kommt es an? ', attributes: {"test":"Bene2"} }, function(err) {});
+//var message ='{"message":{"data":"_DocumentName_Dokument16_didClicked_true_Client_GoogleID_100002025373871437436_FirstName_Mar_LastName_kus_mail_markus.goetz91%40gmail.com_SessionID_1_TimeStamp_1498147808919"","attributes":	{"EventType":"hasClicked" },	"messageId":"91010751788941",	"publishTime":"2017-04-05T23:16:42.302Z"	}}';
+
+
+var message = {
+      data: "testBeneTest"
+      ,
+      attributes: {
+        key: "value",
+        hello: "world"
+      }
+    }
+
+  topic.publish( message,function(err) {});
+
+/*
+// BETTER 
+var MY_TOPIC = "topic-1";
+pubsub.subscribe(MY_TOPIC, function( msg, data ){
+    console.log( data + '  ' + msg )
+});
+
+*/
 
 var app = express().use(express.static('public'));
 var server = http.createServer(app);
