@@ -1,13 +1,14 @@
 package de.hdm.wim.sharedLib.helper;
 
 import com.google.common.io.BaseEncoding;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.pubsub.v1.PubsubMessage;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
-
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -102,5 +103,13 @@ public class Helper {
 		String decoded = decodeBase64(event.getData());
 		event.setData(decoded);
 		return event;
+	}
+
+	public Map<String, String> convertJsonToMap(String json) {
+		Type type = new TypeToken<Map<String, String>>() {
+		}.getType();
+		Map<String, String> map = gson.fromJson(json, type);
+
+		return map;
 	}
 }
