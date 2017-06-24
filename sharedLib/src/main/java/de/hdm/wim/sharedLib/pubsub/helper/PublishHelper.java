@@ -1,5 +1,9 @@
 package de.hdm.wim.sharedLib.pubsub.helper;
 
+import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.apache.http.HttpStatus.SC_REQUEST_TIMEOUT;
+
 import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutures;
 import com.google.cloud.pubsub.spi.v1.Publisher;
@@ -25,34 +29,35 @@ import org.apache.log4j.Logger;
  */
 public class PublishHelper {
 
-	private static final Logger LOGGER 	= Logger.getLogger(PublishHelper.class);
-	private static String PROJECT_ID 	= Config.APP_ID;
-	private static boolean USE_REST		= false;
-	private static boolean IS_LOCAL		= false;
+	private static final Logger LOGGER 			= Logger.getLogger(PublishHelper.class);
+	private static String PROJECT_ID 			= Config.APP_ID;
+	private static boolean USE_REST				= false;
+	private static boolean USE_LOCAL_ENDPOINT	= false;
+	private static final int MAX_RETRIES		= 3;
 	private static String ENDPOINT;
 
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
 	 * @param isLocal true if you are running a local webapp, by default {@value
-	 * PublishHelper#IS_LOCAL}
+	 * PublishHelper#USE_LOCAL_ENDPOINT}
 	 */
 	public PublishHelper(boolean isLocal){
-		IS_LOCAL = isLocal;
-		ENDPOINT = EndpointHelper.GetPublishEndpoint(IS_LOCAL);
+		USE_LOCAL_ENDPOINT 	= isLocal;
+		ENDPOINT 			= EndpointHelper.GetPublishEndpoint(USE_LOCAL_ENDPOINT);
 	}
 
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
 	 * @param isLocal true if you are running a local webapp, by default {@value
-	 * PublishHelper#IS_LOCAL}
+	 * PublishHelper#USE_LOCAL_ENDPOINT}
 	 * @param projectId set the projectId, by default {@value PublishHelper#PROJECT_ID}
 	 */
 	public PublishHelper(boolean isLocal, String projectId){
-		IS_LOCAL 	= isLocal;
-		PROJECT_ID	= projectId;
-		ENDPOINT 	= EndpointHelper.GetPublishEndpoint(IS_LOCAL);
+		USE_LOCAL_ENDPOINT 	= isLocal;
+		PROJECT_ID			= projectId;
+		ENDPOINT 			= EndpointHelper.GetPublishEndpoint(USE_LOCAL_ENDPOINT);
 	}
 
 	/**
@@ -79,21 +84,43 @@ public class PublishHelper {
 	}
 
 	private void publish(IEvent event, String topicId, boolean useREST) throws Exception{
-		if(useREST) {
-			LOGGER.info("using REST");
+		try
+		{
+			if(useREST) {
+				LOGGER.info("using REST");
+				int response 	= SC_BAD_REQUEST;
+				int retryCount	= 0;
 
-			Map<String, Object> params = new LinkedHashMap<>();
-			String jsonAttributes = new GsonBuilder().create()
-				.toJson(event.getAttributes(), Map.class);
+				Map<String, Object> params = new LinkedHashMap<>();
+				String jsonAttributes = new GsonBuilder().create()
+					.toJson(event.getAttributes(), Map.class);
 
-			params.put(RequestParameters.TOPIC, topicId);
-			params.put(RequestParameters.PAYLOAD, event.getData());
-			params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
+				params.put(RequestParameters.TOPIC, topicId);
+				params.put(RequestParameters.PAYLOAD, event.getData());
+				params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
 
-			publishPOST(params);
-		}else{
-			LOGGER.info("not using REST");
-			publishPUBSUB(event, topicId);
+				while(response != SC_OK || response != SC_REQUEST_TIMEOUT ) {
+					response = publishPOST(params);
+
+					if(retryCount == MAX_RETRIES) {
+						response = SC_REQUEST_TIMEOUT;
+						LOGGER.info("Too many retries.. skipping message");
+					}
+
+					if(response == SC_BAD_REQUEST){
+						LOGGER.info("response is: " + response);
+						retryCount++;
+						Thread.sleep(8000);
+					}
+				}
+			}else{
+				LOGGER.info("not using REST");
+				publishPUBSUB(event, topicId);
+			}
+		}
+		catch(Exception e)
+		{
+			LOGGER.warn(e);
 		}
 	}
 
@@ -143,7 +170,7 @@ public class PublishHelper {
 	 * @param params
 	 * @throws Exception the exception
 	 */
-	private static void publishPOST(Map<String,Object> params) throws Exception{
+	private static int publishPOST(Map<String,Object> params) throws Exception{
 		URL url;
 		HttpURLConnection conn;
 
@@ -179,5 +206,7 @@ public class PublishHelper {
 		// get response
 		LOGGER.info("ResponseCode: " 	+ conn.getResponseCode());
 		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
+
+		return conn.getResponseCode();
 	}
 }
