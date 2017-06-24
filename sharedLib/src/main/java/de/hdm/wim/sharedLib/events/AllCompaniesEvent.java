@@ -11,12 +11,6 @@ import java.util.Map;
  * Created by Chris on 20.06.2017.
  */
 public class AllCompaniesEvent extends IEvent{
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public AllCompaniesEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ALL_COMPANIES);
 	}

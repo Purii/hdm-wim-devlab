@@ -9,12 +9,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class Event extends IEvent {
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public Event( String data, Hashtable attributes ){
 		this.data 		= data;
 		this.attributes = attributes;

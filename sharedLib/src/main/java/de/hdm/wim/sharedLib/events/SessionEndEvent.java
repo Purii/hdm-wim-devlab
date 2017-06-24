@@ -9,8 +9,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 20.06.17.
  */
 public class SessionEndEvent extends IEvent {
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public SessionEndEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.SESSION_END);
 	}

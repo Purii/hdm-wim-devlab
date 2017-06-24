@@ -10,9 +10,6 @@ import java.util.Map;
  * Created by Chris on 20.06.2017.
  */
 public class AllProjectsEvent extends IEvent {
-
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public AllProjectsEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ALL_PROJECTS);
 	}

@@ -66,7 +66,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { All departments } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_INFORMATION` |
 
 
 ## AllCompaniesEvent
@@ -78,7 +78,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { All departments } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## AllDepartmentsEvent
@@ -90,7 +90,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { All departments } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## AllProjectsEvent
@@ -102,7 +102,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { All projects } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## AllProjectRolesEvent
@@ -114,7 +114,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { All project roles } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## DepartmentInformationEvent
@@ -126,7 +126,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Department Information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## DocumentCallEvent (deprecated)
@@ -150,7 +150,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Document Context } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.CEP_CONTEXT` |
 
 
 ## DocumentInformationEvent
@@ -162,7 +162,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` Document Information ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## DocumentHighlyRelevantEvent
@@ -174,7 +174,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Document is highly relevant } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.CEP_INSIGHT` |
 
 
 ## FeedbackEvent
@@ -186,7 +186,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Offer is shown } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_FEEDBACK` |
 
 
 ## InformationToAllDocumentsEvent
@@ -198,7 +198,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` Information to all documents ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_OFFERS` |
 
 
 ## LearnEvent
@@ -210,7 +210,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Learning } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.ML_LEARNING` |
 
 
 ## OfferEvent
@@ -222,7 +222,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` Document Offer ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.OFFERS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_OFFERS` |
 
 
 ## ProjectInformationEvent
@@ -234,7 +234,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` Project Information ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## SessionEndEvent
@@ -246,7 +246,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Session finished } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.CEP_SESSIONINSIGHTS` |
 
 
 ## SessionStartEvent
@@ -258,7 +258,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Session started } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
 
 ## StayAliveEvent
@@ -270,7 +270,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User is active } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
 
 ## SuccessfulFeedbackEvent
@@ -282,7 +282,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.FEEDBACK_GUI` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_FEEDBACK` |
 
 
 ## TokenEvent
@@ -294,7 +294,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { Token } ```|
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.TOKEN` | 
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.ST_TOKEN` | 
 
 
 ## UserContextEvent
@@ -306,7 +306,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User Context } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.CEP_CONTEXT` |
 
 
 ## UserInactiveEvent
@@ -318,7 +318,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User is inactive } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.CEP_SESSIONINSIGHTS` |
 
 
 ## UserInformationEvent
@@ -330,7 +330,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User information } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.INFORMATION` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SEMREP_INFORMATION` |
 
 
 ## UserLoginEvent
@@ -342,7 +342,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User logged in } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
 
 ## UserJoinedSessionEvent
@@ -354,7 +354,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User joined Session } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
 
 ## UserLeftSessionEvent
@@ -366,7 +366,7 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User left Session } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
 
 ## UserStartEvent
@@ -378,5 +378,5 @@ String names = gson.fromJson(jsonString, String.class);
 | `data` | `string (bytes format)` | ``` { User starts Recommendation } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
-| `pubSubTopic` | `string` | `Constants.PubSub.Topic.SESSIONINSIGHTS` |
+| `pubSubTopic` | `string` | `Constants.PubSub.Topic.GUI_SESSIONINSIGHTS` |
 
