@@ -124,13 +124,15 @@ if ($gClient->getAccessToken()) {
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
+        <a class="mdl-navigation__link" style= "color: white" href="#"><i class="material-icons">power_settings_new</i></a>
+        <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;"><i class="material-icons">account_circle</i></a>
+        <a class="mdl-navigation__link" style= "color: white" href="#"><i class="material-icons">info_outline</i></a>
+        <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;"><i class="material-icons">change_history</i></a>
+
       </nav>
     </div>
   </header>
+
 
   <main class="mdl-layout__content">
     <div class="page-content">
@@ -146,28 +148,28 @@ if ($gClient->getAccessToken()) {
            </div>
        <div class="panelSession" style="float: right">  
             <div id="loginGoogle" style="margin-right: 50%; margin-top: 50%">
-              <a href="./startSession.html"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-               Start
+              <a href="./startSessionJAN.html"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+               Start new Session
                </button>
               </a>
             </div> 
     </div>
   </main>
-</div>
 
 
- 
 
-   
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <!-- MDL -->
-    <script src="./material.min.js"></script>
-    <!-- java scrip -->
-    <script language="javascript" type="text/javascript" src="loginSite.js"></script>
-   </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <!-- MDL -->
+  <script src="./material.min.js"></script>
+  <!-- java scrip -->
+  <script language="javascript" type="text/javascript" src="loginSite.js"></script>
+  <script type="text/javascript" src="drawChartByButton.js"></script>
+  <script type="text/javascript" src="tabs.js"></script>
+  <script type="text/javascript" src="controlFunctions.js"></script>
+  <script src="fancybox-master/dist/jquery.fancybox.min.js"></script>
+  <script src="../js/client.js"></script>
+  </body>
 </html>
