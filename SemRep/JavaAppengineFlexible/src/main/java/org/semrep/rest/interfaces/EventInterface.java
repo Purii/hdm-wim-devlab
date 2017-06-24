@@ -1706,4 +1706,194 @@ public class EventInterface {
 
 	}
 
+
+	//nicht fertig
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewDocumentContext")
+	public static void insertNewDocumentContext() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+		//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+		//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+		//	DELETE { ?Dokument ontology:Dokument_hat_Kontext 'Videokonferenz' }
+		//	INSERT { ?Dokument ontology:Dokument_hat_Kontext 'William' }
+		//	WHERE { ?Dokument ?DokumentID '1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY' };
+
+
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+//nichtfertig
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewDocumentCall")
+	public static void insertNewDocumentCall() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+
+			//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+			//	DELETE { ?Person ontology:Person_ruft_Dokument_auf 'Anforderungen' }
+			//	INSERT { ?Person ontology:Person_ruft_Dokument_auf 'Pflichtenheft_High_Net' }
+			//	WHERE {  ?Person ?PersonID '5' };
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+
+
+	//nichtfertig
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewFavoriteDocument")
+	public static void insertNewFavoriteDocument() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+
+			//PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			//PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+			//DELETE { ?Person ontology:Person_favorisiert_Dokument 'KickOff_HighNet' }
+			//INSERT { ?Person ontology:Person_favorisiert_Dokument 'Meilensteinplanung_Highnet' }
+			//WHERE  { ?Person ?PersonID '1' };
+
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+
 }
