@@ -130,7 +130,7 @@ public class RunFlink {
 		public void flatMap(String value, Collector<IEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			Helper helper = new Helper();
-			IEvent evt = helper.convertPubSubMessageToIEvent(msg);
+			IEvent evt = helper.convertToIEvent(msg);
 			out.collect(evt);
 		}
 	}
@@ -139,7 +139,7 @@ public class RunFlink {
 		public void flatMap(String value, Collector<StayAliveEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			Helper helper = new Helper();
-			StayAliveEvent evt = (StayAliveEvent) helper.convertPubSubMessageToIEvent(msg);
+			StayAliveEvent evt = (StayAliveEvent) helper.convertToIEvent(msg);
 			out.collect(evt);
 		}
 	}
