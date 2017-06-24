@@ -16,6 +16,7 @@
         <module>eventServices</module>
         <module>sharedLib</module>
         <module>SpeechTokenizer</module>
+        <module>guiWebapp</module>
         <module>SemRep</module>
     </modules>
 
