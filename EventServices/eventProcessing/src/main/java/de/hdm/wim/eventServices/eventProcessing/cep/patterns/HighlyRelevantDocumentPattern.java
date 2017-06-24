@@ -4,6 +4,7 @@ import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentHighlyRelevantEvent;
 import de.hdm.wim.sharedLib.events.FeedbackEvent;
 import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -17,7 +18,7 @@ import java.util.Map;
 /**
  * Created by nilsb on 13.06.2017.
  */
-public class FalseUserFeedback {
+public class HighlyRelevantDocumentPattern {
 
 	/**
 	 * Run.
@@ -25,17 +26,17 @@ public class FalseUserFeedback {
 	 * @param env           the env
 	 * @param psmStream 	the IEvent stream
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<IEvent> psmStream ) {
+	public void run(StreamExecutionEnvironment env, DataStream<IEvent> psmStream ) throws Exception {
 
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
 		Pattern<IEvent, ?> falseUserFeedback = Pattern
 			.<IEvent>begin("first")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.FEEDBACK))
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK))
 			.followedBy("second")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.FEEDBACK ))
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK))
 			.within(Time.seconds(5));
 
 		PatternStream<IEvent> patternStream = CEP.pattern(psmStream, falseUserFeedback);
@@ -51,11 +52,15 @@ public class FalseUserFeedback {
 					DocumentHighlyRelevantEvent dhrevt = new DocumentHighlyRelevantEvent();
 					dhrevt.setUserId(userId1);
 					dhrevt.setDocumentId(docId1);
+					System.out.println("Document "+ docId1 + " is highly relevant");
 					return dhrevt;
 				}
 				return null;
 			}
 		});
+		PublishHelper ph = new PublishHelper(false);
+	//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
+
 	}
 }
 
