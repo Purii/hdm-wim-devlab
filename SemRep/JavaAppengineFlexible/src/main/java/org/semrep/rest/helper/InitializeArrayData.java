@@ -54,9 +54,9 @@ public class InitializeArrayData {
 
 			inputArray = new String[8];
 			inputArray[0] = "793dnj"; // sessionID
-			inputArray[1] = "247244"; // PersonID
-			inputArray[2] = "Peter"; // Vorname
-			inputArray[3] = "Füller"; // Nachname
+			inputArray[1] = "873267"; // PersonID
+			inputArray[2] = "Kristi"; // Vorname
+			inputArray[3] = "Misti"; // Nachname
 			inputArray[4] = "hans.peter@starcars.com"; // Email
 			inputArray[5] = "IT"; // Abteilung
 			inputArray[6] = "HighNet"; // Projekt

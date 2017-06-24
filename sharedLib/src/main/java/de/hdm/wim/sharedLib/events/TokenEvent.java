@@ -2,11 +2,10 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Created by nilsb on 19.06.2017.
+ * @author Nils
+ * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#tokenevent">TokenEvent</a>
  */
 public class TokenEvent extends IEvent {
 	public TokenEvent() {

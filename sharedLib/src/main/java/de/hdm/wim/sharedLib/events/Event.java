@@ -4,10 +4,12 @@ import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.helper.Helper;
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 
+/**
+ * @author Gezim
+ * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#event">Event</a>
+ */
 public class Event extends IEvent {
 	public Event( String data, Hashtable attributes ){
 		this.data 		= data;

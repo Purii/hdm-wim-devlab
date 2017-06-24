@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ben on 13/06/2017.
+ * @author Ben
  */
 public abstract class IEvent {
 
