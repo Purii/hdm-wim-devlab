@@ -42,7 +42,8 @@ public class Rest {
 		return Response.status(200).entity("test").build();
 	}
 
-	@POST @Path(Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SPEECH)
+	@POST
+	@Path(Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_ST_TOKEN)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receivePush(String json) throws Exception {
