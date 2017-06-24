@@ -5,9 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.pubsub.v1.PubsubMessage;
-import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
-import de.hdm.wim.sharedLib.Constants.PubSub.EventSource;
-import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 
@@ -71,7 +68,7 @@ public class Helper {
 	 * @param message the PubsubMessage
 	 * @return IEvent
 	 */
-	public IEvent convertPubSubMessageToIEvent(PubsubMessage message) {
+	public IEvent convertToIEvent(PubsubMessage message) {
 		IEvent event = new Event();
 
 		// get message content & transform
@@ -95,7 +92,7 @@ public class Helper {
 	 * @param json the json string of the event
 	 * @return IEvent
 	 */
-	public IEvent GetIEventFromJson(String json) {
+	public IEvent convertToIEvent(String json) {
 
 		JsonElement jsonRoot 	= jsonParser.parse(json);
 		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
