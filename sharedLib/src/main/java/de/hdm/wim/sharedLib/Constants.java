@@ -126,13 +126,24 @@ public class Constants {
 			public static final String PUSH_TEST 		= "topic-push-test-123";
 			public static final String RICHTOKEN 		= "richtoken";
 
-			// für die Produktion
+			// für die ersten Tests
 			public static final String FEEDBACK_GUI 	= "feedback-gui";
 			public static final String INSIGHTS 		= "insights";
 			public static final String OFFERS 			= "offers";
 			public static final String SESSIONINSIGHTS 	= "sessioninsights";
 			public static final String TOKEN 			= "token";
 			public static final String INFORMATION		= "information";
+
+			//für die Produktion
+			public static final String SEMREP_INFORMATION 	= "semrep-information";
+			public static final String SEMREP_OFFERS 	= "semrep-offers";
+			public static final String GUI_FEEDBACK 	= "gui-feedback";
+			public static final String GUI_SESSIONINSIGHTS 	= "gui-sessioninsights";
+			public static final String ML_LEARNING 	= "ml-learning";
+			public static final String ST_TOKEN	= "st-token";
+			public static final String CEP_CONTEXT	= "cep-context";
+			public static final String CEP_SESSIONINSIGHTS 	= "cep-sessioninsights";
+			public static final String CEP_INSIGHT 	= "cep-insight";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
