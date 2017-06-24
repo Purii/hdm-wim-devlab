@@ -15,6 +15,7 @@ public abstract class IEvent {
 	protected String id = "";
 	protected String publishTime = "";
 	protected Map<String, String> attributes = new HashMap<String, String>();
+	private Gson gson = new Gson();
 
 	public String getData() {
 		return data;
@@ -62,15 +63,20 @@ public abstract class IEvent {
 		return this.attributes;
 	}
 
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
+
 	public void setAttributes(String attributes) {
 		this.attributes = new Helper().convertJsonToMap(attributes);
 	}
 
 	public String getAttributesAsString() {
-		return new Gson().toJson(this.attributes);
+		return gson.toJson(this.attributes);
 	}
 
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
+	@Override
+	public String toString() {
+		return gson.toJson(this);
 	}
 }
