@@ -1,12 +1,9 @@
 package org.semrep.rest.interfaces;
 
-import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.events.TokenEvent;
-import de.hdm.wim.sharedLib.events.UserInformationEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,8 +17,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 22/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.SEMREP_HANDLER_1,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.SEMREP_HANDLER_1
+	name = "Push with PubSub " + Config.HANDLER_SEMREP_1,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_1
 )
 public class PubSubHandler1 extends HttpServlet {
 
@@ -33,7 +30,7 @@ public class PubSubHandler1 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		LOGGER.info("Handler: " + Config.SEMREP_HANDLER_1);
+		LOGGER.info("Handler: " + Config.HANDLER_SEMREP_1);
 
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
@@ -51,7 +48,7 @@ public class PubSubHandler1 extends HttpServlet {
 		IEvent event = helper.GetEventFromJson(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.SEMREP_HANDLER_1 + " event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_1 + " event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			//final String output = new Gson().toJson(event);

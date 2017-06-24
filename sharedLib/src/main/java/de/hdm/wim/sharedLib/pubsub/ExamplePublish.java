@@ -67,22 +67,10 @@ public class ExamplePublish {
 		ph.Publish(feedbackEvent, Topic.TOPIC_1);
 
 
-		Event insightEvent = new Event();
-		insightEvent.setData("insightEvent");
-		insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);}});
-		ph.Publish(insightEvent, Topic.TOPIC_1);
-
-
 		Event offerEvent = new Event();
 		offerEvent.setData("offerEvent");
 		offerEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.OFFER);}});
 		ph.Publish(offerEvent, Topic.TOPIC_1);
-
-
-		Event richTokenEvent = new Event();
-		richTokenEvent.setData("richTokenEvent");
-		richTokenEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.RICHTOKEN);}});
-		ph.Publish(richTokenEvent, Topic.TOPIC_1);
 
 
 		Event stayaliveEvent = new Event();

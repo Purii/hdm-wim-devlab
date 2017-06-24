@@ -100,16 +100,22 @@ sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
 
 **(3) Erstellen eines Events**
 ```java
-Event insightEvent = new Event();
-insightEvent.setData("insightEvent");
-insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);}});
+LearnEvent learnEvent = new LearnEvent();
+
+learnEvent.setData("Learning");
+learnEvent.setUserId("user129803");
+learnEvent.setDocumentId("897345DocumentGoogleId");
+learnEvent.setProjectId("023490ProjectID");
+learnEvent.setDocumentAffiliation("false");
+learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
 ```
 **(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
 
 ```java
 // init a PublishHelper to use for prod environment (false)
 PublishHelper ph = new PublishHelper(false);
-ph.Publish(insightEvent, Topic.TOPIC_1);
+
+ph.Publish(learnEvent, Topic.ML_LEARNING);
 ```
 
 **(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**

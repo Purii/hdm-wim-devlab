@@ -2,6 +2,8 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants;
 
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +17,8 @@ public class AllProjectRolesEvent implements IEvent{
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type!
 	public AllProjectRolesEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.ALL_PROJECTROLES);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ALL_PROJECTROLES);
 	}
 
 	public String getData() {

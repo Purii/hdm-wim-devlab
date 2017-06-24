@@ -14,8 +14,6 @@ public class SessionEndEvent implements IEvent{
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type -> SessionSIGHTS
 	public SessionEndEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.SESSION_END);
 	}

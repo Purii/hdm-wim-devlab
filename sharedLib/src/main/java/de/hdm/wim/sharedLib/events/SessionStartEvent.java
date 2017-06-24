@@ -14,8 +14,6 @@ public class SessionStartEvent implements IEvent{
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type -> SessionSIGHTS
 	public SessionStartEvent(){
 		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.SESSION_START);
 	}
