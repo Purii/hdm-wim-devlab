@@ -62,6 +62,13 @@ public class InitializeArrayData {
 			inputArray[6] = "HighNet"; // Projekt
 			inputArray[7] = "Entwickler"; // Projektrolle
 
+		} if (eventType == EventNameConstants.DOCUMENT_CONTEXT_EVENT) {
+
+			inputArray = new String[3];
+			inputArray[0] = "793dnj"; // sessionID
+			inputArray[1] = "Projektplanung_HighNet"; // DokumentName
+			inputArray[2] = "HighNet_Project"; // DokumentKontext
+
 		}
 
 		return inputArray;
