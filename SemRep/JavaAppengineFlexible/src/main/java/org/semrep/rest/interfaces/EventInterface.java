@@ -145,7 +145,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDocumentCalls();
+			getUserInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -960,103 +960,6 @@ public class EventInterface {
 
 	}
 
-	// Parameter: userID
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getDocumentCalls")
-	public static Response getDocumentCalls() throws Exception {
-
-		// @Path: /rest/eventInterface/getDocumentCalls
-
-		jsonObj = new JSONObject();
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
-		// timestamp = new Timestamp(System.currentTimeMillis());
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
-
-		String eventTypeStr = "getDocumentCalls";
-		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		String personVorname = inputArray[1].toString();
-		String personNachname = inputArray[2].toString();
-		int loopIndex = 1;
-
-		try {
-			// initialisiere Variablen
-			// sparql
-			String sparql = "";
-
-			// initialisiere Objekte
-			// person
-			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
-				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
-
-
-			sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
-				"SELECT ?Person ?PersonID ?DokAufrufe " +
-				"WHERE { " +
-				"?Person ontology:Person_Dok_Aufruf  ?DokAufrufe . " +
-				"?Person ontology:Person_ID  ?PersonID . " +
-				"?Person ontology:Person_ID '873267' . " +
-				"}";
-
-				if (sparql != "") {
-
-					executeSparql(sparql);
-
-					if (resultSet.hasNext() == true) {
-						eventLinkedHashMap = loopThroughResults(loopIndex, eventTypeStr);
-					} else {
-						personObj.setId("'null'");
-						personObj.setVorname("'null'");
-						personObj.setNachname("'null'");
-						personObj.setMail("'null'");
-						personObj.setPerson_arbeitet_an_Projekt("'null'");
-						personObj.setPerson_hat_Projektrolle("'null'");
-						personObj.setPerson_gehoert_zu_Abteilung("'null'");
-						personObj.setPerson_hat_Dokument_verfasst("'null'");
-						personObj.setPerson_ruft_Dokument_auf("'null'");
-						personObj.setPerson_favorisiert_Dokument("'null'");
-
-					}
-
-				}
-
-
-
-		} catch (Exception e) {
-			loggger.error("Fehler in EventInterface: " + e);
-		}
-
-		personObj.flushPersonObj();
-
-		Person userInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : eventLinkedHashMap.keySet()) {
-
-			if (key.equals("Person")) {
-				userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventUniqueID,
-					eventLinkedHashMap.get(key).toString());
-				System.out.println(userInformationEventObject.toStringPersonObjekt());
-			}
-
-		}
-
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData("Test_Data");
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
-		return Response.status(200).entity(jsonObj.toString()).build();
-
-	}
 	// produce
 	// consume
 	// produce DocumentInformationEvent
