@@ -18,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_GUI_1,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_GUI_1
+	name = "Push with PubSub " + Config.HANDLER_GUI_SESSIONINSIGHTS,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_GUI_SESSIONINSIGHTS
 )
 public class PubSubPushHandler1 extends HttpServlet {
 
@@ -44,7 +44,9 @@ public class PubSubPushHandler1 extends HttpServlet {
 		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_GUI_1 + " event.getData(): " + event.getData());
+			LOGGER.info(
+				"Handler: " + Config.HANDLER_GUI_SESSIONINSIGHTS + " event.getData(): " + event
+					.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
