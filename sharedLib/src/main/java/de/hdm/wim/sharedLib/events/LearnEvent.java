@@ -18,40 +18,14 @@ import java.util.Map;
  *	learnEvent.setUserId("test user id");
  *
  */
-public class LearnEvent implements IEvent {
-
-	private String data;
-	private String id;
-	private String publishTime;
+public class LearnEvent extends IEvent {
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	public LearnEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.LEARN);
 	}
 
-	public String getData() {
-		return data;
-	}
 
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPublishTime() {
-		return publishTime;
-	}
-
-	public void setPublishTime(String publishTime) {
-		this.publishTime = publishTime;
-	}
 
 	public String getUserId(){
 		return attributes.get(AttributeKey.USER_ID).toString();

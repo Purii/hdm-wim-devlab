@@ -10,9 +10,6 @@ import java.util.Map;
  */
 public class FeedbackEvent extends IEvent{
 
-	private String data;
-	private String id;
-	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	public FeedbackEvent(){
