@@ -162,8 +162,42 @@ sh.Subscribe(subscription, receiver);
 
 ***Push-Subscription(Stream):*** Der Pub/Sub-Server sendet, nach jeder Veröffentlichung einer neuen Message, diese als HTTP-Anfrage an einen interessierten Subscription/Abonnement (STREAM). Der SubscriptionHelper zeigt danach an, dass die Nachricht erfolgreich verarbeitet wurde und das Pub/Sub die Message aus dem Subscription/Abonnement löschen kann. Eine Nicht-Erfolgsreaktion zeigt an, dass die Nachricht erneut von Pub/Sub gesendet werden soll.
 
-***Push Beispiel***
+***[Push Beispie](https://github.com/Purii/hdm-wim-devlab/blob/master/eventServices/pubSubWebapp/src/main/java/de/hdm/wim/pubSubWebapp/PubSubPushHandler1.java)***
 ```java
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException, ServletException {
+	String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+	// Do not process message if request token does not match pubsubVerificationToken
+	if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
+		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		return;
+	}
+	String requestBody = req.getReader()
+						 .lines()
+						 .reduce("\n", (accumulator, actual) -> accumulator + actual);
+
+	IEvent event = helper.GetIEventFromJson(requestBody);
+
+	try {
+        LOGGER.info("Handler: " + Config.HANDLER_1 + " event.getData(): " + event.getData());
+		//Here we serialize the event to a String.
+		final String output = new Gson().toJson(event);
+        
+		//And write the string to output
+		resp.setContentLength(output.length());
+		resp.getOutputStream().write(output.getBytes());
+		resp.getOutputStream().flush();
+		resp.getOutputStream().close();
+
+		// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
+		//resp.setStatus(HttpServletResponse.SC_OK);
+
+		// NACK
+		//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	} catch (Exception e) {
+		resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	  }
+	}
 ```
 
 **(2) Empfang der Message bestätigen.** 
