@@ -2,7 +2,6 @@ package de.hdm.wim.sharedLib.pubsub.helper;
 
 import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.http.HttpStatus.SC_OK;
-import static org.apache.http.HttpStatus.SC_REQUEST_TIMEOUT;
 
 import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutures;
@@ -13,7 +12,6 @@ import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
-import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,10 +28,10 @@ import org.apache.log4j.Logger;
 public class PublishHelper {
 
 	private static final Logger LOGGER 			= Logger.getLogger(PublishHelper.class);
+	private static final int MAX_RETRIES = 3;
 	private static String PROJECT_ID 			= Config.APP_ID;
 	private static boolean USE_REST				= false;
 	private static boolean USE_LOCAL_ENDPOINT	= false;
-	private static final int MAX_RETRIES		= 3;
 	private static String ENDPOINT;
 
 	/**
@@ -58,70 +56,6 @@ public class PublishHelper {
 		USE_LOCAL_ENDPOINT 	= isLocal;
 		PROJECT_ID			= projectId;
 		ENDPOINT 			= EndpointHelper.GetPublishEndpoint(USE_LOCAL_ENDPOINT);
-	}
-
-	/**
-	 * Publish an event
-	 *
-	 * @param event the message
-	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
-	 * @param useREST true if you want to use REST
-	 * @throws Exception the exception
-	 */
-	public void Publish(IEvent event, String topicId, boolean useREST) throws Exception{
-		publish(event, topicId, useREST);
-	}
-
-	/**
-	 * Publish an event. Using useREST default: {@value PublishHelper#USE_REST}
-	 *
-	 * @param event the message
-	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
-	 * @throws Exception the exception
-	 */
-	public void Publish(IEvent event, String topicId) throws Exception{
-		publish(event,topicId, USE_REST);
-	}
-
-	private void publish(IEvent event, String topicId, boolean useREST) throws Exception{
-		try
-		{
-			if(useREST) {
-				LOGGER.info("using REST");
-				int response 	= SC_BAD_REQUEST;
-				int retryCount	= 0;
-
-				Map<String, Object> params = new LinkedHashMap<>();
-				String jsonAttributes = new GsonBuilder().create()
-					.toJson(event.getAttributes(), Map.class);
-
-				params.put(RequestParameters.TOPIC, topicId);
-				params.put(RequestParameters.PAYLOAD, event.getData());
-				params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
-
-				while(response != SC_OK || response != SC_REQUEST_TIMEOUT ) {
-					response = publishPOST(params);
-
-					if(retryCount == MAX_RETRIES) {
-						response = SC_REQUEST_TIMEOUT;
-						LOGGER.info("Too many retries.. skipping message");
-					}
-
-					if(response == SC_BAD_REQUEST){
-						LOGGER.info("response is: " + response);
-						retryCount++;
-						Thread.sleep(8000);
-					}
-				}
-			}else{
-				LOGGER.info("not using REST");
-				publishPUBSUB(event, topicId);
-			}
-		}
-		catch(Exception e)
-		{
-			LOGGER.warn(e);
-		}
 	}
 
 	/**
@@ -208,5 +142,66 @@ public class PublishHelper {
 		LOGGER.info("ResponseMessage: " + conn.getResponseMessage());
 
 		return conn.getResponseCode();
+	}
+
+	/**
+	 * Publish an event
+	 *
+	 * @param event the message
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
+	 * @param useREST true if you want to use REST
+	 * @throws Exception the exception
+	 */
+	public void Publish(IEvent event, String topicId, boolean useREST) throws Exception {
+		publish(event, topicId, useREST);
+	}
+
+	/**
+	 * Publish an event. Using useREST default: {@value PublishHelper#USE_REST}
+	 *
+	 * @param event the message
+	 * @param topicId name of the topic, see {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic}
+	 * @throws Exception the exception
+	 */
+	public void Publish(IEvent event, String topicId) throws Exception {
+		publish(event, topicId, USE_REST);
+	}
+
+	private void publish(IEvent event, String topicId, boolean useREST) throws Exception {
+		try {
+			if (useREST) {
+				LOGGER.info("using REST");
+				int response = SC_BAD_REQUEST;
+				int retryCount = 0;
+
+				Map<String, Object> params = new LinkedHashMap<>();
+				String jsonAttributes = new GsonBuilder().create()
+					.toJson(event.getAttributes(), Map.class);
+
+				params.put(RequestParameters.TOPIC, topicId);
+				params.put(RequestParameters.PAYLOAD, event.getData());
+				params.put(RequestParameters.ATTRIBUTES, jsonAttributes);
+
+				while (response != SC_OK) {
+					response = publishPOST(params);
+
+					if (retryCount == MAX_RETRIES) {
+						LOGGER.info("Too many retries.. skipping message");
+						break;
+					}
+
+					if (response == SC_BAD_REQUEST) {
+						LOGGER.info("response is: " + response);
+						retryCount++;
+						Thread.sleep(8000);
+					}
+				}
+			} else {
+				LOGGER.info("not using REST");
+				publishPUBSUB(event, topicId);
+			}
+		} catch (Exception e) {
+			LOGGER.warn(e);
+		}
 	}
 }
