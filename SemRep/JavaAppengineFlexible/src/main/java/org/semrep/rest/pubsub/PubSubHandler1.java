@@ -5,13 +5,14 @@ import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * Created by ben on 22/06/2017.
@@ -45,11 +46,11 @@ public class PubSubHandler1 extends HttpServlet {
 
 		LOGGER.info(requestBody);
 
-		IEvent event = helper.convertToIEvent(requestBody);
+	//-	IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS + " event.getData(): " + event
-				.getData());
+		//-	LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS + " event.getData(): " + event
+		//		.getData());
 
 			//Here we serialize the event to a String.
 			//final String output = new Gson().toJson(event);
@@ -61,7 +62,7 @@ public class PubSubHandler1 extends HttpServlet {
 
 
 
-			LOGGER.info("EventType: " + event.getEventType());
+		//-	LOGGER.info("EventType: " + event.getEventType());
 			/*if (event.getEventType().equals(Constants.PubSub.EventType.USER_INFO)){
 				UserInformationEvent userInfEvent = (UserInformationEvent) event;
 				userInfEvent.getEmail();

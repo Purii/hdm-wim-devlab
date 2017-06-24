@@ -856,6 +856,7 @@ public class EventInterface {
 		// @Path: /rest/eventInterface/getUserInformation
 
 		jsonObj = new JSONObject();
+//Kommentar: Event.setHashmap, dann
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 
