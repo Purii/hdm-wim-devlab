@@ -15,8 +15,6 @@ public class FeedbackEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type
 	public FeedbackEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.FEEDBACK);
 	}

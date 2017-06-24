@@ -74,13 +74,13 @@ public class Constants {
 			public static final String USER_FAVOURS_DOCUMENT="userFavoursDocument";
 
 			// Event
-
 			public static final String DOCUMENT_IDS	= "documentIds";
 			public static final String DOCUMENT_NAMES	= "documentNames";
 			public static final String USER_IDS	= "userIds";
 			public static final String USER_NAMES	= "userNames";
 
 			// GUI
+			//TODO: missing ??
 
 			// Speech
 			public static final String CONTEXTS = "contexts";
@@ -113,26 +113,23 @@ public class Constants {
 		 * Format: "my-test-topic-x"
 		 */
 		public static class Topic {
-			// für Testzwecke
+			// test
 			public static final String TOPIC_1 = "topic-1";
 			public static final String TOPIC_2 = "topic-2";
 			public static final String TOPIC_3 = "topic-3";
 			public static final String TOPIC_4 = "topic-4";
 			public static final String TOPIC_5 = "topic-5";
-			public static final String TOPIC_EVENT 		= "topic-event";
-			public static final String TOPIC_SEM_REP 	= "topic-semRep";
-			public static final String TOPIC_ML 		= "topic-ml";
-			public static final String TOPIC_GUI 		= "topic-gui";
-			public static final String PUSH_TEST 		= "topic-push-test-123";
-			public static final String RICHTOKEN 		= "richtoken";
 
-			// für die Produktion
-			public static final String FEEDBACK_GUI 	= "feedback-gui";
-			public static final String INSIGHTS 		= "insights";
-			public static final String OFFERS 			= "offers";
-			public static final String SESSIONINSIGHTS 	= "sessioninsights";
-			public static final String TOKEN 			= "token";
-			public static final String INFORMATION		= "information";
+			//prod
+			public static final String SEMREP_INFORMATION 	= "semrep-information";
+			public static final String SEMREP_OFFERS 	= "semrep-offers";
+			public static final String GUI_FEEDBACK 	= "gui-feedback";
+			public static final String GUI_SESSIONINSIGHTS 	= "gui-sessioninsights";
+			public static final String ML_LEARNING 	= "ml-learning";
+			public static final String ST_TOKEN	= "st-token";
+			public static final String CEP_CONTEXT	= "cep-context";
+			public static final String CEP_SESSIONINSIGHTS 	= "cep-sessioninsights";
+			public static final String CEP_INSIGHT 	= "cep-insight";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
@@ -140,25 +137,17 @@ public class Constants {
 				TOPIC_2,
 				TOPIC_3,
 				TOPIC_4,
-				TOPIC_5,
-				RICHTOKEN,
-				FEEDBACK_GUI,
-				INSIGHTS,
-				OFFERS,
-				TOKEN,
-				SESSIONINSIGHTS,
-				INFORMATION
+				TOPIC_5
 			);
 		}
 
 		/**
 		 * Type of event.
 		 */
-		// TODO: is this still up-to-date ?
 		public static class EventType {
 
-
-			//Test
+			// test
+			/*
 			public static final String ACTION 		= "action";
 			public static final String GOOGLEOFFER 	= "googleoffer";
 			public static final String RICHTOKEN	= "richtoken";
@@ -166,75 +155,87 @@ public class Constants {
 			public static final String USER 		= "user";
 			public static final String TIME			= "time";
 			public static final String DATE			= "date";
+			*/
 
-			//Produktion
-			public static final String USER_INFO		= "user-information";
+			// prod
 			public static final String ADDITIONAL_USER_INFO		= "additional-user-information";
-			public static final String DOCUMENT_INFO		= "document-information";
-			public static final String USER_CONTEXT = "user-context";
-			public static final String DOCUMENT_CONTEXT		= "document-context";
-			public static final String DOCUMENT_CALL	= "document-call";
+			public static final String ALL_COMPANIES			= "all-companies";
+			public static final String ALL_DEPARTMENTS			= "all-departments";
+			public static final String ALL_PROJECTS				= "all-projects";
+			public static final String ALL_PROJECTROLES			= "all-projectroles";
+			public static final String DEPARTMENT_INFO 			= "department-information";
+			public static final String DOCUMENT_CALL			= "document-call";
+			public static final String DOCUMENT_CONTEXT			= "document-context";
 			public static final String DOCUMENT_HIGHLY_RELEVANT	= "document-highly-relevant";
-			public static final String SESSION_START	= "session-start";
-			public static final String SESSION_END	= "session-end";
-			public static final String USER_INACTIVE	= "user-inactive";
-			public static final String USER_LOGIN	= "user-login";
-			public static final String USER_START	= "user-start";
-			public static final String USER_JOINED_SESSION	= "user-joined-session";
-			public static final String USER_LEFT_SESSION	= "user-left-session";
-			public static final String ALL_DEPARTMENTS		= "all-departments";
-			public static final String ALL_COMPANIES		= "all-companies";
-			public static final String ALL_PROJECTS		= "all-projects";
-			public static final String ALL_PROJECTROLES		= "all-projectroles";
-			public static final String LEARN		= "learning";
-			public static final String STAYALIVE 	= "stayalive";
-			public static final String INSIGHT  	= "insight";
-			public static final String FEEDBACK		= "feedback";
+			public static final String DOCUMENT_INFO			= "document-information";
+			public static final String FEEDBACK					= "feedback";
+			public static final String INFO_TOALL_DOCUMENTS 	= "information-toall-documents";
+			public static final String LEARN					= "learning";
+			public static final String OFFER	    			= "offer";
+			public static final String PROJECT_INFO 			= "project-information";
+			public static final String SESSION_END				= "session-end";
+			public static final String SESSION_START			= "session-start";
+			public static final String STAYALIVE 				= "stayalive";
 			public static final String SUCCESSFUL_FEEDBACK		= "successful-feedback";
-			public static final String PROJECT_INFO = "project-information";
-			public static final String INFO_TOALL_DOCUMENTS = "information-toall-documents";
-			public static final String DEPARTMENT_INFO = "department-information";
-			public static final String OFFER	    = "offer";
-			public static final String TOKEN		= "token";
+			public static final String TOKEN					= "token";
+			public static final String USER_CONTEXT 			= "user-context";
+			public static final String USER_INACTIVE			= "user-inactive";
+			public static final String USER_INFO				= "user-information";
+			public static final String USER_JOINED_SESSION		= "user-joined-session";
+			public static final String USER_LEFT_SESSION		= "user-left-session";
+			public static final String USER_LOGIN				= "user-login";
+			public static final String USER_START				= "user-start";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
-				ACTION,
-				REQUEST,
-				USER,
+				ADDITIONAL_USER_INFO,
+				ALL_COMPANIES,
+				ALL_DEPARTMENTS,
+				ALL_PROJECTS,
+				ALL_PROJECTROLES,
+				DEPARTMENT_INFO,
+				DOCUMENT_CALL,
+				DOCUMENT_CONTEXT,
+				DOCUMENT_HIGHLY_RELEVANT,
+				DOCUMENT_INFO,
 				FEEDBACK,
-				TIME,
-				DATE,
-				STAYALIVE,
-				INSIGHT,
-				GOOGLEOFFER,
+				INFO_TOALL_DOCUMENTS,
+				LEARN,
 				OFFER,
-				TOKEN,
-				RICHTOKEN,
-				FEEDBACK
+				PROJECT_INFO,
+				SESSION_END,
+				SESSION_START,
+				USER_CONTEXT,
+				USER_INACTIVE,
+				USER_INFO,
+				USER_JOINED_SESSION,
+				USER_LEFT_SESSION,
+				USER_LOGIN,
+				USER_START
 			);
 		}
 
-		// NEVER CHANGE ANY OF THIS! except you know what you are doing..
 		/**
 		 * Config for using PubSub
+		 * NEVER CHANGE ANY OF THIS! except you know what you are doing..
 		 */
 		public static class Config {
+			public static final String APP_ID					= "hdm-wim-devlab";
+
 			public static final String PUSH_ENDPOINT_PREFIX		= "/_ah/push-handlers";
 			public static final String SECRET_TOKEN 			= "secretToken123";
-			public static final String APP_ID					= "hdm-wim-devlab";
 			public static final String PUBLISH_ENDPOINT 		= "/publish";
-			public static final String HANDLER_1				= "/event";
-			public static final String HANDLER_2				= "/gui";
-			public static final String SEMREP_HANDLER_1			= "/semRepHandler1";
+
 			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
 
-
-			//public static final String PUSH_ENDPOINT			= PUSH_ENDPOINT_PREFIX + HANDLER;
 			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
-			public static final String HANDLER_SPEECH			= "/speedPush";
 
-			public static final String SPEECH_TEST				= "https://" + PUSH_ENDPOINT_PREFIX + "";
+			// test
+			public static final String HANDLER_1				= "/event";
+			public static final String HANDLER_2				= "/gui";
+
+			public static final String HANDLER_SEMREP_1 		= "/semRepHandler1";
+			public static final String HANDLER_SPEECH			= "/speedPush";
 
 		}
 

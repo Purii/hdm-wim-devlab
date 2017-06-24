@@ -1,6 +1,8 @@
 package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +16,8 @@ public class DocumentCallEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	//Todo: Update EventType
 	public DocumentCallEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.DOCUMENT_CALL);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DOCUMENT_CALL);
 	}
 
 	public String getData() {

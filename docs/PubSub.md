@@ -73,46 +73,32 @@ Warten auf Bene mit Prefix + Receiver
 
 ## PubSub
 
-**Grundlagen** 
-
-1. Ein `publisher` erstellt eine `topic`.<br />
-2. Ein `subscriber` erstellt eine `subscription` auf diese `topic`.<br />
-3. Der `publisher` sendet eine `message` an diese `topic`.<br />
-4. Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.<br />
-5. Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.<br />
-
 ### Events an PubSub senden (Publish)
 
 **(1) Topics**
 Die verfügbaren Topics (Kommunikationskanäle) werden über die [`SharedLib`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45) bereitgestellt. Werden zusätzliche Topics benötigt, können diese über einen neuen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) angefragt werden.
 
-**(2) Bevor Events in PubSub veröffentlicht werden, muss sichergestellt werden, dass eine Subscription auf die gewünschten Topics vorhanden ist.**
-
+**(2) Erstellen eines Events**
 ```java
-// init a SubscriptionHelper to use for prod environment for the given project (see Constants in SharedLib)
-SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
-/**
- * this will create a subscription with id: "subscription-pull-topic-1-test1"
- * if the subscription already exists, we will use it
- */
-sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
-```
+LearnEvent learnEvent = new LearnEvent();
 
-**(3) Erstellen eines Events**
-```java
-Event insightEvent = new Event();
-insightEvent.setData("insightEvent");
-insightEvent.setAttributes(new Hashtable<String, String>(){{put(AttributeKey.EVENT_TYPE, EventType.INSIGHT);}});
+learnEvent.setData("Learning");
+learnEvent.setUserId("user129803");
+learnEvent.setDocumentId("897345DocumentGoogleId");
+learnEvent.setProjectId("023490ProjectID");
+learnEvent.setDocumentAffiliation("false");
+learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
 ```
-**(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
+**(3.1) Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.**
 
 ```java
 // init a PublishHelper to use for prod environment (false)
 PublishHelper ph = new PublishHelper(false);
-ph.Publish(insightEvent, Topic.TOPIC_1);
+
+ph.Publish(learnEvent, Topic.ML_LEARNING);
 ```
 
-**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
+**(3.2) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
 
 Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
 
@@ -129,7 +115,7 @@ Value des `attributes` Parameters ist ein url codierter json string : `{"EventTy
 
 **Hinweis:** Es findet keine Prüfung statt, ob die `topic` existiert. Diese bitte den `Constants` entnehmen.
 
-**(5.1) Message über die Weboberfläche verschicken (zum testen)**
+**(3.3) Message über die Weboberfläche verschicken (zum testen)**
 
 über diese [Weboberfläche](https://hdm-wim-devlab.appspot.com/) können zum Testzweck Messages verschickt werden. 
 Dabei wird die manuelle Eingabe von Messages und das JSON-Format unterstützt.
@@ -176,8 +162,44 @@ sh.Subscribe(subscription, receiver);
 
 ***Push-Subscription(Stream):*** Der Pub/Sub-Server sendet, nach jeder Veröffentlichung einer neuen Message, diese als HTTP-Anfrage an einen interessierten Subscription/Abonnement (STREAM). Der SubscriptionHelper zeigt danach an, dass die Nachricht erfolgreich verarbeitet wurde und das Pub/Sub die Message aus dem Subscription/Abonnement löschen kann. Eine Nicht-Erfolgsreaktion zeigt an, dass die Nachricht erneut von Pub/Sub gesendet werden soll.
 
-***Push Beispiel***
+***Push Beispiel*** 
+[Hier zur Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/eventServices/pubSubWebapp/src/main/java/de/hdm/wim/pubSubWebapp/PubSubPushHandler1.java)
+
 ```java
+public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	throws IOException, ServletException {
+	String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+	// Do not process message if request token does not match pubsubVerificationToken
+	if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
+		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		return;
+	}
+	String requestBody = req.getReader()
+						 .lines()
+						 .reduce("\n", (accumulator, actual) -> accumulator + actual);
+
+	IEvent event = helper.GetIEventFromJson(requestBody);
+
+	try {
+        LOGGER.info("Handler: " + Config.HANDLER_1 + " event.getData(): " + event.getData());
+		//Here we serialize the event to a String.
+		final String output = new Gson().toJson(event);
+        
+		//And write the string to output
+		resp.setContentLength(output.length());
+		resp.getOutputStream().write(output.getBytes());
+		resp.getOutputStream().flush();
+		resp.getOutputStream().close();
+
+		// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
+		//resp.setStatus(HttpServletResponse.SC_OK);
+
+		// NACK
+		//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	} catch (Exception e) {
+		resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	  }
+	}
 ```
 
 **(2) Empfang der Message bestätigen.** 
@@ -189,6 +211,3 @@ Es können zwei unterschiedliche Rückmeldungs-Varianten auftreten.
 ***positive acknowledgement(abbr.: ACK)*** Mit `consumer.ack` wird ein erfolgreicher Empfang einer Message ausgedrückt. 
 
 ***negative acknowledgement(abbr.: NACK)*** Mit `consumer.nack` wird Pub/Sub mitgeteilt, dass der Subscription/Abonnent die Message nicht verarbeiten konnte oder auch die aktuelle Message vom Abonnenten momentan nicht benötigt wird.
-
-@bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
-findet im receiver statt => `consumer.ack` oder `consumer.nack`
