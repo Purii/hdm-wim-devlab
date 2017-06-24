@@ -1691,6 +1691,7 @@ public class EventInterface {
 						+ "?Person ?Person_ID '" + idStr + "' "
 					+ " }";
 
+
 				if (insertSparql != "") {
 
 					String uuID = UUID.randomUUID().toString();
@@ -1708,7 +1709,6 @@ public class EventInterface {
 
 
 	//nicht fertig
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/insertNewDocumentContext")
@@ -1770,7 +1770,7 @@ public class EventInterface {
 
 	}
 
-//nichtfertig
+	//nichtfertig
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/insertNewDocumentCall")
@@ -1830,7 +1830,6 @@ public class EventInterface {
 		}
 
 	}
-
 
 
 	//nichtfertig
