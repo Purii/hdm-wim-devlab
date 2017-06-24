@@ -366,6 +366,7 @@ public class InternalInterface {
 							+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
 							+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
 							+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;";
+							+ " }"
 
 
 						String uuID = UUID.randomUUID().toString();
