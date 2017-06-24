@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
 import de.hdm.wim.sharedLib.events.StayAliveEvent;
+import de.hdm.wim.sharedLib.events.UserJoinedSessionEvent;
+import de.hdm.wim.sharedLib.events.UserLeftSessionEvent;
 import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jni.Time;
@@ -23,7 +25,7 @@ import java.util.concurrent.*;
 public class MessageServer2 {
 
 	private static final Executor SERVER_EXECUTOR 	 = Executors.newSingleThreadExecutor();
-	private static final int PORT 					 = 9999;
+	private static final int PORT 					 = 8081;
 	private static final long MESSAGE_PERIOD_SECONDS = 6;
 	private static final Logger LOGGER 				 = Logger.getLogger(MessageServer2.class);
 
@@ -42,15 +44,16 @@ public class MessageServer2 {
 		int id 								= 0;
 
 		SERVER_EXECUTOR.execute(new MessageServer2.SteamingServer(messageQueue));
+
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		DocumentInformationEvent docinfevt = new DocumentInformationEvent();
 		docinfevt.setId("1");
 		docinfevt.setData("bla");
-		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		docinfevt.setPublishTime(timeStamp);
 		docinfevt.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		docinfevt.setDocumentId("123");
 		docinfevt.setDocumentBelongsToProject("High Net");
-
+/*
 		DocumentInformationEvent docinfevt2 = new DocumentInformationEvent();
 		docinfevt2.setId("2");
 		docinfevt2.setData("bla");
@@ -65,39 +68,90 @@ public class MessageServer2 {
 		docinfevt3.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		docinfevt3.setPublishTime(timeStamp);
 		docinfevt3.setDocumentId("124");
-		docinfevt3.setDocumentBelongsToProject("High Net");
+		docinfevt3.setDocumentBelongsToProject("High Net");*/
 
 
 		StayAliveEvent stayAlive = new StayAliveEvent();
 		stayAlive.setId("4");
 		stayAlive.setData("blubb");
 		stayAlive.setPublishTime(timeStamp);
-		stayAlive.setUserId("1234");
+		stayAlive.setUserId("P.Enis");
 
-		while (true) {
-			PubSubMessage message   = PubSubMessage.getRandom("blubb_" + id,Integer.toString(id));
-			//String message 			= "test";
-			Gson gson               = new Gson();
+		StayAliveEvent stayAlive2 = new StayAliveEvent();
+		stayAlive2.setId("5");
+		stayAlive2.setData("blubb");
+		stayAlive2.setPublishTime(timeStamp);
+		stayAlive2.setUserId("V.Agina");
+
+		UserJoinedSessionEvent joinedSessionEvent = new UserJoinedSessionEvent();
+		joinedSessionEvent.setSessionId("12345");
+		joinedSessionEvent.setId("1");
+		joinedSessionEvent.setData("blubb");
+		joinedSessionEvent.setPublishTime(timeStamp);
+		joinedSessionEvent.setUserId("Karl");
+
+		UserJoinedSessionEvent joinedSessionEvent2 = new UserJoinedSessionEvent();
+		joinedSessionEvent2.setSessionId("12345");
+		joinedSessionEvent2.setId("2");
+		joinedSessionEvent2.setData("blubb");
+		joinedSessionEvent2.setPublishTime(timeStamp);
+		joinedSessionEvent2.setUserId("Birgit");
+
+		UserJoinedSessionEvent joinedSessionEvent3 = new UserJoinedSessionEvent();
+		joinedSessionEvent3.setSessionId("12345");
+		joinedSessionEvent3.setId("3");
+		joinedSessionEvent3.setData("blubb");
+		joinedSessionEvent3.setPublishTime(timeStamp);
+		joinedSessionEvent3.setUserId("Otto");
+
+		UserLeftSessionEvent leftSessionEvent = new UserLeftSessionEvent();
+		leftSessionEvent.setSessionId("12345");
+		leftSessionEvent.setUserId("Otto");
+
+		UserLeftSessionEvent leftSessionEvent2 = new UserLeftSessionEvent();
+		leftSessionEvent2.setSessionId("12345");
+		leftSessionEvent2.setUserId("Karl");
+
+		UserLeftSessionEvent leftSessionEvent3 = new UserLeftSessionEvent();
+		leftSessionEvent3.setSessionId("12345");
+		leftSessionEvent3.setUserId("Birgit");
+
+		PubSubMessage message   = PubSubMessage.getRandom("blubb_" + id,Integer.toString(id));
+		//String message 			= "test";
+		Gson gson               = new Gson();
+
+		//messageQueue.put(gson.toJson(docinfevt));
+		// Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(stayAlive));
+		messageQueue.put(gson.toJson(stayAlive2));
+		messageQueue.put(gson.toJson(joinedSessionEvent));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(stayAlive));
+		messageQueue.put(gson.toJson(stayAlive2));
+		messageQueue.put(gson.toJson(joinedSessionEvent2));
+		messageQueue.put(gson.toJson(joinedSessionEvent3));
+
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(stayAlive));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(stayAlive));
+		messageQueue.put(gson.toJson(leftSessionEvent2));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(leftSessionEvent));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(leftSessionEvent3));
+
+
+		while(true){
 
 			messageQueue.put(gson.toJson(docinfevt));
-			messageQueue.put(gson.toJson(stayAlive));
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			messageQueue.put(gson.toJson(docinfevt2));
-			if(id<5) {
-				messageQueue.put(gson.toJson(stayAlive));
-				Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-				messageQueue.put(gson.toJson(docinfevt3));
-				messageQueue.put(gson.toJson(stayAlive));
-				Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			}
-			else{
-				Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-				Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-				Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			}
-			id++;
-			System.out.println(id);
 		}
+
 	}
 
 	private static class SteamingServer implements Runnable {

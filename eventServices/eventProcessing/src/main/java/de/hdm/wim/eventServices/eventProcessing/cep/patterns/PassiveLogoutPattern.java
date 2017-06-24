@@ -75,9 +75,8 @@ public class PassiveLogoutPattern {
 	public void run(StreamExecutionEnvironment env, DataStream<Tuple2<String, Integer>> heartbeats){
 		Pattern<Tuple2<String, Integer>, ?> passiveLogout = Pattern
 			.<Tuple2<String, Integer>>begin("first")
-			.where ( tpl -> tpl.getField(1).equals(0));
+			.where ( tpl -> tpl.getField(1).equals(0)||tpl.getField(1).equals(1));
 
-		System.out.println("it runs!!!");
 		PatternStream<Tuple2<String, Integer>> inactiveUserStream = CEP.pattern(heartbeats, passiveLogout);
 
 		DataStream<UserInactiveEvent> UserInactiveEventDataStream = inactiveUserStream.select(new PatternSelectFunction<Tuple2<String, Integer>, UserInactiveEvent>() {

@@ -3,6 +3,7 @@ package de.hdm.wim.eventServices.eventProcessing;
 import com.google.gson.GsonBuilder;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.PassiveLogoutPattern;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.SessionEndPattern;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -19,13 +20,17 @@ import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
+import org.apache.log4j.Logger;
 
 /**
  * Created by Ben on 30.05.2017.
  */
 public class RunFlink {
 
-        /**
+	private static final Logger LOGGER 				 = Logger.getLogger(RunFlink.class);
+
+
+	/**
          * The entry point of application.
          *
          * @param args the input arguments
@@ -62,11 +67,12 @@ public class RunFlink {
             relationToDatePattern.run(env, tokenStream);
 */
 
-			DataStream<PubsubMessage> messageStream = env
+	/*		DataStream<PubsubMessage> messageStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new Splitter());
 
-		/*	DataStream<IEvent> eventStream = env
+
+			DataStream<IEvent> eventStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new EventSplitter());
 
@@ -84,14 +90,25 @@ public class RunFlink {
 		*/
 
 
-			DataStream<Tuple2<String, Integer>> someStream = env
+		/*	DataStream<String> anyStream = env
+				.socketTextStream("localhost", 9999);
+			anyStream.print();*/
+
+		/*	DataStream<Tuple2<String, Integer>> someStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new SomeSplitter())
 				.keyBy(0)
-				.timeWindow(Time.seconds(15))
+				.timeWindow(Time.seconds(15), Time.seconds(3))
+				.sum(1);*/
+
+
+			DataStream<Tuple2<String,Integer>> usersInSession = env
+				.socketTextStream("localhost", 8081)
+				.flatMap(new UserPerSessionSplitter())
+				.keyBy(0)
 				.sum(1);
 
-			someStream.print();
+			usersInSession.print();
 
 
 	//		WindowedStream<StayAliveEvent, String, TimeWindow> ping = keyedStayAliveEventDataStream
@@ -119,8 +136,13 @@ public class RunFlink {
 	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
 
-			PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
+
+		/*	PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 			passiveLogoutPattern.run(env, someStream);
+		*/
+
+			SessionEndPattern sessionEndPattern = new SessionEndPattern();
+			sessionEndPattern.run(env, usersInSession);
 
 
 
@@ -217,8 +239,22 @@ public class RunFlink {
 		@Override
 		public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
 			StayAliveEvent evt = new GsonBuilder().create().fromJson(value, StayAliveEvent.class);
-			if(evt.getEventType()==Constants.PubSub.EventType.STAYALIVE){
-				out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID),1));
+			if(evt.getEventType().equals(Constants.PubSub.EventType.STAYALIVE)){
+				Tuple2<String, Integer> tuple = new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID),1);
+				out.collect(tuple);
+			}
+		}
+	}
+	public static class UserPerSessionSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
+
+		@Override
+		public void flatMap(String value, Collector<Tuple2<String,Integer>> out) throws Exception {
+			UserJoinedSessionEvent evt = new GsonBuilder().create().fromJson(value, UserJoinedSessionEvent.class);
+			if(evt.getEventType().equals(Constants.PubSub.EventType.USER_JOINED_SESSION)){
+				out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.SESSION_ID),1));
+			}
+			if(evt.getEventType().equals(Constants.PubSub.EventType.USER_LEFT_SESSION)){
+				out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.SESSION_ID),-1));
 			}
 		}
 	}
