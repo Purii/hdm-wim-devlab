@@ -1,6 +1,8 @@
 package de.hdm.wim.pubSubWebapp;
 
 import com.google.gson.Gson;
+import de.hdm.wim.pubSubWebapp.Helper.EventRepository;
+import de.hdm.wim.pubSubWebapp.Helper.EventRepositoryImpl;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
@@ -22,9 +24,17 @@ import org.apache.log4j.Logger;
 	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_1
 )
 public class PubSubPushHandler1 extends HttpServlet {
-
 	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler1.class);
+	private EventRepository eventRepository;
 	private Helper helper 				= new Helper();
+
+	PubSubPushHandler1(EventRepository eventRepository) {
+		this.eventRepository = eventRepository;
+	}
+
+	public PubSubPushHandler1() {
+		this.eventRepository = EventRepositoryImpl.getInstance();
+	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -50,10 +60,13 @@ public class PubSubPushHandler1 extends HttpServlet {
 			final String output = new Gson().toJson(event);
 
 			//And write the string to output
-			resp.setContentLength(output.length());
+			/*resp.setContentLength(output.length());
 			resp.getOutputStream().write(output.getBytes());
 			resp.getOutputStream().flush();
-			resp.getOutputStream().close();
+			resp.getOutputStream().close();*/
+
+			eventRepository.save(event);
+
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
 			//resp.setStatus(HttpServletResponse.SC_OK);
