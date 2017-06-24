@@ -7,6 +7,12 @@ import de.hdm.wim.sharedLib.Constants;
  */
 public class ConstantsImpl {
 
+	// SessionID, TimeStamp, TokenID
+	String SessionID = Constants.PubSub.AttributeKey.SESSION_ID;
+	String TimeStamp = Constants.PubSub.AttributeKey.TIMESTAMP;
+	String TokenID = Constants.PubSub.AttributeKey.TOKEN_ID;
+
+
 	// fill HashMap
 
 	// "DocumentInformationEvent"
@@ -16,8 +22,18 @@ public class ConstantsImpl {
 	String DokTyp = Constants.PubSub.AttributeKey.DOCUMENT_TYPE;
 	String DokURL = Constants.PubSub.AttributeKey.DOCUMENT_URL;
 	String DokOrdner = Constants.PubSub.AttributeKey.DOCUMENT_FOLDER;
+	// bei Tokenizer noch: (müsste optional sein?)
+	String DokErstelldatum = Constants.PubSub.AttributeKey.DOCUMENT_ADDED;
+	String DokVersion = Constants.PubSub.AttributeKey.DOCUMENT_VERSION;
+	// doppelt (String DokTyp = Constants.PubSub.AttributeKey.DOCUMENT_TYPE;)
+	String DokumentVerfasstVonPerson = Constants.PubSub.AttributeKey.DOCUMENT_WRITTEN_BY;
+	String DokumentGehoertZuProjekt = Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT;
+	String DokumentFavorisiertVonPerson = Constants.PubSub.AttributeKey.DOCUMENT_FAVORED_BY;
+	String DokKeywords = Constants.PubSub.AttributeKey.DOCUMENT_KEYWORDS;
+	//doppelt (String DokOrdner = Constants.PubSub.AttributeKey.DOCUMENT_FOLDER;)
 
-// "UserInformationEvent"
+
+	// "UserInformationEvent"
 	String UserID = Constants.PubSub.AttributeKey.USER_ID;
 	String Vorname = Constants.PubSub.AttributeKey.FIRST_NAME;
 	String Nachname = Constants.PubSub.AttributeKey.LAST_NAME;

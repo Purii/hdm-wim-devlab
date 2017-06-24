@@ -1,54 +1,350 @@
- 
-   function addKeyToSelectedList() {
-                   document.getElementById("save-btn").disabled = true;
-  document.getElementById("delete-btn").disabled = true;
-    document.getElementById("add-btn").disabled = true;
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-  
-  
-  
-    var x = document.getElementById("keywordElement").value;
-    if(x.length == 0) {
-   
-           alert("Text ist leer");  
-           return;
-    }else {
-    
-    //for loop - gibt es den wert schon? - hier
-    
-    var para = document.createElement("OPTION");
-    var t = document.createTextNode(x);
-    para.appendChild(t);
-    document.getElementById("selectDD").appendChild(para);
-    document.getElementById("keywordElement").value = "";
-    //var val = document.getElementById("selectDD").lastChild.innerHTML;
-    document.getElementById("selectDD").lastChild.selected=true
- 
-  
-       alert("Werte wurden gespeichert" +   $('#selectDD option:last').text());  
+    </style>
 
-    }
-      }
+    <base target="_top">
+
+    <script>
 
 
+        //Die Methode gibt einen Alert aus
 
+        function onSaveAlert( ) {
+
+
+            var selectedKeyword = document.getElementById("selectDD");
+
+
+            alert("Werte wurden gespeichert");
+
+            //  var documentProperties = PropertiesService.getDocumentProperties().getProperty('driveDocumentID');
+
+
+            var doc_keywords = [];
+            // var doc_version = PropertiesService.getDocumentProperties().getProperty("doc_Version");
+            var doc_version = "GoogleDriveAddonMetadata";
+            var doc_have_context = "GoogleDriveAddonMetadata";
+            var doc_category = "GoogleDriveAddonMetadata";
+            var doc_stage = "GoogleDriveAddonMetadata";
+            var doc_projectlink = "GoogleDriveAddonMetadata";
+
+
+
+            for (var i = 1; i < selectedKeyword.length; i++)
+            {
+                doc_keywords.push("'"+doc_keywords.options[i].text+"'");
+            }
+            google.script.run.insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, doc_projectlink, doc_keywords);
+
+        }
+
+
+        function showProjects(projects) {
+            alert("projekt   " + projects  );
+
+
+            var list = projects.split(/\s*,\s*/);
+            var dd = document.getElementById("selectProjekt");
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
+            }
+
+        }
+
+        function showDocCategory(docCat) {
+            alert("a   " + docCat  );
+
+
+            var list = docCat.split(/\s*,\s*/);
+            var dd = document.getElementById("selectCat");
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
+            }
+
+        }
+
+        function showProjectStage(prostage) {
+            alert("a   " + prostage  );
+
+
+            var list = prostage.split(/\s*,\s*/);
+            var dd = document.getElementById("selectPhase");
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
+            }
+
+        }
+
+        google.script.run.withSuccessHandler(showProjects).getProjectsFromEndpoint();
+        google.script.run.withSuccessHandler(showDocCategory).getDocCategoryFromEndpoint();
+        google.script.run.withSuccessHandler(showProjectStage).getProjectStagesFromEndpoint();
+
+
+        //Response Methoden mit DOM Manipulation durch "innerHTML"-Befehl
+        function showDocumentFileName(fileName) {
+            var div = document.getElementById('output0');
+            div.innerHTML = '<b> Dokumentenname:</b> <br /> ' + fileName  ;
+        }
+
+        function showCreationDateFileName(dateCreated) {
+            var div = document.getElementById('output1');
+            div.innerHTML = '<b> Erstellungsdatum:</b>  <br />' + dateCreated   ;
+        }
+
+
+        function showUpdateDateFileName(lastUpdated) {
+            var div = document.getElementById('output2');
+            div.innerHTML = '<b> Änderungsdatum: </b> <br />' + lastUpdated    ;
+        }
+
+
+        function showOwner(owner) {
+            var div = document.getElementById('output3');
+            div.innerHTML = '<b> Autor: </b> <br />' + owner    ;
+        }
+
+
+        function showDriveUrl(driveUrl) {
+            var div = document.getElementById('output6');
+            div.innerHTML = '<b> Drive-URL: </b> <br />' + driveUrl    ;
+        }
+
+
+        function showDriveId(driveId) {
+            var div = document.getElementById('output7');
+            div.innerHTML = '<b> Drive-ID: </b> <br />' + driveId    ;
+        }
+
+
+
+        function deleteKeyToSelectedList(el) {
+
+            var e = document.getElementById(el);
+            var strSel = "The Value is: " + e.options[e.selectedIndex].value + " and text is: " + e.options[e.selectedIndex].text;
+            alert(strSel);
+            //return e.removeChild(e.selectedIndex);
+
+
+            if(e.selectedIndex!=0){
+                e.remove(e.selectedIndex);
+                document.getElementById("listKeywords").innerHTML="";
+                for (i = 1; i < e.length; i++)
+                {
+                    if(i==(e.length-1)){
+                        document.getElementById("listKeywords").innerHTML += e.options[i].text;
+                    } else {
+                        document.getElementById("listKeywords").innerHTML += e.options[i].text+", ";
+                    }
+                }
+            }
+        }
+
+
+
+
+        function addKeyToSelectedList() {
+            document.getElementById("delete-btn").disabled = true;
+            var x = document.getElementById("keywordElement").value;
+            if(x.length == 0) {
+
+                alert("Text ist leer");
+                return;
+            }else {
+
+                //for loop - gibt es den wert schon? - hier
+
+                var para = document.createElement("OPTION");
+                var t = document.createTextNode(x);
+                para.appendChild(t);
+                document.getElementById("selectDD").appendChild(para);
+                document.getElementById("keywordElement").value = "";
+                //var val = document.getElementById("selectDD").lastChild.innerHTML;
+                document.getElementById("selectDD").lastChild.selected=true
+
+
+                alert("Werte wurden gespeichert" +   $('#selectDD option:last').text());
+
+            }
+        }
+
+
+        function selectDDonClick(){
+
+            var isSel = document.getElementById("selectDD").selected = true;
+
+
+            if (isSel == true) {
+                document.getElementById("edit-btn").disabled=false;
+                document.getElementById("delete-btn").disabled=false;
+            }
+            document.getElementById("selectDD").onClick=function()
+            {
+                document.getElementById("edit-btn").disabled=false;
+                document.getElementById("delete-btn").disabled=false;
+            }
+
+        }
+        //here
+        function loadKeyFromSelectedList(el) {
+
+            var e = document.getElementById(el);
+            var selectedIndex = e.selectedIndex;
+            var txtbox = document.getElementById("keywordElement");
+            var speichernBtn = document.getElementById("add-btn");
+            var loeschenBtn = document.getElementById("add-btn")
+
+            alert("alert-2 " + e.value);
+            txtbox.value = e.value;
+
+            speichernBtn.disable;
+
+            speichernBtn.onclick = function(){
+                if (e.value == txtbox.value) {
+                    alert("gleicher Wert");
+                }else {
+                    addKeyToSelectedList( );
+                }
+            }
+
+            txtbox.value == e.value.value  + this.value; //to appened
+            txtbox.innerHTML = this.value;
+        }
+
+        function editKeywords() {
+
+
+            var textinputbox = document.getElementById('keywordElement');
+            var dropdown = document.getElementById('selectDD');
+
+            dropdown.onchange = function(){
+                textinputbox.value = textinputbox.value  + this.value; //to appened
+                textinputbox.innerHTML = this.value;
+            }
+        }
+
+
+
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+<div id="output0"></div>
+
+
+<img src ="https://raw.githubusercontent.com/Purii/hdm-wim-devlab/2f9d282261e856a1c1dd5c0f9637ba0ea39bf7fe/SemRep/Google-AppScipt/SemRepGoogleAddinLogo-GUI-Color.png" width="250px" class="logo">
 <form style="padding:31px;">
-      
 
-     <input onkeydown="onkeydown()" style="height: 25px;width: 234px; margin-left: 2px; margin-bottom: 3px;"  name="keywordfield" size="10" type="text" id="keywordElement"/><br/>
-     <button style="" type="submit" id="add-btn" onclick="addKeyToSelectedList()" form="form1" value="Submit">Speichern</button>
-      <button id="save-btn" disabled  style="" type="submit" onclick="loadKeyFromSelectedList('selectDD')" form="form1" value="Submit">Bearbeiten</button>
-     <button id="delete-btn"  disabled style="" type="submit" onclick="deleteKeyToSelectedList('selectDD')" form="form1" value="Submit">Löschen</button>
+    <input placeholder="Keywort hier eingeben"   style="height: 25px;width: 234px; margin-left: 2px; margin-bottom: 3px;"  name="keywordfield" size="10" type="text" id="keywordElement"/><br/>
+    <button style="" type="submit" id="add-btn" onclick="addKeyToSelectedList()" form="form1" value="Submit">Speichern</button>
+    <button id="edit-btn" disabled  style="" type="submit" onclick="loadKeyFromSelectedList('selectDD')" form="form1" value="Submit">Bearbeiten</button>
+    <button id="delete-btn"  disabled style="" type="submit" onclick="deleteKeyToSelectedList('selectDD')" form="form1" value="Submit">Löschen</button>
 
-      <!--    <input style="height:20px;" width="300px"type="text" id="addkeyword"/>-->
-  </form>
-  
-  
-   <h5> hinzugefügte Keywords </h5>
-  <div class="block form-group">
-   <select id="selectDD" size="10"   onclick="selectDDonClick()">
-   <option>nix drin</option>
-  </select>
+    <!--    <input style="height:20px;" width="300px"type="text" id="addkeyword"/>-->
+</form>
+
+
+<h4 style="    font-size: 12px; text-align: center; color: #999;"> hinzugefügte Keywords </h4>
+<div class="block form-group">
+    <select id="selectDD" size="10"   onclick="selectDDonClick()">
+        <option>nix drin</option>
+    </select>
+
 </div>
-<br />
-<br /><br />
+
+
+
+
+<h4 style="font-size: 12px; text-align: left; color: #999;"> Projektzugehörigkeit</h4>
+<div class="form-dd">  <select id="selectProjekt" size="1"    onclick="">
+    <option>nix drin</option>
+</select>
+</div>
+
+
+<h4 style="font-size: 12px; text-align: left; color: #999;"> Projektphase</h4>
+<div class="form-dd">  <select id="selectPhase" size="1"     onclick="">
+    <option>nix drin</option>
+</select>
+</div>
+
+<h4 style="font-size: 12px; text-align: left; color: #999;"> Dokumentenkategorie</h4>
+<div class="form-dd">
+    <select id="selectCat" size="1"   onclick="">
+        <option>nix drin</option>
+    </select>
+
+</div>
+
+
+<?
+
+
+
+?>
+
+<?
+
+
+// Aufrug von PropertieService des aktuellen Dokuments
+
+var metadata = PropertiesService.getDocumentProperties()
+
+?>
+
+<script>
+
+
+</script>
+
+
+
+
+
+
+<div class="form" style="margin-left:25 !Important;">
+    <form id='metadataForm'>
+
+        <!-- Set Formelement für jedes definiertes metadataItem -->
+
+        <? for (var i = 0; i < metadataItems.length; i++) { ?>
+        <br />  <div><?= metadataItems[i][0] ?>:
+
+        <input class="textInputField" type="text" name = "<?= metadataItems[i][1] ?>"
+        <? val=''
+        if (metadataItems[i].length>2) val= metadataItems[i][2]  ?>
+        value= "<?= metadata.getProperty(metadataItems[i][1]) ? metadata.getProperty(metadataItems[i][1])  : val  ?>"
+        />
+    </div>
+
+        <? } ?>
+
+
+    </form>
+</div>
+
+<div>
+
+    <!-- Buttonbar -->
+
+    <input
+        type="button"
+        value="Hinzufügen"
+        onclick="onSaveAlert()"
+
+        class="sButton"
+    />
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,36 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style> 
-    
-        body {
-        font-family: 'Open Sans', Arial, sans-serif;
-        margin: 0px;
-	    font-size: 13px;
-      }
-      
-      .staticDataWrap {
-        margin-top:15px; 
-        /* background:#f1f1f1; 
-        border: 1px solid #ccc; */
-        padding-left:25px; 
-        padding-right:25px;
-      }
 
-      #output0 ,   #output1 ,   #output2 ,   #output3 ,   #output4 ,   #output5  ,   #output6  ,   #output7 {
-        margin-bottom: 10px;
-        font-family: 'Open Sans', Arial, sans-serif;
-        font-size: 13px;
-        padding: 5px;
-        background: #f1f1f1;
-        width: 100%;
-        word-wrap: break-word;
-      }
-      
-      form#metadataForm {
-      margin-left: 25px !Important;
-}
-    </style>
     
   
 <base target="_top">
@@ -89,21 +60,17 @@
       google.script.run.withSuccessHandler(showDriveUrl).getURL();
       google.script.run.withSuccessHandler(showDriveId).getID();
       google.script.run.withSuccessHandler(showOwner).getOwner();
-      //  google.script.run.withSuccessHandler(showViewer).getViewer();
       google.script.run.withSuccessHandler(showEditors).getEditors();
       google.script.run.withSuccessHandler(showDriveUrl).getURL();
       
       
     </script>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    
-    
-    </head>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
 
   <body>
+
      <div class="staticDataWrap">
- 
        <h3> Statische Attribute </h3> 
        <div id="output0"></div>
        <div id="output1"></div>
@@ -113,10 +80,8 @@
        <div id="output5"></div>
        <div id="output6"></div>
        <div id="output7"></div>
-       
-    </div>
-    
-    
+     </div>
+
   </body>
 </html>
 
