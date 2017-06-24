@@ -24,7 +24,7 @@ public interface EventRepository {
 	/**
 	 * Save message to persistent storage.
 	 */
-	void save(IEvent event);
+	void save(IEvent event, String handlerId);
 
 	/**
 	 * Retrieve most recent stored messages.
