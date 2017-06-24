@@ -1621,7 +1621,7 @@ public class EventInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/insertNewUserInformation")
-	public static Response insertNewUserInformation() throws Exception {
+	public static void insertNewUserInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1635,6 +1635,13 @@ public class EventInterface {
 		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
 
 		try {
 			// initialisiere Variablen
@@ -1646,82 +1653,56 @@ public class EventInterface {
 			aufrufStr = neueUserSetNull;
 			favoritStr = neueUserSetNull;
 			dokumentStr = neueUserSetNull;
-			// dokument
-			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
-				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 
-			for (int z = 0; z < inputArray.length; z++) {
-
-				// ermittle UserInformation
-				if (z == 0) {
-
-					insertSparql = " PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-						+ " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>"
-						+ "INSERT DATA { "
-						+ "		<http://www.semanticweb.org/sem-rep/ontology#2_TestDokument>"
-						+ "		a ontology:Dokument, owl:NamedIndividual ;"
-						+ "		ontology:Dok_Name ' " +doc_name+ "';"
-						+ "		ontology:Dok_ID '" +doc_id+ "';"
-						+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
-						+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
-						+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
-						+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
-						+ "		ontology:Dok_Keywords '"+keywords+"' ;"
-						+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
-						+ "		ontology:Dok_URL '"+doc_url+"' ;"
-						+ "		ontology:Dok_Version '"+doc_version+"' ;"
-						+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
-						+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
-						+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
-						+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
-						+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;";
-
-				} else {
-					insertSparql = "";
-				}
+					insertSparql = " PREFIX owl: <http://www.w3.org/2002/07/owl#> "
+					+ "PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "WITH <http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+					+ " DELETE ?Person "
+//					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+//					//+ "a ontology:Person, owl:NamedIndividual ; "
+//					//+ "ontology:Person_ID '" + idStr + "' ; "
+//					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
+//					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
+//					+ "ontology:Person_Email '" + mailStr + "' ; "
+//					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
+//					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
+//					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
+//					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
+//					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
+//					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
+					//+ " }"
+					+ " INSERT DATA { "
+					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+					+ "a ontology:Person, owl:NamedIndividual ; "
+					+ "ontology:Person_ID '" + idStr + "' ; "
+					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
+					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
+					+ "ontology:Person_Email '" + mailStr + "' ; "
+					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
+					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
+					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
+					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
+					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
+					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
+					+ "} "
+					+ " WHERE  "
+					+ " { "
+					//+ " ?Person <http://www.semanticweb.org/sem-rep/ontology#Person_ID> '" + idStr + "' "
+						+ "?Person ?Person_ID '" + idStr + "' "
+					+ " }";
 
 				if (insertSparql != "") {
 
 					String uuID = UUID.randomUUID().toString();
 					UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-						UpdateFactory.create(String.format(insertSparql, uuID)), "http://35.187.45.171:3030/ontology/query");
+						UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
 					uP.execute();
 
-					if (resultSet.hasNext() == true) {
-
-					} else {
-						unternehmenObj.setUnternehmensName("'null'");
-
-						eventLinkedHashMap.put(eventTypeStr,
-							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + unternehmenObj.getUnternehmensName());
-
-					}
-
 				}
-
-			}
 
 		} catch (Exception e) {
 			loggger.error("Fehler in EventInterface: " + e);
 		}
-
-		Unternehmen AllCompaniesEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : eventLinkedHashMap.keySet()) {
-
-			if (key.equals(eventTypeStr)) {
-				AllCompaniesEventObject = new Unternehmen(sessionIDStr, String.valueOf(timestampLong),
-					eventUniqueID, eventLinkedHashMap.get(key).toString());
-				System.out.println(AllCompaniesEventObject.toStringUnternehmenObjekt());
-				break;
-			}
-
-		}
-
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, AllCompaniesEventObject.toStringUnternehmenObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 
