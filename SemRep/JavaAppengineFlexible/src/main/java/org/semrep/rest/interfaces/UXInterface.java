@@ -84,6 +84,15 @@ public class UXInterface {
 	public static String personNachname_Str = "";
 	public static String personName_Str = "";
 	public static int numFavDoks = 0;
+
+	public static void main(String[] args) {
+		// produceUserInformationEvent();
+		try {
+			getAllDocuments();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 		
 	public static void setArrayDemoData() {
 
@@ -464,7 +473,8 @@ public class UXInterface {
 							+ "SELECT DISTINCT ?Dokument  ?Dok_ID ?Dok_Name ?Dok_Typ ?Dok_URL ?Dok_Ordner " + "WHERE { "
 							+ "?Dokument ontology:Dok_ID ?Dok_ID . " + "?Dokument ontology:Dok_Name ?Dok_Name . "
 							+ "?Dokument ontology:Dok_Typ ?Dok_Typ . " + "?Dokument ontology:Dok_URL ?Dok_URL . "
-							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . " + "}";
+							+ "?Dokument ontology:Dok_Ordner ?Dok_Ordner . "
+							+ "}";
 
 			//execute query and handle results
 			executeSparql(sparql);
