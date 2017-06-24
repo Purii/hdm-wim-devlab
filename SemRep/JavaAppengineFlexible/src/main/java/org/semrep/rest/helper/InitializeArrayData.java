@@ -64,10 +64,24 @@ public class InitializeArrayData {
 
 		} if (eventType == EventNameConstants.DOCUMENT_CONTEXT_EVENT) {
 
-			inputArray = new String[3];
+			inputArray = new String[2];
+			inputArray[0] = "Projektplanung_HighNet"; // DokumentName
+			inputArray[1] = "HighNet_Project"; // DokumentKontext
+
+		} if (eventType == EventNameConstants.DOCUMENT_CALL_EVENT) {
+
+			inputArray = new String[4];
 			inputArray[0] = "793dnj"; // sessionID
-			inputArray[1] = "Projektplanung_HighNet"; // DokumentName
-			inputArray[2] = "HighNet_Project"; // DokumentKontext
+			inputArray[1] = "Kristi"; // PersonVorname
+			inputArray[2] = "Misti"; // PersonNachname
+			inputArray[3] = "Projektplanung_HighNet"; // DokumentName
+
+		} if (eventType == EventNameConstants.LEARN_EVENT) {
+
+			inputArray = new String[3];
+			inputArray[0] = "Kristi"; // PersonVorname
+			inputArray[1] = "Misti"; // PersonNachname
+			inputArray[2] = "Projektplanung_HighNet"; // DokumentName
 
 		}
 

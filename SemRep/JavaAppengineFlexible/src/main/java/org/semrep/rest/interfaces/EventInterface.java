@@ -145,7 +145,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			insertNewDocumentContext();
+			insertNewDocumentCall();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -956,6 +956,101 @@ public class EventInterface {
 
 	}
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getDocumentCalls")
+	public static Response getDocumentCalls() throws Exception {
+
+		// @Path: /rest/eventInterface/getDocumentCalls
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		// timestamp = new Timestamp(System.currentTimeMillis());
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		String personVorname = inputArray[1].toString();
+		String personNachname = inputArray[2].toString();
+		int loopIndex = 1;
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			// initialisiere Objekte
+			// person
+			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
+				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
+
+
+			sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+				+ "SELECT Select ?Person ?DokAufrufe "
+				+ "WHERE { "
+				+ "?Person ontology:Person_ruft_Dokument_auf ?DokAufrufe . "
+				+ "?Person ontology:Person_ID '873267' . "
+				+ "}";
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(loopIndex, eventTypeStr);
+					} else {
+						personObj.setId("'null'");
+						personObj.setVorname("'null'");
+						personObj.setNachname("'null'");
+						personObj.setMail("'null'");
+						personObj.setPerson_arbeitet_an_Projekt("'null'");
+						personObj.setPerson_hat_Projektrolle("'null'");
+						personObj.setPerson_gehoert_zu_Abteilung("'null'");
+						personObj.setPerson_hat_Dokument_verfasst("'null'");
+						personObj.setPerson_ruft_Dokument_auf("'null'");
+						personObj.setPerson_favorisiert_Dokument("'null'");
+
+					}
+
+				}
+
+
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		personObj.flushPersonObj();
+
+		Person userInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals("Person")) {
+				userInformationEventObject = new Person(sessionIDStr, String.valueOf(timestampLong), eventUniqueID,
+					eventLinkedHashMap.get(key).toString());
+				System.out.println(userInformationEventObject.toStringPersonObjekt());
+			}
+
+		}
+
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData("Test_Data");
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
 	// produce
 	// consume
 	// produce DocumentInformationEvent
@@ -1618,19 +1713,9 @@ public class EventInterface {
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/insertNewUserInformation")
+	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
+	// abteilungStr, projektStr, projektrolleStr
 	public static void insertNewUserInformation() throws Exception {
-
-		// @Path: /rest/eventInterface/getProjectInformation
-
-		jsonObj = new JSONObject();
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
 
 		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
@@ -1694,7 +1779,7 @@ public class EventInterface {
 
 				// führe update auf den Fuseki-Server aus
 				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
 				uP.execute();
 
 			}
@@ -1706,38 +1791,18 @@ public class EventInterface {
 
 	}
 
-
-	//nicht fertig
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/insertNewDocumentContext")
+	// Parameter: dokName, dokKontext
 	public static void insertNewDocumentContext() throws Exception {
-
-		// @Path: /rest/eventInterface/getProjectInformation
-
-		jsonObj = new JSONObject();
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CONTEXT_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		String dokName = inputArray[1].toString();
-		String dokKontext = inputArray[2].toString();
+		String dokName = inputArray[0].toString();
+		String dokKontext = inputArray[1].toString();
 
 		try {
 			// initialisiere Variablen
 			// sparql
 			String insertSparql = "";
-
-			// initialisiere Objekte
-			String neueUserSetNull = "NULL";
-			aufrufStr = neueUserSetNull;
-			favoritStr = neueUserSetNull;
-			dokumentStr = neueUserSetNull;
 
 //			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
 //				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
@@ -1751,7 +1816,7 @@ public class EventInterface {
 //				"a ontology:Person, owl:NamedIndividual ; " +
 //				"ontology:Person_ID '" + idStr + "' ; " +
 
-			// fügen neuen Kontext an eine Dokumentinstanz
+			// füge neuen Kontext an Dokumentinstanz an
 			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
 				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
 				" INSERT DATA " +
@@ -1764,7 +1829,7 @@ public class EventInterface {
 
 				String uuID = UUID.randomUUID().toString();
 				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
 				uP.execute();
 
 			}
@@ -1775,57 +1840,63 @@ public class EventInterface {
 
 	}
 
-	//nichtfertig
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/insertNewDocumentCall")
+	// Parameter: sessionID, personVorname, personNachname, dokName
 	public static void insertNewDocumentCall() throws Exception {
 
-		// @Path: /rest/eventInterface/getProjectInformation
-
-		jsonObj = new JSONObject();
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
-
-		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
-		idStr = inputArray[1].toString();
-		vornameStr = inputArray[2].toString();
-		nachnameStr = inputArray[3].toString();
-		mailStr = inputArray[4].toString();
-		abteilungStr = inputArray[5].toString();
-		projektStr = inputArray[6].toString();
-		projektrolleStr = inputArray[7].toString();
+		String personVorname = inputArray[1].toString();
+		String personNachname = inputArray[2].toString();
+		String dokName = inputArray[3].toString();
+
 
 		try {
 			// initialisiere Variablen
 			// sparql
 			String insertSparql = "";
 
-			// initialisiere Objekte
-			String neueUserSetNull = "NULL";
-			aufrufStr = neueUserSetNull;
-			favoritStr = neueUserSetNull;
-			dokumentStr = neueUserSetNull;
+			insertSparql = "";
 
+//			// füge neue Dokumentaufruf an Dokumentinstanz an
+//			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+//				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+//				" INSERT DATA " +
+//				"{ " +
+//				"ontology:" + personVorname + "_" + personNachname + " " +
+//				"ontology:Person_ruft_Dokument_auf ontology:" + dokName + " " +
+//				"}";
 
-			//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-			//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+//			// füge neue Dokumentaufruf an Dokumentinstanz an
+//			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+//				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+//				" INSERT " +
+//				"{ " +
+//				"ontology:" + personVorname + "_" + personNachname + " " +
+//				"ontology:Person_ruft_Dokument_auf ontology:" + dokName + " " +
+//				"} " +
+//				"WHERE {  ?Person ontology:Person_ID '873267' }";
 
-			//	DELETE { ?Person ontology:Person_ruft_Dokument_auf 'Anforderungen' }
-			//	INSERT { ?Person ontology:Person_ruft_Dokument_auf 'Pflichtenheft_High_Net' }
-			//	WHERE {  ?Person ?PersonID '5' };
+			String uuID = UUID.randomUUID().toString();
+
+			// füge neue Dokumentaufruf an Dokumentinstanz an
+			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				" INSERT DATA " +
+				"{ " +
+				"ontology:" + personVorname + "_" + personNachname + " " +
+				//"ontology:Person_Dok_Aufruf '" + dokName + "_" + uuID + "' " +
+				"ontology:Person_Dok_Aufruf '" + dokName + "(" + uuID + ")" + "' " +
+				//"ontology:Person_Dok_Aufruf ' ' " +
+				"} ";
+				//"WHERE {  ?Person ontology:Person_ID '873267' }";
 
 
 			if (insertSparql != "") {
 
-				String uuID = UUID.randomUUID().toString();
+				//String uuID = UUID.randomUUID().toString();
 				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
 				uP.execute();
 
 			}
@@ -1836,59 +1907,40 @@ public class EventInterface {
 
 	}
 
-
-	//nichtfertig
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/insertNewFavoriteDocument")
+	// Parameter: personVorname, personNachname, dokName
 	public static void insertNewFavoriteDocument() throws Exception {
 
-		// @Path: /rest/eventInterface/getProjectInformation
-
-		jsonObj = new JSONObject();
-
-		eventLinkedHashMap = new LinkedHashMap<String, String>();
-
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
-
-		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String eventTypeStr = EventNameConstants.LEARN_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		idStr = inputArray[1].toString();
-		vornameStr = inputArray[2].toString();
-		nachnameStr = inputArray[3].toString();
-		mailStr = inputArray[4].toString();
-		abteilungStr = inputArray[5].toString();
-		projektStr = inputArray[6].toString();
-		projektrolleStr = inputArray[7].toString();
+		String personVorname = inputArray[0].toString();
+		String personNachname = inputArray[1].toString();
+		String dokName = inputArray[2].toString();
 
 		try {
 			// initialisiere Variablen
 			// sparql
 			String insertSparql = "";
 
-			// initialisiere Objekte
-			String neueUserSetNull = "NULL";
-			aufrufStr = neueUserSetNull;
-			favoritStr = neueUserSetNull;
-			dokumentStr = neueUserSetNull;
-
-
 			//PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 			//PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
-
 			//DELETE { ?Person ontology:Person_favorisiert_Dokument 'KickOff_HighNet' }
 			//INSERT { ?Person ontology:Person_favorisiert_Dokument 'Meilensteinplanung_Highnet' }
 			//WHERE  { ?Person ?PersonID '1' };
 
-
+			// füge neue Dokumentfavoriten an Dokumentinstanz an
+			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				" INSERT DATA " +
+				"{ " +
+				"ontology:" + personVorname + "_" + personNachname + " " +
+				"ontology:Person_favorisiert_Dokument ontology:" + dokName + " " +
+				"}";
 
 			if (insertSparql != "") {
 
 				String uuID = UUID.randomUUID().toString();
 				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
 				uP.execute();
 
 			}
@@ -1898,6 +1950,5 @@ public class EventInterface {
 		}
 
 	}
-
 
 }
