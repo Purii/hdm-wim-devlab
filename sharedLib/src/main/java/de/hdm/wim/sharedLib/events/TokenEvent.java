@@ -16,7 +16,6 @@ public class TokenEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// auto set EventType on init
 	public TokenEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.TOKEN);
 	}

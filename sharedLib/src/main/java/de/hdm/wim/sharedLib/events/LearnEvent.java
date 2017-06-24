@@ -25,7 +25,6 @@ public class LearnEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// auto set EventType on init
 	public LearnEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.LEARN);
 	}

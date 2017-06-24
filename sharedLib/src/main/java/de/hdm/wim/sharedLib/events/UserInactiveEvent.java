@@ -14,8 +14,6 @@ public class UserInactiveEvent implements IEvent{
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type
 	public UserInactiveEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_INACTIVE);
 	}

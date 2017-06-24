@@ -2,6 +2,8 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants;
 
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +17,8 @@ public class AllCompaniesEvent implements IEvent{
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type!
 	public AllCompaniesEvent(){
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.ALL_COMPANIES);
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ALL_COMPANIES);
 	}
 
 	public String getData() {
