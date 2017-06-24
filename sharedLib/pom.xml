@@ -153,8 +153,6 @@
             <artifactId>google-cloud-pubsub</artifactId>
         </dependency>
 
-
-
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.beam/beam-sdks-java-core &ndash;&gt;
         <dependency>
             <groupId>org.apache.beam</groupId>

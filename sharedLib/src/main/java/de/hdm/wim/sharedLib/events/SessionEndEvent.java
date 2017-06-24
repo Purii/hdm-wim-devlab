@@ -8,14 +8,12 @@ import java.util.Map;
 /**
  * Created by GezimKrasniqi on 20.06.17.
  */
-public class SessionEndEvent implements IEvent{
+public class SessionEndEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type -> SessionSIGHTS
 	public SessionEndEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.SESSION_END);
 	}

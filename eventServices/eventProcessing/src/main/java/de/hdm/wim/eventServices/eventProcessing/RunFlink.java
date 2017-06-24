@@ -1,19 +1,24 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.FalseUserFeedback;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.TestPattern2;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.HighlyRelevantDocumentPattern;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.StayAliveEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import com.google.pubsub.v1.PubsubMessage;
 import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.java.functions.KeySelector;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
+import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
-
-import java.util.Map;
 
 /**
  * Created by Ben on 30.05.2017.
@@ -69,12 +74,45 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999)
 				.flatMap(new StayAliveEventSplitter());
 
-	//		DataStream<IEvent> eventStream = messageStream;
+			KeyedStream<StayAliveEvent, String> keyedStayAliveEventDataStream = stayAliveEventDataStream
+				.keyBy(new KeySelector<StayAliveEvent, String>() {
+					@Override
+					public String getKey(StayAliveEvent value) throws Exception {
+						return value.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID);
+					}
+				});
 
-			FalseUserFeedback falseUserFeedback = new FalseUserFeedback();
+	//		WindowedStream<StayAliveEvent, String, TimeWindow> ping = keyedStayAliveEventDataStream
+	//		.timeWindow(Time.seconds(10));
+
+	/*		DataStream<Tuple2<String, Long>> ping = keyedStayAliveEventDataStream
+				.timeWindow(Time.seconds(10))
+				.apply(new WindowFunction<StayAliveEvent, StayAliveEvent, String, TimeWindow>() {
+					@Override
+					public void apply(String s, TimeWindow window, Iterable<StayAliveEvent> input, Collector<StayAliveEvent> out) throws Exception {
+						long count = 0;
+						for(StayAliveEvent in: input){
+							count++;
+							out.collect(new Tuple2<String, Long>(in.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID),count));
+						}
+					}
+				}); */
+
+
+			//		DataStream<IEvent> eventStream = messageStream;
+
+			HighlyRelevantDocumentPattern falseUserFeedback = new HighlyRelevantDocumentPattern();
 			falseUserFeedback.run(env, eventStream);
 
-            // print message stream
+	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
+	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
+
+			DocumentContextPattern documentContextPattern = new DocumentContextPattern();
+			documentContextPattern.run(env, eventStream);
+
+
+
+			// print message stream
 
             //tokenStream.print();
 
@@ -92,7 +130,7 @@ public class RunFlink {
 		public void flatMap(String value, Collector<IEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			Helper helper = new Helper();
-			IEvent evt = helper.convertPubsubMessageToIEvent(msg);
+			IEvent evt = helper.convertPubSubMessageToIEvent(msg);
 			out.collect(evt);
 		}
 	}
@@ -101,7 +139,7 @@ public class RunFlink {
 		public void flatMap(String value, Collector<StayAliveEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			Helper helper = new Helper();
-			StayAliveEvent evt = (StayAliveEvent) helper.convertPubsubMessageToIEvent(msg);
+			StayAliveEvent evt = (StayAliveEvent) helper.convertPubSubMessageToIEvent(msg);
 			out.collect(evt);
 		}
 	}

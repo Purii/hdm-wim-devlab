@@ -14,8 +14,6 @@ public class UserJoinedSessionEvent implements IEvent {
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-
-	// TODO: Update Event Type
 	public UserJoinedSessionEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_JOINED_SESSION);
 	}
