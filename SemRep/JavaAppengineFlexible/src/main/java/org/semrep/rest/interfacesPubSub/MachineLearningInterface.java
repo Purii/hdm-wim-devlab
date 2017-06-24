@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces.PubSub;
+package org.semrep.rest.interfacesPubSub;
 
 //@Path("/machineLearningInterface")
 public class MachineLearningInterface {

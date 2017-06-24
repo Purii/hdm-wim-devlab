@@ -1,7 +1,7 @@
-package org.semrep.rest.interfaces.PubSub;
+package org.semrep.rest.interfacesPubSub;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.UserInformationEvent;
@@ -21,11 +21,6 @@ import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -135,7 +130,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getUserInformation();
+			getDocumentInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -939,9 +934,6 @@ public class EventInterface {
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
 		publishHelper.Publish(userInformationEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
-//		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
-//		return Response.status(200).entity(jsonObj.toString()).build();
-
 	}
 
 	// Input-Parameter: sessionID, dokumentID
@@ -1040,15 +1032,15 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(documentInformationEventObject.toStringDokumentObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		DocumentInformationEvent event = new DocumentInformationEvent();
+		event.setAttributes(eventLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
-
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 

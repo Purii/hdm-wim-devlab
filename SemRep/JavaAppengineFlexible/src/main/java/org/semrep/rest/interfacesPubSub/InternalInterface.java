@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces.PubSub;
+package org.semrep.rest.interfacesPubSub;
 
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
