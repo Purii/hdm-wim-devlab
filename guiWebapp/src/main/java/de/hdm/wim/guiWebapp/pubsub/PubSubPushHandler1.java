@@ -1,4 +1,4 @@
-package de.hdm.wim.guiWebapp.model;
+package de.hdm.wim.guiWebapp.pubsub;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants;
