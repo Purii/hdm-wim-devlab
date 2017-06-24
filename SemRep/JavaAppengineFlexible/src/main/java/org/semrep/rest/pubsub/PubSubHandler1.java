@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.pubsub;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
@@ -45,7 +45,7 @@ public class PubSubHandler1 extends HttpServlet {
 
 		LOGGER.info(requestBody);
 
-		IEvent event = helper.GetEventFromJson(requestBody);
+		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
 			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_1 + " event.getData(): " + event.getData());
