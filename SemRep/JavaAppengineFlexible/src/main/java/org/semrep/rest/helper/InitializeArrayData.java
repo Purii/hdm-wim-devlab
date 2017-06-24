@@ -83,13 +83,6 @@ public class InitializeArrayData {
 			inputArray[1] = "Misti"; // PersonNachname
 			inputArray[2] = "Projektplanung_HighNet"; // DokumentName
 
-		} if (eventType == EventNameConstants.LEARN_EVENT) {
-
-			inputArray = new String[3];
-			inputArray[0] = "Kristi"; // PersonVorname
-			inputArray[1] = "Misti"; // PersonNachname
-			inputArray[2] = "Projektplanung_HighNet"; // DokumentName
-
 		}
 
 		return inputArray;
