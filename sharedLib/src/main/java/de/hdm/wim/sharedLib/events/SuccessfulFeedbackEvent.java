@@ -2,11 +2,10 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Created by GezimKrasniqi on 20.06.17.
+ * @author Gezim
+ * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#successfulfeedbackevent">SuccessfulFeedbackEvent</a>
  */
 public class SuccessfulFeedbackEvent extends IEvent {
 	public SuccessfulFeedbackEvent(){
