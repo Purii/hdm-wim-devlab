@@ -116,9 +116,6 @@ public class Constants {
 			// test
 			public static final String TOPIC_1 = "topic-1";
 			public static final String TOPIC_2 = "topic-2";
-			public static final String TOPIC_3 = "topic-3";
-			public static final String TOPIC_4 = "topic-4";
-			public static final String TOPIC_5 = "topic-5";
 
 			//prod
 			public static final String SEMREP_INFORMATION 	= "semrep-information";
@@ -147,9 +144,16 @@ public class Constants {
 
 				TOPIC_1,
 				TOPIC_2,
-				TOPIC_3,
-				TOPIC_4,
-				TOPIC_5
+				SEMREP_INFORMATION,
+				SEMREP_OFFERS,
+				GUI_FEEDBACK,
+				GUI_SESSIONINSIGHTS,
+				GUI_INFORMATION,
+				ML_LEARNING,
+				ST_TOKEN,
+				CEP_CONTEXT,
+				CEP_SESSIONINSIGHTS,
+				CEP_INSIGHT
 			);
 		}
 
@@ -232,24 +236,37 @@ public class Constants {
 		 * NEVER CHANGE ANY OF THIS! except you know what you are doing..
 		 */
 		public static class Config {
-			public static final String APP_ID					= "hdm-wim-devlab";
 
-			public static final String PUSH_ENDPOINT_PREFIX		= "/_ah/push-handlers";
-			public static final String SECRET_TOKEN 			= "secretToken123";
-			public static final String PUBLISH_ENDPOINT 		= "/publish";
+			public static final String APP_ID = "hdm-wim-devlab";
 
-			public static final String LOCAL_ADDRESS			= "http://localhost:8080";
+			public static final String PUSH_ENDPOINT_PREFIX = "/_ah/push-handlers";
+			public static final String SECRET_TOKEN = "secretToken123";
+			public static final String PUBLISH_ENDPOINT = "/publish";
 
-			public static final String APPSPOT_URL				= "https://" + APP_ID + ".appspot.com";
+			public static final String LOCAL_ADDRESS = "http://localhost:8080";
+
+			public static final String APPSPOT_URL = "https://" + APP_ID + ".appspot.com";
 
 			// test
-			public static final String HANDLER_1				= "/event";
-			public static final String HANDLER_2				= "/gui";
+			public static final String HANDLER_1 = "/event";
+			public static final String HANDLER_2 = "/gui";
 
-			public static final String HANDLER_SEMREP_1 		= "/semRepHandler1";
-			public static final String HANDLER_GUI_1 		    = "/guiWebapp";
-			public static final String HANDLER_SPEECH			= "/speedPush";
+			/*
+			public static final String HANDLER_SEMREP_1 	= "/semRepHandler1";
+			public static final String HANDLER_GUI_1 		= "/guiWebapp";
+			public static final String HANDLER_SPEECH		= "/speedPush";
+			*/
 
+			public static final String HANDLER_CEP_CONTEXT = "/cep-context";
+			public static final String HANDLER_CEP_INSIGHTS = "/cep-insights";
+			public static final String HANDLER_CEP_SESSIONINSIGHTS = "/cep-sessioninsights";
+			public static final String HANDLER_GUI_FEEDBACK = "/gui-feedback";
+			public static final String HANDLER_GUI_INFORMATION = "/gui-information";
+			public static final String HANDLER_GUI_SESSIONINSIGHTS = "/gui-sessioninsights";
+			public static final String HANDLER_ML_LEARNING = "/ml-learning";
+			public static final String HANDLER_SEMREP_INFORMATION = "/semrep-information";
+			public static final String HANDLER_SEMREP_OFFERS = "/semrep-offers";
+			public static final String HANDLER_ST_TOKEN = "/st-token";
 		}
 
 		/**
