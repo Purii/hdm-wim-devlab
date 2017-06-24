@@ -30,6 +30,7 @@ import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.helper.FusekiConfigConstants;
 
 
 @Path("/tokenizerInterface")
@@ -241,10 +242,6 @@ public class TokenizerInterface {
 		Abteilung abteilungObj = null;
 
 		try {
-			// File file = new File(filePath);
-			// FileReader fileReader = new FileReader(file);
-			// ontologyModel.read(fileReader, null, "TTL");
-
 			// initialisiere Variablen
 			// sparql
 			String sparql = "";
@@ -466,7 +463,7 @@ public class TokenizerInterface {
 					// queryExecution = QueryExecutionFactory.create(query,
 					// ontologyModel);
 					QueryExecution queryExecution = QueryExecutionFactory
-						.sparqlService("http://35.187.45.171:3030/20170621newOntology/query", query);
+						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query

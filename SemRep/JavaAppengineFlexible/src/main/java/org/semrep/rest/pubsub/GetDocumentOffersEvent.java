@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.pubsub;
 
 import java.io.File;
 import java.io.FileReader;
@@ -30,9 +30,10 @@ import org.semrep.rest.businessObjects.Person;
 
 
 @Path("/main")
-public class Main {
+public class GetDocumentOffersEvent {
+
 	private static JSONObject jsonObj;	 
-	private static Logger loggger = Logger.getLogger(Main.class.getName() );
+	private static Logger loggger = Logger.getLogger(GetDocumentOffersEvent.class.getName() );
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
