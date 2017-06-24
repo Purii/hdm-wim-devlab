@@ -162,7 +162,9 @@ sh.Subscribe(subscription, receiver);
 
 ***Push-Subscription(Stream):*** Der Pub/Sub-Server sendet, nach jeder Veröffentlichung einer neuen Message, diese als HTTP-Anfrage an einen interessierten Subscription/Abonnement (STREAM). Der SubscriptionHelper zeigt danach an, dass die Nachricht erfolgreich verarbeitet wurde und das Pub/Sub die Message aus dem Subscription/Abonnement löschen kann. Eine Nicht-Erfolgsreaktion zeigt an, dass die Nachricht erneut von Pub/Sub gesendet werden soll.
 
-***Push Beispiel [Hier zur Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/eventServices/pubSubWebapp/src/main/java/de/hdm/wim/pubSubWebapp/PubSubPushHandler1.java)***
+***Push Beispiel*** 
+[Hier zur Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/eventServices/pubSubWebapp/src/main/java/de/hdm/wim/pubSubWebapp/PubSubPushHandler1.java
+
 ```java
 public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException, ServletException {
@@ -209,6 +211,3 @@ Es können zwei unterschiedliche Rückmeldungs-Varianten auftreten.
 ***positive acknowledgement(abbr.: ACK)*** Mit `consumer.ack` wird ein erfolgreicher Empfang einer Message ausgedrückt. 
 
 ***negative acknowledgement(abbr.: NACK)*** Mit `consumer.nack` wird Pub/Sub mitgeteilt, dass der Subscription/Abonnent die Message nicht verarbeiten konnte oder auch die aktuelle Message vom Abonnenten momentan nicht benötigt wird.
-
-@bene, wird bei Pull benötigt? @patscho: jo, schau im receiver
-findet im receiver statt => `consumer.ack` oder `consumer.nack`
