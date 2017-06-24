@@ -9,9 +9,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 19.06.17.
  */
 public class DocumentContextEvent extends IEvent {
-
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public DocumentContextEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DOCUMENT_CONTEXT);
 	}

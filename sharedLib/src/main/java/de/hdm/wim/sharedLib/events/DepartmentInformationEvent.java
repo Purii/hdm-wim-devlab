@@ -9,12 +9,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 19.06.17.
  */
 public class DepartmentInformationEvent extends IEvent {
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public DepartmentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DEPARTMENT_INFO);
 	}

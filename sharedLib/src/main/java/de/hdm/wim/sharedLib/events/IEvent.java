@@ -9,10 +9,10 @@ import java.util.Map;
  */
 public abstract class IEvent {
 
-	private String data = "";
-	private String id = "";
-	private String publishTime = "";
-	private Map<String, String> attributes = new HashMap<String, String>();
+	protected String data = "";
+	protected String id = "";
+	protected String publishTime = "";
+	protected Map<String, String> attributes = new HashMap<String, String>();
 
 	public String getData() {
 		return data;

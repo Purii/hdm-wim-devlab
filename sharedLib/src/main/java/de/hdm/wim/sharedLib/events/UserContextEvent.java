@@ -9,11 +9,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 20.06.17.
  */
 public class UserContextEvent extends IEvent {
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public UserContextEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_CONTEXT);
 	}

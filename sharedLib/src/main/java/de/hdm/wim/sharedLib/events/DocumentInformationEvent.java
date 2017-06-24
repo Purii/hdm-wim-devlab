@@ -8,9 +8,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 20.06.17.
  */
 public class DocumentInformationEvent extends IEvent {
-
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public DocumentInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.DOCUMENT_INFO);
 	}

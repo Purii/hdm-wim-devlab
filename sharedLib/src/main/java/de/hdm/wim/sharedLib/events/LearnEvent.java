@@ -19,13 +19,9 @@ import java.util.Map;
  *
  */
 public class LearnEvent extends IEvent {
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public LearnEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.LEARN);
 	}
-
-
 
 	public String getUserId(){
 		return attributes.get(AttributeKey.USER_ID).toString();

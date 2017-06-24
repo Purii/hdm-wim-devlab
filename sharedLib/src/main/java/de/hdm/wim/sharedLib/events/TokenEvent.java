@@ -9,9 +9,6 @@ import java.util.Map;
  * Created by nilsb on 19.06.2017.
  */
 public class TokenEvent extends IEvent {
-
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public TokenEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.TOKEN);
 	}
