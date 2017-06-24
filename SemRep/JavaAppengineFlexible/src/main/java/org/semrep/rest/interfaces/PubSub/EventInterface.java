@@ -1,46 +1,36 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interfaces.PubSub;
 
-import java.io.File;
-import java.io.FileReader;
-import java.sql.Timestamp;
-import java.util.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.Event;
+import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.semrep.rest.businessObjects.*;
+import org.semrep.rest.helper.EventNameConstants;
+import org.semrep.rest.helper.FusekiConfigConstants;
+import org.semrep.rest.helper.InitializeArrayData;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
+import java.util.*;
 
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.semrep.rest.helper.EventNameConstants;
-import org.semrep.rest.helper.FusekiConfigConstants;
-import org.semrep.rest.helper.InitializeArrayData;
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.Event;
-import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 /*
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
-
-import org.semrep.rest.businessObjects.*;
 
 @Path("/eventInterface")
 public class EventInterface {
@@ -145,7 +135,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDocumentCalls();
+			getUserInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -845,13 +835,7 @@ public class EventInterface {
 
 	}
 
-	// produce
-	// consume
-	// produce UserInformationEvent
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getUserInformation")
-	public static Response getUserInformation() throws Exception {
+	public static void getUserInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getUserInformation
 
@@ -946,7 +930,7 @@ public class EventInterface {
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
 		IEvent iEvent = new Event();
-		iEvent.setData("Test_Data");
+		iEvent.setData(userInformationEventObject.toStringUserInformationEvent());
 		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
@@ -954,9 +938,8 @@ public class EventInterface {
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
 		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
-		return Response.status(200).entity(jsonObj.toString()).build();
+//		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
+//		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 

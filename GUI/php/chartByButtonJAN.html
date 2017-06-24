@@ -34,22 +34,42 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <!--First Button with Icon inside, this causes the ugliness-->
+                <!-- Navigation back to Landing Page -->
+                <a class="mdl-navigation__link" style= "color: white" href="./indexJAN.php"><i class="material-icons">arrow_back</i></a>
+                <!-- Who is online -->
+                <a id="menu_online" class="mdl-button mdl-js-button mdl-button--icon mdl-navigation__link" style= "color: white"><i class="material-icons">info_outline</i></a>
+                <!-- Google Drive -->
+                <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;"><i class="material-icons">change_history</i></a>
+                <!-- Help -->
+                <a id="menu_help" class="mdl-button mdl-js-button mdl-button--icon mdl-navigation__link" style= "color: white"><i class="material-icons">help_outline</i></a>
+            </nav>    
+            <!-- Buttons gehören an andere Stelle     
+                <!-- Change Data->
                 <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
-                    <button id="changeMe"><i class="material-icons">account_circle</i></button>
+                    <i class="material-icons">account_circle</i>
                 </a>
-                <!--Second Button-->
-                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
-                    <button id="showDirive">GoogleDrive</button>
-                </a>
-                <!--Third Button-->
+                
+                <!--Third Button->
                 <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
-                    <!--Button mit ripples und Farbe-->
+                    <!--Button mit ripples und Farbe->
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                         Logout
                     </button>
                 </a>
-            </nav>
+            -->    
+            
+
+            <!-- Content for menues-->
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_help">
+                        <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
+                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
+                </ul>
+                
+                <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_online">
+                        <li style= "margin: 10px"><p>Online:<p></li>
+                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
+                    </ul>
+                    <ul id="log"></ul>
         </div>
     </header>
    
@@ -72,15 +92,10 @@
                 <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
             </div>
 
-            <div id='listOFLoggedInUSers'>
-                <ul id="LoggedInUsers">
-                    <p> Im Moment eingeloggte User: </p>
-                </ul>
-            </div>
-            <ul id="log"></ul>
+
         </div>
     </main>
-     </div>
+    </div>
 
    
 
