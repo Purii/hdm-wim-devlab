@@ -2,16 +2,15 @@ package de.hdm.wim.pubSubWebapp;
 
 import com.google.cloud.ServiceOptions;
 import com.google.cloud.pubsub.spi.v1.Publisher;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
+import de.hdm.wim.sharedLib.helper.Helper;
 import de.hdm.wim.sharedLib.pubsub.helper.TopicHelper;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -71,8 +70,7 @@ public class PubSubPublish extends HttpServlet {
 				String attr 		= json.get("attributes").toString();
 
 				// convert json string to Map<String, String>
-				Type type 			= new TypeToken<Map<String, String>>(){}.getType();
-				attributes			= gson.fromJson(attr, type);
+				attributes = new Helper().convertJsonToMap(attr);
 			}
 			else
 			{

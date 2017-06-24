@@ -38,20 +38,9 @@
                 <artifactId>grpc-core</artifactId>
                 <version>1.2.0</version>
             </dependency>
-            <!--    &lt;!&ndash; end of FIXME &ndash;&gt;
-
-                        <dependency>
-                            <groupId>com.google.auth</groupId>
-                            <artifactId>google-auth-library-credentials</artifactId>
-                            <version>0.6.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.auth</groupId>
-                            <artifactId>google-auth-library-oauth2-http</artifactId>
-                            <version>0.6.1</version>
-                        </dependency>-->
         </dependencies>
     </dependencyManagement>
+    <!-- end of FIXME -->
 
     <dependencies>
         <dependency>
@@ -74,11 +63,11 @@
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-pubsub</artifactId>
         </dependency>
-        <!--        <dependency>
-                    <groupId>com.google.cloud</groupId>
-                    <artifactId>google-cloud-datastore</artifactId>
-                    <version>1.0.1</version>
-                </dependency>-->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-datastore</artifactId>
+            <version>1.2.0</version>
+        </dependency>
 
     </dependencies>
 

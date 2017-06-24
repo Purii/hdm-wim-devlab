@@ -27,7 +27,6 @@ public class DocumentContextPattern {
 	 * @param psmStream 	the IEvent stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<IEvent> psmStream) throws Exception {
-
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
 		Pattern<IEvent, ?> docContext = Pattern
@@ -39,8 +38,7 @@ public class DocumentContextPattern {
 				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO ))
 			.followedBy("third")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO)
-			);
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO));
 
 
 		PatternStream<IEvent> patternStream = CEP.pattern(psmStream, docContext);
@@ -51,16 +49,19 @@ public class DocumentContextPattern {
 				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				String project3 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
+				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
 					DocumentContextEvent dcevt = new DocumentContextEvent();
 					dcevt.setContext(project1);
 					dcevt.setEventSource(Constants.PubSub.EventSource.EVENT);
+					System.out.println("Project " + project1 + " seems to be interesting");
 					return dcevt;
 				}
 				return null;
 			}
 		});
 		PublishHelper ph = new PublishHelper(false);
+		documentContextEventDataStream.print();
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
 	}

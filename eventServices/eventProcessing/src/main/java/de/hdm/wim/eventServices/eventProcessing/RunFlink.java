@@ -1,6 +1,8 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.PassiveLogoutPattern;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -64,7 +66,7 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999)
 				.flatMap(new Splitter());
 
-			DataStream<IEvent> eventStream = env
+		/*	DataStream<IEvent> eventStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new EventSplitter());
 
@@ -79,6 +81,18 @@ public class RunFlink {
 						return value.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID);
 					}
 				});
+		*/
+
+
+			DataStream<Tuple2<String, Integer>> someStream = env
+				.socketTextStream("localhost", 9999)
+				.flatMap(new SomeSplitter())
+				.keyBy(0)
+				.timeWindow(Time.seconds(15))
+				.sum(1);
+
+			someStream.print();
+
 
 	//		WindowedStream<StayAliveEvent, String, TimeWindow> ping = keyedStayAliveEventDataStream
 	//		.timeWindow(Time.seconds(10));
@@ -105,8 +119,8 @@ public class RunFlink {
 	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
 
-			/*DocumentContextPattern documentContextPattern = new DocumentContextPattern();
-			documentContextPattern.run(env, eventStream);*/
+			PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
+			passiveLogoutPattern.run(env, someStream);
 
 
 
@@ -196,6 +210,16 @@ public class RunFlink {
 			Helper helper = new Helper();
 			StayAliveEvent evt = (StayAliveEvent) helper.convertToIEvent(msg);
 			out.collect(evt);
+		}
+	}
+	public static class SomeSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
+
+		@Override
+		public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
+			StayAliveEvent evt = new GsonBuilder().create().fromJson(value, StayAliveEvent.class);
+			if(evt.getEventType()==Constants.PubSub.EventType.STAYALIVE){
+				out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID),1));
+			}
 		}
 	}
 }
