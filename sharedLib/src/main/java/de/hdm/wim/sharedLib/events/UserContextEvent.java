@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by GezimKrasniqi on 20.06.17.
  */
-public class UserContextEvent implements IEvent{
+public class UserContextEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
