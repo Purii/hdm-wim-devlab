@@ -1,9 +1,11 @@
 package rest;
 
 import com.google.gson.Gson;
-import com.google.pubsub.v1.PubsubMessage;
+import controller.CustomKeywordFilter;
+import controller.ElasticsearchCommunication;
+import controller.GoogleDriveCommunication;
+import controller.Protocol;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
@@ -11,7 +13,6 @@ import de.hdm.wim.sharedLib.helper.Helper;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,28 +20,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import models.Token;
+import models.ElasticsearchResult;
+import models.KeywordFilter;
+import models.TextInformation;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import controller.CustomKeywordFilter;
-import controller.ElasticsearchCommunication;
-import controller.GoogleDriveCommunication;
-import controller.Protocol;
-import models.ElasticsearchResult;
-import models.KeywordFilter;
-import models.TextInformation;
-
 @Path("/rest")
 public class Rest {
 	final static Logger logger = Logger.getLogger(Rest.class);
+	private final Helper helper = new Helper();
 	private ElasticsearchCommunication elasticsearchCommunication = new ElasticsearchCommunication();
 	private CustomKeywordFilter customKeywordFilter = new CustomKeywordFilter();
 	private Protocol protocol = new Protocol();
-	private final Helper helper = new Helper();
 
 	@GET @Path("test")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -71,7 +65,7 @@ public class Rest {
 
 
 		// TODO: change to TokenEvent in production
-		IEvent event = helper.GetEventFromJson(json);
+		IEvent event = helper.convertToIEvent(json);
 
 		// just to display converted event in response
 		String eventJson = new Gson().toJson(event);

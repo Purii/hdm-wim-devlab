@@ -2,12 +2,9 @@ package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ben on 18/06/2017.
- *
  * Example:
  * 	LearnEvent learnEvent = new LearnEvent();
  *	learnEvent.setData("test");
@@ -17,40 +14,12 @@ import java.util.Map;
  *	learnEvent.setUserclick(false);
  *	learnEvent.setUserId("test user id");
  *
+ * @author Ben
+ * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#learnevent">LearnEvent</a>
  */
-public class LearnEvent implements IEvent {
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
+public class LearnEvent extends IEvent {
 	public LearnEvent() {
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.LEARN);
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPublishTime() {
-		return publishTime;
-	}
-
-	public void setPublishTime(String publishTime) {
-		this.publishTime = publishTime;
 	}
 
 	public String getUserId(){

@@ -21,7 +21,7 @@ public class TestPattern2 {
 	 * @param env           the env
 	 * @param psmStream 	the PubSubMessage stream
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<PubSubMessage> psmStream ) {
+	/*public void run(StreamExecutionEnvironment env, DataStream<PubSubMessage> psmStream ) {
 		String docID;
 
 		//Test Pattern for successful User Request
@@ -29,7 +29,7 @@ public class TestPattern2 {
 		Pattern<PubSubMessage, ?> successfulRequest = Pattern
 			.<PubSubMessage>begin("User Request")
 			.where(evt1 -> evt1.getAttributes().containsValue(EventSource.SPEECH_TOKENIZATION)
-					&& evt1.getAttributes().containsValue(EventType.REQUEST)
+					&& evt1.getAttributes().containsValue(EventType.)
 			)
 			.followedBy("Offer Event")
 			.where(evt2 -> evt2.getAttributes().containsValue(EventSource.SEMANTIC_REPRESENTATION)
@@ -56,5 +56,5 @@ public class TestPattern2 {
 				return pattern.get("User Request");
 			}
 		);
-	}
+	}*/
 }

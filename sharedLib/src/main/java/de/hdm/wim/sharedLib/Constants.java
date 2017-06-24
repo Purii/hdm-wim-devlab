@@ -235,6 +235,7 @@ public class Constants {
 			public static final String HANDLER_2				= "/gui";
 
 			public static final String HANDLER_SEMREP_1 		= "/semRepHandler1";
+			public static final String HANDLER_GUI_1 		    = "/guiWebapp";
 			public static final String HANDLER_SPEECH			= "/speedPush";
 
 		}

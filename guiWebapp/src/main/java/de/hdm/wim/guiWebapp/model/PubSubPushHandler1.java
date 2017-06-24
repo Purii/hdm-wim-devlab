@@ -1,6 +1,7 @@
-package de.hdm.wim.pubSubWebapp;
+package de.hdm.wim.guiWebapp.model;
 
 import com.google.gson.Gson;
+import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
@@ -17,26 +18,25 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_2,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_2
+	name = "Push with PubSub " + Config.HANDLER_GUI_1,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_GUI_1
 )
-public class PubSubPushHandler2 extends HttpServlet {
+public class PubSubPushHandler1 extends HttpServlet {
 
-	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler2.class);
+	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler1.class);
 	private Helper helper 				= new Helper();
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
-		
-		String pubsubVerificationToken = Config.SECRET_TOKEN;
+
+		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
-
 		String requestBody = req.getReader()
 									.lines()
 									.reduce("\n", (accumulator, actual) -> accumulator + actual);
@@ -44,7 +44,7 @@ public class PubSubPushHandler2 extends HttpServlet {
 		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_2 + " event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_GUI_1 + " event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
