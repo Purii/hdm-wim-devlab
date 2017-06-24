@@ -4,6 +4,7 @@ import com.google.appengine.api.users.User;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -17,6 +18,8 @@ import org.apache.flink.types.Either;
 
 import java.util.Map;
 
+import static org.apache.flink.cep.pattern.Pattern.begin;
+
 /**
  * Created by nilsb on 22.06.2017.
  */
@@ -26,9 +29,9 @@ public class PassiveLogoutPattern {
 	 * Run.
 	 *
 	 * @param env           the env
-	 * @param kStream 	the StayAlive keyed by user id stream
+	 * @param heartbeats 	the Tuple of user id and count of heartbeats within 15 seconds
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<IEvent> kStream) throws Exception {
+/*	public void run(StreamExecutionEnvironment env, DataStream<IEvent> kStream) throws Exception {
 
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
@@ -67,5 +70,26 @@ public class PassiveLogoutPattern {
 		PublishHelper ph = new PublishHelper(false);
 		//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
 
+	} */
+
+	public void run(StreamExecutionEnvironment env, DataStream<Tuple2<String, Integer>> heartbeats){
+		Pattern<Tuple2<String, Integer>, ?> passiveLogout = Pattern
+			.<Tuple2<String, Integer>>begin("first")
+			.where ( tpl -> tpl.getField(1).equals(0)||tpl.getField(1).equals(1));
+
+		PatternStream<Tuple2<String, Integer>> inactiveUserStream = CEP.pattern(heartbeats, passiveLogout);
+
+		DataStream<UserInactiveEvent> UserInactiveEventDataStream = inactiveUserStream.select(new PatternSelectFunction<Tuple2<String, Integer>, UserInactiveEvent>() {
+			@Override
+			public UserInactiveEvent select(Map<String, Tuple2<String, Integer>> pattern) throws Exception {
+				UserInactiveEvent uinevt = new UserInactiveEvent();
+				uinevt.setUserId(pattern.get("first").getField(0).toString());
+				uinevt.setEventSource(Constants.PubSub.EventSource.EVENT);
+				uinevt.setData("somedata");
+				System.out.println("User " + uinevt.getUserId() + " is inactive");
+				return uinevt;
+			}
+		});
+		UserInactiveEventDataStream.print();
 	}
 }

@@ -1,48 +1,33 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interfacesPubSub;
 
-import java.io.File;
-import java.io.FileReader;
-import java.sql.Timestamp;
-import java.util.*;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
+import de.hdm.wim.sharedLib.events.Event;
+import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.events.UserInformationEvent;
+import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
+import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.semrep.rest.businessObjects.*;
 import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.Event;
-import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.sql.Timestamp;
+import java.util.*;
+
 /*
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
-import org.semrep.rest.businessObjects.*;
-
-@Path("/eventInterface")
 public class EventInterface {
 
 	private static JSONObject jsonObj;
@@ -145,7 +130,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getUserInformation();
+			getDocumentInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -845,18 +830,11 @@ public class EventInterface {
 
 	}
 
-	// produce
-	// consume
-	// produce UserInformationEvent
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getUserInformation")
-	public static Response getUserInformation() throws Exception {
+	public static void getUserInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getUserInformation
 
 		jsonObj = new JSONObject();
-//Kommentar: Event.setHashmap, dann
 
 		eventLinkedHashMap = new LinkedHashMap<String, String>();
 
@@ -946,28 +924,20 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData("Test_Data");
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		UserInformationEvent userInformationEvent = new UserInformationEvent();
+		userInformationEvent.setAttributes(eventLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		userInformationEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
-
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		publishHelper.Publish(userInformationEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	// produce
-	// consume
-	// produce DocumentInformationEvent
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getDocumentInformation")
-	public static Response getDocumentInformation() throws Exception {
+	// Input-Parameter: sessionID, dokumentID
+	public static void getDocumentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getDocumentInformation
 
@@ -1060,19 +1030,22 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, documentInformationEventObject.toStringDokumentObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		DocumentInformationEvent event = new DocumentInformationEvent();
+		event.setAttributes(eventLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	// produce
-	// consume
-	// produce ProjectInformationEvent
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getProjectInformation")
-	public static Response getProjectInformation() throws Exception {
+	// Input-Parameter:
+	public static void getProjectInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1168,16 +1141,20 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, projectInformationEventObject.toStringProjektObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(projectInformationEventObject.toStringProjektObjekt());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getDepartmentInformation")
-	public static Response getDepartmentInformation() throws JsonProcessingException {
+	public static void getDepartmentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1274,15 +1251,20 @@ public class EventInterface {
 
 		}
 
-		jsonObj.put(eventTypeStr, departmentInformationEventObject.toStringAbteilungsObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(departmentInformationEventObject.toStringAbteilungsObjekt());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getAllProjects")
-	public static Response getAllProjects() throws Exception {
+	public static void getAllProjects() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1360,16 +1342,20 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, AllProjectsInformationEventObject.toStringProjektObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(AllProjectsInformationEventObject.toStringProjektObjekt());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getAllProjectRoles")
-	public static Response getAllProjectRoles() throws Exception {
+	public static void getAllProjectRoles() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1446,16 +1432,20 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, AllProjectRolesEventObject.toStringProjektrolleObj());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(AllProjectRolesEventObject.toStringProjektrolleObj());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getAllDepartments")
-	public static Response getAllDepartments() throws Exception {
+	public static void getAllDepartments() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1532,16 +1522,20 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, AllDepartmentsEventObject.toStringAbteilungsObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(AllDepartmentsEventObject.toStringAbteilungsObjekt());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getAllCompanies")
-	public static Response getAllCompanies() throws Exception {
+	public static void getAllCompanies() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
 
@@ -1617,9 +1611,16 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put(eventTypeStr, AllCompaniesEventObject.toStringUnternehmenObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		IEvent iEvent = new Event();
+		iEvent.setData(AllCompaniesEventObject.toStringUnternehmenObjekt());
+		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
