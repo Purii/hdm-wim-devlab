@@ -28,9 +28,7 @@ public class PubSubPushHandler2 extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
-
-
-
+		
 		String pubsubVerificationToken = Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
