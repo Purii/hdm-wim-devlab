@@ -24,3 +24,51 @@
         		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 
+                        		// publishen geht überall
+                        		// subcriben nur im PubSubHandler
+                        		ProjectInformationEvent event = new ProjectInformationEvent();
+                        		event.setAttributes(eventLinkedHashMap);
+                        		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+                        		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+                        		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
+                        		    		// publishen geht überall
+                                    		// subcriben nur im PubSubHandler
+                                    		DepartmentInformationEvent event = new DepartmentInformationEvent();
+                                    		event.setAttributes(eventLinkedHashMap);
+                                    		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+                                    		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+                                    		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
+                                    		    		// publishen geht überall
+                                                		// subcriben nur im PubSubHandler
+                                                		AllProjectsEvent event = new AllProjectsEvent();
+                                                		event.setAttributes(eventLinkedHashMap);
+                                                		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+                                                		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+                                                		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
+                                                		        		// publishen geht überall
+                                                                		// subcriben nur im PubSubHandler
+                                                                		AllProjectRolesEvent event = new AllProjectRolesEvent();
+                                                                		event.setAttributes(eventLinkedHashMap);
+                                                                		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+                                                                		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+                                                                		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
+                                                                		        		// publishen geht überall
+                                                                                		// subcriben nur im PubSubHandler
+                                                                                		AllDepartmentsEvent event = new AllDepartmentsEvent();
+                                                                                		event.setAttributes(eventLinkedHashMap);
+                                                                                		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+                                                                                		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+                                                                                		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);

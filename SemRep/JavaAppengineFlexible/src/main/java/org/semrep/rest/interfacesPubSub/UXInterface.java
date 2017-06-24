@@ -1,6 +1,9 @@
 package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.InformationToAllDocumentsEvent;
+import de.hdm.wim.sharedLib.events.OfferEvent;
+import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.*;
@@ -22,7 +25,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-@Path("/uxInterface")
 public class UXInterface {
 	
 	private static JSONObject jsonObj;
@@ -99,7 +101,7 @@ public class UXInterface {
 
 	}
 	
-	public static void executeSparql(String sparql){
+	public static void executeSparql(String sparql) {
 		// Initialisierung und Ausführung einer SPARQL-Query
 //		Query query = QueryFactory.create(sparql);
 //		queryExecution = QueryExecutionFactory.create(query, ontologyModel);
@@ -258,12 +260,8 @@ public class UXInterface {
 		queryExecution.close();
 		
 	}
-	
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getDocumentOffers")
-	public static Response getDocumentOffers() {
+	public static void getDocumentOffers() throws Exception {
 		
 		//@Path: /rest/uxInterface/produceOfferEvent
 		
@@ -417,17 +415,25 @@ public class UXInterface {
 			System.out.println(key + ": " + dokOfferLinkedHashMap.get(key) + ", ");
 		}
 
-		//return dokOfferLinkedHashMap;
-		jsonObj.put("OfferEvent", dokOfferLinkedHashMap.toString());
-		return Response.status(200).entity(jsonObj.toString()).build();
+//		//return dokOfferLinkedHashMap;
+//		jsonObj.put("OfferEvent", dokOfferLinkedHashMap.toString());
+//		return Response.status(200).entity(jsonObj.toString()).build();
 
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		OfferEvent event = new OfferEvent();
+		event.setAttributes(dokOfferLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getAllDocuments")
-	public static Response getAllDocuments() {
+	public static void getAllDocuments() throws Exception {
 		
 		JSONObject jsonObj = new JSONObject();
 		
@@ -482,9 +488,17 @@ public class UXInterface {
 			System.out.println(key + ": " + dokOfferLinkedHashMap.get(key) + ", ");
 		}
 
-		//return dokOfferLinkedHashMap;
-		jsonObj.put("InformationToAllDocumentsEvent", dokOfferLinkedHashMap.toString());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		InformationToAllDocumentsEvent event = new InformationToAllDocumentsEvent();
+		event.setAttributes(dokOfferLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 

@@ -127,7 +127,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDocumentInformation();
+			getProjectInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
