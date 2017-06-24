@@ -145,7 +145,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			insertNewDocumentCall();
+			getDocumentCalls();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -956,6 +956,7 @@ public class EventInterface {
 
 	}
 
+	// Parameter: userID
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDocumentCalls")
@@ -971,7 +972,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
+		String eventTypeStr = "getDocumentCalls";
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 		String personVorname = inputArray[1].toString();
@@ -989,12 +990,13 @@ public class EventInterface {
 				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
 
 
-			sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-				+ "SELECT Select ?Person ?DokAufrufe "
-				+ "WHERE { "
-				+ "?Person ontology:Person_ruft_Dokument_auf ?DokAufrufe . "
-				+ "?Person ontology:Person_ID '873267' . "
-				+ "}";
+			sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				"SELECT ?Person ?PersonID ?DokAufrufe " +
+				"WHERE { " +
+				"?Person ontology:Person_Dok_Aufruf  ?DokAufrufe . " +
+				"?Person ontology:Person_ID  ?PersonID . " +
+				"?Person ontology:Person_ID '873267' . " +
+				"}";
 
 				if (sparql != "") {
 
@@ -1920,12 +1922,6 @@ public class EventInterface {
 			// initialisiere Variablen
 			// sparql
 			String insertSparql = "";
-
-			//PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-			//PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
-			//DELETE { ?Person ontology:Person_favorisiert_Dokument 'KickOff_HighNet' }
-			//INSERT { ?Person ontology:Person_favorisiert_Dokument 'Meilensteinplanung_Highnet' }
-			//WHERE  { ?Person ?PersonID '1' };
 
 			// füge neue Dokumentfavoriten an Dokumentinstanz an
 			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
