@@ -1,6 +1,8 @@
 package de.hdm.wim.sharedLib.events;
 
+import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
+import de.hdm.wim.sharedLib.helper.Helper;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +60,14 @@ public abstract class IEvent {
 
 	public Map<String, String> getAttributes() {
 		return this.attributes;
+	}
+
+	public void setAttributes(String attributes) {
+		this.attributes = new Helper().convertJsonToMap(attributes);
+	}
+
+	public String getAttributesAsString() {
+		return new Gson().toJson(this.attributes);
 	}
 
 	public void setAttributes(Map<String, String> attributes) {
