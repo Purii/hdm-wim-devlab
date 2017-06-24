@@ -8,8 +8,6 @@ import java.util.Map;
  * Created by GezimKrasniqi on 20.06.17.
  */
 public class SessionStartEvent extends IEvent {
-	private Map<String, String> attributes = new HashMap<String, String>();
-
 	public SessionStartEvent(){
 		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_TYPE, Constants.PubSub.EventType.SESSION_START);
 	}

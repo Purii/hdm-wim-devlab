@@ -10,12 +10,7 @@ import java.util.Map;
 /**
  * Created by Chris on 20.06.2017.
  */
-public class AdditionalUserInformationEvent extends IEvent{
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
+public class AdditionalUserInformationEvent extends IEvent {
 
 	public AdditionalUserInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ADDITIONAL_USER_INFO);
