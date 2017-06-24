@@ -125,6 +125,7 @@ public class Constants {
 			public static final String SEMREP_OFFERS 	= "semrep-offers";
 			public static final String GUI_FEEDBACK 	= "gui-feedback";
 			public static final String GUI_SESSIONINSIGHTS 	= "gui-sessioninsights";
+			public static final String GUI_INFORMATION 	= "gui-information";
 			public static final String ML_LEARNING 	= "ml-learning";
 			public static final String ST_TOKEN	= "st-token";
 			public static final String CEP_CONTEXT	= "cep-context";
