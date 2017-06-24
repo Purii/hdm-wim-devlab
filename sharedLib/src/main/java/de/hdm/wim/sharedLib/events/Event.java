@@ -7,21 +7,45 @@ import de.hdm.wim.sharedLib.helper.Helper;
 import java.util.Hashtable;
 
 /**
- * @author Gezim
+ * The type Event.
+ *
+ * @author ben
  * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#event">Event</a>
  */
 public class Event extends IEvent {
+
+	/**
+	 * Instantiates a new Event.
+	 *
+	 * @param data the data
+	 * @param attributes the attributes
+	 */
 	public Event( String data, Hashtable attributes ){
 		this.data 		= data;
 		this.attributes = attributes;
 	}
 
-	public Event( String data ){
-		this.data 		= data;
+	/**
+	 * Instantiates a new Event.
+	 *
+	 * @param id the id
+	 */
+	public Event(String id) {
+		this.id = id;
 	}
 
-	public Event(){}
+	/**
+	 * Instantiates a new Event.
+	 */
+	public Event() {
+	}
 
+	/**
+	 * Generate event.
+	 *
+	 * @param data the data
+	 * @return the event
+	 */
 	public static Event generate(String data){
 
 		Helper helper 			= new Helper();
