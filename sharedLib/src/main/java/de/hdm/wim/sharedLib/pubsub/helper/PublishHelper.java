@@ -37,23 +37,23 @@ public class PublishHelper {
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * @param useLocalEndpoint true if you are running a local webapp, by default {@value
 	 * PublishHelper#USE_LOCAL_ENDPOINT}
 	 */
-	public PublishHelper(boolean isLocal){
-		USE_LOCAL_ENDPOINT 	= isLocal;
+	public PublishHelper(boolean useLocalEndpoint) {
+		USE_LOCAL_ENDPOINT = useLocalEndpoint;
 		ENDPOINT 			= EndpointHelper.GetPublishEndpoint(USE_LOCAL_ENDPOINT);
 	}
 
 	/**
 	 * Instantiates a new PublishHelper.
 	 *
-	 * @param isLocal true if you are running a local webapp, by default {@value
+	 * @param useLocalEndpoint true if you are running a local webapp, by default {@value
 	 * PublishHelper#USE_LOCAL_ENDPOINT}
 	 * @param projectId set the projectId, by default {@value PublishHelper#PROJECT_ID}
 	 */
-	public PublishHelper(boolean isLocal, String projectId){
-		USE_LOCAL_ENDPOINT 	= isLocal;
+	public PublishHelper(boolean useLocalEndpoint, String projectId) {
+		USE_LOCAL_ENDPOINT = useLocalEndpoint;
 		PROJECT_ID			= projectId;
 		ENDPOINT 			= EndpointHelper.GetPublishEndpoint(USE_LOCAL_ENDPOINT);
 	}
