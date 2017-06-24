@@ -1,0 +1,1780 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/sem-rep/ontology#"
+     xml:base="http://www.semanticweb.org/sem-rep/ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/sem-rep/ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung_gehoert_zu_Unternehmen -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung_gehoert_zu_Unternehmen">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Abteilung"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung_hat_Mitarbeiter -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung_hat_Mitarbeiter">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person_gehoert_zu_Abteilung"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung_hat_Projekt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung_hat_Projekt">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt_gehoert_zu_Abteilung"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Bundesland_gehoert_zu_Land -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Bundesland_gehoert_zu_Land">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land_hat_Bundesland"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Bundesland_hat_Stadt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Bundesland_hat_Stadt">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Stadt_gehoert_zu_Bundesland"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Stadt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_favorisiert_von_Person -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_favorisiert_von_Person">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person_favorisiert_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_gehoert_zu_Phase -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_gehoert_zu_Phase">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_gehoert_zu_Projekt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_gehoert_zu_Projekt">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Dokumentenkategorie -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Dokumentenkategorie">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Keyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Keyword">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Kontext -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_hat_Kontext">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument_verfasst_von_Person -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument_verfasst_von_Person">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person_hat_Dokument_verfasst"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Dokument -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Dokument">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Person -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Person">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Projekt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Keyword_gehoert_zu_Projekt">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Land_hat_Bundesland -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Land_hat_Bundesland">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_arbeitet_an_Projekt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_arbeitet_an_Projekt">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Projektmitglied"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_favorisiert_Dokument -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_favorisiert_Dokument">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_gehoert_zu_Abteilung -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_gehoert_zu_Abteilung">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_hat_Dokument_verfasst -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_hat_Dokument_verfasst">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_hat_Projektrolle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_hat_Projektrolle">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle_gehoert_zu_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_hat_Unternehmensrolle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_hat_Unternehmensrolle">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_hat_keyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_hat_keyword">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_ruft_Dokument_auf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_ruft_Dokument_auf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_gehoert_zu_Abteilung -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_gehoert_zu_Abteilung">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_gehoert_zu_Unternehmen -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_gehoert_zu_Unternehmen">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Projekt"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Dokument -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Dokument">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Projektmitglied -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_Projektmitglied">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_keyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_hat_keyword">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektrolle_gehoert_zu_Person -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektrolle_gehoert_zu_Person">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Stadt_gehoert_zu_Bundesland -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Stadt_gehoert_zu_Bundesland">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Stadt"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Abteilung -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Abteilung">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Projekt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Projekt">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Rolle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_hat_Rolle">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Unternehmen"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Person -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Person">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Unternehmen -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmensrolle_gehoert_zu_Unternehmen">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#hatKeyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#hatKeyword">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#hatPersonDokumentWahrscheinlichkeit -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#hatPersonDokumentWahrscheinlichkeit"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#keyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#keyword"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung_ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Abteilung"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung_Name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Abteilung"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Erstelldatum -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Erstelldatum">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Keywords -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Keywords">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Ordner -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Ordner">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Typ -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Typ">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_URL -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_URL">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Updatedatum -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Updatedatum">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dok_Version -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dok_Version">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_Email -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_Email">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_Mitarbeiter -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_Mitarbeiter">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_Nachname -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_Nachname">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person_Vorname -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person_Vorname">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_Keyword -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_Keyword">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt_Name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektrolle_Bezeichnung -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektrolle_Bezeichnung">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Projektrolle"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Rolle_Abkuerzung -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Rolle_Abkuerzung">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Rolle"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Unternehmen"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Rolle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Rolle">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Unternehmen"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Sitz -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen_Sitz">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Unternehmen"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Abteilung -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Abteilung"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Dokument"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Person"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Projektrolle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Projektrolle">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Project"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#dataProperty_Unternehmen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/sem-rep/ontology#dataProperty_Unternehmen"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abschluss -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abschluss">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abteilung -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Bundesland -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Bundesland">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land"/>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+        <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
+        <owl:annotatedTarget rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land"/>
+        <rdfs:comment rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Land"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Definition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Definition">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokument -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Eigenes_Unternehmen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Eigenes_Unternehmen">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externes_Unternehmen"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Externe_Abteilung -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Externe_Abteilung">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Externes_Unternehmen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Externes_Unternehmen">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Geoinformationen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Geoinformationen"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abteilung"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Keyword -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Kontext -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Land -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Land">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Geoinformationen"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Person"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Phase -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Phase">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projekt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektrolle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektrolle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Rolle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Rolle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Sonstige -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Sonstige">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Stadt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Stadt">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Bundesland"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Umsetzung -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Umsetzung">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Phase"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Unternehmen -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/sem-rep/ontology#Unternehmen"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Abschluss -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abschluss">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Abschluss"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Textdokumente"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Big_Data"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-06-02T15:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1Cl1k0OYjdubR0_BqiFp2xaRGeRpqqUz8pucX7iQwIQ8</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Big Data, Anforderungen, Big Data Diagnosis</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anforderungen</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-Big_Data_Diagnosis</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Docs</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/document/d/1Cl1k0OYjdubR0_BqiFp2xaRGeRpqqUz8pucX7iQwIQ8/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-06-03T12:33:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.1</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Definition"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Textdokumente"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#list"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#milestone"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#tasks"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#to-do_list"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj"/>
+        <hatKeyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#milestone"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-22T11:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aufgaben</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aufgabenliste</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Liste</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">milestone</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aufgabenliste</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Docs</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/document/d/1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-30T16:08:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.1</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Big_Data -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Big_Data">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <Projekt_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Projekt_hat_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Anforderungen-Big_Data_Diagnosis"/>
+        <Projekt_hat_Projektmitglied rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Projekt_hat_keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Big_Data"/>
+        <Projekt_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</Projekt_ID>
+        <Projekt_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Big Data Diagnosis</Projekt_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis_project -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis_project">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Entwickler"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bjconcepts.de@gmail.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Externer Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Zimmermann</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Björn</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#BlackWater -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#BlackWater">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <Projekt_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Finance"/>
+        <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Projekt_hat_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater"/>
+        <Projekt_hat_Projektmitglied rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump"/>
+        <Projekt_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</Projekt_ID>
+        <Projekt_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Black Water</Projekt_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#BlackWater_project -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#BlackWater_project">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Broken_Bits -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Broken_Bits">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externes_Unternehmen"/>
+        <Unternehmen_hat_Rolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Chief_Financial_Officer"/>
+        <Unternehmen_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Broken Bits</Unternehmen_Name>
+        <Unternehmen_Sitz rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Stuttgart</Unternehmen_Sitz>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Chief_Financial_Officer -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Chief_Financial_Officer">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Rolle"/>
+        <Unternehmensrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump"/>
+        <Unternehmensrolle_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Rolle_Abkuerzung rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CFO</Rolle_Abkuerzung>
+        <Unternehmen_Rolle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Chief Financial Officer</Unternehmen_Rolle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Definition -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Definition">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Definition"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Donald_Trump -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#BlackWater"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Finance"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektleiter"/>
+        <Person_hat_Unternehmensrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Chief_Financial_Officer"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">donald.trump@starcars.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Interner Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Trump</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Donald</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Entwickler -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Entwickler">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Projektrolle_Bezeichnung rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Entwickler</Projektrolle_Bezeichnung>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Finance -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Finance">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung"/>
+        <Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Abteilung_hat_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#BlackWater"/>
+        <Abteilung_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</Abteilung_ID>
+        <Abteilung_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finanzen</Abteilung_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Finanzreport-BlackWater">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Sonstige"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#BlackWater"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Planungen"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#finances"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#financial_report"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#report"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#BlackWater_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-22T08:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1Ktol-SWvAh8pnHG2O7HdPrfbEVZWX3Vf2YIPYXA_8gI</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finanzen, Report, Finanzreport</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Finanzreport</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-BlackWater</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Präsentationen</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/presentation/d/1Ktol-SWvAh8pnHG2O7HdPrfbEVZWX3Vf2YIPYXA_8gI/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-30T14:48:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.3</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Grafiken -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Grafiken">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interner_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Research_and_Development"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektmitarbeiter"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">haruki.murakami@starcars.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Interner Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Murakami</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Haruki</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projekt"/>
+        <Projekt_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Research_and_Development"/>
+        <Projekt_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Projekt_hat_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet"/>
+        <Projekt_hat_Projektmitglied rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <hatKeyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#milestone"/>
+        <Projekt_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</Projekt_ID>
+        <Projekt_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HighNet</Projekt_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#HighNet_project -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#HighNet_project">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#IT -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#IT">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externe_Abteilung"/>
+        <Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Broken_Bits"/>
+        <Abteilung_hat_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Abteilung_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</Abteilung_ID>
+        <Abteilung_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">IT-Abteilung</Abteilung_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Entwickler"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ivankurtovic2016@gmail.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">4</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Externer Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kurtovic</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ivan</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Donald_Trump"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Praesentationen"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#kickoff"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#kickoff-HighNet"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-22T15:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">HighNet</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KickOff</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">KickOff</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Präsentationen</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/presentation/d/1kapEE9ui6oYu-uUZF6qjg-j85iJz_w7lNmtyLHZA7lc/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-23T13:49:14</Dok_Updatedatum>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-01T09:45:34</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.2</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Kostenaufstellung-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Definition"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Tabellen"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#cost_planning"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#costs"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#listing"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Björn_Zimmermann"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-22T11:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Aufstellung</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kosten</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kostenaufstellung</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kostenaufstellung</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Tabellen</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/spreadsheets/d/1jYsTPJH8gaIiATix9x34Ekcj31ifJMkPNb0RmxnuGxs/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-05T13:02:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.2</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Kostenplanung-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Planungen"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Tabellen"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#cost_planning"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#costs"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#planning"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Ivan_Kurtovic"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-22T11:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kosten</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kostenplanung</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Planung</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kostenplanung</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Tabellen</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/spreadsheets/d/1SAI8Y7j6kNfbbdYVaUpEPipzy-WhcvmuPRynSg76UIM/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-09T10:32:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.0</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Kristjan_Alliaj">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Entwickler"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Aufgabenliste-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">kristjan.alliaj@gmail.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Externer Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alliaj</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kristjan</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektmitarbeiter"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lisa.meier@brokenbits.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Externer Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meier</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lisa</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Externer_Mitarbeiter"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Big_Data_Diagnosis"/>
+        <Person_arbeitet_an_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Person_favorisiert_Dokument rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_gehoert_zu_Abteilung rdf:resource="http://www.semanticweb.org/sem-rep/ontology#IT"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet"/>
+        <Person_hat_Dokument_verfasst rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Entwickler"/>
+        <Person_hat_Projektrolle rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektleiter"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#KickOff-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet"/>
+        <Person_ruft_Dokument_auf rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet"/>
+        <Person_Email rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mateos.alliaj@gmail.com</Person_Email>
+        <Person_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</Person_ID>
+        <Person_Mitarbeiter rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Externer Mitarbeiter</Person_Mitarbeiter>
+        <Person_Nachname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alliaj</Person_Nachname>
+        <Person_Vorname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mateos</Person_Vorname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Meilensteine-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Definition"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Planungen"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Textdokumente"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#milestone"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-28T11:59:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meilenstein</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meilensteine</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">milestone</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meilensteine</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Docs</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/document/d/1jQFZmcS__-CtScjqd3g5KKM8xepPnMSqaepy2ag2jNc/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-05-01T09:34:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.1</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Planungen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Planungen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Praesentationen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Praesentationen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektdokumente -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektdokumente">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektleiter -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektleiter">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Projektrolle_Bezeichnung rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projektleiter</Projektrolle_Bezeichnung>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektmitarbeiter -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektmitarbeiter">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Projektrolle"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami"/>
+        <Projektrolle_gehoert_zu_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier"/>
+        <Projektrolle_Bezeichnung rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projektmitarbeiter</Projektrolle_Bezeichnung>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Projektplanung-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokument"/>
+        <Dokument_favorisiert_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Lisa_Meier"/>
+        <Dokument_gehoert_zu_Phase rdf:resource="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung"/>
+        <Dokument_gehoert_zu_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Planungen"/>
+        <Dokument_hat_Dokumentenkategorie rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Textdokumente"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#milestone"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#planning"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#project_plan"/>
+        <Dokument_hat_Keyword rdf:resource="http://www.semanticweb.org/sem-rep/ontology#project_planning"/>
+        <Dokument_hat_Kontext rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet_project"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Haruki_Murakami"/>
+        <Dokument_verfasst_von_Person rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Mateos_Alliaj"/>
+        <Dok_Erstelldatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-12T17:33:00</Dok_Erstelldatum>
+        <Dok_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM</Dok_ID>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Planung</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projektplan</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projektplanung</Dok_Keywords>
+        <Dok_Keywords rdf:datatype="http://www.w3.org/2001/XMLSchema#string">milestone</Dok_Keywords>
+        <Dok_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Projektplanung</Dok_Name>
+        <Dok_Ordner rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Testdokumente-HighNet</Dok_Ordner>
+        <Dok_Typ rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Google Docs</Dok_Typ>
+        <Dok_URL rdf:datatype="http://www.w3.org/2001/XMLSchema#string">https://docs.google.com/document/d/1gnH6sv3VqGEveSSf0SoS7dJqWaUyUnZm6-QrdiH7vCM/edit</Dok_URL>
+        <Dok_Updatedatum rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-29T14:05:00</Dok_Updatedatum>
+        <Dok_Version rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.1</Dok_Version>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Prozesse -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Prozesse">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Research_and_Development -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Research_and_Development">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Interne_Abteilung"/>
+        <Abteilung_gehoert_zu_Unternehmen rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Star_Cars"/>
+        <Abteilung_hat_Projekt rdf:resource="http://www.semanticweb.org/sem-rep/ontology#HighNet"/>
+        <Abteilung_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</Abteilung_ID>
+        <Abteilung_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Forschung &amp; Entwicklung</Abteilung_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Software-Quelltext -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Software-Quelltext">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Sonstige -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Sonstige">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Sonstige"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Star_Cars -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Star_Cars">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Eigenes_Unternehmen"/>
+        <Unternehmen_Name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Star Cars</Unternehmen_Name>
+        <Unternehmen_Sitz rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tokio</Unternehmen_Sitz>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Tabellen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Tabellen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Textdokumente -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Textdokumente">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Umsetzung -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Umsetzung">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Umsetzung"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Videos -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Videos">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#Website_Link -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#Website_Link">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Dokumentenkategorie"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#appointment -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#appointment">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#cost_planning -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#cost_planning">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#costs -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#costs">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#diagnosis_module -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#diagnosis_module">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#expenses -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#expenses">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#finances -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#finances">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#financial_report -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#financial_report">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#kickoff -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#kickoff">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#kickoff-HighNet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#kickoff-HighNet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#list -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#list">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#listing -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#listing">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#milestone -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#milestone">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#network_issues -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#network_issues">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#next_meeting -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#next_meeting">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#planning -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#planning">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#project_plan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#project_plan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#project_planning -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#project_planning">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#report -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#report">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#report_on_Google_drive -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#report_on_Google_drive">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Kontext"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#statement_of_costs -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#statement_of_costs">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#tasks -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#tasks">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/sem-rep/ontology#to-do_list -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/sem-rep/ontology#to-do_list">
+        <rdf:type rdf:resource="http://www.semanticweb.org/sem-rep/ontology#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://www.semanticweb.org/sem-rep/ontology#Abschluss">
+        <rdfs:comment>Abnahme-Protokoll
+Abschlussdokumentation
+Projekt-Abschlussanalyse
+Projekt-Abschlussbericht
+Testplan</rdfs:comment>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/sem-rep/ontology#SpezifikationUndPlanung">
+        <rdfs:comment>- Rahmenbedingungen
+- Qualitaetsplan
+- Projektplan
+- Risikoplan
+- Finanzplan
+- Personalplan
+- Sachmittelplan
+- Terminplan
+- Aufwandschätzung
+- Ablauf-Modell
+- Projekt-Strukturplan
+- Pflichtenheft</rdfs:comment>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
