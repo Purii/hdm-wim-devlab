@@ -6,6 +6,6 @@ package org.semrep.rest.helper;
 public class FusekiConfigConstants {
 
 	// Fuseki address
-	public static final String FUSEKI_ADDRESS = "http://35.187.45.171:3030/20170621newOntology/query";
+	public static final String FUSEKI_ADDRESS = "http://35.187.45.171:3030/20170624newOntology/query";
 
 }

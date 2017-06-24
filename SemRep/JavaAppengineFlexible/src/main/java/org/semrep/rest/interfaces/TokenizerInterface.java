@@ -242,10 +242,6 @@ public class TokenizerInterface {
 		Abteilung abteilungObj = null;
 
 		try {
-			// File file = new File(filePath);
-			// FileReader fileReader = new FileReader(file);
-			// ontologyModel.read(fileReader, null, "TTL");
-
 			// initialisiere Variablen
 			// sparql
 			String sparql = "";

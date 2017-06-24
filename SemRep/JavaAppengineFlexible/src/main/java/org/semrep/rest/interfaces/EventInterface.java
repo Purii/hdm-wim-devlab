@@ -11,6 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
 import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
@@ -1636,9 +1639,13 @@ public class EventInterface {
 		try {
 			// initialisiere Variablen
 			// sparql
-			String sparql = "";
+			String insertSparql = "";
 
 			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
 			// dokument
 			personObj = new Person(personStr, idStr, klasseStr, vornameStr, nachnameStr, mailStr, projektStr,
 				projektrolleStr, abteilungStr, dokumentStr, aufrufStr, favoritStr);
@@ -1648,22 +1655,40 @@ public class EventInterface {
 				// ermittle UserInformation
 				if (z == 0) {
 
-					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-						+ "SELECT DISTINCT ?Unternehmen ?Unternehmensnamen "
-						+ "WHERE { "
-						+ "?Unternehmen ontology:Unternehmen_Name ?Unternehmensnamen . "
-						+ "}";
+					insertSparql = " PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+						+ " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>"
+						+ "INSERT DATA { "
+						+ "		<http://www.semanticweb.org/sem-rep/ontology#2_TestDokument>"
+						+ "		a ontology:Dokument, owl:NamedIndividual ;"
+						+ "		ontology:Dok_Name ' " +doc_name+ "';"
+						+ "		ontology:Dok_ID '" +doc_id+ "';"
+						+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
+						+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
+						+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
+						+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
+						+ "		ontology:Dok_Keywords '"+keywords+"' ;"
+						+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
+						+ "		ontology:Dok_URL '"+doc_url+"' ;"
+						+ "		ontology:Dok_Version '"+doc_version+"' ;"
+						+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
+						+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
+						+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
+						+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
+						+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;";
 
 				} else {
-					sparql = "";
+					insertSparql = "";
 				}
 
-				if (sparql != "") {
+				if (insertSparql != "") {
 
-					executeSparql(sparql);
+					String uuID = UUID.randomUUID().toString();
+					UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+						UpdateFactory.create(String.format(insertSparql, uuID)), "http://35.187.45.171:3030/ontology/query");
+					uP.execute();
 
 					if (resultSet.hasNext() == true) {
-						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+
 					} else {
 						unternehmenObj.setUnternehmensName("'null'");
 
