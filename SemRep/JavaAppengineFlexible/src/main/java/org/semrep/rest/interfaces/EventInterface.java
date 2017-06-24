@@ -1654,52 +1654,51 @@ public class EventInterface {
 			favoritStr = neueUserSetNull;
 			dokumentStr = neueUserSetNull;
 
-					insertSparql = " PREFIX owl: <http://www.w3.org/2002/07/owl#> "
-					+ "PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
-						+ "WITH <http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
-					+ " DELETE ?Person "
-//					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
-//					//+ "a ontology:Person, owl:NamedIndividual ; "
-//					//+ "ontology:Person_ID '" + idStr + "' ; "
-//					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
-//					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
-//					+ "ontology:Person_Email '" + mailStr + "' ; "
-//					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
-//					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
-//					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
-//					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
-//					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
-//					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
-					//+ " }"
-					+ " INSERT DATA { "
-					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
-					+ "a ontology:Person, owl:NamedIndividual ; "
-					+ "ontology:Person_ID '" + idStr + "' ; "
-					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
-					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
-					+ "ontology:Person_Email '" + mailStr + "' ; "
-					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
-					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
-					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
-					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
-					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
-					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
-					+ "} "
-					+ " WHERE  "
-					+ " { "
-					//+ " ?Person <http://www.semanticweb.org/sem-rep/ontology#Person_ID> '" + idStr + "' "
-						+ "?Person ?Person_ID '" + idStr + "' "
-					+ " }";
+			insertSparql = "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
+				"PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				"DELETE DATA " +
+				"{ " +
+				"ontology:" + vornameStr + "_" + nachnameStr + " " +
+				"a ontology:Person, owl:NamedIndividual ; " +
+				"ontology:Person_ID '" + idStr + "' ; " +
+				"ontology:Person_Vorname '" + vornameStr + "' ; " +
+				"ontology:Person_Nachname '" + nachnameStr + "' ; " +
+				"ontology:Person_Email '" + mailStr + "' ; " +
+				"ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; " +
+				"ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; " +
+				"ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; " +
+				"ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; " +
+				"ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; " +
+				"ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " " +
+				"} " +
+				"; " +
+				"INSERT DATA " +
+				"{ " +
+				"ontology:" + vornameStr + "_" + nachnameStr + " " +
+				"a ontology:Person, owl:NamedIndividual ; " +
+				"ontology:Person_ID '" + idStr + "' ; " +
+				"ontology:Person_Vorname '" + vornameStr + "' ; " +
+				"ontology:Person_Nachname '" + nachnameStr + "' ; " +
+				"ontology:Person_Email '" + mailStr + "' ; " +
+				"ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; " +
+				"ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; " +
+				"ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; " +
+				"ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; " +
+				"ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; " +
+				"ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " " +
+				"}";
 
+			if (insertSparql != "") {
 
-				if (insertSparql != "") {
+				String uuID = UUID.randomUUID().toString();
 
-					String uuID = UUID.randomUUID().toString();
-					UpdateProcessor uP = UpdateExecutionFactory.createRemote(
-						UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
-					uP.execute();
+				// führe update auf den Fuseki-Server aus
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
 
-				}
+			}
+
 
 		} catch (Exception e) {
 			loggger.error("Fehler in EventInterface: " + e);
