@@ -1,8 +1,6 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.HighlyRelevantDocumentPattern;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -101,14 +99,14 @@ public class RunFlink {
 
 			//		DataStream<IEvent> eventStream = messageStream;
 
-			HighlyRelevantDocumentPattern falseUserFeedback = new HighlyRelevantDocumentPattern();
-			falseUserFeedback.run(env, eventStream);
+			/*HighlyRelevantDocumentPattern falseUserFeedback = new HighlyRelevantDocumentPattern();
+			falseUserFeedback.run(env, eventStream);*/
 
 	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
 
-			DocumentContextPattern documentContextPattern = new DocumentContextPattern();
-			documentContextPattern.run(env, eventStream);
+			/*DocumentContextPattern documentContextPattern = new DocumentContextPattern();
+			documentContextPattern.run(env, eventStream);*/
 
 
 

@@ -1,40 +1,66 @@
 package de.hdm.wim.sharedLib.events;
 
+import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by ben on 13/06/2017.
  */
-public interface IEvent {
+public abstract class IEvent {
 
-	String data = "";
-	String id = "";
-	String publishTime = "";
-	Map<String, String> attributes = new HashMap<String, String>();
+	private String data = "";
+	private String id = "";
+	private String publishTime = "";
+	private Map<String, String> attributes = new HashMap<String, String>();
 
-	String getData();
-	void setData(String data);
+	public String getData() {
+		return data;
+	}
 
-	String getId();
-	void setId(String id);
+	public void setData(String data) {
+		this.data = data;
+	}
 
-	String getPublishTime();
-	void setPublishTime(String publishTime);
+	public String getId() {
+		return id;
+	}
 
-	String getEventType();
-	//void setEventType(String EventType);
+	public void setId(String id) {
+		this.id= id;
+	}
 
-	String getEventSource();
-	void setEventSource(String EventSource);
+	public String getPublishTime() {
+		return publishTime;
+	}
 
-	// not sure if we actually need this
+	public void setPublishTime(String publishTime) {
+		this.publishTime = publishTime;
+	}
+
+	public String getEventType() {
+		return attributes.get(AttributeKey.EVENT_TYPE).toString();
+	}
+
 	/*
-	String getAttribute(String key);
-	void setAttribute(String key, String value);
+	public void setEventType(String EventType){
+		this.attributes.put(AttributeKey.EVENT_TYPE, EventType);
+	}
 	*/
 
-	Map<String, String> getAttributes();
+	public String getEventSource() {
+		return attributes.get(AttributeKey.EVENT_SOURCE).toString();
+	}
 
-	void setAttributes(Map<String, String> attributes);
+	public void setEventSource(String EventSource) {
+		this.attributes.put(AttributeKey.EVENT_SOURCE, EventSource);
+	}
+
+	public Map<String, String> getAttributes() {
+		return this.attributes;
+	}
+
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
 }
