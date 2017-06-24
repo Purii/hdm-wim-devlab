@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Chris on 20.06.2017.
  */
-public class AdditionalUserInformationEvent implements IEvent{
+public class AdditionalUserInformationEvent implements IEvent {
 
 	private String data;
 	private String id;
