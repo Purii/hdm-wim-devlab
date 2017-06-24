@@ -1,7 +1,6 @@
-package de.hdm.wim.guiWebapp.pubsub;
+package de.hdm.wim.pubSubWebapp;
 
 import com.google.gson.Gson;
-import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
@@ -18,35 +17,35 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_GUI_SESSIONINSIGHTS,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_GUI_SESSIONINSIGHTS
+	name = "Push with PubSub " + Config.HANDLER_SEMREP_OFFERS,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_OFFERS
 )
-public class PubSubPushHandler1 extends HttpServlet {
+public class PubSubPushHandlerSemRepOffers extends HttpServlet {
 
-	private static final Logger LOGGER 	= Logger.getLogger(PubSubPushHandler1.class);
-	private Helper helper 				= new Helper();
+	private static final Logger LOGGER = Logger.getLogger(PubSubPushHandlerSemRepOffers.class);
+	private Helper helper = new Helper();
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+		String pubsubVerificationToken = Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
-		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
+		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken)
+			!= 0) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
 		String requestBody = req.getReader()
-									.lines()
-									.reduce("\n", (accumulator, actual) -> accumulator + actual);
+			.lines()
+			.reduce("\n", (accumulator, actual) -> accumulator + actual);
 
 		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info(
-				"Handler: " + Config.HANDLER_GUI_SESSIONINSIGHTS + " event.getData(): " + event
-					.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS + " event.getData(): " + event
+				.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
@@ -58,7 +57,7 @@ public class PubSubPushHandler1 extends HttpServlet {
 			resp.getOutputStream().close();
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
-			//resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setStatus(HttpServletResponse.SC_OK);
 
 			// NACK
 			//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

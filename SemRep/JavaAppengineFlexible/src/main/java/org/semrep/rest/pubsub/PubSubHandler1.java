@@ -17,8 +17,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 22/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_SEMREP_1,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_1
+	name = "Push with PubSub " + Config.HANDLER_SEMREP_OFFERS,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_OFFERS
 )
 public class PubSubHandler1 extends HttpServlet {
 
@@ -30,7 +30,7 @@ public class PubSubHandler1 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		LOGGER.info("Handler: " + Config.HANDLER_SEMREP_1);
+		LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS);
 
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
@@ -48,7 +48,8 @@ public class PubSubHandler1 extends HttpServlet {
 		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_1 + " event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS + " event.getData(): " + event
+				.getData());
 
 			//Here we serialize the event to a String.
 			//final String output = new Gson().toJson(event);

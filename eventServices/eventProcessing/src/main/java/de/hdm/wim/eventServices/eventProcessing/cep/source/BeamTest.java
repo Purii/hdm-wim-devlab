@@ -1,8 +1,6 @@
 package de.hdm.wim.eventServices.eventProcessing.cep.source;
 
 import com.google.common.io.BaseEncoding;
-import org.apache.log4j.Logger;
-
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO;
 import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessage;
@@ -12,6 +10,7 @@ import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -22,6 +21,8 @@ public class BeamTest {
 	private static final Logger LOGGER 	= Logger.getLogger(BeamTest.class);
 
 	public static void main(String[] args) throws Exception {
+
+		String subscription = "projects/hdm-wim-devlab/subscriptions/subscription-pull-topic-1";
 
 		// Start by defining the options for the pipeline.
 		PipelineOptions options = PipelineOptionsFactory.create();
@@ -34,7 +35,7 @@ public class BeamTest {
 				.apply(
 					PubsubIO
 						.readMessages()
-						.fromSubscription("projects/hdm-wim-devlab/subscriptions/subscription-pull-topic-1")
+						.fromSubscription(subscription)
 				)
 				//.setCoder(StringUtf8Coder.of())
 			;
@@ -44,6 +45,10 @@ public class BeamTest {
 		);
 
 		p.run().waitUntilFinish();
+	}
+
+	private static String decodeBase64(String data) {
+		return new String(BaseEncoding.base64().decode(data));
 	}
 
 	public static class ShowMessages extends PTransform<PCollection<PubsubMessage>,
@@ -70,9 +75,5 @@ public class BeamTest {
 			// Use ProcessContext.output to emit the output element.
 			c.output(c.element());
 		}
-	}
-
-	private static String decodeBase64(String data) {
-		return new String(BaseEncoding.base64().decode(data));
 	}
 }
