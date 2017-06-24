@@ -73,32 +73,12 @@ Warten auf Bene mit Prefix + Receiver
 
 ## PubSub
 
-**Grundlagen** 
-
-1. Ein `publisher` erstellt eine `topic`.<br />
-2. Ein `subscriber` erstellt eine `subscription` auf diese `topic`.<br />
-3. Der `publisher` sendet eine `message` an diese `topic`.<br />
-4. Der `subscriber` empfängt die `message` via `push` oder `pull`, je nach Konfiguration.<br />
-5. Der `subscriber` bestätigt den Empfang der `message` und diese wird aus der `queue` gelöscht.<br />
-
 ### Events an PubSub senden (Publish)
 
 **(1) Topics**
 Die verfügbaren Topics (Kommunikationskanäle) werden über die [`SharedLib`](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java#L45) bereitgestellt. Werden zusätzliche Topics benötigt, können diese über einen neuen [Issue](https://github.com/Purii/hdm-wim-devlab/issues/new) angefragt werden.
 
-**(2) Bevor Events in PubSub veröffentlicht werden, muss sichergestellt werden, dass eine Subscription auf die gewünschten Topics vorhanden ist.**
-
-```java
-// init a SubscriptionHelper to use for prod environment for the given project (see Constants in SharedLib)
-SubscriptionHelper sh = new SubscriptionHelper(false, Config.APP_ID);
-/**
- * this will create a subscription with id: "subscription-pull-topic-1-test1"
- * if the subscription already exists, we will use it
- */
-sh.CreateSubscription(SubscriptionType.PULL, PubSub.Topic.TOPIC_1, "test1");
-```
-
-**(3) Erstellen eines Events**
+**(2) Erstellen eines Events**
 ```java
 LearnEvent learnEvent = new LearnEvent();
 
@@ -109,7 +89,7 @@ learnEvent.setProjectId("023490ProjectID");
 learnEvent.setDocumentAffiliation("false");
 learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
 ```
-**(4) Um Events als Messages in PubSub zu veröffentlichen, wird der `PublishHelper` genutzt.**
+**(3.1) Um Events als Messages in PubSub zu veröffentlichen, kann der `PublishHelper` genutzt werden.**
 
 ```java
 // init a PublishHelper to use for prod environment (false)
@@ -118,7 +98,7 @@ PublishHelper ph = new PublishHelper(false);
 ph.Publish(learnEvent, Topic.ML_LEARNING);
 ```
 
-**(5) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
+**(3.2) veröffentlichen von Events mit Hilfe der REST Schnittstelle.**
 
 Endpointurl: `https://hdm-wim-devlab.appspot.com/publish`
 
@@ -135,7 +115,7 @@ Value des `attributes` Parameters ist ein url codierter json string : `{"EventTy
 
 **Hinweis:** Es findet keine Prüfung statt, ob die `topic` existiert. Diese bitte den `Constants` entnehmen.
 
-**(5.1) Message über die Weboberfläche verschicken (zum testen)**
+**(3.3) Message über die Weboberfläche verschicken (zum testen)**
 
 über diese [Weboberfläche](https://hdm-wim-devlab.appspot.com/) können zum Testzweck Messages verschickt werden. 
 Dabei wird die manuelle Eingabe von Messages und das JSON-Format unterstützt.
