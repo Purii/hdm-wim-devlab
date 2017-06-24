@@ -33,14 +33,16 @@ Betrachtet die `Messages` als eine Art Kapsel für ein `Event` bzw. Synonym zuei
 * Als Teil der `sharedLib` werden Euch Klassen zur Verfügung gestellt, um Events empfangen und senden (publish & pull) zu können. Falls darüber hinaus weitere Informationen benötigt werden, kann die [ausführliche offizielle Dokumentation](https://cloud.google.com/pubsub/docs/reference/libraries) von Google PubSub genutzt werden. Die Dokumentation der SDK findet sich [hier](http://googlecloudplatform.github.io/google-cloud-java/0.18.0/apidocs/index.html) (Package: com.google.cloud.pubsub.spi.v1). Idealerweise werden Events jedoch nicht über Pull periodisch abgefragt, sondern werden von einem PubSub-Server via Push an den Empfänger gesendet (Jede Gruppe hat dazu einen individuellen Workshop erhalten).
 
 ### Grundlegende Kommunikation (WIP)
-![PubSub Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/26975555-9a009aa6-4d20-11e7-98c3-f6268862762d.jpg)
+* Publish Workflow
+![Publish Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Publish.PNG)
 
-* **Gruppe:** jeweiliges Team
-* **Message:** von allen zu verwenden aus der SharedLib, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
-* **AppEngine:** PaaS. Publisher und Subscriber werden automatisch erstellt (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic (Achtung: Topics sind Konstanten, einzusehen in dieser [Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/Constants.java))
-* **PubSub:** verteilt PubSubMessages durch die Topics
-* **Publish:** Eine Message wird in das eingetragene Topic veröffentlicht, siehe [Message Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/Message.java)
-* **Subscribe:** Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen, siehe [PubSubMessage Klasse](https://github.com/Purii/hdm-wim-devlab/blob/master/SharedLib/src/main/java/de/hdm/wim/sharedLib/classes/PubSubMessage.java)
+* Subscribe Workflow
+![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe.PNG)
+
+* **AppEngine:** PaaS. Publisher und Subscriber werden automatisch erstellt (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic.
+* **PubSub:** verteilt PubSubMessages durch die Topics.
+* **Publish:** Eine Message wird in das eingetragene Topic veröffentlicht.
+* **Subscribe:** Mehrere PubSubMessages werden aus dem eingetragenen Topic als Stream übertragen.
 
 ***Bitte die Vorgaben für die Klassen aus der SharedLib einhalten!***
 

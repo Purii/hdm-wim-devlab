@@ -4,79 +4,48 @@ import de.hdm.wim.sharedLib.Constants;
 
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Created by Chris on 20.06.2017.
+ * @author Chris
+ * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#allcompaniesevent">AllCompaniesEvent</a>
  */
-public class AllCompaniesEvent implements IEvent {
-
-	private String data;
-	private String id;
-	private String publishTime;
-	private Map<String, String> attributes = new HashMap<String, String>();
-
+public class AllCompaniesEvent extends IEvent{
+	/**
+	 * Constructor
+	 * set initial Attributes
+	 */
 	public AllCompaniesEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.ALL_COMPANIES);
 	}
 
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id= id;
-	}
-
-	public String getPublishTime() {
-		return publishTime;
-	}
-
-	public void setPublishTime(String publishTime) {
-		this.publishTime = publishTime;
-	}
-
-	public String getEventType() {
-		return attributes.get(Constants.PubSub.AttributeKey.EVENT_TYPE).toString();
-	}
-
-	public String getEventSource() {
-		return attributes.get(Constants.PubSub.AttributeKey.EVENT_SOURCE).toString();
-	}
-
-	public void setEventSource(String EventSource) {
-		this.attributes.put(Constants.PubSub.AttributeKey.EVENT_SOURCE, EventSource);
-	}
-
-	public Map<String, String> getAttributes() {
-		return this.attributes;
-	}
-
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
-	}
-
+	/**
+	 *
+	 * @return SessionId
+	 */
 	public String getSessionId(){
 		return attributes.get(Constants.PubSub.AttributeKey.SESSION_ID).toString();
 	}
 
+	/**
+	 * set SessionId
+	 * @param SessionId
+	 */
 	public void setSessionId(String SessionId){
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
+	/**
+	 *
+	 * @return CompanyNames as commaseparated String
+	 */
 	public String getCompanyNames(){
 		return attributes.get(Constants.PubSub.AttributeKey.COMPANY_NAMES).toString();
 	}
 
+	/**
+	 * Set CompanyNames as commaseparated String
+	 * @param companyNames
+	 */
 	public void setCompanyNames(String companyNames) {
 		this.attributes.put(Constants.PubSub.AttributeKey.COMPANY_NAMES, companyNames);
 	}
