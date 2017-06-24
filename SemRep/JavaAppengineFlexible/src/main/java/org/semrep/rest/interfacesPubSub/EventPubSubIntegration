@@ -1,0 +1,26 @@
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		UserInformationEvent userInformationEvent = new UserInformationEvent();
+		userInformationEvent.setAttributes(eventLinkedHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		userInformationEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(userInformationEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
+				// publishen geht überall
+        		// subcriben nur im PubSubHandler
+        		DocumentInformationEvent event = new DocumentInformationEvent();
+        		event.setAttributes(eventLinkedHashMap);
+        		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+        		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+        		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+        		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+        		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+        		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
+
