@@ -3,11 +3,7 @@ package org.semrep.rest.interfaces;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,6 +11,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.semrep.rest.helper.EventNameConstants;
+import org.semrep.rest.helper.FusekiConfigConstants;
+import org.semrep.rest.helper.InitializeArrayData;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
@@ -38,20 +40,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
-import org.semrep.rest.businessObjects.Abteilung;
-import org.semrep.rest.businessObjects.Dokument;
-import org.semrep.rest.businessObjects.Dokumentvorschlag;
-import org.semrep.rest.businessObjects.Person;
-import org.semrep.rest.businessObjects.Projekt;
-import org.semrep.rest.businessObjects.Unternehmen;
+import org.semrep.rest.businessObjects.*;
 
 @Path("/eventInterface")
 public class EventInterface {
 
-	// Constants constant = new Constants();
-
 	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(Main.class.getName());
+	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
 
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -75,6 +70,7 @@ public class EventInterface {
 
 	// ### initialisiere globale Objekte
 	private static Person personObj = null;
+	private static Projektrolle projektRolleObj = null;
 	public static Person personFavDokObj = null;
 	public static Dokument dokumentObj = null;
 	public static Projekt projektObj = null;
@@ -137,15 +133,19 @@ public class EventInterface {
 	private static String abteilung_hat_ProjektStr = "";
 	private static String abteilung_hat_MitarbeiterStr = "";
 	private static String abteilung_gehoert_zu_UnternehmenStr = "";
+	// alle abteilungen
+	private static String abteilung_NamenStr = "";
 	// unternehmen
 	private static String unternehmensNameStr = "";
+	// projektrolle
+	private static String rollenBezeichnungStr = "";
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getAllProjects();
+			insertNewUserInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -159,7 +159,7 @@ public class EventInterface {
 		Query query = QueryFactory.create(sparql);
 		// queryExecution = QueryExecutionFactory.create(query,
 		// ontologyModel);
-		queryExecution = QueryExecutionFactory.sparqlService("http://35.187.45.171:3030/20170621newOntology/query",
+		queryExecution = QueryExecutionFactory.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS,
 			query);
 
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
@@ -658,6 +658,38 @@ public class EventInterface {
 				// AllProjectRoles
 				if (y == 0 && eventType == "AllProjectRolesEvent") {
 
+					if (((projektRolleObj.getProjektrolle() == "") == true)) {
+
+						switch (results) {
+							case "Bezeichnung":
+								projektrolleStr = splitResult;
+								projektRolleObj.setProjektrolle(projektrolleStr);
+								break;
+						}
+
+					} else if (((projektRolleObj.getProjektrolle() == "") == false)) {
+
+						switch (results) {
+							case "Bezeichnung":
+								projektrolleStr = splitResult;
+								splitKeywordsList = Arrays.asList(
+									projektRolleObj.getProjektrolle().toString().split(", "));
+
+								if (splitKeywordsList.contains(projektrolleStr)) {
+
+									break;
+
+								} else {
+
+									projektRolleObj.setProjektrolle(
+										projektRolleObj.getProjektrolle() + ", "
+											+ projektrolleStr);
+									break;
+								}
+						}
+
+					}
+
 				}
 				// AllDepartments
 				if (y == 0 && eventType == "AllDepartmentsEvent") {
@@ -665,7 +697,7 @@ public class EventInterface {
 					if (((abteilungObj.getAbteilung_Name() == "") == true)) {
 
 						switch (results) {
-							case "Abteilung_Name":
+							case "AbteilungName":
 								abteilung_NameStr = splitResult;
 								abteilungObj.setAbteilung_Name(abteilung_NameStr);
 								break;
@@ -674,7 +706,7 @@ public class EventInterface {
 					} else if (((abteilungObj.getAbteilung_Name() == "") == false)) {
 
 						switch (results) {
-							case "Abteilung_Name":
+							case "AbteilungName":
 								abteilung_NameStr = splitResult;
 								splitKeywordsList = Arrays
 									.asList(abteilungObj.getAbteilung_Name().toString().split(", "));
@@ -698,81 +730,114 @@ public class EventInterface {
 				// AllCompanies
 				if (y == 0 && eventType == "AllCompaniesEvent") {
 
+					if (((unternehmenObj.getUnternehmensName() == "") == true)) {
+
+						switch (results) {
+							case "Unternehmensnamen":
+								unternehmensNameStr = splitResult;
+								unternehmenObj.setUnternehmensName(unternehmensNameStr);
+								break;
+						}
+
+					} else if (((unternehmenObj.getUnternehmensName() == "") == false)) {
+
+						switch (results) {
+							case "Unternehmensnamen":
+								unternehmensNameStr = splitResult;
+								splitKeywordsList = Arrays
+									.asList(unternehmenObj.getUnternehmensName().toString().split(", "));
+
+								if (splitKeywordsList.contains(unternehmensNameStr)) {
+
+									break;
+
+								} else {
+
+									unternehmenObj
+										.setUnternehmensName(unternehmenObj.getUnternehmensName()
+											+ ", " + unternehmensNameStr);
+									break;
+								}
+						}
+
+					}
+
 				}
 
-
 			}
-			// ablegen eines vollständigen Objekts in einer der entsprechenden
-			// Maps
+			// end of inner loop
+
+			// fill HashMap
 			if (y == 1 && eventType == "DocumentInformationEvent") {
 
 				dokumentObj.setPrio("0");
 				// Dokumente
 				eventLinkedHashMap.put("Dokument",
-					"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr() + ", "
-						+ "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp=" + dokumentObj.getDok_TypStr()
-						+ ", " + "DokURL=" + dokumentObj.getDok_URLStr() + ", " + "DokOrdner="
+					Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr() + ", "
+						+ Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":" + dokumentObj.getDok_TypStr()
+						+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":"
 						+ dokumentObj.getDok_folder());
 
 			} else if (y == 1 && eventType == "UserInformationEvent") {
 				// bei Person
 				eventLinkedHashMap.put("Person",
-					"UserID=" + personObj.getId() + ", " + "Vorname=" + personObj.getVorname() + ", " + "Nachname="
-						+ personObj.getNachname() + ", " + "Mail=" + personObj.getMail() + ", " + "Projekt="
-						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + "Projektrolle="
-						+ personObj.getPerson_hat_Projektrolle() + ", " + "Abteilung="
-						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + "DokAutor="
-						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + "DokAufrufe="
-						+ personObj.getPerson_ruft_Dokument_auf() + ", " + "DokFavorit="
+					Constants.PubSub.AttributeKey.USER_ID + ":" + personObj.getId() + ", " + Constants.PubSub.AttributeKey.FIRST_NAME + ":" + personObj.getVorname() + ", " + Constants.PubSub.AttributeKey.LAST_NAME + ":"
+						+ personObj.getNachname() + ", " + Constants.PubSub.AttributeKey.EMAIL + ":" + personObj.getMail() + ", " + Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS + ":"
+						+ personObj.getPerson_arbeitet_an_Projekt() + ", " + Constants.PubSub.AttributeKey.USER_HAS_PROJECTROLE + ":"
+						+ personObj.getPerson_hat_Projektrolle() + ", " + Constants.PubSub.AttributeKey.USER_BELONGS_TO_DEPARTMENT + ":"
+						+ personObj.getPerson_gehoert_zu_Abteilung() + ", " + Constants.PubSub.AttributeKey.USER_WRITES_DOCUMENT + ":"
+						+ personObj.getPerson_hat_Dokument_verfasst() + ", " + Constants.PubSub.AttributeKey.USER_CALLS_DOCUMENT + ":"
+						+ personObj.getPerson_ruft_Dokument_auf() + ", " + Constants.PubSub.AttributeKey.USER_FAVOURS_DOCUMENT + ":"
 						+ personObj.getPerson_favorisiert_Dokument());
 
 			} else if (y == 1 && eventType == "ProjectInformationEvent") {
 				// bei Projekt
-				eventLinkedHashMap.put("Projekt", "ProjektID" + "=" + projektObj.getProjektID() + ", "
-					+ "ProjektName=" + projektObj.getProjektName() + ", " + "ProjektGehoertZuUnternehmen="
-					+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + "ProjektGehoertZuAbteilung="
-					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + "ProjektHatProjektmitglied="
-					+ projektObj.getProjekt_hat_Projektmitglied() + ", " + "ProjektHatDokument="
+				eventLinkedHashMap.put("Projekt", Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID() + ", "
+					+ Constants.PubSub.AttributeKey.PROJECT_NAME + ":" + projektObj.getProjektName() + ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_COMPANY + ":"
+					+ projektObj.getProjekt_gehoert_zu_Unternehmen() + ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT + ":"
+					+ projektObj.getProjekt_gehoert_zu_Abteilung() + ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_MEMBERS + ":"
+					+ projektObj.getProjekt_hat_Projektmitglied() + ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_DOCUMENTS +""
 					+ projektObj.getProjekt_hat_Dokument());
 
   			} else if (y == 1 && eventType == "DepartmentInformationEvent") {
 
 				// bei Abteilung
 				eventLinkedHashMap.put("Abteilung",
-					"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
-					+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
-					+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
-					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
-					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+					Constants.PubSub.AttributeKey.DEPARTMENT_ID + ":" + abteilungObj.getAbteilung_ID() + ", "
+					+ Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_SHORT + ":"
+					+ abteilungObj.getAbteilung_Kuerzel() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_PROJECT + ":"
+					+ abteilungObj.getAbteilung_hat_Projekt() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_WORKER + ":"
+					+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY + ":"
 					+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 			} else if (y == 0 && eventType == "AllProjectsEvent") {
 
-				// alle Projects
+				// alle Projektnamen
 				eventLinkedHashMap.put("AllProjectsEvent",
-					"ProjektName=" + projektObj.getProjektName());
+					Constants.PubSub.AttributeKey.PROJECT_NAMES + ":" + projektObj.getProjektName());
 
 			} else if (y == 0 && eventType == "AllProjectRolesEvent") {
 
-				// alle Projects
+				// alle Projektrollen
 				eventLinkedHashMap.put("AllProjectRolesEvent",
-					"ProjektRollenName=" + personObj.getPerson_hat_Projektrolle());
+					Constants.PubSub.AttributeKey.PROJECT_ROLES + ":" + projektRolleObj.getProjektrolle());
 
 			} else if (y == 0 && eventType == "AllDepartmentsEvent") {
 
-				// alle Projects
+				// alle Abteilungsnamen
 				eventLinkedHashMap.put("AllDepartmentsEvent",
-					"AbteilungName=" + abteilungObj.getAbteilung_Name());
+					Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + abteilungObj.getAbteilung_Name());
 
 			} else if (y == 0 && eventType == "AllCompaniesEvent") {
 
-				// alle Projects
+				// alle Unternehmensnamen
 				eventLinkedHashMap.put("AllCompaniesEvent",
-					"UnternehmenName=" + unternehmenObj.getUnternehmensName());
+					Constants.PubSub.AttributeKey.COMPANY_NAMES + ":" + unternehmenObj.getUnternehmensName());
 
 			}
 
 		}
+		// end of outer loop
 
 		queryExecution.close();
 
@@ -798,7 +863,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "UserInformationEvent";
+		String eventTypeStr = EventNameConstants.USER_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -886,7 +951,7 @@ public class EventInterface {
 
 		publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringUserInformationEvent());
+		jsonObj.put(eventTypeStr, userInformationEventObject.toStringUserInformationEvent());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -909,7 +974,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "DocumentInformationEvent";
+		String eventTypeStr = EventNameConstants.DOCUMENT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -947,8 +1012,6 @@ public class EventInterface {
 
 				if (sparql != "") {
 
-					ClassLoader loader = URLEncodedUtils.class.getClassLoader();
-					loggger.info(loader.getResource("org.apache.http.client.utils‌​.URLEncodedUtils.cla‌​ss"));
 					executeSparql(sparql);
 
 					if (resultSet.hasNext() == true) {
@@ -961,11 +1024,11 @@ public class EventInterface {
 						dokumentObj.setDok_URLStr("'null'");
 						dokumentObj.setDok_folder("'null'");
 
-						eventLinkedHashMap.put("Dokument",
-							"DokID=" + dokumentObj.getDok_IDStr() + ", " + "DokName=" + dokumentObj.getDok_NameStr()
-								+ ", " + "DokPrio=" + dokumentObj.getPrio() + ", " + "DokTyp="
-								+ dokumentObj.getDok_TypStr() + ", " + "DokURL=" + dokumentObj.getDok_URLStr()
-								+ ", " + "DokOrdner=" + dokumentObj.getDok_folder());
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DOCUMENT_ID + ":" + dokumentObj.getDok_IDStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_NAME + ":" + dokumentObj.getDok_NameStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_PRIO + ":" + dokumentObj.getPrio() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_TYPE + ":"
+								+ dokumentObj.getDok_TypStr() + ", " + Constants.PubSub.AttributeKey.DOCUMENT_URL + ":" + dokumentObj.getDok_URLStr()
+								+ ", " + Constants.PubSub.AttributeKey.DOCUMENT_FOLDER + ":" + dokumentObj.getDok_folder());
 
 						dokumentObj.flushDokumentObjekt();
 					}
@@ -993,7 +1056,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+		jsonObj.put(eventTypeStr, documentInformationEventObject.toStringDokumentObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1016,7 +1079,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "ProjectInformationEvent";
+		String eventTypeStr = EventNameConstants.PROJECT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1066,13 +1129,13 @@ public class EventInterface {
 						projektObj.setProjekt_hat_Projektmitglied("'null'");
 						projektObj.setProjekt_hat_Dokument("'null'");
 
-						eventLinkedHashMap.put("Projekt",
-							"ProjektID" + "=" + projektObj.getProjektID()
-								+ ", " + "ProjektName=" + projektObj.getProjektName()
-								+ ", " + "ProjektGehoertZuUnternehmen=" + projektObj.getProjekt_gehoert_zu_Unternehmen()
-								+ ", " + "ProjektGehoertZuAbteilung=" + projektObj.getProjekt_gehoert_zu_Abteilung()
-								+ ", " + "ProjektHatProjektmitglied=" + projektObj.getProjekt_hat_Projektmitglied()
-								+ ", " + "ProjektHatDokument=" + projektObj.getProjekt_hat_Dokument());
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.PROJECT_ID + ":" + projektObj.getProjektID()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_NAME + ":" + projektObj.getProjektName()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_COMPANY + ":" + projektObj.getProjekt_gehoert_zu_Unternehmen()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT + ":" + projektObj.getProjekt_gehoert_zu_Abteilung()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_MEMBERS + ":" + projektObj.getProjekt_hat_Projektmitglied()
+								+ ", " + Constants.PubSub.AttributeKey.PROJECT_HAS_DOCUMENTS + "" + projektObj.getProjekt_hat_Dokument());
 
 						projektObj.flushProjektObjekt();
 
@@ -1101,7 +1164,7 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
+		jsonObj.put(eventTypeStr, projectInformationEventObject.toStringProjektObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1121,7 +1184,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "DepartmentInformationEvent";
+		String eventTypeStr = EventNameConstants.DEPARTMENT_INFORMATION_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1172,12 +1235,12 @@ public class EventInterface {
 						abteilungObj.setAbteilung_hat_Mitarbeiter("'null'");
 						abteilungObj.setAbteilung_gehoert_zu_Unternehmen("'null'");
 
-						eventLinkedHashMap.put("Abteilung",
-							"AbteilungID=" + abteilungObj.getAbteilung_ID() + ", "
-								+ "AbteilungName=" + abteilungObj.getAbteilung_Name() + ", " + "AbteilungKuerzel="
-								+ abteilungObj.getAbteilung_Kuerzel() + ", " + "AbteilungHatProjekt="
-								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + "AbteilungHatMitarbeiter="
-								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + "AbteilungGehoertZuUnternehmen="
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DEPARTMENT_ID + ":" + abteilungObj.getAbteilung_ID() + ", "
+								+ Constants.PubSub.AttributeKey.DEPARTMENT_NAME + ":" + abteilungObj.getAbteilung_Name() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_SHORT + ":"
+								+ abteilungObj.getAbteilung_Kuerzel() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_PROJECT + ""
+								+ abteilungObj.getAbteilung_hat_Projekt() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_HAS_WORKER + ":"
+								+ abteilungObj.getAbteilung_hat_Mitarbeiter() + ", " + Constants.PubSub.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY + ":"
 								+ abteilungObj.getAbteilung_gehoert_zu_Unternehmen());
 
 						abteilungObj.flushAbteilungsObjekt();
@@ -1206,8 +1269,7 @@ public class EventInterface {
 
 		}
 
-		// return personObj.toStringPersonObjekt();
-		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
+		jsonObj.put(eventTypeStr, departmentInformationEventObject.toStringAbteilungsObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
@@ -1227,7 +1289,7 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = "AllProjectsEvent";
+		String eventTypeStr = EventNameConstants.ALL_PROJECTS_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
 
@@ -1250,7 +1312,8 @@ public class EventInterface {
 						+ "SELECT DISTINCT ?Projekt ?ProjektName "
 						+ "WHERE { "
 						+ "?Projekt ontology:Projekt_Name ?ProjektName . "
-						+ "}";
+						+ "} "
+						+ "ORDER BY ?ProjektName";
 
 				} else {
 					sparql = "";
@@ -1265,8 +1328,8 @@ public class EventInterface {
 					} else {
 						projektObj.setProjektName("'null'");
 
-						eventLinkedHashMap.put("AllProjectsEvent",
-								"ProjektName=" + projektObj.getProjektName());
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.PROJECT_NAMES + ":" + projektObj.getProjektName());
 
 					}
 
@@ -1293,8 +1356,542 @@ public class EventInterface {
 		}
 
 		// return personObj.toStringPersonObjekt();
-		jsonObj.put("AllProjectsEvent", AllProjectsInformationEventObject.toStringProjektObjekt());
+		jsonObj.put(eventTypeStr, AllProjectsInformationEventObject.toStringProjektObjekt());
 		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllProjectRoles")
+	public static Response getAllProjectRoles() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ALL_PROJECTROLES_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			projektRolleObj = new Projektrolle(rollenBezeichnungStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Projektrolle ?Bezeichnung "
+						+ "WHERE { "
+						+ "?Projektrolle ontology:Projektrolle_Bezeichnung ?Bezeichnung . "
+						+ "} "
+						+ "ORDER BY ?Bezeichnung";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						projektRolleObj.setProjektrolle("'null'");
+
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.PROJECT_ROLES + ":" + projektRolleObj.getProjektrolle());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Projektrolle AllProjectRolesEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals(eventTypeStr)) {
+				AllProjectRolesEventObject = new Projektrolle(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllProjectRolesEventObject.toStringProjektrolleObj());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, AllProjectRolesEventObject.toStringProjektrolleObj());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllDepartments")
+	public static Response getAllDepartments() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ALL_DEPARTMENTS_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			String prioStr = "0";
+			// initialisiere Objekte
+			// dokument
+			abteilungObj = new Abteilung(abteilung_NamenStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Abteilung ?AbteilungName "
+						+ "WHERE { "
+						+ "?Abteilung ontology:Abteilung_Name ?AbteilungName . "
+						+ "} "
+						+ "ORDER BY ?AbteilungName";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						abteilungObj.setAbteilung_Name("'null'");
+
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + abteilungObj.getAbteilung_Name());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Abteilung AllDepartmentsEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals(eventTypeStr)) {
+				AllDepartmentsEventObject = new Abteilung(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllDepartmentsEventObject.toStringAbteilungsObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, AllDepartmentsEventObject.toStringAbteilungsObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllCompanies")
+	public static Response getAllCompanies() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ALL_COMPANIES_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String sparql = "";
+
+			// initialisiere Objekte
+			// dokument
+			unternehmenObj = new Unternehmen(unternehmensNameStr);
+
+			for (int z = 0; z < inputArray.length; z++) {
+
+				// ermittle UserInformation
+				if (z == 0) {
+
+					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "SELECT DISTINCT ?Unternehmen ?Unternehmensnamen "
+						+ "WHERE { "
+						+ "?Unternehmen ontology:Unternehmen_Name ?Unternehmensnamen . "
+						+ "} "
+						+ "ORDER BY ?Unternehmensnamen";
+
+				} else {
+					sparql = "";
+				}
+
+				if (sparql != "") {
+
+					executeSparql(sparql);
+
+					if (resultSet.hasNext() == true) {
+						eventLinkedHashMap = loopThroughResults(z, eventTypeStr);
+					} else {
+						unternehmenObj.setUnternehmensName("'null'");
+
+						eventLinkedHashMap.put(eventTypeStr,
+							Constants.PubSub.AttributeKey.DEPARTMENT_NAMES + ":" + unternehmenObj.getUnternehmensName());
+
+					}
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+		Unternehmen AllCompaniesEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : eventLinkedHashMap.keySet()) {
+
+			if (key.equals(eventTypeStr)) {
+				AllCompaniesEventObject = new Unternehmen(sessionIDStr, String.valueOf(timestampLong),
+					eventUniqueID, eventLinkedHashMap.get(key).toString());
+				System.out.println(AllCompaniesEventObject.toStringUnternehmenObjekt());
+				break;
+			}
+
+		}
+
+		// return personObj.toStringPersonObjekt();
+		jsonObj.put(eventTypeStr, AllCompaniesEventObject.toStringUnternehmenObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewUserInformation")
+	public static void insertNewUserInformation() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+					insertSparql = " PREFIX owl: <http://www.w3.org/2002/07/owl#> "
+					+ "PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "WITH <http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+					+ " DELETE ?Person "
+//					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+//					//+ "a ontology:Person, owl:NamedIndividual ; "
+//					//+ "ontology:Person_ID '" + idStr + "' ; "
+//					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
+//					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
+//					+ "ontology:Person_Email '" + mailStr + "' ; "
+//					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
+//					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
+//					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
+//					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
+//					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
+//					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
+					//+ " }"
+					+ " INSERT DATA { "
+					//+ "<http://www.semanticweb.org/sem-rep/ontology#" + vornameStr + "_" + nachnameStr + "> "
+					+ "a ontology:Person, owl:NamedIndividual ; "
+					+ "ontology:Person_ID '" + idStr + "' ; "
+					+ "ontology:Person_Vorname '" + vornameStr + "' ; "
+					+ "ontology:Person_Nachname '" + nachnameStr + "' ; "
+					+ "ontology:Person_Email '" + mailStr + "' ; "
+					+ "ontology:Person_gehoert_zu_Abteilung ontology:" + abteilungStr + " ; "
+					+ "ontology:Person_arbeitet_an_Projekt ontology:" + projektStr + " ; "
+					+ "ontology:Person_hat_Projektrolle ontology:" + projektrolleStr + " ; "
+					+ "ontology:Person_ruft_Dokument_auf ontology:" + aufrufStr + " ; "
+					+ "ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; "
+					+ "ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " ; "
+					+ "} "
+					+ " WHERE  "
+					+ " { "
+					//+ " ?Person <http://www.semanticweb.org/sem-rep/ontology#Person_ID> '" + idStr + "' "
+						+ "?Person ?Person_ID '" + idStr + "' "
+					+ " }";
+
+				if (insertSparql != "") {
+
+					String uuID = UUID.randomUUID().toString();
+					UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+						UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+					uP.execute();
+
+				}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+
+	//nicht fertig
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewDocumentContext")
+	public static void insertNewDocumentContext() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+		//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+		//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+		//	DELETE { ?Dokument ontology:Dokument_hat_Kontext 'Videokonferenz' }
+		//	INSERT { ?Dokument ontology:Dokument_hat_Kontext 'William' }
+		//	WHERE { ?Dokument ?DokumentID '1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY' };
+
+
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+//nichtfertig
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewDocumentCall")
+	public static void insertNewDocumentCall() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+
+			//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+			//	DELETE { ?Person ontology:Person_ruft_Dokument_auf 'Anforderungen' }
+			//	INSERT { ?Person ontology:Person_ruft_Dokument_auf 'Pflichtenheft_High_Net' }
+			//	WHERE {  ?Person ?PersonID '5' };
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+
+
+	//nichtfertig
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/insertNewFavoriteDocument")
+	public static void insertNewFavoriteDocument() throws Exception {
+
+		// @Path: /rest/eventInterface/getProjectInformation
+
+		jsonObj = new JSONObject();
+
+		eventLinkedHashMap = new LinkedHashMap<String, String>();
+
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
+
+		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		idStr = inputArray[1].toString();
+		vornameStr = inputArray[2].toString();
+		nachnameStr = inputArray[3].toString();
+		mailStr = inputArray[4].toString();
+		abteilungStr = inputArray[5].toString();
+		projektStr = inputArray[6].toString();
+		projektrolleStr = inputArray[7].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// initialisiere Objekte
+			String neueUserSetNull = "NULL";
+			aufrufStr = neueUserSetNull;
+			favoritStr = neueUserSetNull;
+			dokumentStr = neueUserSetNull;
+
+
+			//PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			//PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+
+			//DELETE { ?Person ontology:Person_favorisiert_Dokument 'KickOff_HighNet' }
+			//INSERT { ?Person ontology:Person_favorisiert_Dokument 'Meilensteinplanung_Highnet' }
+			//WHERE  { ?Person ?PersonID '1' };
+
+
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS2);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
 
 	}
 

@@ -8,14 +8,13 @@ import java.util.Map;
 /**
  * Created by GezimKrasniqi on 20.06.17.
  */
-public class ProjectInformationEvent implements IEvent{
+public class ProjectInformationEvent implements IEvent {
 
 	private String data;
 	private String id;
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type
 	public ProjectInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.PROJECT_INFO);
 	}

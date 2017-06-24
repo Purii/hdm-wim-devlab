@@ -8,13 +8,12 @@ import java.util.Map;
 /**
  * Created by GezimKrasniqi on 20.06.17.
  */
-public class UserInformationEvent implements IEvent{
+public class UserInformationEvent implements IEvent {
 	private String data;
 	private String id;
 	private String publishTime;
 	private Map<String, String> attributes = new HashMap<String, String>();
 
-	// TODO: Update Event Type
 	public UserInformationEvent(){
 		this.attributes.put(AttributeKey.EVENT_TYPE, EventType.USER_INFO);
 	}
@@ -125,51 +124,51 @@ public class UserInformationEvent implements IEvent{
 		this.attributes.put(AttributeKey.EMAIL, email);
 	}
 
-	public String getProjectName(){
-		return this.attributes.get(AttributeKey.PROJECT_NAME).toString();
+	public String getUserWorksOnProject(){
+		return this.attributes.get(AttributeKey.USER_WORKS_ON_PROJECTS).toString();
 	}
 
-	public void setProjectName(String projectName){
-		this.attributes.put(AttributeKey.PROJECT_NAME, projectName);
+	public void setUserWorksOnProject(String userWorksOnProject){
+		this.attributes.put(AttributeKey.USER_WORKS_ON_PROJECTS, userWorksOnProject);
 	}
 
-	public String getProjectRole(){
-		return this.attributes.get(AttributeKey.PROJECT_ROLE).toString();
+	public String getUserHasProjectrole(){
+		return this.attributes.get(AttributeKey.USER_HAS_PROJECTROLE).toString();
 	}
 
-	public void setProjectRole(String projectRole){
-		this.attributes.put(AttributeKey.PROJECT_ROLE, projectRole);
+	public void setUserHasProjectrole(String userHasProjectrole){
+		this.attributes.put(AttributeKey.USER_HAS_PROJECTROLE, userHasProjectrole);
 	}
 
-	public String getDepartmentShort(){
-		return this.attributes.get(AttributeKey.DEPARTMENT_SHORT).toString();
+	public String getUserBelongsToDepartment(){
+		return this.attributes.get(AttributeKey.USER_BELONGS_TO_DEPARTMENT).toString();
 	}
 
-	public void setDepartmentShort(String departmentShort){
-		this.attributes.put(AttributeKey.DEPARTMENT_SHORT, departmentShort);
+	public void setUserBelongsToDepartment(String userBelongsToDepartment){
+		this.attributes.put(AttributeKey.USER_BELONGS_TO_DEPARTMENT, userBelongsToDepartment);
 	}
 
-	public String getDocumentAuthor(){
-		return this.attributes.get(AttributeKey.DOCUMENT_AUTHOR).toString();
+	public String getUserWritesDocument(){
+		return this.attributes.get(AttributeKey.USER_WRITES_DOCUMENT).toString();
 	}
 
-	public void setDocumentAuthor(String documentAuthor){
-		this.attributes.put(AttributeKey.DOCUMENT_AUTHOR, documentAuthor);
+	public void setUserWritesDocument(String userWritesDocument){
+		this.attributes.put(AttributeKey.USER_WRITES_DOCUMENT, userWritesDocument);
 	}
 
-	public String getDocumentCall(){
-		return this.attributes.get(AttributeKey.DOCUMENT_CALL).toString();
+	public String getUserCallsDocument(){
+		return this.attributes.get(AttributeKey.USER_CALLS_DOCUMENT).toString();
 	}
 
-	public void setDocumentCall(String documentCall){
-		this.attributes.put(AttributeKey.DOCUMENT_CALL, documentCall);
+	public void setUserCallsDocument(String userCallsDocument){
+		this.attributes.put(AttributeKey.USER_CALLS_DOCUMENT, userCallsDocument);
 	}
 
-	public String getDocumentFavorit(){
-		return this.attributes.get(AttributeKey.DOCUMENT_FAVORIT).toString();
+	public String getUserFavoursDocument(){
+		return this.attributes.get(AttributeKey.USER_FAVOURS_DOCUMENT).toString();
 	}
 
-	public void setDocumentFavorit(String documentFavorit){
-		this.attributes.put(AttributeKey.DOCUMENT_FAVORIT, documentFavorit);
+	public void setUserFavoursDocument(String userFavoursDocument){
+		this.attributes.put(AttributeKey.USER_FAVOURS_DOCUMENT, userFavoursDocument);
 	}
 }

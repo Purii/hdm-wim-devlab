@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.pubsub.v1.PubsubMessage;
-import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 
@@ -64,41 +63,19 @@ public class Helper {
 	}
 
 	/**
-	 * Event converter to convert a PubsubMessage to an Event based on eventtype
+	 * Convert a PubSubMessage to IEvent
 	 *
 	 * @param message the PubsubMessage
-	 * @return event event
+	 * @return IEvent
 	 */
-	//TODO: update this
-	public IEvent convertPubsubMessageToIEvent(PubsubMessage message) {
+	public IEvent convertToIEvent(PubsubMessage message) {
 		IEvent event = new Event();
 
 		// get message content & transform
-		Map<String, String> attributes = message.getAttributesMap();
-		String data = decodeBase64(message.getData().toString());
-		String messageId = message.getMessageId();
-		String publishTime = message.getPublishTime().toString();
-
-		// get eventType from attributes
-		String eventType = attributes.get(AttributeKey.EVENT_TYPE);
-
-
-
-		/*
-		// init event based on type
-		switch (eventType) {
-			case EventType.LEARN:
-				event = new LearnEvent();
-				type  = LearnEvent.class;
-				break;
-			case EventType.TOKEN:
-				event = new TokenEvent();
-				type  = TokenEvent.class;
-				break;
-			default:
-				LOGGER.warn("Invalid EventType");
-		}
-		 */
+		Map<String, String> attributes 	= message.getAttributesMap();
+		String data 					= decodeBase64(message.getData().toString());
+		String messageId 				= message.getMessageId();
+		String publishTime 				= message.getPublishTime().toString();
 
 		// fill new message object
 		event.setData(data);
@@ -106,7 +83,6 @@ public class Helper {
 		event.setId(messageId);
 		event.setPublishTime(publishTime);
 
-		//return event;
 		return event;
 	}
 
@@ -116,9 +92,7 @@ public class Helper {
 	 * @param json the json string of the event
 	 * @return IEvent
 	 */
-	public IEvent GetEventFromJson(String json) {
-
-		LOGGER.info("aa" + json);
+	public IEvent convertToIEvent(String json) {
 
 		JsonElement jsonRoot 	= jsonParser.parse(json);
 		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
