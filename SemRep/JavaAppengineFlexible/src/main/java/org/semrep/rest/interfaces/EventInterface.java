@@ -145,7 +145,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			insertNewUserInformation();
+			insertNewDocumentContext();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1722,16 +1722,11 @@ public class EventInterface {
 		timestamp = new Timestamp(System.currentTimeMillis());
 		timestampLong = timestamp.getTime();
 
-		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
+		String eventTypeStr = EventNameConstants.DOCUMENT_CONTEXT_EVENT;
 		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
 		sessionIDStr = inputArray[0].toString();
-		idStr = inputArray[1].toString();
-		vornameStr = inputArray[2].toString();
-		nachnameStr = inputArray[3].toString();
-		mailStr = inputArray[4].toString();
-		abteilungStr = inputArray[5].toString();
-		projektStr = inputArray[6].toString();
-		projektrolleStr = inputArray[7].toString();
+		String dokName = inputArray[1].toString();
+		String dokKontext = inputArray[2].toString();
 
 		try {
 			// initialisiere Variablen
@@ -1744,15 +1739,26 @@ public class EventInterface {
 			favoritStr = neueUserSetNull;
 			dokumentStr = neueUserSetNull;
 
-		//	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-		//	PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology>
+//			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+//				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+//				" DELETE { ?Dokument ontology:Dokument_hat_Kontext 'Videokonferenz' } " +
+//				" INSERT { ?Dokument ontology:Dokument_hat_Kontext '" + dokKontext + "' } " +
+//				" WHERE { ?Dokument ?DokumentID '" + dokID + "' }";
 
-		//	DELETE { ?Dokument ontology:Dokument_hat_Kontext 'Videokonferenz' }
-		//	INSERT { ?Dokument ontology:Dokument_hat_Kontext 'William' }
-		//	WHERE { ?Dokument ?DokumentID '1mC30R185Km9Y9HoE2uUgVDJi41IXKelPJEBhBeXH2PY' };
+//			"INSERT DATA " +
+//				"{ " +
+//				"ontology:" + vornameStr + "_" + nachnameStr + " " +
+//				"a ontology:Person, owl:NamedIndividual ; " +
+//				"ontology:Person_ID '" + idStr + "' ; " +
 
-
-
+			// fügen neuen Kontext an eine Dokumentinstanz
+			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				" INSERT DATA " +
+				"{ " +
+				"ontology:" + dokName + " " +
+				"ontology:Dok_Kontext '" + dokKontext + "' " +
+				"}";
 
 			if (insertSparql != "") {
 
