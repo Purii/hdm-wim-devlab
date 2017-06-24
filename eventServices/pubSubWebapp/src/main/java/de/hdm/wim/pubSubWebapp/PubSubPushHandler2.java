@@ -41,7 +41,7 @@ public class PubSubPushHandler2 extends HttpServlet {
 									.lines()
 									.reduce("\n", (accumulator, actual) -> accumulator + actual);
 
-		IEvent event = helper.GetIEventFromJson(requestBody);
+		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
 			LOGGER.info("Handler: " + Config.HANDLER_2 + " event.getData(): " + event.getData());
