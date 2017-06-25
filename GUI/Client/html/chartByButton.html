@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -7,62 +10,98 @@
     <link rel="stylesheet" href="styleTabs.css">
     <link rel="stylesheet" type="text/css" href="fancybox-master/dist/jquery.fancybox.min.css">
 
+    <!--Google MDL-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- MDL Theme Builder-->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
+   
+    <!--MDL Google Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
+    <!-- Always shows a header, even in smaller screens. -->
 
-<div id="naviButtonList">
- 
-<p><a href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">Logout from Google</a></p>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Proud</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                <!-- Navigation back to Landing Page -->
+                <a class="mdl-navigation__link" style= "color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
+                <!-- Who is online -->
+                <a class="mdl-navigation__link" id="menu_online" style= "color: white"><i class="material-icons">info_outline</i></a>
+                <!-- Google Drive -->
+                <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;"><i class="material-icons">change_history</i></a>
+                <!-- Help -->
+                <a class="mdl-navigation__link" id="menu_help" style= "color: white"><i class="material-icons">help_outline</i></a>
+            </nav>    
+            <!-- Buttons gehören an andere Stelle     
+                <!-- Change Data->
+                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
+                    <i class="material-icons">account_circle</i>
+                </a>
+                
+                <!--Logout->
+                <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
+                    <!--Button mit ripples und Farbe->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Logout
+                    </button>
+                </a>
+            -->    
+            
 
-    <!--- sehr wichtig!!!! embeddedfolderview!!!!!   -->
-    <a data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
-        <button id="showDirive">GoogleDrive</button>
-    </a>
+            <!-- Content for menues-->
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_help">
+                        <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
+                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
+                </ul>
+                
+                <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_online">
+                        <li style= "margin: 10px"><p>Online:<p></li>
+                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
+                    </ul>
+                    <ul id="log"></ul>
+        </div>
+    </header>
+   
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <!-- Your content goes here -->
+            <div class="tab" id="tabList">
+                <button class="tablinks" onclick="openTab(event, 'KoBoRa')" id="defaultOpen">KoBoRa</button>
+            </div>
+            <div id="contentForTabs">
+                <div id="KoBoRaBody" class="tabcontent">
+                    <h3>KoBoRa System</h3>
+                    <p>bla bla</p>
+                    <div id="chart_div" style="width: 900px; height: 500px"></div>
+
+                    <button id="drawChartButton">
+                        Zeichne
+                    </button>
+                </div>
+                <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+            </div>
 
 
-    <a data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
-        <button id="changeMe">ChangeMyData</button>
-    </a>
-
-
-
-
-</div>
-
-<br><br><br><br><br><br>
-
-
-<div class="tab" id="tabList">
-    <button class="tablinks" onclick="openTab(event, 'KoBoRa')"  id="defaultOpen">KoBoRa</button>
-
-</div>
-
-
-<div id="contentForTabs">
-    <div id="KoBoRaBody" class="tabcontent">
-
-        <h3>KoBoRa System</h3>
-        <p>bla bla</p>
-
-     
-        <div id="chart_div" style="width: 900px; height: 500px"></div>
-    
-    
-  
-
-        <button id="drawChartButton">
-            Zeichne
-        </button>
+        </div>
+    </main>
     </div>
-   <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+
+   
 
 
 
-</div>
-      <div id='listOFLoggedInUSers' >    <ul id="LoggedInUsers"> 
-          <p> Im Moment aingeloggte User: </p>
-          </ul> </div>
-<ul id="log"></ul>
+      
 
 <script type="text/javascript" src="drawChartByButton.js"></script>
 <script type="text/javascript" src="tabs.js"></script>
@@ -78,3 +117,4 @@
 
 
 </body>
+</html>
