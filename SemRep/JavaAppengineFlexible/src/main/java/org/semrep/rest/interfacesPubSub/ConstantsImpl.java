@@ -3,7 +3,8 @@ package org.semrep.rest.interfacesPubSub;
 import de.hdm.wim.sharedLib.Constants;
 
 /**
- * Created by mateo_alliaj on 23.06.17.
+ * @author bjoernZimmermann
+ * Konstanten für die Attributnamen der HashMaps. Diese werden für jedes Event befüllt und als Rückgabeparameter verwendet.
  */
 public class ConstantsImpl {
 
@@ -11,7 +12,6 @@ public class ConstantsImpl {
 	String SessionID = Constants.PubSub.AttributeKey.SESSION_ID;
 	String TimeStamp = Constants.PubSub.AttributeKey.TIMESTAMP;
 	String TokenID = Constants.PubSub.AttributeKey.TOKEN_ID;
-
 
 	// fill HashMap
 
@@ -31,7 +31,6 @@ public class ConstantsImpl {
 	String DokumentFavorisiertVonPerson = Constants.PubSub.AttributeKey.DOCUMENT_FAVORED_BY;
 	String DokKeywords = Constants.PubSub.AttributeKey.DOCUMENT_KEYWORDS;
 	//doppelt (String DokOrdner = Constants.PubSub.AttributeKey.DOCUMENT_FOLDER;)
-
 
 	// "UserInformationEvent"
 	String UserID = Constants.PubSub.AttributeKey.USER_ID;
@@ -61,21 +60,16 @@ public class ConstantsImpl {
 	String AbteilungHatMitarbeiter = Constants.PubSub.AttributeKey.DEPARTMENT_HAS_WORKER;
 	String AbteilungGehoertZuUnternehmen = Constants.PubSub.AttributeKey.DEPARTMENT_BELONGS_TO_COMPANY;
 
-
 // "AllProjectsEvent"
 	String ProjektNamen = Constants.PubSub.AttributeKey.PROJECT_NAMES;
-
 
 // "AllProjectRolesEvent"
 	String Projektrollen = Constants.PubSub.AttributeKey.PROJECT_ROLES;
 
-
 // "AllDepartmentsEvent"
 	String AbteilungNamen = Constants.PubSub.AttributeKey.DEPARTMENT_NAMES;
 
-
 // "AllCompaniesEvent"
 	String UnternehmenName = Constants.PubSub.AttributeKey.COMPANY_NAMES;
-
 
 }
