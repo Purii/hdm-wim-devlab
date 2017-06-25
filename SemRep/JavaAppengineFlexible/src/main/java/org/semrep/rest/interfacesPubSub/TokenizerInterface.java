@@ -1,9 +1,25 @@
 package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.*;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
+import de.hdm.wim.sharedLib.events.DepartmentInformationEvent;
+import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
+import de.hdm.wim.sharedLib.events.ProjectInformationEvent;
+import de.hdm.wim.sharedLib.events.UserInformationEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import org.apache.jena.query.*;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.UUID;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
@@ -13,29 +29,18 @@ import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.sql.Timestamp;
-import java.util.*;
-
 public class TokenizerInterface {
-
-	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
 
 	public static String[] inputArray = null;
 	public static ArrayList<String> personArrayList = null;
 	public static LinkedHashMap<String, String> richTokenHashMap = null;
 	public static LinkedHashMap<String, String> dokumentHashMap = null;
-
 	// Standard Variablen
 	public static String eventSessionID = "";
 	public static String eventUniqueID = "'null'";
 	public static int anzahlDokumente = 0;
-
+	private static JSONObject jsonObj;
+	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
@@ -87,7 +92,7 @@ public class TokenizerInterface {
 		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
 
@@ -132,7 +137,7 @@ public class TokenizerInterface {
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 
 	}
@@ -163,7 +168,7 @@ public class TokenizerInterface {
 		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
 
@@ -197,7 +202,7 @@ public class TokenizerInterface {
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(userInformationEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(userInformationEvent, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
 

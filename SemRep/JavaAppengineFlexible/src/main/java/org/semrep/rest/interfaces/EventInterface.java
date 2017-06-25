@@ -3,30 +3,20 @@ package org.semrep.rest.interfaces;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import java.sql.Timestamp;
-import java.util.*;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.UUID;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.semrep.rest.helper.EventNameConstants;
-import org.semrep.rest.helper.FusekiConfigConstants;
-import org.semrep.rest.helper.InitializeArrayData;
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.Event;
-import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
@@ -37,55 +27,58 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+import org.semrep.rest.businessObjects.Abteilung;
+import org.semrep.rest.businessObjects.Dokument;
+import org.semrep.rest.businessObjects.Person;
+import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.businessObjects.Projektrolle;
+import org.semrep.rest.businessObjects.Unternehmen;
+import org.semrep.rest.helper.EventNameConstants;
+import org.semrep.rest.helper.FusekiConfigConstants;
+import org.semrep.rest.helper.InitializeArrayData;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 /*
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
-import org.semrep.rest.businessObjects.*;
-
 @Path("/eventInterface")
 public class EventInterface {
-
-	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
 
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 	public static ResultSet resultSet;
 	public static QueryExecution queryExecution;
-
-	// ### initialisiere globale HashMaps
-	private static LinkedHashMap<String, String> eventLinkedHashMap = null;
-
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
 	public static HashMap<String, String> dokOfferHashMap = null;
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
 	public static HashMap<String, String> favDokHashMap = null;
 	public static HashMap<String, String> tmpFavDokHashMap = null;
-
-	// ### time stamp
-	private static Timestamp timestamp = null;
-	private static long timestampLong;
-
-	// ### initialisiere globale Objekte
-	private static Person personObj = null;
-	private static Projektrolle projektRolleObj = null;
 	public static Person personFavDokObj = null;
 	public static Dokument dokumentObj = null;
 	public static Projekt projektObj = null;
 	public static Abteilung abteilungObj = null;
 	public static Unternehmen unternehmenObj = null;
-
+	public static String eventUniqueID = "'null'";
+	private static JSONObject jsonObj;
+	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
+	// ### initialisiere globale HashMaps
+	private static LinkedHashMap<String, String> eventLinkedHashMap = null;
+	// ### time stamp
+	private static Timestamp timestamp = null;
+	private static long timestampLong;
+	// ### initialisiere globale Objekte
+	private static Person personObj = null;
+	private static Projektrolle projektRolleObj = null;
 	// ### initialisiere globale Variablen
 	// Standard Variablen
 	private static String sessionIDStr = "";
-	public static String eventUniqueID = "'null'";
 	private static String timeStampStr = "";
 	// Dokument-Objekt bezogen
 	private static String dok_IDStr = "";

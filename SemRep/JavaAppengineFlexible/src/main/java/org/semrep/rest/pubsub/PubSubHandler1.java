@@ -18,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 22/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_SEMREP_OFFERS,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_OFFERS
+	name = "Push with PubSub " + SEMREP_OFFERS.HANDLER_ID,
+	value = Config.PUSH_ENDPOINT_PREFIX + SEMREP_OFFERS.HANDLER_ID
 )
 public class PubSubHandler1 extends HttpServlet {
 
