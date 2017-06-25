@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="de.hdm.wim.pubSubWebapp.PubSubHome" contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="de.hdm.wim.sharedLib.Constants.RequestParameters" %>
 <%@ page import="de.hdm.wim.sharedLib.Constants.PubSub.Config" %>
+<%@ page import="de.hdm.wim.sharedLib.Constants.RequestParameters" %>
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +18,8 @@
     <title>Event Gruppe</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.rawgit.com/kybarg/mdl-selectfield/mdl-menu-implementation/mdl-selectfield.min.css">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="style.css">
 
@@ -26,7 +27,8 @@
 
 <body>
 <div class="mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+    <header
+        class="mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">PubSub</span>
         </div>
@@ -105,6 +107,24 @@
             </div>
             <div class="mdl-layout-spacer"></div>
         </div>
+        <div class="centeritems mdl-grid">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-cell--6-col">
+                <h3> Last received messages </h3>
+                <table class="mdl-data-table mdl-js-data-table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Data</th>
+                        <th>Attributes</th>
+                        <th>PublishTime</th>
+                    </tr>
+                    <%= PubSubHome.getReceivedMessages() %>
+                </table>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+
+
     </main>
 </div>
 

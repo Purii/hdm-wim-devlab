@@ -1,12 +1,22 @@
 package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
 import de.hdm.wim.sharedLib.events.InformationToAllDocumentsEvent;
 import de.hdm.wim.sharedLib.events.OfferEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.*;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
@@ -15,28 +25,13 @@ import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 public class UXInterface {
 	
-	private static JSONObject jsonObj;
-	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
-
-
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 	public static ResultSet resultSet;
 	public static QueryExecution queryExecution;
-	
 	// ### initialisiere globale HashMaps
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
@@ -44,28 +39,19 @@ public class UXInterface {
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
 	public static HashMap<String, String> favDokHashMap = null;
 	public static HashMap<String, String> tmpFavDokHashMap = null;
-
 	// ### time stamp
 	public static Timestamp timestamp = null;
-	private static long timestampLong;
-
 	// ### initialisiere globale Objekte
 	public static Dokumentvorschlag dokumentvorschlagObj = null;
 	public static Person personObj = null;
 	public static Person personFavDokObj = null;
-	
-	// ### initialisiere globale Variablen
-
 	// inputArray
 	public static String[] inputArray = null;
-
-	// Standard Variablen
-	private static String sessionIDStr = "";
 	public static String eventUniqueID = "'null'";
-	private static String timeStampStr = "";
-
 	// Dokument-Objekt bezogen
 	public static String dok_IDStr = "";
+
+	// ### initialisiere globale Variablen
 	public static String dok_NameStr = "";
 	public static String prioStr = "";
 	public static String dok_TypStr = "";
@@ -76,6 +62,12 @@ public class UXInterface {
 	public static String personNachname_Str = "";
 	public static String personName_Str = "";
 	public static int numFavDoks = 0;
+	private static JSONObject jsonObj;
+	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
+	private static long timestampLong;
+	// Standard Variablen
+	private static String sessionIDStr = "";
+	private static String timeStampStr = "";
 
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
@@ -429,7 +421,7 @@ public class UXInterface {
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
 	
@@ -498,7 +490,7 @@ public class UXInterface {
 		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
 		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
 

@@ -18,3 +18,12 @@ input:focus::-webkit-input-placeholder
 {
     color: transparent;
 }
+
+.mdl-js-data-table tr {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.mdl-data-table th {
+    text-align: left;
+}

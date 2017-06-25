@@ -2,6 +2,7 @@ package org.semrep.rest.pubsub;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_OFFERS;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -17,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 22/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_SEMREP_OFFERS,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_OFFERS //Constants am Ende ändern pro Handler
+	name = "Push with PubSub " + SEMREP_OFFERS.HANDLER_ID,
+	value = Config.PUSH_ENDPOINT_PREFIX + SEMREP_OFFERS.HANDLER_ID
 )
 public class PubSubHandler1 extends HttpServlet {
 
@@ -30,7 +31,7 @@ public class PubSubHandler1 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS);
+		LOGGER.info("Handler: " + SEMREP_OFFERS.HANDLER_ID);
 
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
@@ -48,7 +49,7 @@ public class PubSubHandler1 extends HttpServlet {
 		IEvent event = helper.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + Config.HANDLER_SEMREP_OFFERS + " event.getData(): " + event
+			LOGGER.info("Handler: " + SEMREP_OFFERS.HANDLER_ID + " event.getData(): " + event
 				.getData());
 
 			//Here we serialize the event to a String.

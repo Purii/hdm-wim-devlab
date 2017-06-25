@@ -109,52 +109,100 @@ public class Constants {
 		}
 
 		/**
-		 * Topic
-		 * Format: "my-test-topic-x"
+		 * Topics
 		 */
 		public static class Topic {
-			// test
-			public static final String TOPIC_1 = "topic-1";
-			public static final String TOPIC_2 = "topic-2";
-
-			//prod
-			public static final String SEMREP_INFORMATION 	= "semrep-information";
-			public static final String SEMREP_OFFERS 	= "semrep-offers";
-			public static final String GUI_FEEDBACK 	= "gui-feedback";
-			public static final String GUI_SESSIONINSIGHTS 	= "gui-sessioninsights";
-			public static final String GUI_INFORMATION 	= "gui-information";
-			public static final String ML_LEARNING 	= "ml-learning";
-			public static final String ST_TOKEN	= "st-token";
-			public static final String CEP_CONTEXT	= "cep-context";
-			public static final String CEP_SESSIONINSIGHTS 	= "cep-sessioninsights";
-			public static final String CEP_INSIGHT 	= "cep-insight";
 
 			// for message generator only
 			public static final List<String> list = Arrays.asList(
-				SEMREP_INFORMATION,
-				SEMREP_OFFERS,
-				GUI_FEEDBACK,
-				GUI_SESSIONINSIGHTS,
-				GUI_INFORMATION,
-				ML_LEARNING,
-				ST_TOKEN,
-				CEP_CONTEXT,
-				CEP_SESSIONINSIGHTS,
-				CEP_INSIGHT,
+				TOPIC_1.TOPIC_ID,
+				TOPIC_2.TOPIC_ID,
 
-				TOPIC_1,
-				TOPIC_2,
-				SEMREP_INFORMATION,
-				SEMREP_OFFERS,
-				GUI_FEEDBACK,
-				GUI_SESSIONINSIGHTS,
-				GUI_INFORMATION,
-				ML_LEARNING,
-				ST_TOKEN,
-				CEP_CONTEXT,
-				CEP_SESSIONINSIGHTS,
-				CEP_INSIGHT
+				SEMREP_INFORMATION.TOPIC_ID,
+				SEMREP_OFFERS.TOPIC_ID,
+				GUI_FEEDBACK.TOPIC_ID,
+				GUI_SESSIONINSIGHTS.TOPIC_ID,
+				GUI_INFORMATION.TOPIC_ID,
+				ML_LEARNING.TOPIC_ID,
+				ST_TOKEN.TOPIC_ID,
+				CEP_CONTEXT.TOPIC_ID,
+				CEP_SESSIONINSIGHTS.TOPIC_ID,
+				CEP_INSIGHT.TOPIC_ID
 			);
+
+			// test
+			public static class TOPIC_1 {
+
+				public static final String TOPIC_ID = "topic-1";
+				public static final String HANDLER_ID = "/event";
+			}
+
+			public static class TOPIC_2 {
+
+				public static final String TOPIC_ID = "topic-2";
+				public static final String HANDLER_ID = "/event";
+			}
+
+			// prod
+			public static class SEMREP_INFORMATION {
+
+				public static final String TOPIC_ID = "semrep-information";
+				public static final String HANDLER_ID = "/semrep-information";
+			}
+
+			public static class SEMREP_OFFERS {
+
+				public static final String TOPIC_ID = "semrep-offers";
+				public static final String HANDLER_ID = "/semrep-offers";
+			}
+
+			public static class GUI_FEEDBACK {
+
+				public static final String TOPIC_ID = "gui-feedback";
+				public static final String HANDLER_ID = "/gui-feedback";
+			}
+
+			public static class GUI_SESSIONINSIGHTS {
+
+				public static final String TOPIC_ID = "gui-sessioninsights";
+				public static final String HANDLER_ID = "/gui-sessioninsights";
+			}
+
+			public static class GUI_INFORMATION {
+
+				public static final String TOPIC_ID = "gui-information";
+				public static final String HANDLER_ID = "/gui-information";
+			}
+
+			public static class ML_LEARNING {
+
+				public static final String TOPIC_ID = "ml-learning";
+				public static final String HANDLER_ID = "/ml-learning";
+			}
+
+			public static class ST_TOKEN {
+
+				public static final String TOPIC_ID = "st-token";
+				public static final String HANDLER_ID = "/st-token";
+			}
+
+			public static class CEP_CONTEXT {
+
+				public static final String TOPIC_ID = "cep-context";
+				public static final String HANDLER_ID = "/cep-context";
+			}
+
+			public static class CEP_SESSIONINSIGHTS {
+
+				public static final String TOPIC_ID = "cep-sessioninsights";
+				public static final String HANDLER_ID = "/cep-sessioninsights";
+			}
+
+			public static class CEP_INSIGHT {
+
+				public static final String TOPIC_ID = "cep-insight";
+				public static final String HANDLER_ID = "/cep-insight";
+			}
 		}
 
 		/**
@@ -246,27 +294,6 @@ public class Constants {
 			public static final String LOCAL_ADDRESS = "http://localhost:8080";
 
 			public static final String APPSPOT_URL = "https://" + APP_ID + ".appspot.com";
-
-			// test
-			public static final String HANDLER_1 = "/event";
-			public static final String HANDLER_2 = "/gui";
-
-			/*
-			public static final String HANDLER_SEMREP_1 	= "/semRepHandler1";
-			public static final String HANDLER_GUI_1 		= "/guiWebapp";
-			public static final String HANDLER_SPEECH		= "/speedPush";
-			*/
-
-			public static final String HANDLER_CEP_CONTEXT = "/cep-context";
-			public static final String HANDLER_CEP_INSIGHTS = "/cep-insights";
-			public static final String HANDLER_CEP_SESSIONINSIGHTS = "/cep-sessioninsights";
-			public static final String HANDLER_GUI_FEEDBACK = "/gui-feedback";
-			public static final String HANDLER_GUI_INFORMATION = "/gui-information";
-			public static final String HANDLER_GUI_SESSIONINSIGHTS = "/gui-sessioninsights";
-			public static final String HANDLER_ML_LEARNING = "/ml-learning";
-			public static final String HANDLER_SEMREP_INFORMATION = "/semrep-information";
-			public static final String HANDLER_SEMREP_OFFERS = "/semrep-offers";
-			public static final String HANDLER_ST_TOKEN = "/st-token";
 		}
 
 		/**
