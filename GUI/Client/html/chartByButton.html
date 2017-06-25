@@ -7,8 +7,8 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <link rel="stylesheet" href="styleTabs.css">
-    <link rel="stylesheet" type="text/css" href="fancybox-master/dist/jquery.fancybox.min.css">
+     <link rel="stylesheet" href="../css/styleTabs.css">
+<link rel="stylesheet" type="text/css" href="../fancybox-master/dist/jquery.fancybox.min.css">
 
     <!--Google MDL-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,17 +16,16 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     <!-- MDL Theme Builder-->
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
-   
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"/>
+
     <!--MDL Google Icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>.navwrap{ margin:left 0Px; float=left;}</style>
 
 </head>
 <body>
-    <!-- Always shows a header, even in smaller screens. -->
+<!-- Always shows a header, even in smaller screens. -->
 
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
@@ -36,108 +35,76 @@
             <!-- Navigation. Immer sichtbar -->
             <nav class="mdl-navigation">
                 <!-- Navigation back to Landing Page -->
-                <a class="mdl-navigation__link" style= "color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
+                <a class="mdl-navigation__link" style="color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
                 <!-- Who is online -->
-                <a class="mdl-navigation__link" id="menu_online" style= "color: white">
+                <a class="mdl-navigation__link" id="menu_online" style="color: white">
                     <i class="material-icons">
-                    info_outline</i>
+                        info_outline</i>
                 </a>
                 <!-- Google Drive -->
-                <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" 
-                   data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
+                <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe"
+                   data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list"
+                   href="javascript:;">
                     <i class="material-icons">
                         change_history
                     </i>
                 </a>
                 <!-- Help -->
-                <a class="mdl-navigation__link" id="menu_help" style= "color: white"><i class="material-icons">help_outline</i></a>
-                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
-                    <i class="material-icons">account_circle</i>
-                </a>
-            </nav>    
-            <!-- Buttons gehören an andere Stelle     
-                <!-- Change Data->
-                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
-                    <i class="material-icons">account_circle</i>
-                </a>
-                
-                <!--Logout->
-                <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
-                    <!--Button mit ripples und Farbe->
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Logout
-                    </button>
-                </a>
-            -->    
-            
+                <a class="mdl-navigation__link" id="menu_help" style="color: white"><i class="material-icons">help_outline</i></a>
+            </nav>
+
 
             <!-- Content for menues-->
             <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_help">
-                        <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
-                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
-                </ul>
-                
-                <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom- mdl-js-menu mdl-js-ripple-effect" for="menu_online">
-                        <li style= "margin: 10px"><p>Online:<p></li>
-                        <li style= "margin: 10px"><p>Neue Textzeite<p></li>
-                    </ul>
-                    <ul id="log"></ul>
+                <li style="margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr
+                    <p></li>
+                <li style="margin: 10px"><p>Neue Textzeite
+                    <p></li>
+            </ul>
+
+            <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom- mdl-js-menu mdl-js-ripple-effect"
+                for="menu_online">
+                <li style="margin: 10px"><p>Online:
+                    <p></li>
+                <li style="margin: 10px"><p>Neue Textzeite
+                    <p></li>
+            </ul>
+
         </div>
     </header>
-   
+
     <main class="mdl-layout__content">
         <div class="page-content">
             <!-- Your content goes here -->
 
 
+            <div class="tab" id="tabList">
+                <button class="tablinks" onclick="openTab(event, 'KoBoRa')"  id="defaultOpen">KoBoRa</button>
+
+            </div>
+
+
+            <div id="contentForTabs">
+                <div id="KoBoRaBody" class="tabcontent">
+
+                    <h3>KoBoRa System</h3>
+                    <p>bla bla</p>
+
+
+                    <div id="chart_div" style="width: 95%; height: 600px;"></div>
 
 
 
-            <!--Tabs von Materials-->
-          
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" >
-                <!--Bennenung und erzeugen der Tabs-->
-                <div class="navwrap">
-                    <div class="mdl-tabs__tab-bar">
-                        <a href="#kachel-panel" class="mdl-tabs__tab is-active"> Name Kachelwand</a>
-                        <a href="#dok1-panel" class="mdl-tabs__tab">Name Dok1</a>
-                        <a href="#dok2-panel" class="mdl-tabs__tab">Name Dok2</a>
-                    </div>
-                </div>
-                    <!---->
-                    <div class="mdl-tabs__panel is-active" id="kachel-panel">
-                        <div id="KoBoRaBody" class="tabcontent">
-                            <h3>KoBoRa System</h3>
-                            <p>bla bla</p>
-                            <div id="chart_div" style="width: 900px; height: 500px"></div>
-                            <button id="drawChartButton">
-                                Zeichne
-                            </button>
-                        </div>
-                        <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin"
-              style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
-                    </div>
-                    <div class="mdl-tabs__panel" id="dok-panel">
-                        <ul>
-                            <li>Hier Steht das Dok</li>
-                            <li>Cersei</li>
-                            <li>Jamie</li>
-                            <li>Tyrion</li>
-                        </ul>
-                    </div>
-                    <div class="mdl-tabs__panel" id="targaryens-panel">
-                        <ul>
-                            <li>Viserys</li>
-                            <li>Daenerys</li>
-                        </ul>
-                    </div>
+
+                    <button id="drawChartButton">
+                        Zeichne
+                    </button>
                 </div>
 
+            </div>
+            <ul id="log"> hier log</ul>
 
-
-
-
-            <!-- 
+            <!--
             <div class="tab" id="tabList">
                 <button class="tablinks" onclick="openTab(event, 'KoBoRa')" id="defaultOpen">KoBoRa</button>
             </div>
@@ -148,25 +115,16 @@
 
         </div>
     </main>
-    </div>
-
-   
+</div>
 
 
-
-      
-
-<script type="text/javascript" src="drawChartByButton.js"></script>
-<script type="text/javascript" src="tabs.js"></script>
-<script type="text/javascript" src="controlFunctions.js"></script>
-<script src="fancybox-master/dist/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="../js/drawChartByButton.js"></script>
+<script type="text/javascript" src="../js/tabsMG.js"></script>
+<!--<script type="text/javascript" src="controlFunctions.js"></script>-->
+<script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
 
 
 <script src="../js/client.js"></script>
-
-<!-- Markus JS für Inhalt -->
-
-
 
 
 </body>

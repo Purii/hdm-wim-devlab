@@ -1,6 +1,10 @@
 var socket = new WebSocket('ws://localhost:8081/');
 var meetingRaumID = window.location.toString().split('=');
-var raumID = meetingRaumID[1].toString().split("#");
+var raumID = meetingRaumID[1].toString().split("?");
+raumID = raumID[0].toString().split('#');
+raumID = raumID[0];
+
+//document.getElementById('drawChartButton').onclick =alert("in : " +raumID);
 
 var sendetAllreadyGoogleInfos = [];
 
@@ -145,13 +149,13 @@ function readCookie(name) {
 var googleTokenId = readCookie("Google_ID");
 
 
-var googleData = googleTokenId.split("_");
+//var googleData = googleTokenId.split("_");
 //alert(googleData[7]);
 
-var gmailAdress = googleData[7];
+//var gmailAdress = googleData[7];
 
 
-document.getElementById('naviButtonList').innerHTML += '<a data-fancybox data-type="iframe" data-src="https://calendar.google.com/calendar/embed?src='+gmailAdress+'&ctz=Europe/Berlin" href="javascript:;"> <button id="calendar" >Calendar</button> </a>';
+//document.getElementById('naviButtonList').innerHTML += '<a data-fancybox data-type="iframe" data-src="https://calendar.google.com/calendar/embed?src='+gmailAdress+'&ctz=Europe/Berlin" href="javascript:;"> <button id="calendar" >Calendar</button> </a>';
 
 socket.onopen = function (event) {
 
