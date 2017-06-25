@@ -29,7 +29,7 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Proud</span>
+            <span class="mdl-layout-title"><img src="../images/logo/Wolkenlogo 40x40.png" alt="Wolkenlogo 40x40"></span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. Immer sichtbar -->
@@ -38,21 +38,17 @@
                 <a class="mdl-navigation__link" style="color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
                 <!-- Who is online -->
                 <a class="mdl-navigation__link" id="menu_online" style="color: white">
-                    <i class="material-icons">
-                        info_outline</i>
+                    <i class="material-icons">info_outline</i>
                 </a>
                 <!-- Google Drive -->
-                <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe"
-                   data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list"
-                   href="javascript:;">
-                    <i class="material-icons">
-                        change_history
-                    </i>
+                <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
+                    <i class="material-icons">change_history</i>
                 </a>
                 <!-- Help -->
-                <a class="mdl-navigation__link" id="menu_help" style="color: white"><i class="material-icons">help_outline</i></a>
+                <a class="mdl-navigation__link" id="menu_help" style="color: white">
+                    <i class="material-icons">help_outline</i>
+                </a>
             </nav>
-
 
             <!-- Content for menues-->
             <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_help">
@@ -61,13 +57,11 @@
                 <li style="margin: 10px"><p>Neue Textzeite
                     <p></li>
             </ul>
-
-            <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom- mdl-js-menu mdl-js-ripple-effect"
-                for="menu_online">
-                <li style="margin: 10px"><p>Online:
-                    <p></li>
-                <li style="margin: 10px"><p>Neue Textzeite
-                    <p></li>
+            <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_online">
+                <li style= "margin: 10px"><p>Online:<p></li>
+                <li style= "margin: 10px"><p>**wer ist online?**<p></li>
+                <li class= "mdl-menu__item--full-bleed-divider"></li>
+                <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="toDo" href="javascript:;">Send Invitation </li>
             </ul>
 
         </div>
@@ -76,33 +70,20 @@
     <main class="mdl-layout__content">
         <div class="page-content">
             <!-- Your content goes here -->
-
-
             <div class="tab" id="tabList">
-                <button class="tablinks" onclick="openTab(event, 'KoBoRa')"  id="defaultOpen">KoBoRa</button>
-
+                <button class="tablinks" onclick="openTab(event, 'KoBoRa')" id="defaultOpen">Recommendations</button>
             </div>
-
 
             <div id="contentForTabs">
                 <div id="KoBoRaBody" class="tabcontent">
-
-                    <h3>KoBoRa System</h3>
-                    <p>bla bla</p>
-
-
+                    <!--<h3>KoBoRa System</h3>-->
                     <div id="chart_div" style="width: 95%; height: 600px;"></div>
-
-
-
-
                     <button id="drawChartButton">
                         Zeichne
                     </button>
                 </div>
-
             </div>
-            <ul id="log"> hier log</ul>
+            <!-- <ul id="log"> hier log</ul> -->
 
             <!--
             <div class="tab" id="tabList">
@@ -118,13 +99,13 @@
 </div>
 
 
-<script type="text/javascript" src="../js/drawChartByButton.js"></script>
-<script type="text/javascript" src="../js/tabsMG.js"></script>
-<!--<script type="text/javascript" src="controlFunctions.js"></script>-->
-<script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="../js/drawChartByButton.js"></script>
+    <script type="text/javascript" src="../js/tabsMG.js"></script>
+    <!--<script type="text/javascript" src="controlFunctions.js"></script>-->
+    <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
 
 
-<script src="../js/client.js"></script>
+    <script src="../js/client.js"></script>
 
 
 </body>
