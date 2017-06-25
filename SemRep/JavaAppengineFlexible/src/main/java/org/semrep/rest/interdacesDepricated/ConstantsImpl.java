@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interdacesDepricated;
 
 import de.hdm.wim.sharedLib.Constants;
 

@@ -50,7 +50,7 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
 public class EventInterface {
 
 	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 	public static ResultSet resultSet;
 	public static QueryExecution queryExecution;
@@ -143,7 +143,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getProjectInformation();
+			getAllProjectRoles();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

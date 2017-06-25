@@ -1,11 +1,7 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interdacesDepricated;
 
-import java.io.File;
-import java.io.FileReader;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,15 +10,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.hdm.wim.sharedLib.Constants;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
@@ -33,20 +26,44 @@ import org.semrep.rest.businessObjects.Projekt;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
 
+/**
+ * The type Tokenizer interface.
+ */
 @Path("/tokenizerInterface")
 public class TokenizerInterface {
 
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
 
+	/**
+	 * The Input array.
+	 */
 	public static String[] inputArray = null;
+	/**
+	 * The Person array list.
+	 */
 	public static ArrayList<String> personArrayList = null;
+	/**
+	 * The Rich token hash map.
+	 */
 	public static LinkedHashMap<String, String> richTokenHashMap = null;
+	/**
+	 * The Dokument hash map.
+	 */
 	public static LinkedHashMap<String, String> dokumentHashMap = null;
 
-	// Standard Variablen
+	/**
+	 * The constant eventSessionID.
+	 */
+// Standard Variablen
 	public static String eventSessionID = "";
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
+	/**
+	 * The constant anzahlDokumente.
+	 */
 	public static int anzahlDokumente = 0;
 
 	// ### time stamp
@@ -54,6 +71,9 @@ public class TokenizerInterface {
 	private static long timestampLong;
 
 
+	/**
+	 * Tokenizer interface main.
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getTokenizerEvent")
@@ -69,6 +89,11 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 
 		//Path
@@ -149,7 +174,12 @@ public class TokenizerInterface {
 
 	}
 
-	// produce
+	/**
+	 * Gets department information.
+	 *
+	 * @return the department information
+	 */
+// produce
 	// consume
 	// produce DepartmentInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
@@ -174,7 +204,12 @@ public class TokenizerInterface {
 
 	}
 
-	// produce
+	/**
+	 * Gets user information.
+	 *
+	 * @return the user information
+	 */
+// produce
 	// consume
 	// produce UserInformationEvent
 	@Produces(MediaType.APPLICATION_JSON)
@@ -198,6 +233,9 @@ public class TokenizerInterface {
 		return Response.status(200).entity(jsonObj.toString()).build();
 	}
 
+	/**
+	 * Sets array data.
+	 */
 	public static void setArrayData() {
 
 		// inputArray = new String[4];
@@ -221,9 +259,14 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets meta data.
+	 *
+	 * @return the meta data
+	 */
 	public static LinkedHashMap<String, String> getMetaData() {
 
-		// String filePath = "src/semRepServices/interfaces/Ontology.owl";
+		// String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
 		// OntModel ontologyModel =
 		// ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 

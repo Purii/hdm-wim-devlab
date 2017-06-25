@@ -1,9 +1,21 @@
 package org.semrep.rest.helper;
 
+/**
+ * The type Initialize array data.
+ */
 public class InitializeArrayData {
-	
+
+	/**
+	 * The Input array.
+	 */
 	public String[] inputArray;
-	
+
+	/**
+	 * Initialize array demo data string [ ].
+	 *
+	 * @param eventType the event type
+	 * @return the string [ ]
+	 */
 	public String[] initializeArrayDemoData(String eventType) {
 
 		if (eventType == EventNameConstants.OFFER_EVENT){

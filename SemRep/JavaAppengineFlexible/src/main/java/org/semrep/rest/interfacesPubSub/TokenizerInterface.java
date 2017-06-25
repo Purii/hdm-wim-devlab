@@ -235,7 +235,7 @@ public class TokenizerInterface {
 
 	public static LinkedHashMap<String, String> getMetaData() {
 
-		// String filePath = "src/semRepServices/interfaces/Ontology.owl";
+		// String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
 		// OntModel ontologyModel =
 		// ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 

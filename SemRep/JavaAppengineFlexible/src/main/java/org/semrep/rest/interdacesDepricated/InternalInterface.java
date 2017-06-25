@@ -1,6 +1,5 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interdacesDepricated;
 
-import java.util.LinkedHashMap;
 import java.util.UUID;
 import java.util.*;
 import javax.ws.rs.Consumes;
@@ -19,7 +18,6 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
-import org.json.simple.JSONObject;
 
 /*
 import com.google.appengine.labs.repackaged.org.json.JSONObject;

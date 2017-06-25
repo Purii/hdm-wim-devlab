@@ -28,7 +28,7 @@ import org.semrep.rest.helper.FusekiConfigConstants;
 public class UXInterface {
 	
 	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 	public static ResultSet resultSet;
 	public static QueryExecution queryExecution;

@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interdacesDepricated;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.hdm.wim.sharedLib.Constants;
@@ -46,25 +46,76 @@ import org.semrep.rest.helper.InitializeArrayData;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
+/**
+ * The type Event interface.
+ */
 @Path("/eventInterface")
 public class EventInterface {
 
-	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
+	/**
+	 * The constant filePath.
+	 */
+// ### initialisiere globale Jena-Variablen
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
+	/**
+	 * The constant ontologyModel.
+	 */
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+	/**
+	 * The constant resultSet.
+	 */
 	public static ResultSet resultSet;
+	/**
+	 * The constant queryExecution.
+	 */
 	public static QueryExecution queryExecution;
+	/**
+	 * The Dok offer linked hash map.
+	 */
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
+	/**
+	 * The Alle dokumente linked hash map.
+	 */
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
+	/**
+	 * The Dok offer hash map.
+	 */
 	public static HashMap<String, String> dokOfferHashMap = null;
+	/**
+	 * The Tmp dok offer hash map.
+	 */
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	/**
+	 * The Fav dok hash map.
+	 */
 	public static HashMap<String, String> favDokHashMap = null;
+	/**
+	 * The Tmp fav dok hash map.
+	 */
 	public static HashMap<String, String> tmpFavDokHashMap = null;
+	/**
+	 * The constant personFavDokObj.
+	 */
 	public static Person personFavDokObj = null;
+	/**
+	 * The constant dokumentObj.
+	 */
 	public static Dokument dokumentObj = null;
+	/**
+	 * The constant projektObj.
+	 */
 	public static Projekt projektObj = null;
+	/**
+	 * The constant abteilungObj.
+	 */
 	public static Abteilung abteilungObj = null;
+	/**
+	 * The constant unternehmenObj.
+	 */
 	public static Unternehmen unternehmenObj = null;
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
@@ -140,6 +191,11 @@ public class EventInterface {
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
@@ -149,6 +205,11 @@ public class EventInterface {
 		}
 	}
 
+	/**
+	 * Execute sparql.
+	 *
+	 * @param sparql the sparql
+	 */
 	public static void executeSparql(String sparql) {
 		// Initialisierung und Ausführung einer SPARQL-Query
 		// Query query = QueryFactory.create(sparql);
@@ -164,6 +225,13 @@ public class EventInterface {
 		resultSet = queryExecution.execSelect();
 	}
 
+	/**
+	 * Loop through results linked hash map.
+	 *
+	 * @param y         the y
+	 * @param eventType the event type
+	 * @return the linked hash map
+	 */
 	public static LinkedHashMap<String, String> loopThroughResults(int y, String eventType) {
 
 		// initialisiere Variablen
@@ -843,7 +911,13 @@ public class EventInterface {
 
 	}
 
-	// produce
+	/**
+	 * Gets user information.
+	 *
+	 * @return the user information
+	 * @throws Exception the exception
+	 */
+// produce
 	// consume
 	// produce UserInformationEvent
 	@GET
@@ -959,7 +1033,13 @@ public class EventInterface {
 
 	}
 
-	// produce
+	/**
+	 * Gets document information.
+	 *
+	 * @return the document information
+	 * @throws Exception the exception
+	 */
+// produce
 	// consume
 	// produce DocumentInformationEvent
 	@GET
@@ -1064,7 +1144,13 @@ public class EventInterface {
 
 	}
 
-	// produce
+	/**
+	 * Gets project information.
+	 *
+	 * @return the project information
+	 * @throws Exception the exception
+	 */
+// produce
 	// consume
 	// produce ProjectInformationEvent
 	@GET
@@ -1172,6 +1258,12 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets department information.
+	 *
+	 * @return the department information
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDepartmentInformation")
@@ -1277,6 +1369,12 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all projects.
+	 *
+	 * @return the all projects
+	 * @throws Exception the exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getAllProjects")
@@ -1364,6 +1462,12 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all project roles.
+	 *
+	 * @return the all project roles
+	 * @throws Exception the exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getAllProjectRoles")
@@ -1450,6 +1554,12 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all departments.
+	 *
+	 * @return the all departments
+	 * @throws Exception the exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getAllDepartments")
@@ -1536,6 +1646,12 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all companies.
+	 *
+	 * @return the all companies
+	 * @throws Exception the exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getAllCompanies")
@@ -1621,7 +1737,12 @@ public class EventInterface {
 
 	}
 
-	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
+	/**
+	 * Insert new user information.
+	 *
+	 * @throws Exception the exception
+	 */
+// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
 	// abteilungStr, projektStr, projektrolleStr
 	public static void insertNewUserInformation() throws Exception {
 
@@ -1699,7 +1820,12 @@ public class EventInterface {
 
 	}
 
-	// Parameter: dokName, dokKontext
+	/**
+	 * Insert new document context.
+	 *
+	 * @throws Exception the exception
+	 */
+// Parameter: dokName, dokKontext
 	public static void insertNewDocumentContext() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CONTEXT_EVENT;
@@ -1748,7 +1874,12 @@ public class EventInterface {
 
 	}
 
-	// Parameter: sessionID, personVorname, personNachname, dokName
+	/**
+	 * Insert new document call.
+	 *
+	 * @throws Exception the exception
+	 */
+// Parameter: sessionID, personVorname, personNachname, dokName
 	public static void insertNewDocumentCall() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
@@ -1815,7 +1946,12 @@ public class EventInterface {
 
 	}
 
-	// Parameter: personVorname, personNachname, dokName
+	/**
+	 * Insert new favorite document.
+	 *
+	 * @throws Exception the exception
+	 */
+// Parameter: personVorname, personNachname, dokName
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;
