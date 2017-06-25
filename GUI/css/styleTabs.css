@@ -48,10 +48,28 @@ div.tab button.active {
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
-.closeTab{
+.closeButtons{
     color: red;
-    size: 15px;
     float: right;
-    margin-right: 10% ;
+}
+.displayedDocs{
+    width: 95%;
+    min-height: 800px;
+    margin: auto;
+}
+#naviButtonList{
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+.openinBrowserTab{
+    float: right;
+}
+#listOFLoggedInUSers{
+    float: right;
+    width: 20%;
 }
