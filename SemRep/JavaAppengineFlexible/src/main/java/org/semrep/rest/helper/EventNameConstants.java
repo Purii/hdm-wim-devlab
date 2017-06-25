@@ -1,7 +1,8 @@
 package org.semrep.rest.helper;
 
 /**
- * Created by mateo_alliaj on 24.06.17.
+ * @author mateo_alliaj
+ * Konstanten für alle Event-Bezeichnungen zur Wiederverwendung im gesamten Projekt
  */
 public class EventNameConstants {
 

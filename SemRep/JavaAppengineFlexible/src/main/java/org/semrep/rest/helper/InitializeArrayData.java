@@ -1,7 +1,8 @@
 package org.semrep.rest.helper;
 
 /**
- * The type Initialize array data.
+ * @author Kristjan Alliaj
+ * Intitalisiert String Arrays mit Testdaten für die Methoden-Tests
  */
 public class InitializeArrayData {
 

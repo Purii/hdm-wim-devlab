@@ -1,12 +1,23 @@
 package org.semrep.rest.helper;
 
 /**
- * Created by mateo_alliaj on 25.06.17.
+ * The type Token demo data.
+ *
+ * @author bjoernZimmermann  Token Demo Daten zum Testen der Klasse DynamicTokenConcatenater
  */
 public class TokenDemoData {
 
 	public static String[] inputArray;
 
+
+	/**
+	 * Simulate token data string [ ].
+	 *
+	 * @param arrayLength the array length
+	 * @param eventType   the event type
+	 * @return the string [ ]
+	 *
+	 */
 	public static String[] simulateTokenData(int arrayLength, String eventType) {
 
 		// 0 Tokens
@@ -26,7 +37,6 @@ public class TokenDemoData {
 			inputArray[2] = "Videokonferenz"; // context
 			inputArray[3] = "milestone"; // keyword
 
-
 		}
 
 		// 2 Token
@@ -38,7 +48,6 @@ public class TokenDemoData {
 			inputArray[2] = "Videokonferenz"; // context
 			inputArray[3] = "milestone"; // keyword
 			inputArray[4] = "tasks"; // keyword
-
 
 			// 3 Token
 		} if (arrayLength == 6 && eventType == EventNameConstants.TOKEN_EVENT){
@@ -84,10 +93,8 @@ public class TokenDemoData {
 
 		}
 
-
 		return inputArray;
 
 	}
-
 
 }

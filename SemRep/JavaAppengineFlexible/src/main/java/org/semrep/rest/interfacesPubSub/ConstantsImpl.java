@@ -52,7 +52,7 @@ public class ConstantsImpl {
 	String ProjektGehoertZuAbteilung = Constants.PubSub.AttributeKey.PROJECT_BELONGS_TO_DEPARTMENT;
 	String ProjektHatProjektmitglied = Constants.PubSub.AttributeKey.PROJECT_HAS_MEMBERS;
 	String ProjektHatDokument = Constants.PubSub.AttributeKey.PROJECT_HAS_DOCUMENTS;
-	
+
 // "DepartmentInformationEvent"
 	String AbteilungID = Constants.PubSub.AttributeKey.DEPARTMENT_ID;
 	String AbteilungName = Constants.PubSub.AttributeKey.DEPARTMENT_NAME;

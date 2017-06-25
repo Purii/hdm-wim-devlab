@@ -7,6 +7,12 @@ import java.util.Random;
 
 /**
  * The type Dynamic token concatenater.
+ * @author Kristjan Alliaj
+ *
+ * Verarbeitet eine variierende Anzahl von Keywords.
+ * Alle Keywords werden miteinander verkettet und so ein Zusatz
+ * für die Sparql für die Methode getDocumentOffers() erzeugt.
+ *
  */
 public class DynamicTokenConcatenater {
 
@@ -23,6 +29,9 @@ public class DynamicTokenConcatenater {
 	 *
 	 * @param inputArray the input array
 	 * @return the string
+	 *
+	 * Verkettung der Keywords.
+	 *
 	 */
 	public static String concatenateToken(String[] inputArray){
 
