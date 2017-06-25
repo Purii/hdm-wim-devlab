@@ -27,6 +27,7 @@ import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.helper.DynamicTokenConcatenater;
 import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
@@ -358,6 +359,8 @@ public class TokenizerInterface {
 				// Dokumente
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
+
+					String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "

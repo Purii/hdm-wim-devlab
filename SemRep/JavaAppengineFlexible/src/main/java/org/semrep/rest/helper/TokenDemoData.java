@@ -12,7 +12,6 @@ public class TokenDemoData {
 		// 0 Tokens
 		if (arrayLength == 3 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[3];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -21,7 +20,6 @@ public class TokenDemoData {
 			// 1 Token
 		} if (arrayLength == 4 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[4];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -34,7 +32,6 @@ public class TokenDemoData {
 		// 2 Token
 		if (arrayLength == 5 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[5];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -46,7 +43,6 @@ public class TokenDemoData {
 			// 3 Token
 		} if (arrayLength == 6 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[6];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -58,7 +54,6 @@ public class TokenDemoData {
 			// 6 Token
 		} if (arrayLength == 8 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[9];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -73,7 +68,6 @@ public class TokenDemoData {
 			// 9 Token
 		} if (arrayLength == 11 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[12];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
