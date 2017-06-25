@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+
+</head>
+
+
+<body style="background: #f3f3f3; font-family: arial;">
+<div style="
+	with:960px;
+	width: 600px;
+    background: #fff;
+    padding: 40px;
+    padding-top: 20px;
+    margin: 0 auto;
+">
+
+
+<h1>SemRep Projekt 1 </h1>
+<h4>[Endpoints mit Jersey]  </h4>
+
+Dieses Projekt wird auf der AppengineFlexible ausgeführt und bietet verschiedene Endpoints an. 
+Das Projekt ist ein Studienprojekt und stellt einen Prototyp dar. Der Prototyp stellt anderen 
+Komponenten bzw. Gruppen über verschiedene Endpoints Daten zur Verfügung. Diese Daten
+sind in einer Ontologie hinterlegt und werden mit dem Jena Framework manipuliert.
+
+Dieses Projekt funktoniert <a href="https://cloud.google.com/pubsub/docs/overview">ohne PubSub</a>. Das gleiche Projekt mit Google Pub Sub Integration 
+finden Sie neben weiteren Informationen auf dem GitHub-Repository des Studienprojekts:
+
+<ul class="list">
+<li> <a href="http://localhost:8080/rest/uxInterface/getDocumentOffers">GitRepository</a></li>
+</ul>
+
+
+<h2 >GUI </h2>
+Diese Komponente ist für die Anzeige der abgeleiteten Dokumentenvorschläge verantwortlich. 
+Zudem stellt die Gruppte eine Dokumenthistorie zur Verfügung, die zuvor aufgerufte 
+Dokumente eines Nutzer enthält.In diesem Testfall sind statische Keywörter 
+als Demodaten hinterlegt.
+
+
+<h5>Endpoints:</h5>
+
+<div class="box">
+<ul class="list">
+<li> <a href="http://localhost:8080/rest/uxInterface/getDocumentOffers">getDocumentOffers</a></li>
+<li> <a href="http://localhost:8080/rest/uxInterface/getAllDocuments">getAllDocuments</a></li>
+</ul>
+</div>
+
+
+
+
+
+<h2 >Event Interface</h2>
+
+Dem EventInferface stellen wir Getter zur verfügung, 
+so dass diese Daten aus der Ontologie abfragen können.Auf Basis der Daten werden 
+von der Komponente komplexe Events gebaut.In diesem Testfall sind statische Keywörter 
+als Demodaten hinterlegt.
+
+
+<h5>Endpoints:</h5>
+<div class="box">
+<ul class="list">
+<li> <a href="http://localhost:8080/rest/eventInterface/getUserInformation">getUserInformation</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getDocumentInformation">getDocumentInformation</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getProjectInformation">ProjectInformation</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getDepartmentInformation">getDepartmentInformation</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getAllProjects">getAllProjects</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getAllProjectRoles">getAllProjectRoles</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getAllDepartments">getAllDepartments</a></li>
+<li> <a href="http://localhost:8080/rest/eventInterface/getAllCompanies">getAllCompanies</a></li>
+</ul>
+</div>
+
+<h2 >Tokenizer Interface</h2>
+Das Tokenizer Interface wird benutz um Metadaten die sich in der Ontologie
+auf Basis von Keywörter zuzuordnen. In diesem Testfall sind statische Keywörter 
+als Demodaten hinterlegt.
+
+<div class="box">
+<ul class="list">
+<li> <a href="http://localhost:8080/rest/tokenizerInterface/getTokenizerMetadata">getTokenizerMetadata</a></li>
+</ul>
+</div>
+
+<h2 >Internalinterface</h2>
+Das Internal Interface wird von dem Semrep-GoogleAddin benutzt. Mit diesem lassen sich 
+Metadaten generieren. Das Addin liest alle Projekte, Dokumentenkategorien und Projektpahsen aus. 
+Sind Metadaten zum Dokument über ads Addin eingefügt, so können diese in der Ontologie
+aktualiert und gespeichert werden. 
+
+<h5>Endpoints:</h5>
+
+<div class="box">
+<ul class="list">
+<li> <a href="http://localhost:8080/rest/Internal/getdoccategory">getdoccategory</a></li>
+<li> <a href="http://localhost:8080/rest/Internal/getprojects">getprojects</a></li>
+<li> <a href="http://localhost:8080/rest/Internal/getprojectstage">getprojectstage</a></li>
+<li> <a href="http://localhost:8080/rest/Internal/insertMetadata">insertMetadata</a></li>
+</ul>
+</div>
+
+<h2 >Machine Learning</h2>
+
+
+</div>
+</body>
+
+</html>
