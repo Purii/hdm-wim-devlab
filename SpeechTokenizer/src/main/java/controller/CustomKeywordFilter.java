@@ -17,9 +17,9 @@ public class CustomKeywordFilter {
 	
 		public KeywordFilter keywordFilter(String textResultat){
 			/*Linux-Path please uncomment when uplaoding to the server*/
-	        String csvFile = "/opt/keyword-list/keyword-list.csv";
+	        //String csvFile = "/opt/keyword-list/keyword-list.csv";
 			
-			//String csvFile = "WebContent/keyword-list.csv";
+			String csvFile = "/opt/speech/keyword-list/keyword-list.csv";
 			
 	        BufferedReader br = null;
 	        String line = "";

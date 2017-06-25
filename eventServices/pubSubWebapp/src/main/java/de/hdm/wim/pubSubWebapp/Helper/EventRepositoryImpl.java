@@ -22,6 +22,7 @@ import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import java.util.ArrayList;
@@ -110,7 +111,6 @@ public class EventRepositoryImpl implements EventRepository {
 
 	@Override
 	public List<IEvent> retrieve(int limit) {
-		LOGGER.info("retrieve");
 		// Get events saved in Datastore
 		Datastore datastore = getDatastoreInstance();
 		Query<Entity> query =
@@ -120,10 +120,8 @@ public class EventRepositoryImpl implements EventRepository {
 				.setLimit(limit)
 				.addOrderBy(StructuredQuery.OrderBy.desc("publishTime"))
 				.build();
-		LOGGER.info("retrieve1");
 
 		QueryResults<Entity> results = datastore.run(query);
-		LOGGER.info("retrieve2");
 		List<IEvent> events = new ArrayList<>();
 
 		while (results.hasNext()) {
@@ -154,6 +152,74 @@ public class EventRepositoryImpl implements EventRepository {
 				if (handlerId != null) {
 					//event.(data);
 					LOGGER.info(handlerId);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+			try {
+				String publishTime = entity.getString("publishTime");
+				if (publishTime != null) {
+					event.setPublishTime(publishTime);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+			try {
+				events.add(event);
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+		}
+
+		return events;
+	}
+
+	@Override
+	public List<IEvent> retrieve(int limit, String handlerId) {
+		// Get events saved in Datastore
+		Datastore datastore = getDatastoreInstance();
+		Query<Entity> query =
+			Query.newEntityQueryBuilder()
+				.setKind(eventsKind)
+				.setFilter(PropertyFilter.eq("handlerId", handlerId))
+				.setLimit(limit)
+				.addOrderBy(StructuredQuery.OrderBy.desc("publishTime"))
+				.build();
+
+		QueryResults<Entity> results = datastore.run(query);
+		List<IEvent> events = new ArrayList<>();
+
+		while (results.hasNext()) {
+			Entity entity = results.next();
+
+			Event event = new Event(entity.getString("eventId"));
+
+			try {
+				String data = entity.getString("data");
+				if (data != null) {
+					event.setData(data);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+			try {
+				String attributes = entity.getString("attributes");
+				if (attributes != null) {
+					event.setAttributes(attributes);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+			try {
+				String handlrId = entity.getString("handlerId");
+				if (handlrId != null) {
+					event.setHandlerId(handlrId);
+					LOGGER.info(handlrId);
 				}
 			} catch (Exception e) {
 				LOGGER.info("attributes");
