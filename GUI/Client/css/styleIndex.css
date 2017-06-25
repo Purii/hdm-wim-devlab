@@ -6,7 +6,6 @@
 .demo-card-square > .mdl-card__title {
   color: #fff;
 }
-<<<<<<< HEAD
 #cardHangouts{
     background:
     url('../images/logo/Google-Hangouts-logo.jpg') bottom right 15% no-repeat #006600;
@@ -14,13 +13,9 @@
 #cardSession{
     background:
     url('../images/logo/Schriftzug 320x200.png') bottom right 15% no-repeat #ff6600;
-=======
 
-
-
-div#KoBoRaBody{
+sdiv#KoBoRaBody{
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
->>>>>>> branch 'master' of https://github.com/Purii/hdm-wim-devlab.git
 }
