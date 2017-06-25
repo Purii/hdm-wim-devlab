@@ -2,6 +2,7 @@ package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.HighlyRelevantDocumentPattern;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.PassiveLogoutPattern;
 import de.hdm.wim.eventServices.eventProcessing.cep.patterns.SessionEndPattern;
 import de.hdm.wim.sharedLib.Constants;
@@ -102,14 +103,14 @@ public class RunFlink {
 				.sum(1);*/
 
 
-			DataStream<Tuple2<String,Integer>> usersInSession = env
-				.socketTextStream("localhost", 8081)
+	/*		DataStream<Tuple2<String,Integer>> usersInSession = env
+				.socketTextStream("localhost", 9999)
 				.flatMap(new UserPerSessionSplitter())
 				.keyBy(0)
 				.sum(1);
 
 			usersInSession.print();
-
+	*/
 
 	//		WindowedStream<StayAliveEvent, String, TimeWindow> ping = keyedStayAliveEventDataStream
 	//		.timeWindow(Time.seconds(10));
@@ -130,8 +131,6 @@ public class RunFlink {
 
 			//		DataStream<IEvent> eventStream = messageStream;
 
-			/*HighlyRelevantDocumentPattern falseUserFeedback = new HighlyRelevantDocumentPattern();
-			falseUserFeedback.run(env, eventStream);*/
 
 	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
@@ -140,9 +139,18 @@ public class RunFlink {
 		/*	PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 			passiveLogoutPattern.run(env, someStream);
 		*/
+			DataStream<SuccessfulFeedbackEvent> feedbackStream = env
+				.socketTextStream("localhost", 9999)
+				.flatMap(new DocRelevantSplitter());
 
-			SessionEndPattern sessionEndPattern = new SessionEndPattern();
-			sessionEndPattern.run(env, usersInSession);
+
+			HighlyRelevantDocumentPattern highlyRelevantPattern = new HighlyRelevantDocumentPattern();
+			highlyRelevantPattern.run(env, feedbackStream);
+
+
+
+			//	SessionEndPattern sessionEndPattern = new SessionEndPattern();
+		//	sessionEndPattern.run(env, usersInSession);
 
 
 
@@ -242,6 +250,17 @@ public class RunFlink {
 			if(evt.getEventType().equals(Constants.PubSub.EventType.STAYALIVE)){
 				Tuple2<String, Integer> tuple = new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.USER_ID),1);
 				out.collect(tuple);
+			}
+		}
+	}
+
+	public static class DocRelevantSplitter implements FlatMapFunction<String, SuccessfulFeedbackEvent> {
+
+		@Override
+		public void flatMap(String value, Collector<SuccessfulFeedbackEvent> out) throws Exception {
+			SuccessfulFeedbackEvent evt = new GsonBuilder().create().fromJson(value, SuccessfulFeedbackEvent.class);
+			if(evt.getEventType().equals(Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK)) {
+				out.collect(evt);
 			}
 		}
 	}

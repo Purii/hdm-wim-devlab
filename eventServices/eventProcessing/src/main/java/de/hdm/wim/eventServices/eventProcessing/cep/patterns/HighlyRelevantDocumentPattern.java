@@ -4,6 +4,7 @@ import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentHighlyRelevantEvent;
 import de.hdm.wim.sharedLib.events.FeedbackEvent;
 import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.events.SuccessfulFeedbackEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
@@ -26,24 +27,22 @@ public class HighlyRelevantDocumentPattern {
 	 * @param env           the env
 	 * @param psmStream 	the IEvent stream
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<IEvent> psmStream ) throws Exception {
+	public void run(StreamExecutionEnvironment env, DataStream<SuccessfulFeedbackEvent> psmStream ) throws Exception {
 
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
-		Pattern<IEvent, ?> falseUserFeedback = Pattern
-			.<IEvent>begin("first")
-			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK))
+		Pattern<SuccessfulFeedbackEvent, ?> docRelevantPattern = Pattern
+			.<SuccessfulFeedbackEvent>begin("first")
+		//	.where()
 			.followedBy("second")
-			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK))
+		//	.where()
 			.within(Time.seconds(5));
 
-		PatternStream<IEvent> patternStream = CEP.pattern(psmStream, falseUserFeedback);
+		PatternStream<SuccessfulFeedbackEvent> patternStream = CEP.pattern(psmStream, docRelevantPattern);
 
-		DataStream<DocumentHighlyRelevantEvent> highlyRelevantDoc = patternStream.select(new PatternSelectFunction<IEvent, DocumentHighlyRelevantEvent>() {
+		DataStream<DocumentHighlyRelevantEvent> highlyRelevantDoc = patternStream.select(new PatternSelectFunction<SuccessfulFeedbackEvent, DocumentHighlyRelevantEvent>() {
 			@Override
-			public DocumentHighlyRelevantEvent select(Map<String, IEvent> pattern) throws Exception {
+			public DocumentHighlyRelevantEvent select(Map<String, SuccessfulFeedbackEvent> pattern) throws Exception {
 				String userId1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_ID);
 				String userId2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.USER_ID);
 				String docId1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_ID);
@@ -58,6 +57,9 @@ public class HighlyRelevantDocumentPattern {
 				return null;
 			}
 		});
+
+		highlyRelevantDoc.print();
+
 		PublishHelper ph = new PublishHelper(false);
 	//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
 
