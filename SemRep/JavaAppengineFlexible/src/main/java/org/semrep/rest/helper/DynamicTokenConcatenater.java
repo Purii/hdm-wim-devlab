@@ -10,40 +10,6 @@ import java.util.Random;
  */
 public class DynamicTokenConcatenater {
 
-	// 1 - n ( || )
-//		"FILTER ( "
-//		+ "?Dok_Keywords = '" + inputArray[3].toString() + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ "' || "
-//
-		// 1 - 1+1 ( && )
-	// ( || )
-// + "?Dok_Keywords = '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[3].toString()
-//						+ " ' && '" + inputArray[4].toString()
-// + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + " ' && '" + inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '"
-// + inputArray[5].toString() + " ' && '" + inputArray[4].toString()
-//	+ "' || " + "?Dok_Keywords = '"
-// + inputArray[3].toString() + " ' && '" + inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ " ' && '" + inputArray[3].toString()
-
-	// 1 - n ( && )
-// + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + " ' && '" + inputArray[3].toString() + " ' && '"
-//		+ inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[4].toString()
-//						+ " ' && '" + inputArray[5].toString() + " ' && '" + inputArray[3].toString() + "' || "
-//		+ "?Dok_Keywords = '" + inputArray[3].toString() + " ' && '" + inputArray[4].toString()
-//						+ " ' && '" + inputArray[5].toString() + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[3].toString() + " ' && '" + inputArray[5].toString() + " ' && '"
-//		+ inputArray[4].toString() + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ " ' && '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString() + "' || "
-//		+ "?Dok_Keywords = '" + inputArray[5].toString() + " ' && '" + inputArray[3].toString()
-//						+ " ' && '" + inputArray[4].toString() + "' " + ") " + "}" + "ORDER BY ?Dok_Name";
-
 	private static String sparqlKeyword = "?Dok_Keywords = '";
 	private static String orStr = "' || ";
 	private static String endORStr = "||";
@@ -78,20 +44,6 @@ public class DynamicTokenConcatenater {
 
 			toHandOverString = filter;
 			filter = "";
-
-			// 1 - 1+1 ( && )
-			// ( || )
-			// + "?Dok_Keywords = '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString()
-			// + "' || " + "?Dok_Keywords = '" + inputArray[3].toString()
-			//						+ " ' && '" + inputArray[4].toString()
-			// + "' || " + "?Dok_Keywords = '"
-			//		+ inputArray[4].toString() + " ' && '" + inputArray[5].toString()
-			// + "' || " + "?Dok_Keywords = '"
-			// + inputArray[5].toString() + " ' && '" + inputArray[4].toString()
-			//	+ "' || " + "?Dok_Keywords = '"
-			// + inputArray[3].toString() + " ' && '" + inputArray[5].toString()
-			// + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-			//						+ " ' && '" + inputArray[3].toString()
 
 			ArrayList<String> rememberDokNameArrList = new ArrayList<String>();
 
@@ -176,12 +128,6 @@ public class DynamicTokenConcatenater {
 						rememberDokNameArrList.add(tmpFilter);
 					}
 
-//					if (y + 1 != fakultaet) {tmpFilter = tmpFilter + endORStr + " ";
-//						filter = filter + endORStr + " ";
-//					} else {
-//						filter = filter;
-//					}
-
 					tmpFilter = " '";
 
 				}
@@ -210,16 +156,5 @@ public class DynamicTokenConcatenater {
 
 		return toHandOverString;
 	}
-
-//	public static void main(String[] args) {
-//
-//		try {
-//			System.out.print(concatenateToken(TokenDemoData.simulateTokenData(6, EventNameConstants.TOKEN_EVENT)));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
-
 
 }
