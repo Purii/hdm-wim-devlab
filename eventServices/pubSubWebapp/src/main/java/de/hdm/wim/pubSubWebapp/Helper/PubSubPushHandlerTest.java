@@ -1,7 +1,6 @@
-package de.hdm.wim.pubSubWebapp;
+package de.hdm.wim.pubSubWebapp.Helper;
 
-import com.google.gson.Gson;
-import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -14,22 +13,35 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 4/06/2017.
+ * Created by ben on 24/06/2017.
  */
-@WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_CEP_INSIGHTS,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_CEP_INSIGHTS
-)
-public class PubSubPushHandlerCepInsights extends HttpServlet {
+public abstract class PubSubPushHandlerTest extends HttpServlet {
 
-	private static final Logger LOGGER = Logger.getLogger(PubSubPushHandlerCepInsights.class);
-	private Helper helper = new Helper();
+	protected static final Logger LOGGER = Logger.getLogger(PubSubPushHandlerTest.class);
+	protected static Helper HELPER = new Helper();
+	protected static EventRepository EVENTREPOSITORY;
+	protected static String HANDLER;
+
+	protected PubSubPushHandlerTest(EventRepository eventRepository, String handlerId) {
+		EVENTREPOSITORY = eventRepository;
+		HANDLER = handlerId;
+	}
+
+	protected PubSubPushHandlerTest() {
+		EVENTREPOSITORY = EventRepositoryImpl.getInstance();
+		HANDLER = getClass().getAnnotation(WebServlet.class).value().toString();
+	}
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
+		process(req, resp);
+	}
 
-		String pubsubVerificationToken = Config.SECRET_TOKEN;
+	protected void process(HttpServletRequest req, HttpServletResponse resp)
+		throws IOException, ServletException {
+
+		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken)
@@ -41,27 +53,19 @@ public class PubSubPushHandlerCepInsights extends HttpServlet {
 			.lines()
 			.reduce("\n", (accumulator, actual) -> accumulator + actual);
 
-		IEvent event = helper.convertToIEvent(requestBody);
+		IEvent event = HELPER.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info(
-				"Handler: " + Config.HANDLER_CEP_INSIGHTS + " event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + HANDLER + " event.getData(): " + event.getData());
 
-			//Here we serialize the event to a String.
-			final String output = new Gson().toJson(event);
-
-			//And write the string to output
-			resp.setContentLength(output.length());
-			resp.getOutputStream().write(output.getBytes());
-			resp.getOutputStream().flush();
-			resp.getOutputStream().close();
+			EVENTREPOSITORY.save(event, HANDLER);
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
 			resp.setStatus(HttpServletResponse.SC_OK);
 
-			// NACK
-			//resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		} catch (Exception e) {
+			// NACK
+			LOGGER.error(e);
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}

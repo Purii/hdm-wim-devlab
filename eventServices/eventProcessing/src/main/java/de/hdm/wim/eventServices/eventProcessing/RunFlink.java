@@ -95,22 +95,23 @@ public class RunFlink {
 				.socketTextStream("localhost", 9999);
 			anyStream.print();*/
 
-		/*	DataStream<Tuple2<String, Integer>> someStream = env
+			DataStream<Tuple2<String, Integer>> someStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new SomeSplitter())
 				.keyBy(0)
 				.timeWindow(Time.seconds(15), Time.seconds(3))
-				.sum(1);*/
+				.sum(1);
 
 
-	/*		DataStream<Tuple2<String,Integer>> usersInSession = env
+
+			/*DataStream<Tuple2<String,Integer>> usersInSession = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new UserPerSessionSplitter())
 				.keyBy(0)
 				.sum(1);
 
-			usersInSession.print();
-	*/
+			usersInSession.print();*/
+
 
 	//		WindowedStream<StayAliveEvent, String, TimeWindow> ping = keyedStayAliveEventDataStream
 	//		.timeWindow(Time.seconds(10));
@@ -131,28 +132,31 @@ public class RunFlink {
 
 			//		DataStream<IEvent> eventStream = messageStream;
 
+			/*HighlyRelevantDocumentPattern falseUserFeedback = new HighlyRelevantDocumentPattern();
+			falseUserFeedback.run(env, eventStream);*/
 
 	//		PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 	//		passiveLogoutPattern.run(env, keyedStayAliveEventDataStream);
 
 
-		/*	PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
+
+			PassiveLogoutPattern passiveLogoutPattern = new PassiveLogoutPattern();
 			passiveLogoutPattern.run(env, someStream);
-		*/
-			DataStream<SuccessfulFeedbackEvent> feedbackStream = env
+
+	/*		DataStream<SuccessfulFeedbackEvent> feedbackStream = env
 				.socketTextStream("localhost", 9999)
 				.flatMap(new DocRelevantSplitter());
 
 
 			HighlyRelevantDocumentPattern highlyRelevantPattern = new HighlyRelevantDocumentPattern();
-			highlyRelevantPattern.run(env, feedbackStream);
+			highlyRelevantPattern.run(env, feedbackStream);*/
 
 
+			/*SessionEndPattern sessionEndPattern = new SessionEndPattern();
+			sessionEndPattern.run(env, usersInSession);*/
 
-			//	SessionEndPattern sessionEndPattern = new SessionEndPattern();
-		//	sessionEndPattern.run(env, usersInSession);
-
-
+			/*UserContextPattern userContextPattern = new UserContextPattern();
+			userContextPattern.run(env, userContext);*/
 
 			// print message stream
 
@@ -242,6 +246,7 @@ public class RunFlink {
 			out.collect(evt);
 		}
 	}
+
 	public static class SomeSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
 		@Override

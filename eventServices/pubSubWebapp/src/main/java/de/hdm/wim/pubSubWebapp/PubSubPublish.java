@@ -47,6 +47,7 @@ public class PubSubPublish extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
+		Helper helper = new Helper();
 		Publisher publisher 					= this.PUBLISHER;
 		HashMap<String, Boolean> responseToAjax = new HashMap<>();
 		Map<String,String> attributes 			= new HashMap<String, String>();
@@ -70,7 +71,7 @@ public class PubSubPublish extends HttpServlet {
 				String attr 		= json.get("attributes").toString();
 
 				// convert json string to Map<String, String>
-				attributes = new Helper().convertJsonToMap(attr);
+				attributes = helper.convertJsonToMap(attr);
 			}
 			else
 			{
@@ -165,12 +166,4 @@ public class PubSubPublish extends HttpServlet {
 			resp.getWriter().write(jsonResponse);
 		}
 	}
-
-/*	private String validateParameter(HttpServletRequest request, String parameterName, String defaultValue){
-
-		if(request.getParameter(parameterName) != null)
-			return request.getParameter(parameterName);
-		else
-			return defaultValue;
-	}*/
 }
