@@ -1,21 +1,20 @@
 package org.semrep.rest.pubsub;
 
-import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.GUI_INFORMATION;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_OFFERS;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.AdditionalUserInformationEvent;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
-import java.io.IOException;
+import org.apache.log4j.Logger;
+import org.semrep.rest.interfacesPubSub.EventInterface;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
-import org.semrep.rest.interfacesPubSub.EventInterface;
+import java.io.IOException;
 
 /**
  * Created by ben on 22/06/2017.
@@ -24,9 +23,9 @@ import org.semrep.rest.interfacesPubSub.EventInterface;
 	name = "Push with PubSub " + GUI_INFORMATION.HANDLER_ID,
 	value = Config.PUSH_ENDPOINT_PREFIX + GUI_INFORMATION.HANDLER_ID
 )
-public class GuiInformationHandler extends HttpServlet {
+public class STokenHandler extends HttpServlet {
 
-	private static final Logger LOGGER = Logger.getLogger(GuiInformationHandler.class);
+	private static final Logger LOGGER = Logger.getLogger(STokenHandler.class);
 	private Helper helper 				= new Helper();
 
 	//Pro Topic hier passiert die ganze action
@@ -36,7 +35,7 @@ public class GuiInformationHandler extends HttpServlet {
 
 		LOGGER.info("Handler: " + GUI_INFORMATION.HANDLER_ID);
 
-		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
+		String pubsubVerificationToken = Config.SECRET_TOKEN;
 
 		// Do not process message if request token does not match pubsubVerificationToken
 		if (req.getParameter(RequestParameters.SECRET_TOKEN).compareTo(pubsubVerificationToken) != 0) {
@@ -78,6 +77,8 @@ public class GuiInformationHandler extends HttpServlet {
 
 			//evt = (AdditionalUserInformationEvent) event;
 
+
+
 			LOGGER.info(event + "event Cast 2");
 
 			EventInterface.insertNewUserInformation(evt);
@@ -85,6 +86,22 @@ public class GuiInformationHandler extends HttpServlet {
 			LOGGER.info("Handler: " + GUI_INFORMATION.HANDLER_ID + " event.getData(): " + evt
 				.getData());
 
+			//Here we serialize the event to a String.
+			//final String output = new Gson().toJson(event);
+
+			// Beispiel für UserInformationEvent
+			// aufruf methode getUserInformation hier: diese kann vom
+			// return type her auch void haben und braucht keine annotations
+
+			// inititalisierung Events:
+//			LearnEvent learnEvent = new LearnEvent();
+//			learnEvent.setData("test");
+//			learnEvent.setDocumentId("");
+//			learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
+//			learnEvent.setProjectId("test project id");
+//			learnEvent.setDocumentAffiliation("false");
+//			learnEvent.setUserId("test user id");
+//			ph.Publish(learnEvent, Topic.TOPIC_1);
 
 
 
