@@ -2,9 +2,8 @@ package de.hdm.wim.sharedLib.testing;
 
 import com.google.cloud.pubsub.spi.v1.MessageReceiver;
 import com.google.pubsub.v1.Subscription;
-import de.hdm.wim.sharedLib.Constants.PubSub;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
 import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import de.hdm.wim.sharedLib.pubsub.receiver.ExampleReceiver;
 
@@ -19,7 +18,7 @@ public class TestPush {
 
 		// create the subscription
 		SubscriptionHelper sh 		= new SubscriptionHelper(false, Config.APP_ID);
-		Subscription subscription 	= sh.CreatePushSubscription(PubSub.Topic.TOPIC_1, Config.HANDLER_1);
+		Subscription subscription = sh.CreatePushSubscription(TOPIC_1.TOPIC_ID, TOPIC_1.HANDLER_ID);
 
 		sh.Subscribe(subscription, receiver);
 	}

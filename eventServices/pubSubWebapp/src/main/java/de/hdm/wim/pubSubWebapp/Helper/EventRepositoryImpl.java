@@ -26,6 +26,7 @@ import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.events.IEvent;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * Storage for Message objects using Cloud Datastore.
@@ -37,8 +38,8 @@ import java.util.List;
  */
 public class EventRepositoryImpl implements EventRepository {
 
+	private static final Logger LOGGER = Logger.getLogger(EventRepositoryImpl.class);
 	private static EventRepositoryImpl instance;
-
 	private String eventsKind = "events";
 	private KeyFactory keyFactory = getDatastoreInstance().newKeyFactory().setKind(eventsKind);
 
@@ -54,66 +55,129 @@ public class EventRepositoryImpl implements EventRepository {
 	}
 
 	@Override
-	public void save(IEvent event) {
-		// Save event to "events"
-		Datastore datastore = getDatastoreInstance();
-		Key key = datastore.allocateId(keyFactory.newKey());
+	public void save(IEvent event, String handlerId) {
+		LOGGER.info("save");
+		LOGGER.info(handlerId);
+		LOGGER.info(event.toString());
 
-		Entity.Builder eventEntityBuilder = Entity.newBuilder(key)
-			.set("eventId", event.getId());
+		try {
+			// Save event to "events"
+			Datastore datastore = getDatastoreInstance();
+			Key key = datastore.allocateId(keyFactory.newKey());
 
-		// get the data from event
+			Entity.Builder eventEntityBuilder = Entity.newBuilder(key)
+				.set("eventId", event.getId());
 
-		if (event.getData() != null) {
-			eventEntityBuilder = eventEntityBuilder.set("data", event.getData());
+			// get the data from event
+
+			if (event.getData() != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("data", event.getData());
+			}
+
+			if (handlerId != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("handlerId", handlerId);
+			}
+
+			if (event.getAttributes() != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("attributes", event.getAttributesAsString());
+			}
+
+			if (event.getEventType() != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("eventType", event.getEventType());
+			}
+
+			if (event.getEventSource() != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("eventSource", event.getEventSource());
+			}
+
+			if (event.getPublishTime() != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("publishTime", event.getPublishTime());
+			}
+
+			eventEntityBuilder = eventEntityBuilder.set("handlerId", handlerId);
+
+			datastore.put(eventEntityBuilder.build());
+		} catch (Exception e) {
+			LOGGER.error(e);
 		}
-
-		if (event.getAttributes() != null) {
-			eventEntityBuilder = eventEntityBuilder
-				.set("attributes", event.getAttributesAsString());
-		}
-
-		if (event.getPublishTime() != null) {
-			eventEntityBuilder = eventEntityBuilder.set("publishTime", event.getPublishTime());
-		}
-
-		datastore.put(eventEntityBuilder.build());
 	}
 
 	@Override
 	public List<IEvent> retrieve(int limit) {
-
+		LOGGER.info("retrieve");
 		// Get events saved in Datastore
 		Datastore datastore = getDatastoreInstance();
 		Query<Entity> query =
 			Query.newEntityQueryBuilder()
 				.setKind(eventsKind)
+				//.setFilter(PropertyFilter.eq("handlerId", handlerId))
 				.setLimit(limit)
 				.addOrderBy(StructuredQuery.OrderBy.desc("publishTime"))
 				.build();
+		LOGGER.info("retrieve1");
 
 		QueryResults<Entity> results = datastore.run(query);
-
+		LOGGER.info("retrieve2");
 		List<IEvent> events = new ArrayList<>();
+
 		while (results.hasNext()) {
 			Entity entity = results.next();
 
 			Event event = new Event(entity.getString("eventId"));
 
-			String data = entity.getString("data");
-			if (data != null) {
-				event.setData(data);
+			try {
+				String data = entity.getString("data");
+				if (data != null) {
+					event.setData(data);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
 			}
-			String attributes = entity.getString("attributes");
-			if (attributes != null) {
-				event.setAttributes(data);
+			try {
+				String attributes = entity.getString("attributes");
+				if (attributes != null) {
+					event.setAttributes(attributes);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
 			}
-			String publishTime = entity.getString("publishTime");
-			if (publishTime != null) {
-				event.setPublishTime(publishTime);
+			try {
+				String handlerId = entity.getString("handlerId");
+				if (handlerId != null) {
+					//event.(data);
+					LOGGER.info(handlerId);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
 			}
-			events.add(event);
+			try {
+				String publishTime = entity.getString("publishTime");
+				if (publishTime != null) {
+					event.setPublishTime(publishTime);
+				}
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
+			try {
+				events.add(event);
+			} catch (Exception e) {
+				LOGGER.info("attributes");
+				LOGGER.error(e);
+			}
 		}
+
+		LOGGER.info("retrieve3");
+
 		return events;
 	}
 

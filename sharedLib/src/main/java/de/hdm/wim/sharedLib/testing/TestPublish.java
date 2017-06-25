@@ -1,6 +1,7 @@
 package de.hdm.wim.sharedLib.testing;
 
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_2;
 import de.hdm.wim.sharedLib.events.Event;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +24,7 @@ public class TestPublish {
 		while (COUNT <= MAX_NUMBER_OF_MESSAGES) {
 			Event event = Event.generate("topic-1_" + COUNT);
 			// event, topic, useREST = true/false
-			ph.Publish(event, Topic.TOPIC_1, false);
+			ph.Publish(event, TOPIC_1.TOPIC_ID, false);
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 			COUNT++;
 		}
@@ -31,7 +32,7 @@ public class TestPublish {
 		while (COUNT <= MAX_NUMBER_OF_MESSAGES) {
 			Event event = Event.generate("topic-2_" + COUNT);
 			// event, topic, useREST = true/false
-			ph.Publish(event, Topic.TOPIC_2, false);
+			ph.Publish(event, TOPIC_2.TOPIC_ID, false);
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 			COUNT++;
 		}
