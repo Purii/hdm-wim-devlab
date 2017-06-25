@@ -360,7 +360,7 @@ public class TokenizerInterface {
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
 
-					String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
+					//String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
