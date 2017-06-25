@@ -143,7 +143,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getProjectInformation();
+			getAllProjectRoles();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
