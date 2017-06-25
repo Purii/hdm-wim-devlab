@@ -110,20 +110,44 @@
         <div class="centeritems mdl-grid">
             <div class="mdl-layout-spacer"></div>
             <div class="mdl-cell--6-col">
-                <h3> Last received messages </h3>
-                <table class="mdl-data-table mdl-js-data-table">
-                    <tr>
-                        <th>Id</th>
-                        <th>Data</th>
-                        <th>Attributes</th>
-                        <th>PublishTime</th>
-                    </tr>
-                    <%= PubSubHome.getReceivedMessages() %>
-                </table>
+                <form name="refreshEvents" action="/retrieveMessage" method="post"
+                      id="refresh-receive-events">
+                    <div class="mdl-grid">
+                        <h3>Last received messages:</h3>
+                    </div>
+                    <div class="mdl-grid">
+
+                        <div class="mdl-cell--6-col">
+                            <div
+                                class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label mdl-cell mdl-cell--12-col">
+                                <select class="mdl-selectfield__select" id="topicForReceive"
+                                        name="<%= RequestParameters.TOPIC%>" required>
+                                    <%= PubSubHome.getListOfTopics() %>
+                                </select>
+                                <label class="mdl-selectfield__label"
+                                       for="topicForReceive">Topic</label>
+                            </div>
+                        </div>
+                        <div class="mdl-cell--6-col">
+                            <button type="submit" name="submitRefreshButton" value="refresh"
+                                    id="submitRefreshButton"
+                                    class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">
+                                refresh
+                            </button>
+                        </div>
+                    </div>
+                    <table class="mdl-data-table mdl-js-data-table">
+                        <tr>
+                            <th>Id</th>
+                            <th>Data</th>
+                            <th>Attributes</th>
+                            <th>PublishTime</th>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div class="mdl-layout-spacer"></div>
         </div>
-
 
     </main>
 </div>
