@@ -30,12 +30,6 @@ $(document).ready(function() {
     var btn_add                 = $(".btn_add_kv"); //Add button ID
     var x                       = 1; //initial text box count
 
-    /*    showToastButton.addEventListener("click", function () {
-     "use strict";
-     var data = {message: "Example Message # " + ++counter};
-     snackbarContainer.MaterialSnackbar.showSnackbar(data);
-     });*/
-
     // hide input fields which are out of focus
     $(".mdl-tabs__tab").on("click", function () {
         // get inactive & active panels
@@ -86,6 +80,35 @@ $(document).ready(function() {
 
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
+    });
+
+    $("#refresh-receive-events").submit(function (topic) {
+        // get input data
+        var data = $("#topicForReceive").serializeArray();
+
+        console.log(data);
+
+        // process the form
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: data,
+            //dataType: "json", // what type of data do we expect back from the server
+            encode: true
+        })
+        // using the done promise callback
+        .done(function (response) {
+            console.log(response.status);
+        })
+        .fail(function (response) {
+            console.log(response.status);
+        })
+        .always(function (response) {
+            console.log("always? ...always");
+        });
+
+        // stop the form from submitting the normal way and refreshing the page
+        topic.preventDefault();
     });
 
     // button for adding key/value fields

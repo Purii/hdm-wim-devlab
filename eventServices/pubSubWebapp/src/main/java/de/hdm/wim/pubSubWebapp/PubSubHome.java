@@ -32,6 +32,17 @@ public class PubSubHome {
 	}
 
 	/**
+	 * Retrieve received messages in html.
+	 *
+	 * @return html representation of messages (one per row)
+	 */
+	public static String getReceivedMessages(String topic) {
+		List<IEvent> eventList = eventRepository.retrieve(MAX_MESSAGES, topic);
+
+		return convertToHtmlTable(eventList);
+	}
+
+	/**
 	 * Get list of topics string.
 	 *
 	 * @return the string
