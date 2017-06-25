@@ -2,6 +2,7 @@ package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
+import de.hdm.wim.sharedLib.events.AdditionalUserInformationEvent;
 import de.hdm.wim.sharedLib.events.AllCompaniesEvent;
 import de.hdm.wim.sharedLib.events.AllDepartmentsEvent;
 import de.hdm.wim.sharedLib.events.AllProjectRolesEvent;
@@ -1626,18 +1627,19 @@ public class EventInterface {
 
 	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
 	// abteilungStr, projektStr, projektrolleStr
-	public static void insertNewUserInformation() throws Exception {
+	public static void insertNewUserInformation(AdditionalUserInformationEvent event)
+		throws Exception {
 
-		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
-		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		idStr = inputArray[1].toString();
-		vornameStr = inputArray[2].toString();
-		nachnameStr = inputArray[3].toString();
-		mailStr = inputArray[4].toString();
-		abteilungStr = inputArray[5].toString();
-		projektStr = inputArray[6].toString();
-		projektrolleStr = inputArray[7].toString();
+		String eventTypeStr = event.getEventType();
+		//String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		//sessionIDStr = event.getS;
+		idStr = event.getUserId();
+		vornameStr = event.getFirstName();
+		nachnameStr = event.getLastName();
+		mailStr = event.getMail();
+		abteilungStr = event.getDepartment();
+		projektStr = event.getProject();
+		projektrolleStr = event.getProjectRole();
 
 		try {
 			// initialisiere Variablen
