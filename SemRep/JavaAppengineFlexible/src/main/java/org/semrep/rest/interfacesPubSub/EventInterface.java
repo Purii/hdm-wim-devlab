@@ -1,10 +1,7 @@
 package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
-import de.hdm.wim.sharedLib.events.Event;
-import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.events.UserInformationEvent;
+import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -130,7 +127,7 @@ public class EventInterface {
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
-			getDocumentInformation();
+			getProjectInformation();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1143,14 +1140,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(projectInformationEventObject.toStringProjektObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		ProjectInformationEvent event = new ProjectInformationEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1253,14 +1248,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(departmentInformationEventObject.toStringAbteilungsObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		DepartmentInformationEvent event = new DepartmentInformationEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1344,14 +1337,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(AllProjectsInformationEventObject.toStringProjektObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		AllProjectsEvent event = new AllProjectsEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1434,14 +1425,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(AllProjectRolesEventObject.toStringProjektrolleObj());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		AllProjectRolesEvent event = new AllProjectRolesEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1524,14 +1513,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(AllDepartmentsEventObject.toStringAbteilungsObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		AllDepartmentsEvent event = new AllDepartmentsEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1613,14 +1600,12 @@ public class EventInterface {
 
 		// publishen geht überall
 		// subcriben nur im PubSubHandler
-		IEvent iEvent = new Event();
-		iEvent.setData(AllCompaniesEventObject.toStringUnternehmenObjekt());
-		iEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(true); // zum testen true wenns lokal ist
+		AllCompaniesEvent event = new AllCompaniesEvent();
+		event.setAttributes(eventLinkedHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
 
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(iEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
@@ -1819,6 +1804,8 @@ public class EventInterface {
 	}
 
 	// Parameter: personVorname, personNachname, dokName
+	// wir kriegen: userID, dokID, favor (true/false) --> Constants
+	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;
