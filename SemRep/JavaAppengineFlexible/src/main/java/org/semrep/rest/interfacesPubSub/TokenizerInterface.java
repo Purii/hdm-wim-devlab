@@ -47,6 +47,8 @@ public class TokenizerInterface {
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
+	public static QueryExecution queryExecution;
+	public static ResultSet resultSet;
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
@@ -474,12 +476,16 @@ public class TokenizerInterface {
 					Query query = QueryFactory.create(sparql);
 					// queryExecution = QueryExecutionFactory.create(query,
 					// ontologyModel);
-					QueryExecution queryExecution = QueryExecutionFactory
+//					QueryExecution queryExecution = QueryExecutionFactory
+//						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
+
+					queryExecution = QueryExecutionFactory
 						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query
-					ResultSet resultSet = queryExecution.execSelect();
+					//ResultSet resultSet = queryExecution.execSelect();
+					resultSet = queryExecution.execSelect();
 
 					// initialisiere Variablen
 					String splitResult = "";
