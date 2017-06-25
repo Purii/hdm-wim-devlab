@@ -2,6 +2,7 @@ package de.hdm.wim.pubSubWebapp;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.GUI_SESSIONINSIGHTS;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -17,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_GUI_SESSIONINSIGHTS,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_GUI_SESSIONINSIGHTS
+	name = "Push with PubSub " + GUI_SESSIONINSIGHTS.HANDLER_ID,
+	value = Config.PUSH_ENDPOINT_PREFIX + GUI_SESSIONINSIGHTS.HANDLER_ID
 )
 public class PubSubPushHandlerGuiSessionInsights extends HttpServlet {
 
@@ -46,7 +47,7 @@ public class PubSubPushHandlerGuiSessionInsights extends HttpServlet {
 
 		try {
 			LOGGER.info(
-				"Handler: " + Config.HANDLER_GUI_SESSIONINSIGHTS + " event.getData(): " + event
+				"Handler: " + GUI_SESSIONINSIGHTS.HANDLER_ID + " event.getData(): " + event
 					.getData());
 
 			//Here we serialize the event to a String.

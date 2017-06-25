@@ -2,6 +2,7 @@ package de.hdm.wim.pubSubWebapp;
 
 import de.hdm.wim.pubSubWebapp.Helper.PubSubPushHandler;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_CONTEXT;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_CEP_CONTEXT,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_CEP_CONTEXT
+	name = "Push with PubSub " + CEP_CONTEXT.HANDLER_ID,
+	value = Config.PUSH_ENDPOINT_PREFIX + CEP_CONTEXT.HANDLER_ID
 )
 public class PubSubPushHandlerCepContext extends HttpServlet {
 
@@ -24,6 +25,6 @@ public class PubSubPushHandlerCepContext extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		psh.process(req, resp, Config.HANDLER_CEP_CONTEXT);
+		psh.process(req, resp, CEP_CONTEXT.HANDLER_ID);
 	}
 }

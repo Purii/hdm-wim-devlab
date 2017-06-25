@@ -6,7 +6,8 @@ import controller.ElasticsearchCommunication;
 import controller.GoogleDriveCommunication;
 import controller.Protocol;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.ST_TOKEN;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -43,7 +44,7 @@ public class Rest {
 	}
 
 	@POST
-	@Path(Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_ST_TOKEN)
+	@Path(Config.PUSH_ENDPOINT_PREFIX + ST_TOKEN.HANDLER_ID)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receivePush(String json) throws Exception {
@@ -116,7 +117,7 @@ public class Rest {
 				TokenEvent tokenEvent 	= startTokenaziation(elasticsearch, token);
 				String tokenEventString =  new Gson().toJson(tokenEvent);
 
-				ph.Publish(tokenEvent, Topic.TOPIC_1, true);
+				ph.Publish(tokenEvent, TOPIC_1.TOPIC_ID, true);
 
 				return Response.status(200).entity(tokenEventString).build();
 			} else {
@@ -126,7 +127,7 @@ public class Rest {
 				TokenEvent tokenEvent 	= startTokenaziation(elasticsearch, token);
 				String tokenEventString =  new Gson().toJson(tokenEvent);
 
-				ph.Publish(tokenEvent, Topic.TOPIC_1, true);
+				ph.Publish(tokenEvent, TOPIC_1.TOPIC_ID, true);
 
 				return Response.status(200).entity(tokenEventString).build();
 			}

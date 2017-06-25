@@ -115,8 +115,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Data</th>
-                        <th>PublishTime</th>
-                        <th>Data</th>
+                        <th>Attributes</th>
                         <th>PublishTime</th>
                     </tr>
                     <%= PubSubHome.getReceivedMessages() %>

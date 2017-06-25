@@ -2,9 +2,8 @@ package de.hdm.wim.sharedLib.pubsub;
 
 import com.google.cloud.pubsub.spi.v1.MessageReceiver;
 import com.google.pubsub.v1.Subscription;
-import de.hdm.wim.sharedLib.Constants.PubSub;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
 import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import de.hdm.wim.sharedLib.pubsub.receiver.ExampleReceiver;
 
@@ -28,7 +27,7 @@ public class ExamplePull2 {
 		 * make sure to create the subscription(s) BEFORE publishing
 		 * this example will work because the subscriptions already exist
 		 */
-		Subscription subscription = sh.CreatePullSubscription(PubSub.Topic.TOPIC_1, "test2");
+		Subscription subscription = sh.CreatePullSubscription(TOPIC_1.TOPIC_ID, "test2");
 
 		// subscribe using the existing subscription
 		sh.Subscribe(subscription, receiver);

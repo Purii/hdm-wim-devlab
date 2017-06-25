@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 public class PubSubHome {
 
 	private static final Logger LOGGER = Logger.getLogger(PubSubHome.class);
-	private static int MAX_MESSAGES = 10;
 	private static EventRepository eventRepository = EventRepositoryImpl.getInstance();
+	private static int MAX_MESSAGES = 10;
 
 
 	private PubSubHome() {
@@ -50,11 +50,13 @@ public class PubSubHome {
 		StringBuilder sb = new StringBuilder();
 		for (IEvent event : events) {
 			sb.append("<tr>");
-			sb.append("<td>" + event.getId() + "</td>");
-			//sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getTopic() + "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getId() + "</td>");
 			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getData() + "</td>");
-			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getAttributes() + "</td>");
-			sb.append("<td>" + event.getPublishTime() + "</td>");
+			sb.append(
+				"<td class=\"mdl-data-table__cell--non-numeric\">" + event.getAttributesAsString()
+					+ "</td>");
+			sb.append("<td class=\"mdl-data-table__cell--non-numeric\">" + event.getPublishTime()
+				+ "</td>");
 			sb.append("</tr>");
 		}
 		return sb.toString();

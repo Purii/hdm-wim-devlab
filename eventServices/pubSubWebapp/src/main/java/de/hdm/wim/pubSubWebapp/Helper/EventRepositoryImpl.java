@@ -75,6 +75,11 @@ public class EventRepositoryImpl implements EventRepository {
 					.set("data", event.getData());
 			}
 
+			if (handlerId != null) {
+				eventEntityBuilder = eventEntityBuilder
+					.set("handlerId", handlerId);
+			}
+
 			if (event.getAttributes() != null) {
 				eventEntityBuilder = eventEntityBuilder
 					.set("attributes", event.getAttributesAsString());
@@ -86,7 +91,6 @@ public class EventRepositoryImpl implements EventRepository {
 			}
 
 			if (event.getEventSource() != null) {
-				LOGGER.info(event.getEventSource());
 				eventEntityBuilder = eventEntityBuilder
 					.set("eventSource", event.getEventSource());
 			}

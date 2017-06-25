@@ -6,6 +6,8 @@ import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -13,21 +15,30 @@ import org.apache.log4j.Logger;
 /**
  * Created by ben on 24/06/2017.
  */
-public class PubSubPushHandler {
+public abstract class PubSubPushHandlerTest extends HttpServlet {
 
-	protected static final Logger LOGGER = Logger.getLogger(PubSubPushHandler.class);
+	protected static final Logger LOGGER = Logger.getLogger(PubSubPushHandlerTest.class);
 	protected static Helper HELPER = new Helper();
 	protected static EventRepository EVENTREPOSITORY;
+	protected static String HANDLER;
 
-	public PubSubPushHandler(EventRepository eventRepository) {
-		this.EVENTREPOSITORY = eventRepository;
+	protected PubSubPushHandlerTest(EventRepository eventRepository, String handlerId) {
+		EVENTREPOSITORY = eventRepository;
+		HANDLER = handlerId;
 	}
 
-	public PubSubPushHandler() {
-		this.EVENTREPOSITORY = EventRepositoryImpl.getInstance();
+	protected PubSubPushHandlerTest() {
+		EVENTREPOSITORY = EventRepositoryImpl.getInstance();
+		HANDLER = getClass().getAnnotation(WebServlet.class).value().toString();
 	}
 
-	public void process(HttpServletRequest req, HttpServletResponse resp, String handler)
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+		throws IOException, ServletException {
+		process(req, resp);
+	}
+
+	protected void process(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
@@ -42,13 +53,12 @@ public class PubSubPushHandler {
 			.lines()
 			.reduce("\n", (accumulator, actual) -> accumulator + actual);
 
-		LOGGER.info("test123");
 		IEvent event = HELPER.convertToIEvent(requestBody);
 
 		try {
-			LOGGER.info("Handler: " + handler + " event.getData(): " + event.getData());
+			LOGGER.info("Handler: " + HANDLER + " event.getData(): " + event.getData());
 
-			EVENTREPOSITORY.save(event, handler);
+			EVENTREPOSITORY.save(event, HANDLER);
 
 			// 200, 201, 204, 102 status codes are interpreted as success by the Pub/Sub system = ACK
 			resp.setStatus(HttpServletResponse.SC_OK);
