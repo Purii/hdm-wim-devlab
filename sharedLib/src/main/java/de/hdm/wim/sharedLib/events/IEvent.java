@@ -1,8 +1,11 @@
 package de.hdm.wim.sharedLib.events;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.helper.Helper;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,11 +14,11 @@ import java.util.Map;
  */
 public abstract class IEvent {
 
+	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	protected String data = "";
 	protected String id = "";
 	protected String publishTime = "";
 	protected Map<String, String> attributes = new HashMap<String, String>();
-	private Gson gson = new Gson();
 
 	public String getData() {
 		return data;
@@ -63,12 +66,12 @@ public abstract class IEvent {
 		return this.attributes;
 	}
 
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
-	}
-
 	public void setAttributes(String attributes) {
 		this.attributes = new Helper().convertJsonToMap(attributes);
+	}
+
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
 	}
 
 	public String getAttributesAsString() {
@@ -77,6 +80,17 @@ public abstract class IEvent {
 
 	@Override
 	public String toString() {
-		return gson.toJson(this);
+
+		Type myType = new TypeToken<IEvent>() {
+		}.getType();
+
+		Event evt = new Event();
+		evt.setAttributes(this.attributes);
+		evt.setData(this.data);
+		evt.setId(this.id);
+		evt.setPublishTime(this.publishTime);
+
+		String json = gson.toJson(evt, myType);
+		return json;
 	}
 }
