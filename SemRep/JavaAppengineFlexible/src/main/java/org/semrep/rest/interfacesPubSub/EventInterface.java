@@ -1804,6 +1804,8 @@ public class EventInterface {
 	}
 
 	// Parameter: personVorname, personNachname, dokName
+	// wir kriegen: userID, dokID, favor (true/false) --> Constants
+	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;
