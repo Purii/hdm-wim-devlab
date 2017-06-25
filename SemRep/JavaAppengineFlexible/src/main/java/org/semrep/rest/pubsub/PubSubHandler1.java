@@ -18,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 22/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + SEMREP_OFFERS.HANDLER_ID,
-	value = Config.PUSH_ENDPOINT_PREFIX + SEMREP_OFFERS.HANDLER_ID
+	name = "Push with PubSub " + Config.HANDLER_SEMREP_OFFERS,
+	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_SEMREP_OFFERS
 )
 public class PubSubHandler1 extends HttpServlet {
 
@@ -59,6 +59,15 @@ public class PubSubHandler1 extends HttpServlet {
 			// aufruf methode getUserInformation hier: diese kann vom
 			// return type her auch void haben und braucht keine annotations
 
+			// inititalisierung Events:
+//			LearnEvent learnEvent = new LearnEvent();
+//			learnEvent.setData("test");
+//			learnEvent.setDocumentId("");
+//			learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
+//			learnEvent.setProjectId("test project id");
+//			learnEvent.setDocumentAffiliation("false");
+//			learnEvent.setUserId("test user id");
+//			ph.Publish(learnEvent, Topic.TOPIC_1);
 
 
 
