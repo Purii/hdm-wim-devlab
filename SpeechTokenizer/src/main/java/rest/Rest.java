@@ -7,15 +7,12 @@ import controller.ElasticsearchCommunication;
 import controller.GoogleDriveCommunication;
 import controller.Protocol;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.ST_TOKEN;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,7 +24,6 @@ import models.ElasticsearchResult;
 import models.KeywordFilter;
 import models.TextInformation;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.jni.LibraryNotFoundError;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -35,12 +31,12 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/rest")
 public class Rest {
 	final static Logger logger = Logger.getLogger(Rest.class);
+	private static String sesseionType = "";
+	private static ArrayList<TextInformation> listTextinformations;
 	private final Helper helper = new Helper();
 	private ElasticsearchCommunication elasticsearchCommunication = new ElasticsearchCommunication();
 	private CustomKeywordFilter customKeywordFilter = new CustomKeywordFilter();
 	private Protocol protocol = new Protocol();
-	private static String sesseionType = "";
-	private static ArrayList<TextInformation> listTextinformations;
 	private ArrayList<String> listEvent = null;
 	
 
@@ -56,7 +52,7 @@ public class Rest {
 	}
 
 	@POST
-	@Path(Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_ST_TOKEN)
+	@Path(Config.PUSH_ENDPOINT_PREFIX + ST_TOKEN.HANDLER_ID)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receivePush(String json) throws Exception {

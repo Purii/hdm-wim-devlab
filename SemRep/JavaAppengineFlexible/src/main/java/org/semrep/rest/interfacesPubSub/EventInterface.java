@@ -42,16 +42,12 @@ import org.semrep.rest.businessObjects.Unternehmen;
 import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
-import org.semrep.rest.pubsub.GetDocumentOffersEvent;
 
 /*
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
 public class EventInterface {
-
-	private static Logger loggger = Logger.getLogger(EventInterface.class.getName() );
-
 
 	// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -71,7 +67,8 @@ public class EventInterface {
 	public static Unternehmen unternehmenObj = null;
 	public static String eventUniqueID = "'null'";
 	private static JSONObject jsonObj;
- 	// ### initialisiere globale HashMaps
+	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
+	// ### initialisiere globale HashMaps
 	private static LinkedHashMap<String, String> eventLinkedHashMap = null;
 	// ### time stamp
 	private static Timestamp timestamp = null;
@@ -337,6 +334,7 @@ public class EventInterface {
 									break;
 
 								} else {
+
 									personObj.setPerson_hat_Projektrolle(
 										personObj.getPerson_hat_Projektrolle() + ", " + projektrolleStr);
 									break;
@@ -1629,33 +1627,24 @@ public class EventInterface {
 
 	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
 	// abteilungStr, projektStr, projektrolleStr
-	public static void insertNewUserInformation(AdditionalUserInformationEvent evt) {
+	public static void insertNewUserInformation(AdditionalUserInformationEvent event)
+		throws Exception {
 
-		String eventTypeStr = evt.getEventType();
+		String eventTypeStr = event.getEventType();
 		//String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		loggger.info("test 1");
-		loggger.info(evt.toString());
-
-
-			//sessionIDStr = evt.g;
-			idStr = evt.getUserId();
-			vornameStr = evt.getFirstName();
-			nachnameStr = evt.getLastName();
-			mailStr = evt.getMail();
-			abteilungStr = evt.getDepartment();
-			projektStr = evt.getProject();
-			projektrolleStr = evt.getProjectRole();
-			loggger.info(idStr  );
-
-		loggger.info("test 2");
-
-
+		//sessionIDStr = event.getS;
+		idStr = event.getUserId();
+		vornameStr = event.getFirstName();
+		nachnameStr = event.getLastName();
+		mailStr = event.getMail();
+		abteilungStr = event.getDepartment();
+		projektStr = event.getProject();
+		projektrolleStr = event.getProjectRole();
 
 		try {
 			// initialisiere Variablen
 			// sparql
 			String insertSparql = "";
-			loggger.info("test 3");
 
 			// initialisiere Objekte
 			String neueUserSetNull = "NULL";
@@ -1696,7 +1685,6 @@ public class EventInterface {
 				"ontology:Person_favorisiert_Dokument ontology:" + favoritStr + " ; " +
 				"ontology:Person_hat_Dokument_verfasst ontology:" + dokumentStr + " " +
 				"}";
-			loggger.info("test 4");
 
 			if (insertSparql != "") {
 
@@ -1706,8 +1694,6 @@ public class EventInterface {
 				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
 					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
 				uP.execute();
-				loggger.info("test 5");
-
 
 			}
 

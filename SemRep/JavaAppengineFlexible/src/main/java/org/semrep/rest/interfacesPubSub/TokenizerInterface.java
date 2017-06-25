@@ -27,7 +27,10 @@ import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.helper.DynamicTokenConcatenater;
+import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
+import org.semrep.rest.helper.InitializeArrayData;
 
 public class TokenizerInterface {
 
@@ -44,6 +47,8 @@ public class TokenizerInterface {
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
+
+	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
 	public static void TokenizerInterfaceMain() throws Exception {
 
@@ -63,6 +68,26 @@ public class TokenizerInterface {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public static void setArrayData() {
+
+//		String eventTypeStr = EventNameConstants.LEARN_EVENT;
+//		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+
+		inputArray = new String[6];
+		inputArray[0] = "1"; // sessionID
+		inputArray[1] = "2"; // userID
+		inputArray[2] = "HighNet_project"; // context
+		inputArray[3] = "milestone"; // keyword
+		inputArray[4] = "tasks"; // keyword
+		inputArray[5] = "leading"; // keyword
+
+		eventSessionID = inputArray[0].toString();
+		eventUniqueID = UUID.randomUUID().toString();
+		timestamp = new Timestamp(System.currentTimeMillis());
+		timestampLong = timestamp.getTime();
 
 	}
 
@@ -206,29 +231,6 @@ public class TokenizerInterface {
 
 	}
 
-	public static void setArrayData() {
-
-		// inputArray = new String[4];
-		// inputArray[0] = "793dnj"; // sessionID
-		// inputArray[1] = "6"; // userID
-		// inputArray[2] = "Videokonferenz"; // context
-		// inputArray[3] = "milestone"; // keyword
-
-		inputArray = new String[6];
-		inputArray[0] = "1"; // sessionID
-		inputArray[1] = "2"; // userID
-		inputArray[2] = "HighNet_project"; // context
-		inputArray[3] = "milestone"; // keyword
-		inputArray[4] = "tasks"; // keyword
-		inputArray[5] = "leading"; // keyword
-
-		eventSessionID = inputArray[0].toString();
-		eventUniqueID = UUID.randomUUID().toString();
-		timestamp = new Timestamp(System.currentTimeMillis());
-		timestampLong = timestamp.getTime();
-
-	}
-
 	public static LinkedHashMap<String, String> getMetaData() {
 
 		// String filePath = "src/semRepServices/interfaces/Ontology.owl";
@@ -357,6 +359,8 @@ public class TokenizerInterface {
 				// Dokumente
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
+
+					String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
