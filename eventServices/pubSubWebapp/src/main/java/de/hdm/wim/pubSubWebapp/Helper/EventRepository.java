@@ -33,4 +33,12 @@ public interface EventRepository {
 	 * @return list of messages
 	 */
 	List<IEvent> retrieve(int limit);
+
+	/**
+	 * Retrieve most recent stored messages.
+	 *
+	 * @param limit number of messages
+	 * @return list of messages
+	 */
+	List<IEvent> retrieve(int limit, String topicId);
 }

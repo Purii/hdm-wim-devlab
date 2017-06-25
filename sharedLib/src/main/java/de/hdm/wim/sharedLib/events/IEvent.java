@@ -18,6 +18,8 @@ public abstract class IEvent {
 	protected String data = "";
 	protected String id = "";
 	protected String publishTime = "";
+	protected String handlerId = "";
+
 	protected Map<String, String> attributes = new HashMap<String, String>();
 
 	public String getData() {
@@ -66,16 +68,24 @@ public abstract class IEvent {
 		return this.attributes;
 	}
 
-	public void setAttributes(String attributes) {
-		this.attributes = new Helper().convertJsonToMap(attributes);
-	}
-
 	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 	}
 
+	public void setAttributes(String attributes) {
+		this.attributes = new Helper().convertJsonToMap(attributes);
+	}
+
 	public String getAttributesAsString() {
 		return gson.toJson(this.attributes);
+	}
+
+	public String getHandlerId() {
+		return handlerId;
+	}
+
+	public void setHandlerId(String handlerId) {
+		this.handlerId = handlerId;
 	}
 
 	@Override
