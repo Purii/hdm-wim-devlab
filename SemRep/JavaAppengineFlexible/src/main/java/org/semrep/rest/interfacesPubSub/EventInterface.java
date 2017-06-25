@@ -1625,7 +1625,7 @@ public class EventInterface {
 	}
 
 	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
-	// abteilungStr, projektStr, projektrolleStr, unternehmen
+	// abteilungStr, projektStr, projektrolleStr
 	public static void insertNewUserInformation() throws Exception {
 
 		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
@@ -1734,6 +1734,113 @@ public class EventInterface {
 				"{ " +
 				"ontology:" + dokName + " " +
 				"ontology:Dok_Kontext '" + dokKontext + "' " +
+				"}";
+
+			if (insertSparql != "") {
+
+				String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+	// Parameter: sessionID, personVorname, personNachname, dokName
+	public static void insertNewDocumentCall() throws Exception {
+
+		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		sessionIDStr = inputArray[0].toString();
+		String personVorname = inputArray[1].toString();
+		String personNachname = inputArray[2].toString();
+		String dokName = inputArray[3].toString();
+
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			insertSparql = "";
+
+//			// füge neue Dokumentaufruf an Dokumentinstanz an
+//			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+//				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+//				" INSERT DATA " +
+//				"{ " +
+//				"ontology:" + personVorname + "_" + personNachname + " " +
+//				"ontology:Person_ruft_Dokument_auf ontology:" + dokName + " " +
+//				"}";
+
+//			// füge neue Dokumentaufruf an Dokumentinstanz an
+//			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+//				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+//				" INSERT " +
+//				"{ " +
+//				"ontology:" + personVorname + "_" + personNachname + " " +
+//				"ontology:Person_ruft_Dokument_auf ontology:" + dokName + " " +
+//				"} " +
+//				"WHERE {  ?Person ontology:Person_ID '873267' }";
+
+			String uuID = UUID.randomUUID().toString();
+
+			// füge neue Dokumentaufruf an Dokumentinstanz an
+			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				" INSERT DATA " +
+				"{ " +
+				"ontology:" + personVorname + "_" + personNachname + " " +
+				//"ontology:Person_Dok_Aufruf '" + dokName + "_" + uuID + "' " +
+				"ontology:Person_Dok_Aufruf '" + dokName + "(" + uuID + ")" + "' " +
+				//"ontology:Person_Dok_Aufruf ' ' " +
+				"} ";
+				//"WHERE {  ?Person ontology:Person_ID '873267' }";
+
+
+			if (insertSparql != "") {
+
+				//String uuID = UUID.randomUUID().toString();
+				UpdateProcessor uP = UpdateExecutionFactory.createRemote(
+					UpdateFactory.create(String.format(insertSparql, uuID)), FusekiConfigConstants.FUSEKI_INSERT_ADDRESS);
+				uP.execute();
+
+			}
+
+		} catch (Exception e) {
+			loggger.error("Fehler in EventInterface: " + e);
+		}
+
+	}
+
+	// Parameter: personVorname, personNachname, dokName
+	// wir kriegen: userID, dokID, favor (true/false) --> Constants
+	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	public static void insertNewFavoriteDocument() throws Exception {
+
+		String eventTypeStr = EventNameConstants.LEARN_EVENT;
+		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		String personVorname = inputArray[0].toString();
+		String personNachname = inputArray[1].toString();
+		String dokName = inputArray[2].toString();
+
+		try {
+			// initialisiere Variablen
+			// sparql
+			String insertSparql = "";
+
+			// füge neue Dokumentfavoriten an Dokumentinstanz an
+			insertSparql = " PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " +
+				" PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> " +
+				" INSERT DATA " +
+				"{ " +
+				"ontology:" + personVorname + "_" + personNachname + " " +
+				"ontology:Person_favorisiert_Dokument ontology:" + dokName + " " +
 				"}";
 
 			if (insertSparql != "") {
