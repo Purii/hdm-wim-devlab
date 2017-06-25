@@ -96,12 +96,16 @@ public class Helper {
 	public IEvent convertToIEvent(String json) {
 
 		JsonElement jsonRoot 	= jsonParser.parse(json);
-		String eventStr 		= jsonRoot.getAsJsonObject().get("message").toString();
-		Event event 			= gson.fromJson(eventStr, Event.class);
+		JsonElement messageJson = jsonRoot.getAsJsonObject().get("message");
+		String messageId = messageJson.getAsJsonObject().get("messageId").getAsString();
+		Event event = gson.fromJson(messageJson.toString(), Event.class);
+
+		event.setId(messageId);
 
 		// decode from base64
 		String decoded = decodeBase64(event.getData());
 		event.setData(decoded);
+
 		return event;
 	}
 

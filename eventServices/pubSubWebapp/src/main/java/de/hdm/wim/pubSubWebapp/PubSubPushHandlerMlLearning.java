@@ -2,6 +2,7 @@ package de.hdm.wim.pubSubWebapp;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.ML_LEARNING;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
@@ -17,8 +18,8 @@ import org.apache.log4j.Logger;
  * Created by ben on 4/06/2017.
  */
 @WebServlet(
-	name = "Push with PubSub " + Config.HANDLER_ML_LEARNING,
-	value = Config.PUSH_ENDPOINT_PREFIX + Config.HANDLER_ML_LEARNING
+	name = "Push with PubSub " + ML_LEARNING.HANDLER_ID,
+	value = Config.PUSH_ENDPOINT_PREFIX + ML_LEARNING.HANDLER_ID
 )
 public class PubSubPushHandlerMlLearning extends HttpServlet {
 
@@ -45,7 +46,7 @@ public class PubSubPushHandlerMlLearning extends HttpServlet {
 
 		try {
 			LOGGER.info(
-				"Handler: " + Config.HANDLER_ML_LEARNING + " event.getData(): " + event.getData());
+				"Handler: " + ML_LEARNING.HANDLER_ID + " event.getData(): " + event.getData());
 
 			//Here we serialize the event to a String.
 			final String output = new Gson().toJson(event);
