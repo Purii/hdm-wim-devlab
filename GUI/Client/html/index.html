@@ -53,63 +53,63 @@
           </nav>
          </div>
         <!-- Content for menues-->
-        <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData">
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData" style="width: 200px">
             <li style= "margin: 10px; font-weight: bold" >Your Data</li>
-            <li style= "margin: 10px" >Company: </li>
             <li style= "margin: 10px" >Department: </li>
             <li style= "margin: 10px" >Project: </li>
             <li style= "margin: 10px" >Role/Function: </li>
+            <li class= "mdl-menu__item--full-bleed-divider"></li>
             <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">Edit Data </li>
+            <!--<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Button</button></li>-->
         </ul>
-        <ul id="log"></ul>
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpIndex">
-            <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
-            <li style= "margin: 10px"><p>Neue Textzeite<p></li>
+            <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr </p><p>Testtext für die nächste Zeile</p></li>
+            <li style= "margin: 10px"><p>Neue Textzeite</p></li>
         </ul>
 
       </div> 
     </header>
-  </div>
+
 
     <main class="mdl-layout__content">
-      <div class="page-content">
-      <!-- Your content goes here -->
+      <div class="page-content mdl-grid">
+          <!-- Your content goes here -->
           <!-- Square card -->
-       
-          <div class="demo-card-square mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
+          <div class="mdl-cell mdl-cell--4-col">
+              <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-card--expand">
+                  <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  You can start your Google Hangouts Session and invite colleagues to join you.
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://hangouts.google.com/" target="_blank">
+                    Start Hangout
+                  </a>
+                  <!--<a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="https://hangouts.google.com/" target="_blank">
+                    Start Hangout
+                  </a>-->
+                </div>
+              </div>
+          </div>    
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">Start a new Session</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                Click here to start a session with your friends in 'Proud'. <br>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="./startSession.html">
+                  Start Session
+                </a>
+              </div>
             </div>
-            <div class="mdl-card__supporting-text">
-              You can start your Google Hangouts Session and invite colleagues to join you.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-                <div id="placeholder-rr"></div>
-               <script>
-                    gapi.hangout.render('placeholder-rr', {
-                        'render': 'createhangout',
-                        'initial_apps': [{'app_id' : '184219133185', 'start_data' : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }],
-                        'widget_size': 175
-                    });
-                </script>
-            </div>
-          </div>
-
-          <div class="demo-card-square mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text">Start a new Session</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Click here to Start your session in 'Proud'. <br>
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="startNewSession">
-                Start Session
-              </a>
-            </div>
-          </div>
-
+          </div>  
+      </div>
+    
             <!-- Buttons gehören an andere Stelle     
                 <!-- Change Data->
                 <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
@@ -124,21 +124,9 @@
                     </button>
                 </a>
             -->  
-<!--
-        <div id="Hangouts" style="width: 250px; height: 250px; background-color: red; float: left; margin: 150px">
-          <button class="mdl-button mdl-js-button mdl-button--raised">
-              <?php echo $output = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-hangout" data-render="createhangout">'; ?>
-          </button>
-        </div>
-
-        <div id="Session" style="width: 250px; height: 250px; background-color: green; float: left; margin: 150px">  
-          <a href="./startSession.html"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Start new Session</button></a>
-        </div>
--->
-      </div>
     </main>
 
-
+  </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
