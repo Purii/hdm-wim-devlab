@@ -2,6 +2,7 @@ package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentContextEvent;
+import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.UserInactiveEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
@@ -26,11 +27,11 @@ public class DocumentContextPattern {
 	 * @param env           the env
 	 * @param psmStream 	the IEvent stream
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<IEvent> psmStream) throws Exception {
+	public void run(StreamExecutionEnvironment env, DataStream<DocumentInformationEvent> psmStream) throws Exception {
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
-		Pattern<IEvent, ?> docContext = Pattern
-			.<IEvent>begin("first")
+		Pattern<DocumentInformationEvent, ?> docContextPattern = Pattern
+			.<DocumentInformationEvent>begin("first")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION)
 				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO))
 			.followedBy("second")
@@ -41,14 +42,14 @@ public class DocumentContextPattern {
 				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO));
 
 
-		PatternStream<IEvent> patternStream = CEP.pattern(psmStream, docContext);
+		PatternStream<DocumentInformationEvent> patternStream = CEP.pattern(psmStream, docContextPattern);
 
-		DataStream<DocumentContextEvent> documentContextEventDataStream = patternStream.select(new PatternSelectFunction<IEvent, DocumentContextEvent>() {
+		DataStream<DocumentContextEvent> documentContextEventDataStream = patternStream.select(new PatternSelectFunction<DocumentInformationEvent, DocumentContextEvent>() {
 			@Override
-			public DocumentContextEvent select(Map<String, IEvent> pattern) throws Exception {
+			public DocumentContextEvent select(Map<String, DocumentInformationEvent> pattern) throws Exception {
 				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
-				String project3 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
+				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
 					DocumentContextEvent dcevt = new DocumentContextEvent();
