@@ -2,21 +2,18 @@ package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
 import de.hdm.wim.eventServices.eventProcessing.helper.ActiveUsers;
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_SESSIONINSIGHTS;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.SessionEndEvent;
 import de.hdm.wim.sharedLib.events.StayAliveEvent;
-import de.hdm.wim.sharedLib.events.UserInactiveEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import java.util.Map;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
-import org.apache.flink.cep.PatternTimeoutFunction;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.types.Either;
-
-import java.util.Map;
 
 /**
  * Created by nilsb on 24.06.2017.
@@ -78,7 +75,7 @@ public class SessionEndPattern2 {public void run(StreamExecutionEnvironment env,
 		SessionEndEvent sessionEndEvent = new SessionEndEvent();
 		sessionEndEvent.setSessionId(au.getSessionId());
 		PublishHelper ph = new PublishHelper(false);
-		ph.Publish(sessionEndEvent, Constants.PubSub.Topic.CEP_SESSIONINSIGHTS);
+		ph.Publish(sessionEndEvent, CEP_SESSIONINSIGHTS.TOPIC_ID);
 	}
 
 }
