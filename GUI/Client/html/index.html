@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -18,9 +19,20 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"/>
   
     <!-- CSS styleIndex -->
-      <link rel="stylesheet" href="../css/styleIndex.css"/>
-
-      <style>.navwrap{float:left; width:auto;}</style>
+    <link rel="stylesheet" href="../css/styleIndex.css"/>
+    <style>
+    .navwrap{
+    float:left; 
+    width:auto;
+    }
+    .inReihe{
+    float:left; margin:20px;
+    }
+    .page-content.mdl-grid{
+    width:720px; 
+    margin:0px auto;
+    }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +49,7 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title" img src="../images/logo/Wolkenlogo 40x40.png" alt="Wolkenlogo 40x40">Logo</span>
+        <span class="mdl-layout-title"><img src="../images/logo/Wolkenlogo 40x40.png" alt="Wolkenlogo 40x40"></span>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
@@ -52,30 +64,30 @@
           <a class="mdl-navigation__link" id= "menu_helpIndex" style= "color: white" href="#"><i class="material-icons">info_outline</i></a>
           </nav>
          </div>
+        
         <!-- Content for menues-->
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData" style="width: 200px">
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData">
             <li style= "margin: 10px; font-weight: bold" >Your Data</li>
             <li style= "margin: 10px" >Department: </li>
             <li style= "margin: 10px" >Project: </li>
             <li style= "margin: 10px" >Role/Function: </li>
             <li class= "mdl-menu__item--full-bleed-divider"></li>
             <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">Edit Data </li>
-            <!--<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Button</button></li>-->
+            <!--<li><button class="mdl-button mdlfancybox-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Button</button></li>-->
         </ul>
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpIndex">
             <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr </p><p>Testtext für die nächste Zeile</p></li>
             <li style= "margin: 10px"><p>Neue Textzeite</p></li>
         </ul>
-
       </div> 
     </header>
-
 
     <main class="mdl-layout__content">
       <div class="page-content mdl-grid">
           <!-- Your content goes here -->
           <!-- Square card -->
-          <div class="mdl-cell mdl-cell--4-col">
+          <div>
+          <div class="inReihe">
               <div class="demo-card-square mdl-card mdl-shadow--2dp">
                 <div id="cardHangouts" class="mdl-card__title mdl-card--expand" >
                   <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
@@ -84,16 +96,17 @@
                   You can start your Google Hangouts Session and invite colleagues to join you.
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                  <!--<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://hangouts.google.com/" target="_blank">
-                    Start Hangout
-                  </a>-->
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #006600" href="https://hangouts.google.com/" target="_blank">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://hangouts.google.com/" target="_blank">
                     Start Hangout
                   </a>
+                  <!--<a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #006600" href="https://hangouts.google.com/" target="_blank">
+                    Start Hangout
+                  </a> -->
                 </div>
               </div>
           </div>    
-          <div class="mdl-cell mdl-cell--4-col">
+          
+          <div class="inReihe">
             <div class="demo-card-square mdl-card mdl-shadow--2dp">
               <div id="cardSession" class="mdl-card__title mdl-card--expand">
                 <h2 class="mdl-card__title-text">Start a new Session</h2>
@@ -107,15 +120,11 @@
                 </a>
               </div>
             </div>
-          </div>  
+          </div>
+         </div>   
       </div>
     
             <!-- Buttons gehören an andere Stelle     
-                <!-- Change Data->
-                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
-                    <i class="material-icons">account_circle</i>
-                </a>
-                
                 <!--Logout->
                 <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
                     <!--Button mit ripples und Farbe->
@@ -139,7 +148,7 @@
     <script type="text/javascript" src="drawChartByButton.js"></script>
     <script type="text/javascript" src="tabs.js"></script>
     <script type="text/javascript" src="controlFunctions.js"></script>
-    <script src="fancybox-master/dist/jquery.fancybox.min.js"></script>
+    <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
     <script src="../js/client.js"></script>
 
   </body>

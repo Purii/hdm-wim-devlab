@@ -13,8 +13,8 @@
 #cardSession{
     background:
     url('../images/logo/Schriftzug 320x200.png') bottom right 15% no-repeat #ff6600;
-
-sdiv#KoBoRaBody{
+}
+div#KoBoRaBody{
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
