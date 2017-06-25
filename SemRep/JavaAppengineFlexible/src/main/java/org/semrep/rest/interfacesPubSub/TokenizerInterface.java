@@ -1,6 +1,8 @@
 package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.*;
+import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
@@ -19,8 +21,6 @@ import javax.ws.rs.core.Response;
 import java.sql.Timestamp;
 import java.util.*;
 
-
-@Path("/tokenizerInterface")
 public class TokenizerInterface {
 
 	private static JSONObject jsonObj;
@@ -40,13 +40,8 @@ public class TokenizerInterface {
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
 
+	public static void TokenizerInterfaceMain() throws Exception {
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getTokenizerEvent")
-	public static void TokenizerInterfaceMain() {
-		//Path
-//		/tokenizerInterface/getTokenizerInterfaceEvents
 		setArrayData();
 		getMetaData();
 		getUserInformation();
@@ -58,25 +53,19 @@ public class TokenizerInterface {
 
 	public static void main(String[] args) {
 
-		//Path
-//		/tokenizerInterface/getTokenizerInterfaceEvents
-		setArrayData();
-		getMetaData();
-		getUserInformation();
-		getDepartmentInformation();
-		getProjectInformation();
-		goThoughDocumentInstances();
+		try {
+			TokenizerInterfaceMain();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
-
-	// produce
-	// consume
-	// produce ProjectInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	private static Response getProjectInformation() {
+	private static void getProjectInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
+
+		HashMap<String, String> eventHashMap = new HashMap<String, String>();
 
 		Projekt projectInformationEventObject = null;
 
@@ -85,18 +74,24 @@ public class TokenizerInterface {
 			if (key.equals("Projekt")) {
 				projectInformationEventObject = new Projekt(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 					richTokenHashMap.get(key).toString());
+				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, projectInformationEventObject.toStringProjektObjekt());
 				System.out.println(projectInformationEventObject.toStringProjektObjekt());
 			}
 
 		}
-		// return projectInformationEventObject.toStringProjektObjekt();
-		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		ProjectInformationEvent event = new ProjectInformationEvent();
+		event.setAttributes(eventHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	@Produces(MediaType.APPLICATION_JSON)
-	private static void goThoughDocumentInstances() {
+	private static void goThoughDocumentInstances() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -104,18 +99,13 @@ public class TokenizerInterface {
 			getDocumentInformation(goThoughNumDoks);
 		}
 
-//		jsonObj.put("DocumentInformationEvent", richTokenHashMap.toString());
-//		return Response.status(200).entity(jsonObj.toString()).build();
-
 	}
 
-	// produce
-	// consume
-	// produce DocumentInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	private static Response getDocumentInformation(int dokIndex) {
+	private static void getDocumentInformation(int dokIndex) throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
+
+		HashMap<String, String> eventHashMap = new HashMap<String, String>();
 
 		Dokument documentInformationEventObject = null;
 
@@ -125,24 +115,33 @@ public class TokenizerInterface {
 			if (key.equals("Dokument" + dokIndex)) {
 				documentInformationEventObject = new Dokument(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 					richTokenHashMap.get(key).toString());
+				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, documentInformationEventObject.toStringDokumentObjekt());
 				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
 				break;
 			}
 
 		}
-		// return documentInformationEventObject.toStringDokumentObjekt();
-		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		DocumentInformationEvent event = new DocumentInformationEvent();
+		event.setAttributes(eventHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
 
 	}
 
-	// produce
-	// consume
-	// produce DepartmentInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	public static Response getDepartmentInformation() {
+	public static void getDepartmentInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
+
+		HashMap<String, String> eventHashMap = new HashMap<String, String>();
 
 		Abteilung departmentInformationEventObject = null;
 
@@ -151,23 +150,28 @@ public class TokenizerInterface {
 			if (key.equals("Abteilung")) {
 				departmentInformationEventObject = new Abteilung(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 					richTokenHashMap.get(key).toString());
+				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, departmentInformationEventObject.toStringAbteilungsObjekt());
 				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
 			}
 
 		}
-		// return departmentInformationEventObject.toStringAbteilungsObjekt();
-		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		DepartmentInformationEvent event = new DepartmentInformationEvent();
+		event.setAttributes(eventHashMap);
+		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		publishHelper.Publish(event, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
 
 	}
 
-	// produce
-	// consume
-	// produce UserInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	public static Response getUserInformation() {
+	public static void getUserInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
+
+		HashMap<String, String> eventHashMap = new HashMap<String, String>();
 
 		Person userInformationEventObject = null;
 
@@ -177,12 +181,24 @@ public class TokenizerInterface {
 			if (key.equals("Person")) {
 				userInformationEventObject = new Person(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
 					richTokenHashMap.get(key).toString());
+				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, userInformationEventObject.toStringPersonObjekt());
 				System.out.println(userInformationEventObject.toStringPersonObjekt());
 			}
 
 		}
-		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringPersonObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+
+		// publishen geht überall
+		// subcriben nur im PubSubHandler
+		UserInformationEvent userInformationEvent = new UserInformationEvent();
+		userInformationEvent.setAttributes(eventHashMap);
+		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
+		userInformationEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
+
+		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
+		publishHelper.Publish(userInformationEvent, Constants.PubSub.Topic.SEMREP_INFORMATION, true);
+
 	}
 
 	public static void setArrayData() {
