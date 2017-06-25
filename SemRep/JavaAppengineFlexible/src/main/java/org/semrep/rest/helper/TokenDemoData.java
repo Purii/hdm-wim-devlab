@@ -5,11 +5,12 @@ package org.semrep.rest.helper;
  */
 public class TokenDemoData {
 
-	public String[] inputArray;
+	public static String[] inputArray;
 
-	public String[] simulateTokenData(int numberOfTokens, String eventType) {
+	public static String[] simulateTokenData(int arrayLength, String eventType) {
 
-		if (numberOfTokens == 0 && eventType == EventNameConstants.TOKEN_EVENT){
+		// 0 Tokens
+		if (arrayLength == 3 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[3];
@@ -17,7 +18,8 @@ public class TokenDemoData {
 			inputArray[1] = "6"; // userID
 			inputArray[2] = "Videokonferenz"; // context
 
-		} if (numberOfTokens == 1 && eventType == EventNameConstants.TOKEN_EVENT){
+			// 1 Token
+		} if (arrayLength == 4 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[4];
@@ -29,7 +31,8 @@ public class TokenDemoData {
 
 		}
 
-		if (numberOfTokens == 2 && eventType == EventNameConstants.TOKEN_EVENT){
+		// 2 Token
+		if (arrayLength == 5 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[5];
@@ -40,7 +43,8 @@ public class TokenDemoData {
 			inputArray[4] = "tasks"; // keyword
 
 
-		} if (numberOfTokens == 3 && eventType == EventNameConstants.TOKEN_EVENT){
+			// 3 Token
+		} if (arrayLength == 6 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[6];
@@ -51,7 +55,8 @@ public class TokenDemoData {
 			inputArray[4] = "tasks"; // keyword
 			inputArray[5] = "leading"; //keyword
 
-		} if (numberOfTokens == 6 && eventType == EventNameConstants.TOKEN_EVENT){
+			// 6 Token
+		} if (arrayLength == 8 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[9];
@@ -65,7 +70,8 @@ public class TokenDemoData {
 			inputArray[7] = "do"; // keyword
 			inputArray[8] = "list"; //keyword
 
-		} if (numberOfTokens == 9 && eventType == EventNameConstants.TOKEN_EVENT){
+			// 9 Token
+		} if (arrayLength == 11 && eventType == EventNameConstants.TOKEN_EVENT){
 
 			// richToken
 			inputArray = new String[12];
