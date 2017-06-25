@@ -4,9 +4,9 @@
 
 function hasClickedEvent(documentName){
 
-      var time = Date.now();
-     
-     var json = JSON.stringify({hasClicked:'_DocumentName_'+documentName+'_didClicked_'+true+'_Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
+    var time = Date.now();
+
+    var json = JSON.stringify({hasClicked:'_DocumentName_'+documentName+'_didClicked_'+true+'_Client_' + googleTokenId + '_SessionID_' + raumID+'_TimeStamp_'+time });
 
     socket.send(json);
     log('Sent: ' + json);
@@ -16,8 +16,8 @@ function hasClickedEvent(documentName){
 
 function openTab(evt, tabName) {
 
-   // doDraw = false;
-  //  alert("doDraw: " + doDraw);
+    // doDraw = false;
+    //  alert("doDraw: " + doDraw);
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -37,14 +37,14 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
- //  alert(tabName);
-   // console.log(tabName);
-   document.getElementById(tabName+"Body").style.display = "block";
-  //  document.getElementById(tabName+"Body").style.display = "block";
+    //  alert(tabName);
+    // console.log(tabName);
+    document.getElementById(tabName+"Body").style.display = "block";
+    //  document.getElementById(tabName+"Body").style.display = "block";
     evt.currentTarget.className += " active";
 //    evt.currentTarget.className += "tab-background";
-var documentName = tabName.split("_");
-hasClickedEvent(documentName[0]);
+    var documentName = tabName.split("_");
+    hasClickedEvent(documentName[0]);
 }
 
 
@@ -59,13 +59,13 @@ function closeTab(tab, name) {
     document.getElementById("defaultOpen").click();
 
     document.getElementById(name+"TAB").remove();
-  //  document.getElementById(name+"TAB").style.display= 'none';
+    //  document.getElementById(name+"TAB").style.display= 'none';
 
-  //  document.getElementById('tabList').innerHTML
+    //  document.getElementById('tabList').innerHTML
     /*
-        var codeForButton = "<button class=\"tablinks\" onclick=\"openTab(event, "+ "'"+ name + "'"+")\"> " + name + "</button>"
-        document.getElementById('tabList').innerHTML =  document.getElementById('tabList').innerHTML.replace(codeForButton,'');
-    */
+     var codeForButton = "<button class=\"tablinks\" onclick=\"openTab(event, "+ "'"+ name + "'"+")\"> " + name + "</button>"
+     document.getElementById('tabList').innerHTML =  document.getElementById('tabList').innerHTML.replace(codeForButton,'');
+     */
     doDraw == true;
 }
 
@@ -79,15 +79,15 @@ function addTab(name) {
 
 
     /* chartData.push(nameArray[i]);
-                chartData.push(folderArray[i]);
-               chartData.push(parentArray[i]);
-                 chartData.push(sizeArray[i]);
-                chartData.push(colorArray[i]);
-               chartData.push(dokuTypArray[i]);
-                chartData.push(linkArray[i]);
-                chartData.push(DokumentenIDArray[i]);
+     chartData.push(folderArray[i]);
+     chartData.push(parentArray[i]);
+     chartData.push(sizeArray[i]);
+     chartData.push(colorArray[i]);
+     chartData.push(dokuTypArray[i]);
+     chartData.push(linkArray[i]);
+     chartData.push(DokumentenIDArray[i]);
 
-                */
+     */
 
     var chartData =    getChartDataByName(name);
     var link = chartData[6];
@@ -95,7 +95,7 @@ function addTab(name) {
     // tab body erzeugen
     document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="'+link+'" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="'+link+'"></iframe> </div>';
 
-   // Buttons erzeugen und in tabList schreiben
+    // Buttons erzeugen und in tabList schreiben
     var codeForButton = "<button class=\"tablinks\" id="+nameAndTimeStampID+"TAB onclick=\"openTab(event, "+ "'"+ nameAndTimeStampID + "'"+")\"> " + name + "</button>"
     document.getElementById('tabList').innerHTML += codeForButton;
 
@@ -107,8 +107,8 @@ function addTab(name) {
 
 
 
-openTab(event,nameAndTimeStampID );
-document.getElementById(nameAndTimeStampID+"TAB").click();
+    openTab(event,nameAndTimeStampID );
+    document.getElementById(nameAndTimeStampID+"TAB").click();
 }
 
 
