@@ -10,14 +10,17 @@
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
 
     <!-- Material Design Lite -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     <!-- MDL Theme Builder-->
-   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"/>
   
+    <!-- CSS styleIndex -->
+      <link rel="stylesheet" href="../css/styleIndex.css"/>
 
+      <style>.navwrap{float:left; width:auto;}</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,85 +37,96 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title" img src="../images/logo/Wolkenlogo 40x40.png" alt="Wolkenlogo 40x40">Logo</span>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <!-- Log Out -->
-          <a class="mdl-navigation__link" style= "color: white" href="#"><i class="material-icons">power_settings_new</i></a>
+          <div class="navwrap">
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <!-- Log Out -->
+          <a class="mdl-navigation__link" style= "color: white" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php"><i class="material-icons">power_settings_new</i></a>
           <!-- Change Personal Data -->
-          <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;"><i class="material-icons">account_circle</i></a>
+          <!-- <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;"><i class="material-icons">account_circle</i></a>-->
+          <a class="mdl-navigation__link" id= "menu_changeData" style= "color: white" href="#"><i class="material-icons">account_circle</i></a>
           <!-- Help -->
-          <a class="mdl-navigation__link" style= "color: white" href="#"><i class="material-icons">info_outline</i></a>
-        </nav>
+          <a class="mdl-navigation__link" id= "menu_helpIndex" style= "color: white" href="#"><i class="material-icons">info_outline</i></a>
+          </nav>
+         </div>
+        <!-- Content for menues-->
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData" style="width: 200px">
+            <li style= "margin: 10px; font-weight: bold" >Your Data</li>
+            <li style= "margin: 10px" >Department: </li>
+            <li style= "margin: 10px" >Project: </li>
+            <li style= "margin: 10px" >Role/Function: </li>
+            <li class= "mdl-menu__item--full-bleed-divider"></li>
+            <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">Edit Data </li>
+            <!--<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Button</button></li>-->
+        </ul>
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpIndex">
+            <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr </p><p>Testtext für die nächste Zeile</p></li>
+            <li style= "margin: 10px"><p>Neue Textzeite</p></li>
+        </ul>
+
       </div> 
     </header>
-  </div>
+
 
     <main class="mdl-layout__content">
-      <div class="page-content">
-      <!-- Your content goes here -->
+      <div class="page-content mdl-grid">
+          <!-- Your content goes here -->
           <!-- Square card -->
-          <style>
-          .demo-card-square.mdl-card {
-            width: 320px;
-            height: 320px;
-            float: left;
-            margin-top: 180px;
-            margin-left: 180px;
-            margin-right: 180px;
-          }
-          .demo-card-square > .mdl-card__title {
-            color: #fff;
-            background:
-              url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
-          }
-          </style>
-
-          <div class="demo-card-square mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
+          <div class="mdl-cell mdl-cell--4-col">
+              <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                <div id="cardHangouts" class="mdl-card__title mdl-card--expand" >
+                  <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  You can start your Google Hangouts Session and invite colleagues to join you.
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://hangouts.google.com/" target="_blank">
+                    Start Hangout
+                  </a>
+                  <!--<a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" href="https://hangouts.google.com/" target="_blank">
+                    Start Hangout
+                  </a>-->
+                </div>
+              </div>
+          </div>    
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div id="cardSession" class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">Start a new Session</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                Click here to start a session with your friends in 'Proud'. <br>
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="./startSession.html">
+                  Start Session
+                </a>
+              </div>
             </div>
-            <div class="mdl-card__supporting-text">
-              You can start your Google Hangouts Session and invite colleagues to join you.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" >
-                Start Hangout
-              </a>
-            </div>
-          </div>
-
-          <div class="demo-card-square mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
-              <h2 class="mdl-card__title-text">Start a new Session</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              Click here to Start your session in 'Proud'.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="./startSession.html">
-                Start Session
-              </a>
-            </div>
-          </div>
-
-<!--
-        <div id="Hangouts" style="width: 250px; height: 250px; background-color: red; float: left; margin: 150px">
-          <button class="mdl-button mdl-js-button mdl-button--raised">
-              <?php echo $output = '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-hangout" data-render="createhangout">'; ?>
-          </button>
-        </div>
-
-        <div id="Session" style="width: 250px; height: 250px; background-color: green; float: left; margin: 150px">  
-          <a href="./startSession.html"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Start new Session</button></a>
-        </div>
--->
+          </div>  
       </div>
+    
+            <!-- Buttons gehören an andere Stelle     
+                <!-- Change Data->
+                <a class="mdl-navigation__link" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">
+                    <i class="material-icons">account_circle</i>
+                </a>
+                
+                <!--Logout->
+                <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
+                    <!--Button mit ripples und Farbe->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Logout
+                    </button>
+                </a>
+            -->  
     </main>
 
-
+  </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -121,7 +135,7 @@
     <!-- MDL -->
     <script src="./material.min.js"></script>
     <!-- java scrip -->
-    <script language="javascript" type="text/javascript" src="loginSite.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/loginSite.js"></script>
     <script type="text/javascript" src="drawChartByButton.js"></script>
     <script type="text/javascript" src="tabs.js"></script>
     <script type="text/javascript" src="controlFunctions.js"></script>

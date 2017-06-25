@@ -20,6 +20,7 @@
    
     <!--MDL Google Icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>.navwrap{ margin:left 0Px; float=left;}</style>
 
 </head>
 <body>
@@ -32,14 +33,22 @@
             <span class="mdl-layout-title">Proud</span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
-            <!-- Navigation. We hide it in small screens. -->
-            <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <!-- Navigation. Immer sichtbar -->
+            <nav class="mdl-navigation">
                 <!-- Navigation back to Landing Page -->
                 <a class="mdl-navigation__link" style= "color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
                 <!-- Who is online -->
-                <a class="mdl-navigation__link" id="menu_online" style= "color: white"><i class="material-icons">info_outline</i></a>
+                <a class="mdl-navigation__link" id="menu_online" style= "color: white">
+                    <i class="material-icons">
+                    info_outline</i>
+                </a>
                 <!-- Google Drive -->
-                <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;"><i class="material-icons">change_history</i></a>
+                <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" 
+                   data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
+                    <i class="material-icons">
+                        change_history
+                    </i>
+                </a>
                 <!-- Help -->
                 <a class="mdl-navigation__link" id="menu_help" style= "color: white"><i class="material-icons">help_outline</i></a>
             </nav>    
@@ -60,12 +69,12 @@
             
 
             <!-- Content for menues-->
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_help">
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_help">
                         <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
                         <li style= "margin: 10px"><p>Neue Textzeite<p></li>
                 </ul>
                 
-                <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_online">
+                <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom- mdl-js-menu mdl-js-ripple-effect" for="menu_online">
                         <li style= "margin: 10px"><p>Online:<p></li>
                         <li style= "margin: 10px"><p>Neue Textzeite<p></li>
                     </ul>
@@ -76,22 +85,63 @@
     <main class="mdl-layout__content">
         <div class="page-content">
             <!-- Your content goes here -->
+
+
+
+
+
+            <!--Tabs von Materials-->
+          
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" >
+                <!--Bennenung und erzeugen der Tabs-->
+                <div class="navwrap">
+                    <div class="mdl-tabs__tab-bar">
+                        <a href="#kachel-panel" class="mdl-tabs__tab is-active"> Name Kachelwand</a>
+                        <a href="#dok1-panel" class="mdl-tabs__tab">Name Dok1</a>
+                        <a href="#dok2-panel" class="mdl-tabs__tab">Name Dok2</a>
+                    </div>
+                </div>
+                    <!---->
+                    <div class="mdl-tabs__panel is-active" id="kachel-panel">
+                        <div id="KoBoRaBody" class="tabcontent">
+                            <h3>KoBoRa System</h3>
+                            <p>bla bla</p>
+                            <div id="chart_div" style="width: 900px; height: 500px"></div>
+                            <button id="drawChartButton">
+                                Zeichne
+                            </button>
+                        </div>
+                        <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin"
+              style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+                    </div>
+                    <div class="mdl-tabs__panel" id="dok-panel">
+                        <ul>
+                            <li>Hier Steht das Dok</li>
+                            <li>Cersei</li>
+                            <li>Jamie</li>
+                            <li>Tyrion</li>
+                        </ul>
+                    </div>
+                    <div class="mdl-tabs__panel" id="targaryens-panel">
+                        <ul>
+                            <li>Viserys</li>
+                            <li>Daenerys</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+            <!-- 
             <div class="tab" id="tabList">
                 <button class="tablinks" onclick="openTab(event, 'KoBoRa')" id="defaultOpen">KoBoRa</button>
             </div>
             <div id="contentForTabs">
-                <div id="KoBoRaBody" class="tabcontent">
-                    <h3>KoBoRa System</h3>
-                    <p>bla bla</p>
-                    <div id="chart_div" style="width: 900px; height: 500px"></div>
-
-                    <button id="drawChartButton">
-                        Zeichne
-                    </button>
-                </div>
-                <!-- <iframe src="https://calendar.google.com/calendar/embed?src=markus.goetz91%40gmail.com&ctz=Europe/Berlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+               
             </div>
-
+                -->
 
         </div>
     </main>

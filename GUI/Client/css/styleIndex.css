@@ -1,0 +1,21 @@
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+  margin-top: 30px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+#cardHangouts{
+    background:
+    url('../images/logo/Google-Hangouts-logo.jpg') bottom right 15% no-repeat #006600;
+}
+#cardSession{
+    background:
+    url('../images/logo/Schriftzug 320x200.png') bottom right 15% no-repeat #ff6600;
+
+sdiv#KoBoRaBody{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}

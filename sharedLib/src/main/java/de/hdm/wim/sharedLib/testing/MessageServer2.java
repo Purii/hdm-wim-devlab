@@ -2,10 +2,7 @@ package de.hdm.wim.sharedLib.testing;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
-import de.hdm.wim.sharedLib.events.StayAliveEvent;
-import de.hdm.wim.sharedLib.events.UserJoinedSessionEvent;
-import de.hdm.wim.sharedLib.events.UserLeftSessionEvent;
+import de.hdm.wim.sharedLib.events.*;
 import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jni.Time;
@@ -25,7 +22,7 @@ import java.util.concurrent.*;
 public class MessageServer2 {
 
 	private static final Executor SERVER_EXECUTOR 	 = Executors.newSingleThreadExecutor();
-	private static final int PORT 					 = 8081;
+	private static final int PORT 					 = 9999;
 	private static final long MESSAGE_PERIOD_SECONDS = 6;
 	private static final Logger LOGGER 				 = Logger.getLogger(MessageServer2.class);
 
@@ -52,15 +49,15 @@ public class MessageServer2 {
 		docinfevt.setPublishTime(timeStamp);
 		docinfevt.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		docinfevt.setDocumentId("123");
-		docinfevt.setDocumentBelongsToProject("High Net");
-/*
+		docinfevt.setDocumentBelongsToProject("HighNet");
+
 		DocumentInformationEvent docinfevt2 = new DocumentInformationEvent();
 		docinfevt2.setId("2");
 		docinfevt2.setData("bla");
 		docinfevt2.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		docinfevt2.setPublishTime(timeStamp);
 		docinfevt2.setDocumentId("233");
-		docinfevt2.setDocumentBelongsToProject("High Net");
+		docinfevt2.setDocumentBelongsToProject("HighNet");
 
 		DocumentInformationEvent docinfevt3 = new DocumentInformationEvent();
 		docinfevt3.setId("3");
@@ -68,7 +65,7 @@ public class MessageServer2 {
 		docinfevt3.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
 		docinfevt3.setPublishTime(timeStamp);
 		docinfevt3.setDocumentId("124");
-		docinfevt3.setDocumentBelongsToProject("High Net");*/
+		docinfevt3.setDocumentBelongsToProject("HighNet");
 
 
 		StayAliveEvent stayAlive = new StayAliveEvent();
@@ -116,6 +113,24 @@ public class MessageServer2 {
 		leftSessionEvent3.setSessionId("12345");
 		leftSessionEvent3.setUserId("Birgit");
 
+		UserInformationEvent userInformationEvent1 = new UserInformationEvent();
+		userInformationEvent1.setLastname("Bachmann");
+		userInformationEvent1.setUserWorksOnProject("HighNet");
+		userInformationEvent1.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+
+
+		UserInformationEvent userInformationEvent2 = new UserInformationEvent();
+		userInformationEvent2.setLastname("Krasniqi");
+		userInformationEvent2.setUserWorksOnProject("HighNet");
+		userInformationEvent2.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+
+
+		UserInformationEvent userInformationEvent3 = new UserInformationEvent();
+		userInformationEvent3.setLastname("Schneider");
+		userInformationEvent3.setUserWorksOnProject("HighNet");
+		userInformationEvent3.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
+
+
 		PubSubMessage message   = PubSubMessage.getRandom("blubb_" + id,Integer.toString(id));
 		//String message 			= "test";
 		Gson gson               = new Gson();
@@ -123,33 +138,51 @@ public class MessageServer2 {
 		//messageQueue.put(gson.toJson(docinfevt));
 		// Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
+		SuccessfulFeedbackEvent successfulFeedbackEvent = new SuccessfulFeedbackEvent();
+		successfulFeedbackEvent.setUserId("user1");
+		successfulFeedbackEvent.setDocumentId("doc1");
 
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
-		messageQueue.put(gson.toJson(joinedSessionEvent));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
+		SuccessfulFeedbackEvent successfulFeedbackEvent1 = new SuccessfulFeedbackEvent();
+		successfulFeedbackEvent1.setUserId("user1");
+		successfulFeedbackEvent1.setDocumentId("doc1");
+
+		/*messageQueue.put(gson.toJson(joinedSessionEvent));
 		messageQueue.put(gson.toJson(joinedSessionEvent2));
-		messageQueue.put(gson.toJson(joinedSessionEvent3));
+		messageQueue.put(gson.toJson(joinedSessionEvent3));*/
+
+
+		/*Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+		messageQueue.put(gson.toJson(stayAlive));
+		messageQueue.put(gson.toJson(stayAlive2));
+		//messageQueue.put(gson.toJson(joinedSessionEvent));
+		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		messageQueue.put(gson.toJson(stayAlive));
+		messageQueue.put(gson.toJson(stayAlive2));
+		//messageQueue.put(gson.toJson(joinedSessionEvent2));
+		//messageQueue.put(gson.toJson(joinedSessionEvent3));
 
 		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 		messageQueue.put(gson.toJson(stayAlive));
 		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(leftSessionEvent2));
+		//messageQueue.put(gson.toJson(leftSessionEvent2));
 		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(leftSessionEvent));
+		//messageQueue.put(gson.toJson(leftSessionEvent));
 		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(leftSessionEvent3));
+		//messageQueue.put(gson.toJson(leftSessionEvent3));*/
 
 
 		while(true){
-
-			messageQueue.put(gson.toJson(docinfevt));
+			messageQueue.put(gson.toJson(userInformationEvent1));
+			messageQueue.put(gson.toJson(userInformationEvent2));
 			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			messageQueue.put(gson.toJson(userInformationEvent3));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			messageQueue.put(gson.toJson(userInformationEvent3));
 		}
 
 	}

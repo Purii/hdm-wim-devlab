@@ -1,10 +1,10 @@
 package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.DocumentContextEvent;
-import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
+import de.hdm.wim.sharedLib.events.UserContextEvent;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.UserInactiveEvent;
+import de.hdm.wim.sharedLib.events.UserInformationEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
@@ -13,13 +13,14 @@ import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.hadoop.security.UserGroupInformation;
 
 import java.util.Map;
 
 /**
- * Created by nilsb on 23.06.2017.
+ * Created by chris on 24.06.2017.
  */
-public class DocumentContextPattern {
+public class UserContextPattern {
 
 	/**
 	 * Run.
@@ -27,42 +28,42 @@ public class DocumentContextPattern {
 	 * @param env           the env
 	 * @param psmStream 	the IEvent stream
 	 */
-	public void run(StreamExecutionEnvironment env, DataStream<DocumentInformationEvent> psmStream) throws Exception {
+	public void run(StreamExecutionEnvironment env, DataStream<UserInformationEvent> psmStream) throws Exception {
 		//Test Pattern for false User Feedback
 		//This Pattern triggers when a User clicks on a Feedback mutiple times.
-		Pattern<DocumentInformationEvent, ?> docContextPattern = Pattern
-			.<DocumentInformationEvent>begin("first")
+		Pattern<UserInformationEvent, ?> userContext = Pattern
+			.<UserInformationEvent>begin("first")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO))
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.USER_INFO))
 			.followedBy("second")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO ))
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.USER_INFO ))
 			.followedBy("third")
 			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.DOCUMENT_INFO));
+				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.USER_INFO));
 
 
-		PatternStream<DocumentInformationEvent> patternStream = CEP.pattern(psmStream, docContextPattern);
+		PatternStream<UserInformationEvent> patternStream = CEP.pattern(psmStream, userContext);
 
-		DataStream<DocumentContextEvent> documentContextEventDataStream = patternStream.select(new PatternSelectFunction<DocumentInformationEvent, DocumentContextEvent>() {
+		DataStream<UserContextEvent> userContextEventDataStream = patternStream.select(new PatternSelectFunction<UserInformationEvent, UserContextEvent>() {
 			@Override
-			public DocumentContextEvent select(Map<String, DocumentInformationEvent> pattern) throws Exception {
-				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
-				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
-				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
+			public UserContextEvent select(Map<String, UserInformationEvent> pattern) throws Exception {
+				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
+				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
+				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
 				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
-					DocumentContextEvent dcevt = new DocumentContextEvent();
-					dcevt.setContext(project1);
-					dcevt.setEventSource(Constants.PubSub.EventSource.EVENT);
+					UserContextEvent ucevt = new UserContextEvent();
+					ucevt.setContext(project1);
+					ucevt.setEventSource(Constants.PubSub.EventSource.EVENT);
 					System.out.println("Project " + project1 + " seems to be interesting");
-					return dcevt;
+					return ucevt;
 				}
 				return null;
 			}
 		});
 		PublishHelper ph = new PublishHelper(false);
-		documentContextEventDataStream.print();
+		userContextEventDataStream.print();
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
 	}
