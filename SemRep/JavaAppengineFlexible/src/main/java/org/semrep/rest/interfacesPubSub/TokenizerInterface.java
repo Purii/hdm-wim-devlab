@@ -47,6 +47,8 @@ public class TokenizerInterface {
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
+	public static QueryExecution queryExecution;
+	public static ResultSet resultSet;
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
@@ -360,7 +362,7 @@ public class TokenizerInterface {
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
 
-					String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
+					//String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
@@ -474,12 +476,16 @@ public class TokenizerInterface {
 					Query query = QueryFactory.create(sparql);
 					// queryExecution = QueryExecutionFactory.create(query,
 					// ontologyModel);
-					QueryExecution queryExecution = QueryExecutionFactory
+//					QueryExecution queryExecution = QueryExecutionFactory
+//						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
+
+					queryExecution = QueryExecutionFactory
 						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query
-					ResultSet resultSet = queryExecution.execSelect();
+					//ResultSet resultSet = queryExecution.execSelect();
+					resultSet = queryExecution.execSelect();
 
 					// initialisiere Variablen
 					String splitResult = "";
