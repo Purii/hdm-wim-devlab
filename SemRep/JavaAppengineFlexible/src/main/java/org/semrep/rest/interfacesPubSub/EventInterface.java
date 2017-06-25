@@ -1610,7 +1610,7 @@ public class EventInterface {
 	}
 
 	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
-	// abteilungStr, projektStr, projektrolleStr
+	// abteilungStr, projektStr, projektrolleStr, unternehmen
 	public static void insertNewUserInformation() throws Exception {
 
 		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
