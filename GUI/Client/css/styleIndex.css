@@ -13,3 +13,10 @@ background:
     url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
 }
 
+
+
+div#KoBoRaBody{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
