@@ -1,19 +1,15 @@
-package org.semrep.rest.interfacesPubSub;
+package org.semrep.rest.interdacesDepricated;
+
+import java.sql.Timestamp;
+import java.util.*;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
-import de.hdm.wim.sharedLib.events.DepartmentInformationEvent;
-import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
-import de.hdm.wim.sharedLib.events.ProjectInformationEvent;
-import de.hdm.wim.sharedLib.events.UserInformationEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -27,31 +23,63 @@ import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
-import org.semrep.rest.helper.DynamicTokenConcatenater;
-import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
-import org.semrep.rest.helper.InitializeArrayData;
 
+
+/**
+ * The type Tokenizer interface.
+ */
+@Path("/tokenizerInterface")
 public class TokenizerInterface {
 
-	public static String[] inputArray = null;
-	public static ArrayList<String> personArrayList = null;
-	public static LinkedHashMap<String, String> richTokenHashMap = null;
-	public static LinkedHashMap<String, String> dokumentHashMap = null;
-	// Standard Variablen
-	public static String eventSessionID = "";
-	public static String eventUniqueID = "'null'";
-	public static int anzahlDokumente = 0;
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
+
+	/**
+	 * The Input array.
+	 */
+	public static String[] inputArray = null;
+	/**
+	 * The Person array list.
+	 */
+	public static ArrayList<String> personArrayList = null;
+	/**
+	 * The Rich token hash map.
+	 */
+	public static LinkedHashMap<String, String> richTokenHashMap = null;
+	/**
+	 * The Dokument hash map.
+	 */
+	public static LinkedHashMap<String, String> dokumentHashMap = null;
+
+	/**
+	 * The constant eventSessionID.
+	 */
+// Standard Variablen
+	public static String eventSessionID = "";
+	/**
+	 * The constant eventUniqueID.
+	 */
+	public static String eventUniqueID = "'null'";
+	/**
+	 * The constant anzahlDokumente.
+	 */
+	public static int anzahlDokumente = 0;
+
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
 
-	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
-	public static void TokenizerInterfaceMain() throws Exception {
-
+	/**
+	 * Tokenizer interface main.
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getTokenizerEvent")
+	public static void TokenizerInterfaceMain() {
+		//Path
+//		/tokenizerInterface/getTokenizerInterfaceEvents
 		setArrayData();
 		getMetaData();
 		getUserInformation();
@@ -61,20 +89,160 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 
-		try {
-			TokenizerInterfaceMain();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//Path
+//		/tokenizerInterface/getTokenizerInterfaceEvents
+		setArrayData();
+		getMetaData();
+		getUserInformation();
+		getDepartmentInformation();
+		getProjectInformation();
+		goThoughDocumentInstances();
 
 	}
 
+
+	// produce
+	// consume
+	// produce ProjectInformationEvent
+	@Produces(MediaType.APPLICATION_JSON)
+	private static Response getProjectInformation() {
+
+		JSONObject jsonObj = new JSONObject();
+
+		Projekt projectInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+			if (key.equals("Projekt")) {
+				projectInformationEventObject = new Projekt(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
+					richTokenHashMap.get(key).toString());
+				System.out.println(projectInformationEventObject.toStringProjektObjekt());
+			}
+
+		}
+		// return projectInformationEventObject.toStringProjektObjekt();
+		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	@Produces(MediaType.APPLICATION_JSON)
+	private static void goThoughDocumentInstances() {
+
+		JSONObject jsonObj = new JSONObject();
+
+		for (int goThoughNumDoks = 0; goThoughNumDoks < anzahlDokumente; goThoughNumDoks++) {
+			getDocumentInformation(goThoughNumDoks);
+		}
+
+//		jsonObj.put("DocumentInformationEvent", richTokenHashMap.toString());
+//		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	// produce
+	// consume
+	// produce DocumentInformationEvent
+	@Produces(MediaType.APPLICATION_JSON)
+	private static Response getDocumentInformation(int dokIndex) {
+
+		JSONObject jsonObj = new JSONObject();
+
+		Dokument documentInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+
+			if (key.equals("Dokument" + dokIndex)) {
+				documentInformationEventObject = new Dokument(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
+					richTokenHashMap.get(key).toString());
+				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
+				break;
+			}
+
+		}
+		// return documentInformationEventObject.toStringDokumentObjekt();
+		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	/**
+	 * Gets department information.
+	 *
+	 * @return the department information
+	 */
+// produce
+	// consume
+	// produce DepartmentInformationEvent
+	@Produces(MediaType.APPLICATION_JSON)
+	public static Response getDepartmentInformation() {
+
+		JSONObject jsonObj = new JSONObject();
+
+		Abteilung departmentInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+			if (key.equals("Abteilung")) {
+				departmentInformationEventObject = new Abteilung(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
+					richTokenHashMap.get(key).toString());
+				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
+			}
+
+		}
+		// return departmentInformationEventObject.toStringAbteilungsObjekt();
+		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+	}
+
+	/**
+	 * Gets user information.
+	 *
+	 * @return the user information
+	 */
+// produce
+	// consume
+	// produce UserInformationEvent
+	@Produces(MediaType.APPLICATION_JSON)
+	public static Response getUserInformation() {
+
+		JSONObject jsonObj = new JSONObject();
+
+		Person userInformationEventObject = null;
+
+		// drucke alles im richTokenHashMap aus
+		for (String key : richTokenHashMap.keySet()) {
+
+			if (key.equals("Person")) {
+				userInformationEventObject = new Person(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
+					richTokenHashMap.get(key).toString());
+				System.out.println(userInformationEventObject.toStringPersonObjekt());
+			}
+
+		}
+		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringPersonObjekt());
+		return Response.status(200).entity(jsonObj.toString()).build();
+	}
+
+	/**
+	 * Sets array data.
+	 */
 	public static void setArrayData() {
 
-//		String eventTypeStr = EventNameConstants.LEARN_EVENT;
-//		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+		// inputArray = new String[4];
+		// inputArray[0] = "793dnj"; // sessionID
+		// inputArray[1] = "6"; // userID
+		// inputArray[2] = "Videokonferenz"; // context
+		// inputArray[3] = "milestone"; // keyword
 
 		inputArray = new String[6];
 		inputArray[0] = "1"; // sessionID
@@ -91,146 +259,11 @@ public class TokenizerInterface {
 
 	}
 
-	private static void getProjectInformation() throws Exception {
-
-		JSONObject jsonObj = new JSONObject();
-
-		HashMap<String, String> eventHashMap = new HashMap<String, String>();
-
-		Projekt projectInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : richTokenHashMap.keySet()) {
-			if (key.equals("Projekt")) {
-				projectInformationEventObject = new Projekt(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
-					richTokenHashMap.get(key).toString());
-				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, projectInformationEventObject.toStringProjektObjekt());
-				System.out.println(projectInformationEventObject.toStringProjektObjekt());
-			}
-
-		}
-
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		ProjectInformationEvent event = new ProjectInformationEvent();
-		event.setAttributes(eventHashMap);
-		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
-
-	}
-
-	private static void goThoughDocumentInstances() throws Exception {
-
-		JSONObject jsonObj = new JSONObject();
-
-		for (int goThoughNumDoks = 0; goThoughNumDoks < anzahlDokumente; goThoughNumDoks++) {
-			getDocumentInformation(goThoughNumDoks);
-		}
-
-	}
-
-	private static void getDocumentInformation(int dokIndex) throws Exception {
-
-		JSONObject jsonObj = new JSONObject();
-
-		HashMap<String, String> eventHashMap = new HashMap<String, String>();
-
-		Dokument documentInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : richTokenHashMap.keySet()) {
-
-			if (key.equals("Dokument" + dokIndex)) {
-				documentInformationEventObject = new Dokument(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
-					richTokenHashMap.get(key).toString());
-				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, documentInformationEventObject.toStringDokumentObjekt());
-				System.out.println(documentInformationEventObject.toStringDokumentObjekt());
-				break;
-			}
-
-		}
-
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		DocumentInformationEvent event = new DocumentInformationEvent();
-		event.setAttributes(eventHashMap);
-		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
-		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
-
-
-	}
-
-	public static void getDepartmentInformation() throws Exception {
-
-		JSONObject jsonObj = new JSONObject();
-
-		HashMap<String, String> eventHashMap = new HashMap<String, String>();
-
-		Abteilung departmentInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : richTokenHashMap.keySet()) {
-			if (key.equals("Abteilung")) {
-				departmentInformationEventObject = new Abteilung(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
-					richTokenHashMap.get(key).toString());
-				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, departmentInformationEventObject.toStringAbteilungsObjekt());
-				System.out.println(departmentInformationEventObject.toStringAbteilungsObjekt());
-			}
-
-		}
-
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		DepartmentInformationEvent event = new DepartmentInformationEvent();
-		event.setAttributes(eventHashMap);
-		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
-
-	}
-
-	public static void getUserInformation() throws Exception {
-
-		JSONObject jsonObj = new JSONObject();
-
-		HashMap<String, String> eventHashMap = new HashMap<String, String>();
-
-		Person userInformationEventObject = null;
-
-		// drucke alles im richTokenHashMap aus
-		for (String key : richTokenHashMap.keySet()) {
-
-			if (key.equals("Person")) {
-				userInformationEventObject = new Person(eventSessionID, String.valueOf(timestampLong), eventUniqueID,
-					richTokenHashMap.get(key).toString());
-				eventHashMap.put(Constants.RequestParameters.ATTRIBUTE_KEY, userInformationEventObject.toStringPersonObjekt());
-				System.out.println(userInformationEventObject.toStringPersonObjekt());
-			}
-
-		}
-
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		UserInformationEvent userInformationEvent = new UserInformationEvent();
-		userInformationEvent.setAttributes(eventHashMap);
-		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
-		userInformationEvent.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(userInformationEvent, SEMREP_INFORMATION.TOPIC_ID, true);
-
-	}
-
+	/**
+	 * Gets meta data.
+	 *
+	 * @return the meta data
+	 */
 	public static LinkedHashMap<String, String> getMetaData() {
 
 		// String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
@@ -359,8 +392,6 @@ public class TokenizerInterface {
 				// Dokumente
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
-
-					String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
 
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "

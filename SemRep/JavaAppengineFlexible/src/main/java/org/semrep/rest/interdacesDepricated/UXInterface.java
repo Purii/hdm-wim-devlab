@@ -1,14 +1,16 @@
-package org.semrep.rest.interfacesPubSub;
+package org.semrep.rest.interdacesDepricated;
 
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
-import de.hdm.wim.sharedLib.events.InformationToAllDocumentsEvent;
-import de.hdm.wim.sharedLib.events.OfferEvent;
-import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import de.hdm.wim.sharedLib.Constants;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
@@ -21,54 +23,152 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+
+
+import java.sql.Timestamp;
 import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
+/**
+ * The type Ux interface.
+ */
+@Path("/uxInterface")
 public class UXInterface {
 	
-	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
-	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
-	public static ResultSet resultSet;
-	public static QueryExecution queryExecution;
-	// ### initialisiere globale HashMaps
-	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
-	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
-	public static HashMap<String, String> dokOfferHashMap = null;
-	public static HashMap<String, String> tmpDokOfferHashMap = null;
-	public static HashMap<String, String> favDokHashMap = null;
-	public static HashMap<String, String> tmpFavDokHashMap = null;
-	// ### time stamp
-	public static Timestamp timestamp = null;
-	// ### initialisiere globale Objekte
-	public static Dokumentvorschlag dokumentvorschlagObj = null;
-	public static Person personObj = null;
-	public static Person personFavDokObj = null;
-	// inputArray
-	public static String[] inputArray = null;
-	public static String eventUniqueID = "'null'";
-	// Dokument-Objekt bezogen
-	public static String dok_IDStr = "";
-
-	// ### initialisiere globale Variablen
-	public static String dok_NameStr = "";
-	public static String prioStr = "";
-	public static String dok_TypStr = "";
-	public static String dok_URLStr = "";
-	public static String dok_folder = "";
-	//FavoritDok-Objekt bezogen
-	public static String personVorname_Str = "";
-	public static String personNachname_Str = "";
-	public static String personName_Str = "";
-	public static int numFavDoks = 0;
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
+
+
+	/**
+	 * The constant filePath.
+	 */
+// ### initialisiere globale Jena-Variablen
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
+	/**
+	 * The constant ontologyModel.
+	 */
+	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+	/**
+	 * The constant resultSet.
+	 */
+	public static ResultSet resultSet;
+	/**
+	 * The constant queryExecution.
+	 */
+	public static QueryExecution queryExecution;
+
+	/**
+	 * The Dok offer linked hash map.
+	 */
+// ### initialisiere globale HashMaps
+	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
+	/**
+	 * The Alle dokumente linked hash map.
+	 */
+	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
+	/**
+	 * The Dok offer hash map.
+	 */
+	public static HashMap<String, String> dokOfferHashMap = null;
+	/**
+	 * The Tmp dok offer hash map.
+	 */
+	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	/**
+	 * The Fav dok hash map.
+	 */
+	public static HashMap<String, String> favDokHashMap = null;
+	/**
+	 * The Tmp fav dok hash map.
+	 */
+	public static HashMap<String, String> tmpFavDokHashMap = null;
+
+	/**
+	 * The constant timestamp.
+	 */
+// ### time stamp
+	public static Timestamp timestamp = null;
 	private static long timestampLong;
+
+	/**
+	 * The constant dokumentvorschlagObj.
+	 */
+// ### initialisiere globale Objekte
+	public static Dokumentvorschlag dokumentvorschlagObj = null;
+	/**
+	 * The constant personObj.
+	 */
+	public static Person personObj = null;
+	/**
+	 * The constant personFavDokObj.
+	 */
+	public static Person personFavDokObj = null;
+	
+	// ### initialisiere globale Variablen
+
+	/**
+	 * The Input array.
+	 */
+// inputArray
+	public static String[] inputArray = null;
+
 	// Standard Variablen
 	private static String sessionIDStr = "";
+	/**
+	 * The constant eventUniqueID.
+	 */
+	public static String eventUniqueID = "'null'";
 	private static String timeStampStr = "";
 
+	/**
+	 * The constant dok_IDStr.
+	 */
+// Dokument-Objekt bezogen
+	public static String dok_IDStr = "";
+	/**
+	 * The constant dok_NameStr.
+	 */
+	public static String dok_NameStr = "";
+	/**
+	 * The constant prioStr.
+	 */
+	public static String prioStr = "";
+	/**
+	 * The constant dok_TypStr.
+	 */
+	public static String dok_TypStr = "";
+	/**
+	 * The constant dok_URLStr.
+	 */
+	public static String dok_URLStr = "";
+	/**
+	 * The constant dok_folder.
+	 */
+	public static String dok_folder = "";
+	/**
+	 * The constant personVorname_Str.
+	 */
+//FavoritDok-Objekt bezogen
+	public static String personVorname_Str = "";
+	/**
+	 * The constant personNachname_Str.
+	 */
+	public static String personNachname_Str = "";
+	/**
+	 * The constant personName_Str.
+	 */
+	public static String personName_Str = "";
+	/**
+	 * The constant numFavDoks.
+	 */
+	public static int numFavDoks = 0;
+
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
@@ -77,7 +177,10 @@ public class UXInterface {
 			e.printStackTrace();
 		}
 	}
-		
+
+	/**
+	 * Sets array demo data.
+	 */
 	public static void setArrayDemoData() {
 
 		// richToken
@@ -92,8 +195,13 @@ public class UXInterface {
 		sessionIDStr = inputArray[0].toString();
 
 	}
-	
-	public static void executeSparql(String sparql) {
+
+	/**
+	 * Execute sparql.
+	 *
+	 * @param sparql the sparql
+	 */
+	public static void executeSparql(String sparql){
 		// Initialisierung und Ausführung einer SPARQL-Query
 //		Query query = QueryFactory.create(sparql);
 //		queryExecution = QueryExecutionFactory.create(query, ontologyModel);
@@ -107,7 +215,12 @@ public class UXInterface {
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
 	}
-	
+
+	/**
+	 * Loop through results.
+	 *
+	 * @param y the y
+	 */
 	public static void loopThroughResults(int y){
 		
 		// initialisiere Variablen
@@ -253,7 +366,16 @@ public class UXInterface {
 		
 	}
 
-	public static void getDocumentOffers() throws Exception {
+
+	/**
+	 * Gets document offers.
+	 *
+	 * @return the document offers
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getDocumentOffers")
+	public static Response getDocumentOffers() {
 		
 		//@Path: /rest/uxInterface/produceOfferEvent
 		
@@ -407,25 +529,22 @@ public class UXInterface {
 			System.out.println(key + ": " + dokOfferLinkedHashMap.get(key) + ", ");
 		}
 
-//		//return dokOfferLinkedHashMap;
-//		jsonObj.put("OfferEvent", dokOfferLinkedHashMap.toString());
-//		return Response.status(200).entity(jsonObj.toString()).build();
+		//return dokOfferLinkedHashMap;
+		jsonObj.put("OfferEvent", dokOfferLinkedHashMap.toString());
+		return Response.status(200).entity(jsonObj.toString()).build();
 
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		OfferEvent event = new OfferEvent();
-		event.setAttributes(dokOfferLinkedHashMap);
-		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
-		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
-	
-	public static void getAllDocuments() throws Exception {
+
+	/**
+	 * Gets all documents.
+	 *
+	 * @return the all documents
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getAllDocuments")
+	public static Response getAllDocuments() {
 		
 		JSONObject jsonObj = new JSONObject();
 		
@@ -480,17 +599,9 @@ public class UXInterface {
 			System.out.println(key + ": " + dokOfferLinkedHashMap.get(key) + ", ");
 		}
 
-		// publishen geht überall
-		// subcriben nur im PubSubHandler
-		InformationToAllDocumentsEvent event = new InformationToAllDocumentsEvent();
-		event.setAttributes(dokOfferLinkedHashMap);
-		//userInformationEvent.setData(userInformationEventObject.toStringUserInformationEvent());
-		event.setEventSource(Constants.PubSub.EventSource.SEMANTIC_REPRESENTATION);
-		//PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-		PublishHelper publishHelper = new PublishHelper(false); // zum testen true wenns lokal ist
-
-		//publishHelper.Publish(iEvent, Constants.PubSub.Topic.TOPIC_1, true);
-		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
+		//return dokOfferLinkedHashMap;
+		jsonObj.put("InformationToAllDocumentsEvent", dokOfferLinkedHashMap.toString());
+		return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 

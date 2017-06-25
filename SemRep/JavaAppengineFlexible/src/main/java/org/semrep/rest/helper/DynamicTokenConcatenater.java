@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
+ * The type Dynamic token concatenater.
  */
 public class DynamicTokenConcatenater {
 
@@ -52,6 +52,12 @@ public class DynamicTokenConcatenater {
 	private static String toHandOverString = "";
 
 
+	/**
+	 * Concatenate token string.
+	 *
+	 * @param inputArray the input array
+	 * @return the string
+	 */
 	public static String concatenateToken(String[] inputArray){
 
 
