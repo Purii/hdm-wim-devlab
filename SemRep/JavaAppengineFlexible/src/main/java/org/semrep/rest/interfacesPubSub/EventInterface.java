@@ -2,6 +2,7 @@ package org.semrep.rest.interfacesPubSub;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_INFORMATION;
+import de.hdm.wim.sharedLib.events.AdditionalUserInformationEvent;
 import de.hdm.wim.sharedLib.events.AllCompaniesEvent;
 import de.hdm.wim.sharedLib.events.AllDepartmentsEvent;
 import de.hdm.wim.sharedLib.events.AllProjectRolesEvent;
@@ -333,7 +334,6 @@ public class EventInterface {
 									break;
 
 								} else {
-
 									personObj.setPerson_hat_Projektrolle(
 										personObj.getPerson_hat_Projektrolle() + ", " + projektrolleStr);
 									break;
@@ -1626,18 +1626,19 @@ public class EventInterface {
 
 	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
 	// abteilungStr, projektStr, projektrolleStr
-	public static void insertNewUserInformation() throws Exception {
+	public static void insertNewUserInformation(AdditionalUserInformationEvent evt) {
 
-		String eventTypeStr = EventNameConstants.ADDITIONAL_USER_INFORMATION_EVENT;
-		String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
-		sessionIDStr = inputArray[0].toString();
-		idStr = inputArray[1].toString();
-		vornameStr = inputArray[2].toString();
-		nachnameStr = inputArray[3].toString();
-		mailStr = inputArray[4].toString();
-		abteilungStr = inputArray[5].toString();
-		projektStr = inputArray[6].toString();
-		projektrolleStr = inputArray[7].toString();
+		String eventTypeStr = evt.getEventType();
+		//String[] inputArray = initializeArrayData.initializeArrayDemoData(eventTypeStr);
+
+		//sessionIDStr = evt.g;
+		idStr = evt.getUserId();
+		vornameStr = evt.getFirstName();
+		nachnameStr = evt.getLastName();
+		mailStr = evt.getMail();
+		abteilungStr = evt.getDepartment();
+		projektStr = evt.getProject();
+		projektrolleStr = evt.getProjectRole();
 
 		try {
 			// initialisiere Variablen
