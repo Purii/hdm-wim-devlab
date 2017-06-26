@@ -47,7 +47,6 @@ public class DocumentContextPattern {
 				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
 				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.DOCUMENT_BELONGS_TO_PROJECT);
-				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
 					DocumentContextEvent dcevt = new DocumentContextEvent();
 					dcevt.setContext(project1);
@@ -59,7 +58,6 @@ public class DocumentContextPattern {
 			}
 		});
 		PublishHelper ph = new PublishHelper(false);
-		documentContextEventDataStream.print();
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
 	}

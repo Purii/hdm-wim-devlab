@@ -47,7 +47,6 @@ public class UserContextPattern {
 				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
 				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
 				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
-				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
 					UserContextEvent ucevt = new UserContextEvent();
 					ucevt.setContext(project1);
@@ -59,7 +58,6 @@ public class UserContextPattern {
 			}
 		});
 		PublishHelper ph = new PublishHelper(false);
-		userContextEventDataStream.print();
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
 	}

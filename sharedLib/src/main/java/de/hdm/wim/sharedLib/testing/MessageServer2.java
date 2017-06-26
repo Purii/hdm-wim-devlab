@@ -51,6 +51,8 @@ public class MessageServer2 {
 
 		SERVER_EXECUTOR.execute(new MessageServer2.SteamingServer(messageQueue));
 
+		//Anlegen beispielhafter Events
+
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		DocumentInformationEvent docinfevt = new DocumentInformationEvent();
 		docinfevt.setId("1");
@@ -81,13 +83,19 @@ public class MessageServer2 {
 		stayAlive.setId("4");
 		stayAlive.setData("blubb");
 		stayAlive.setPublishTime(timeStamp);
-		stayAlive.setUserId("P.Enis");
+		stayAlive.setUserId("Karl");
 
 		StayAliveEvent stayAlive2 = new StayAliveEvent();
 		stayAlive2.setId("5");
 		stayAlive2.setData("blubb");
 		stayAlive2.setPublishTime(timeStamp);
-		stayAlive2.setUserId("V.Agina");
+		stayAlive2.setUserId("Birgit");
+
+		StayAliveEvent stayAlive3 = new StayAliveEvent();
+		stayAlive2.setId("6");
+		stayAlive2.setData("blubb");
+		stayAlive2.setPublishTime(timeStamp);
+		stayAlive2.setUserId("Otto");
 
 		UserJoinedSessionEvent joinedSessionEvent = new UserJoinedSessionEvent();
 		joinedSessionEvent.setSessionId("12345");
@@ -155,45 +163,36 @@ public class MessageServer2 {
 		successfulFeedbackEvent1.setUserId("user1");
 		successfulFeedbackEvent1.setDocumentId("doc1");
 
-		/*messageQueue.put(gson.toJson(joinedSessionEvent));
-		messageQueue.put(gson.toJson(joinedSessionEvent2));
-		messageQueue.put(gson.toJson(joinedSessionEvent3));*/
+		// Generieren von Messages in die Queue
+		while(true) {
+			messageQueue.put(gson.toJson(joinedSessionEvent));
+			messageQueue.put(gson.toJson(joinedSessionEvent2));
+			messageQueue.put(gson.toJson(joinedSessionEvent3));
 
+			messageQueue.put(gson.toJson(stayAlive));
+			messageQueue.put(gson.toJson(stayAlive2));
+			messageQueue.put(gson.toJson(stayAlive3));
 
-		/*Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent3));
-
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		//messageQueue.put(gson.toJson(leftSessionEvent2));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		//messageQueue.put(gson.toJson(leftSessionEvent));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		//messageQueue.put(gson.toJson(leftSessionEvent3));*/
-
-
-		while(true){
 			messageQueue.put(gson.toJson(userInformationEvent1));
 			messageQueue.put(gson.toJson(userInformationEvent2));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 			messageQueue.put(gson.toJson(userInformationEvent3));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			messageQueue.put(gson.toJson(userInformationEvent3));
-		}
 
+			messageQueue.put(gson.toJson(docinfevt));
+			messageQueue.put(gson.toJson(docinfevt2));
+			messageQueue.put(gson.toJson(docinfevt3));
+
+			messageQueue.put(gson.toJson(successfulFeedbackEvent));
+			messageQueue.put(gson.toJson(successfulFeedbackEvent));
+			messageQueue.put(gson.toJson(successfulFeedbackEvent));
+
+			messageQueue.put(gson.toJson(leftSessionEvent));
+			messageQueue.put(gson.toJson(leftSessionEvent2));
+			messageQueue.put(gson.toJson(leftSessionEvent3));
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		}
 	}
 
 	private static class SteamingServer implements Runnable {
