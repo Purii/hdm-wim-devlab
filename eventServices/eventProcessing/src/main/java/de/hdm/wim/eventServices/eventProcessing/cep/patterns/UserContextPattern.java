@@ -22,7 +22,7 @@ public class UserContextPattern {
 	 * Run.
 	 *
 	 * @param env           the env
-	 * @param psmStream 	the IEvent stream
+	 * @param psmStream 	the UserInformationEvent stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<UserInformationEvent> psmStream) throws Exception {
 		//Test Pattern for false User Feedback
@@ -51,7 +51,7 @@ public class UserContextPattern {
 					UserContextEvent ucevt = new UserContextEvent();
 					ucevt.setContext(project1);
 					ucevt.setEventSource(Constants.PubSub.EventSource.EVENT);
-					System.out.println("Project " + project1 + " seems to be interesting");
+					System.out.println("Project " + project1 + " seems to be interesting.");
 					return ucevt;
 				}
 				return null;
