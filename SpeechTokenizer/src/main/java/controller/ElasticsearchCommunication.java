@@ -1,4 +1,4 @@
-/**@author Emre Kesiciler, Nermin Hasani, Inci Kökpinar*/
+/**@author Emre Kesiciler, Nermin Hasani, Inci Koekpinar*/
 package controller;
 
 import java.io.BufferedReader;

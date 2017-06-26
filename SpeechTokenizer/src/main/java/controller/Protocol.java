@@ -1,4 +1,6 @@
-/**@author Emre Kesiciler, Nermin Hasani, Inci Kökpinar*/
+/**@author Emre Kesiciler, Nermin Hasani, Inci Koekpinar*/
+
+
 package controller;
 
 import java.io.BufferedWriter;
@@ -97,8 +99,8 @@ public class Protocol {
 			   Set<String> uniqueListPrlistParticipants = new LinkedHashSet<String>(listParticipants);
 			   
 			   writer.write(separator+""+separator+"Participants:     "+uniqueListPrlistParticipants.toString().replace("[", "").replace("]", ""));
-		       writer.write(separator+""+separator+"Meetingstart:     "+protocolStartTime +" "+hoursform);
-		       writer.write(separator+""+separator+"Meetingend:       "+protocolEndTime+" "+hoursform); 
+		       writer.write(separator+""+separator+"Meeting start:     "+protocolStartTime +" "+hoursform);
+		       writer.write(separator+""+separator+"Meeting end:       "+protocolEndTime+" "+hoursform); 
 		       writer.write(separator+""+separator+""+separator+"Meeting");
 		       
 				for(TextInformation entry : listTokens){

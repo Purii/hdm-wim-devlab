@@ -1,4 +1,4 @@
-/**@author Emre Kesiciler, Nermin Hasani, Inci Kökpinar*/
+/**@author Emre Kesiciler, Nermin Hasani, Inci Koekpinar*/
 package controller;
 
 import java.io.BufferedReader;
@@ -21,7 +21,7 @@ public class CustomKeywordFilter {
 	  /**keywordFilter
 	  * 
 	  * This method will be used to filter the custom keywords which are in the custom-keywordlist. The problem is, that
-	  * elasticsearch seperates keywords for example "New York" in "New, York". This means, that the keyword is loosing it´s 
+	  * elasticsearch seperates keywords for example "New York" in "New, York". This means, that the keyword is loosing itï¿½s 
 	  * meaning.  
 	  *
 	  * @param textResultat
