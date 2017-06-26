@@ -1,0 +1,6 @@
+There are several functions in the toolbar, which you can use by clicking the buttons.
+Functions from left to right: leave the session, view session information, open Google Drive, open Google Calendar and open help.
+
+The graphic in the center of the screen shows you all available documents. Documents, which are considered as relevant for the current
+conversation, are highlighted. By clicking on the sector of a document you can open it. It will open in a new tab, which you can navigate 
+in by closing the current tab or changing the selected tab by clicking on a different one in the tab bar. 

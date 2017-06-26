@@ -1,0 +1,3 @@
+To leave the session and return to the landingpage you can use the logout button in the toolbar.
+
+To start the speech recognition and recommendation function for the current session click the "ENTER SESSION" button.
