@@ -922,7 +922,7 @@ public class EventInterface {
 	 *
 	 * @throws Exception the exception
 	 *
-	 * Input-Parameter: userID (wird über Array-Testdaten geladen)
+	 * Input-Parameter: sessionID, userID (wird über Array-Testdaten geladen)
 	 * Gibt alle Informationen zu einer angefragten UserID zurück.
 	 *
 	 */
@@ -1151,8 +1151,10 @@ public class EventInterface {
 	 * Gets project information.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, projectID (wird über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten projectID zurück.
 	 */
-// Input-Parameter:
 	public static void getProjectInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1264,6 +1266,9 @@ public class EventInterface {
 	 * Gets department information.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, abteilungsID (wird über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten abteilungsID zurück.
 	 */
 	public static void getDepartmentInformation() throws Exception {
 
@@ -1377,6 +1382,9 @@ public class EventInterface {
 	 * Gets all projects.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Abteilungen zurück.
 	 */
 	public static void getAllProjects() throws Exception {
 
@@ -1471,6 +1479,9 @@ public class EventInterface {
 	 * Gets all project roles.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Projektrollen zurück.
 	 */
 	public static void getAllProjectRoles() throws Exception {
 
@@ -1564,6 +1575,9 @@ public class EventInterface {
 	 * Gets all departments.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Abteilungen zurück.
 	 */
 	public static void getAllDepartments() throws Exception {
 
@@ -1657,6 +1671,9 @@ public class EventInterface {
 	 * Gets all companies.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Unternehmen zurück.
 	 */
 	public static void getAllCompanies() throws Exception {
 
@@ -1750,9 +1767,12 @@ public class EventInterface {
 	 *
 	 * @param event the event
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
+	 * abteilungStr, projektStr, projektrolleStr
+	 *
+	 * Fügt einen neuen User in den Fueski-Server ein
 	 */
-// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
-	// abteilungStr, projektStr, projektrolleStr
 	public static void insertNewUserInformation(AdditionalUserInformationEvent event)
 		throws Exception {
 
@@ -1834,8 +1854,11 @@ public class EventInterface {
 	 * Insert new document context.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: dokName, dokKontext
+	 *
+	 * Fügt einen neuen Kontext an ein Dokumentent in den Fueski-Server ein
 	 */
-// Parameter: dokName, dokKontext
 	public static void insertNewDocumentContext() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CONTEXT_EVENT;
@@ -1888,8 +1911,11 @@ public class EventInterface {
 	 * Insert new document call.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, personVorname, personNachname, dokName
+	 *
+	 * Fügt einen neuen Dokumentenaufruf in den Fueski-Server ein
 	 */
-// Parameter: sessionID, personVorname, personNachname, dokName
 	public static void insertNewDocumentCall() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
@@ -1960,10 +1986,13 @@ public class EventInterface {
 	 * Insert new favorite document.
 	 *
 	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: personVorname, personNachname, dokName
+	 * Umwandlung von: userID, dokID, favor (true/false)
+	 * 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	 *
+	 * Fügt einen neues Favoriten-Dokument in den Fueski-Server ein
 	 */
-// Parameter: personVorname, personNachname, dokName
-	// wir kriegen: userID, dokID, favor (true/false) --> Constants
-	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;
