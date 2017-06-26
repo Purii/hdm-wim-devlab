@@ -426,8 +426,3 @@ window.addEventListener('beforeunload', function () {
     socket.close();
 });
 
-//alert(window.location.href.toString().indexOf("id"));
-if(window.location.href.toString().indexOf("id") == -1) {
-    var id = Date.now();
-     window.location.href = "chartByButton.html?id=" + id;
-}
