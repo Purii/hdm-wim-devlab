@@ -95,8 +95,8 @@ try{
 }
 }
 
-var doDraw = true;
-document.getElementById("drawChartButton").onclick = parameterFunction;
+
+
 /*
  document.getElementById('drawButton').addEventListener('onclick',
  parameterFunction())
