@@ -41,9 +41,11 @@ public class SessionEndJob {
 		UserJoinedSessionEvent evt = new GsonBuilder().create().fromJson(value, UserJoinedSessionEvent.class);
 		if(evt.getEventType().equals(Constants.PubSub.EventType.USER_JOINED_SESSION)){
 			out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.SESSION_ID),1));
+			System.out.println("User " + evt.getUserId() + " joined Session " + evt.getSessionId());
 		}
 		if(evt.getEventType().equals(Constants.PubSub.EventType.USER_LEFT_SESSION)){
 			out.collect(new Tuple2<String, Integer>(evt.getAttributes().get(Constants.PubSub.AttributeKey.SESSION_ID),-1));
+			System.out.println("User " + evt.getUserId() + " left Session " + evt.getSessionId());
 		}
 	}
 }}
