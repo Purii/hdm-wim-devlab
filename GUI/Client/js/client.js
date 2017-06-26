@@ -413,7 +413,7 @@ function imAliveEvent(){
 
 document.getElementById('logoutFromGoogle').onclick = function () {
 
-    var ThisSide = 'http://localhost:63342/hdm-wim-devlab/GUI/Client/html/index.html';
+    var ThisSide = 'http://localhost:63342/hdm-wim-devlab/GUI/Client/html/landingpage.html';
     window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+ThisSide;
 
 }
