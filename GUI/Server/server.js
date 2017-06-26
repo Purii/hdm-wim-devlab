@@ -33,7 +33,6 @@ function upgradeSassionArray(session, nameArray) {
     if (in_array(nameArray, session) == false) {
 
         nameArray.push(session);
-        console.log("neue session: "+ session);
     }
 
 
