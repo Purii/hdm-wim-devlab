@@ -37,8 +37,6 @@ public class SessionEndPattern {public void run(StreamExecutionEnvironment env, 
 			return ssEndEvt;
 		}
 	});
-	SessionEndEventDataStream.print();
-
 	PublishHelper ph = new PublishHelper(false);
 	//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
 

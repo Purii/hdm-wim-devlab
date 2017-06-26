@@ -82,6 +82,5 @@ public class PassiveLogoutPattern {
 				return uinevt;
 			}
 		});
-		UserInactiveEventDataStream.print();
 	}
 }
