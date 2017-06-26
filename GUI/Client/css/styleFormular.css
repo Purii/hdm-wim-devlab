@@ -3,9 +3,7 @@
     border-width:1px;
     border-style:solid;
     background:lightgray;
-    margin: auto;
     margin-top: 10%;
-
 }
 
 table, th, td {
@@ -21,3 +19,14 @@ th, td {
     margin-left:35%;
     padding: 1% 3%;
 }
+
+div#absendenButton {
+    width: 230px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+
