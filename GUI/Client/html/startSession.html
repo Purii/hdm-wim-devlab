@@ -61,32 +61,33 @@
                 <!-- Content for menues-->
                 <!-- User online -->
                 <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_online">
-                    <li style="margin: 15px"><p>Online:<p></li>
+                    <li style="margin: 15px"><p>ONLINE:<p></li>
                     <ul class="demo-list-icon mdl-list" id="LoggedInUsers">
                         <li class="mdl-list__item">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-icon">person</i>
-                            Bryan Cranston
+                            Lisa Boehler
                         </span>
                         </li>
                         <li class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">person</i>
-                                Aaron Paul
+                                Markus Goetz
                             </span>
                         </li>
                         <li class="mdl-list__item">
                             <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">person</i>
-                                Bob Odenkirk
+                                Flo Blessing
                             </span>
                         </li>
                     </ul>
                     <li class="mdl-menu__item--full-bleed-divider"></li>
-                    <li class="mdl-menu__item" data-fancybox data-type="iframe" data-src="toDo" href="javascript:;">
+                    <li id="toClipboard" class="mdl-menu__item" onclick="prompt('Press Ctrl + C, then Enter to copy to clipboard',window.location.href.toString())">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                            Send Invitation
-                        </button> </li>
+                            Copy Session ID
+                        </button>
+                    </li>
                 </ul>
 
                 <!--Help Text -->

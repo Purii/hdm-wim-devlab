@@ -40,10 +40,6 @@
                 <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe" 
                    data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
                     <img src="../images/logo/drive_logo.png" alt="drive_logo"></a>
-                <!-- Google Calendar -->
-                <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe" 
-                   data-src="https://calendar.google.com/calendar/render?hl=de" href="javascript:;">
-                    <img src="../images/logo/calendar_logo.png" alt="calendar_logo"></a>    
                 <!-- Who is online -->
                 <a class="mdl-navigation__link" id="menu_online" style="color: white"><i class="material-icons">info_outline</i></a>
                 <!-- Help -->
@@ -54,18 +50,43 @@
 
             <!-- Content for menues-->
             <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_help">
-                <li style="margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr
-                    <p></li>
-                <li style="margin: 10px"><p>Neue Textzeite
-                    <p></li>
+                <li style="margin: 10px">
+                    <p style=" -ms-hyphens:auto; -webkit-hyphens: auto; hyphens: auto">
+                        Functions in the toolbar from left to right: leave the session, view session information, open Google Drive, and open help. <br>
+                        The graphic in the center of the screen shows you all available documents. Documents, which are considered as relevant for the current
+                        conversation, are highlighted. By clicking on the sector of a document you can open it. It will open in a new tab, which you can navigate
+                        in by closing the current tab or changing the selected tab by clicking on a different one in the tab bar.
+                    </p>
+                </li>
             </ul>
             <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_online">
-                <li style= "margin: 10px"><p>Online:<p></li>
-                <li style= "margin: 10px"><p>**wer ist online?**<p></li>
-                <li class= "mdl-menu__item--full-bleed-divider"></li>
-                <li style= "margin: 10px" id="toClipboard" onclick="prompt('Press Ctrl + C, then Enter to copy to clipboard',window.location.href.toString())">
-                    <p>Copy URL to clipboard<p>
-               </li>
+                <li style="margin: 15px"><p>ONLINE:</p></li>
+                <ul class="demo-list-icon mdl-list" id="LoggedInUsers">
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Lisa Boehler
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Markus Goetz
+                        </span>
+                    </li>
+                    <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Flo Blessing
+                        </span>
+                    </li>
+                </ul>
+                <li class="mdl-menu__item--full-bleed-divider"></li>
+                <li id="toClipboard" class="mdl-menu__item" onclick="prompt('Press Ctrl + C, then Enter to copy to clipboard',window.location.href.toString())">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Copy Session ID
+                    </button>
+                </li>
             </ul>
 
         </div>
