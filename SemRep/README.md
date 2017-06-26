@@ -1,36 +1,25 @@
 # Sematische Representation von Dokumenen 
-
+Ziel dieses Projektes ist es mittels einer Ontolofie Google Drive Dokumente zu representieren.
+Dies wurde mittels einer Ontologie realisiert. Mit APche Jena wurden Methoden 
+geschrieben mit dieser über den Apache Fuseki Server zu kommunizieren. Weiter 
+kommuniziert das Google Drive Addin mit der Ontologie um neue Dokumente 
+einzufügen und zu manipulieren.  
 
 
 #Apache Jena 
 
-Die Realisierung der Gruppe: `Semantische Represenation von Dokumennte` wird mit [`Apache Jena`](https://jena.apache.org/). Die `Jena-Services` sind über das REST-Endpunkte  für `POST` und `GET` Anfragen für externe Komponenten erreichbar. Diese Komponente bietet Inferenzmechanismen, mit denen aus gegeben Keywörtern, Dokumentenvorschläge schlussfolgern kann. Realisiert wurde die REST-Enpunkte auf der Google App Eninge und mit dem Java Framework Jersey. Im Folgenden sind alle REST-Endpunkte definiert: 
-
- 
-
-#Endpoints SemRep
-```
-# Endpoitnts .. 
-
+Die Realisierung der Gruppe: `Semantische Represenation von Dokumennte` 
+wird mit [`Apache Jena`](https://jena.apache.org/). Die `Jena-Services` sind über das REST-Endpunkte  für `POST` und `GET` Anfragen für externe Komponenten erreichbar. Diese Komponente bietet Inferenzmechanismen, mit denen aus gegeben Keywörtern, Dokumentenvorschläge schlussfolgern kann. Realisiert wurde die REST-Enpunkte auf der Google App Eninge und mit dem Java Framework Jersey. 
 
 #Ontologie
-Die Daten werden in  Ontologie oder als Wissenbasis bezeichnet gespeichert. Diese besteht aus einer A-Box und einer T-Box. Die A-Box enthält Axiome, wobei die T-Box als Schablone gilt. 
 
-#Apache Fuseki
-Für die Persistente Datenspeicherung der Ontologie wird der [`Apache Jena Fuseki Server`](https://jena.apache.org/documentation/fuseki2/) verwendet. Dieser bietet viele Funktionen im Ontologien in Notationen wie RDF/XML oder Turtle an. Unter anderem die persistent Speicherung sowie die Manipulation dieser durch [`SPARQL-Queries`](https://jena.apache.org/). Der `Fuseki-Server` ist gehostet der Google Compute Engine. 
+Für die persistente Speicherung wurde der [`Fuseki Server`](https://jena.apache.org/documentation/fuseki2/)verwendet.
+Dieser wird bei uns auf der Compute Engine unter der IP: [`35.187.45.171`] betrieben.  
 
-```
-# run fuseki as service 
-./fuseki start 
 
-# Detached mode
-docker run -d -p 8081:8081 flink local
-```
-
-#Google App Script 
-
+#Google Drive Addin mit Google App Script 
+Mit dem Google Addin können GoogleDrive Dokuemnte Metadaten hinterlegt werden. 
+Diese kann der Nutzer über eine grafische Oberfläche dem Dokument hinzufügen. 
+Wie Sie das Google Drive Addin hinzufügen und benutzen können erfahren Sie [`hier`](https://github.com/Purii/hdm-wim-devlab/tree/master/SemRep/Google-AppScipt)
  
 
-## Run
-
-damit `RunFlink` ausgeführt werden kann, muss vorher das die jar `sharedLib` mit `mvn clean install` gebaut werden. Der command muss in dem Verzeichnis ausgeführt werden. Danach im Verzeichnis `eventProcessing` `mvn clean package` ausführen und dann `RunFlink`ausführen.

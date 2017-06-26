@@ -11,8 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-
-
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
@@ -30,8 +28,6 @@ import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 @Path("/internal")
 public class InternalInterface {
-	
-	
 
 	private ArrayList arrayList;
 
@@ -233,15 +229,6 @@ public class InternalInterface {
 			return Response.status(200).entity(jsonInString).build();
 		}
 
-	
-	public static void main(String[] args) {
-
-		insertMetadata("test123456", "test123456", "test123456","test123456", "test123456",
-			"test123456", "test123456", "test123456","test123456", "test123456",
-			"test123456", "test123456", "test123456","test123456", "test123456");
-	}
-
-	
 
 	/**
 	 * Die Methode 'insertMethode' nimmt die Daten via Jason an und fügt diese in die A-Box hinzu
@@ -251,7 +238,7 @@ public class InternalInterface {
 	@POST
  	@Consumes("application/x-www-form-urlencoded")
 	@Path("/insertMetadata")
-	public static void insertMetadata(
+	public void insertMetadata(
 		@FormParam("docVersion") String doc_version,
 		@FormParam("docContext") String doc_have_context,
 		@FormParam("docCategpry") String doc_category,
