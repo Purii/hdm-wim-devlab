@@ -238,11 +238,14 @@ socket.onmessage = function (event) {
                 }
             }
         //    log("<br><br><br><br> jetzt key: ");
-         //   log(key.toString());
+
 
             var suggestionINSIDE = JSON.parse(obj[key]);
 
+            log(suggestionINSIDE['name']);
             var SessionID = suggestionINSIDE['SessionID'];
+            SessionID = SessionID.replace('"}', '');
+            log("session : " + SessionID + '   ' + raumID.toString());
             if (SessionID == raumID.toString()) {
                 var name = suggestionINSIDE['name'];                          // name der angezeigt wird
                 var link = suggestionINSIDE['link'];                         // Link der im neuen tab gezeigt wird
@@ -383,7 +386,7 @@ socket.onclose = function (event) {
 function log(text) {
     var li = document.createElement('li');
     li.innerHTML = text;
-    document.getElementById('log').appendChild(li);
+   // document.getElementById('log').appendChild(li);
 }
 
 /*
