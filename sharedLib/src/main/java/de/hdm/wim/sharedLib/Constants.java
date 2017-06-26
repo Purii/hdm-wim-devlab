@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by ben on 17/04/2017.
+ * Constants.
+ * To use in the whole project, to avoid misspelling and to make the whole project better maintainable
+ *
+ * @author Benedikt Benz
+ * @createdOn 17.04.2017
  */
 public class Constants {
 

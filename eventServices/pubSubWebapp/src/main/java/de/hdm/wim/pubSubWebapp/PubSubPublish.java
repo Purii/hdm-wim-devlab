@@ -26,7 +26,10 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 /**
- * Created by ben on 4/06/2017.
+ * The type Pub sub publish.
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 @WebServlet(
 	name = "Publish with PubSub",
@@ -37,8 +40,16 @@ public class PubSubPublish extends HttpServlet {
 	private static final Logger LOGGER 		= Logger.getLogger(PubSubPublish.class);
 	private Publisher PUBLISHER;
 
+	/**
+	 * Instantiates a new Pub sub publish.
+	 */
 	public PubSubPublish() { }
 
+	/**
+	 * Instantiates a new Pub sub publish.
+	 *
+	 * @param publisher the publisher
+	 */
 	public PubSubPublish(Publisher publisher) {
 		this.PUBLISHER = publisher;
 	}

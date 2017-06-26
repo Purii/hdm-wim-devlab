@@ -2,7 +2,7 @@ package de.hdm.wim.pubSubWebapp;
 
 import de.hdm.wim.pubSubWebapp.Helper.PubSubPushHandler;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
-import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_2;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_1;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handler for Handler for {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_2#TOPIC_ID}
+ * Handler to get all topics, still WIP!
  *
  * @author Benedikt Benz
- * @createdOn 04.06.2017
+ * @createdOn 25.06.2017
  */
 @WebServlet(
-	name = "Push with PubSub " + TOPIC_2.HANDLER_ID,
-	value = Config.PUSH_ENDPOINT_PREFIX + TOPIC_2.HANDLER_ID
+	name = "Push with PubSub catch them all",
+	value = Config.PUSH_ENDPOINT_PREFIX + "/catchThemAll"
 )
-public class PubSubPushHandler2 extends HttpServlet {
+public class PubSubPushHandlerCatchThemAll extends HttpServlet {
 
 	/**
-	 * Instatiate a new PubSubPushHandler
+	 * The Psh.
 	 */
 	PubSubPushHandler psh = new PubSubPushHandler();
 
@@ -31,6 +31,6 @@ public class PubSubPushHandler2 extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		psh.process(req, resp, TOPIC_2.HANDLER_ID);
+		psh.process(req, resp, TOPIC_1.HANDLER_ID);
 	}
 }

@@ -7,7 +7,10 @@ import com.google.pubsub.v1.PubsubMessage;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 15/06/2017.
+ * ExampleReceiver for pull
+ *
+ * @author Benedikt Benz
+ * @createdOn 15.06.2017
  */
 public class ExampleReceiver implements MessageReceiver {
 	private static final Logger LOGGER 	= Logger.getLogger(ExampleReceiver.class);

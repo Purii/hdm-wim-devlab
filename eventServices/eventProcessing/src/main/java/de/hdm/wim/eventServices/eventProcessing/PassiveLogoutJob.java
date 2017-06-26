@@ -12,10 +12,19 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
 /**
- * Created by Chris on 25.06.2017.
+ * The type Passive logout job.
+ *
+ * @author Christian Schneider
+ * @createdOn 25.06.2017
  */
 public class PassiveLogoutJob {
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment();
@@ -35,6 +44,9 @@ public class PassiveLogoutJob {
 
 	}
 
+	/**
+	 * The type Some splitter.
+	 */
 	public static class SomeSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
 		@Override

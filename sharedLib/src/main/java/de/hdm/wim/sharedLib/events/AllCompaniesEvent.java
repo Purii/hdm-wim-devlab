@@ -1,15 +1,17 @@
 package de.hdm.wim.sharedLib.events;
 
 import de.hdm.wim.sharedLib.Constants;
-
 import de.hdm.wim.sharedLib.Constants.PubSub.AttributeKey;
 import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 
 /**
- * @author Chris
+ * The type All companies event.
+ *
+ * @author Christian Schneider
  * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#allcompaniesevent">AllCompaniesEvent</a>
  */
 public class AllCompaniesEvent extends IEvent{
+
 	/**
 	 * Constructor
 	 * set initial Attributes
@@ -19,8 +21,9 @@ public class AllCompaniesEvent extends IEvent{
 	}
 
 	/**
+	 * Get session id string.
 	 *
-	 * @return SessionId
+	 * @return SessionId string
 	 */
 	public String getSessionId(){
 		return attributes.get(Constants.PubSub.AttributeKey.SESSION_ID).toString();
@@ -28,13 +31,15 @@ public class AllCompaniesEvent extends IEvent{
 
 	/**
 	 * set SessionId
-	 * @param SessionId
+	 *
+	 * @param SessionId the session id
 	 */
 	public void setSessionId(String SessionId){
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
 	/**
+	 * Get company names string.
 	 *
 	 * @return CompanyNames as commaseparated String
 	 */
@@ -44,7 +49,8 @@ public class AllCompaniesEvent extends IEvent{
 
 	/**
 	 * Set CompanyNames as commaseparated String
-	 * @param companyNames
+	 *
+	 * @param companyNames the company names
 	 */
 	public void setCompanyNames(String companyNames) {
 		this.attributes.put(Constants.PubSub.AttributeKey.COMPANY_NAMES, companyNames);

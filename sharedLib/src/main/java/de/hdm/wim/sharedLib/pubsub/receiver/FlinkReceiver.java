@@ -7,7 +7,11 @@ import com.google.pubsub.v1.PubsubMessage;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 13/06/2017.
+ * FlinkReceiver
+ *
+ * @author Benedikt Benz
+ * @createdOn 13.06.2017
+ * @deprecated this class is only for testing purposes!
  */
 public class FlinkReceiver implements MessageReceiver {
 	private static final Logger LOGGER 	= Logger.getLogger(FlinkReceiver.class);

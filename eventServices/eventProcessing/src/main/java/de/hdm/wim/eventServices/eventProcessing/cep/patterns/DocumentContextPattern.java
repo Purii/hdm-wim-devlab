@@ -3,21 +3,18 @@ package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentContextEvent;
 import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
-import de.hdm.wim.sharedLib.events.IEvent;
-import de.hdm.wim.sharedLib.events.UserInactiveEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import java.util.Map;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.windowing.time.Time;
-
-import java.util.Map;
 
 /**
- * Created by nilsb on 23.06.2017.
+ * @author Nils Bachmann
+ * @createdOn 23.06.2017
  */
 public class DocumentContextPattern {
 

@@ -11,22 +11,51 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 24/06/2017.
+ * The type Pub sub push handler.
+ *
+ * @author Benedikt Benz
+ * @createdOn 24.06.2017
  */
 public class PubSubPushHandler {
 
+	/**
+	 * The constant LOGGER.
+	 */
 	protected static final Logger LOGGER = Logger.getLogger(PubSubPushHandler.class);
+	/**
+	 * The constant HELPER.
+	 */
 	protected static Helper HELPER = new Helper();
+	/**
+	 * The constant EVENTREPOSITORY.
+	 */
 	protected static EventRepository EVENTREPOSITORY;
 
+	/**
+	 * Instantiates a new Pubsubpushhandler.
+	 *
+	 * @param eventRepository the event repository
+	 */
 	public PubSubPushHandler(EventRepository eventRepository) {
-		this.EVENTREPOSITORY = eventRepository;
+		EVENTREPOSITORY = eventRepository;
 	}
 
+	/**
+	 * Instantiates a new Pub sub push handler.
+	 */
 	public PubSubPushHandler() {
-		this.EVENTREPOSITORY = EventRepositoryImpl.getInstance();
+		EVENTREPOSITORY = EventRepositoryImpl.getInstance();
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param req the req
+	 * @param resp the resp
+	 * @param handler the handler EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_INSIGHT#HANDLER_ID}
+	 * @throws IOException the io exception
+	 * @throws ServletException the servlet exception
+	 */
 	public void process(HttpServletRequest req, HttpServletResponse resp, String handler)
 		throws IOException, ServletException {
 

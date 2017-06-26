@@ -5,46 +5,35 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
 /**
- * Created by ben on 1/06/2017.
+ * @author Benedikt Benz
+ * @createdOn 01.06.2017
  */
 public class DateHelper {
-
-	public enum TimeDirection{
-		PAST,
-		FUTURE,
-		NOW
-	}
 
 	/**
 	 * The Constant DATE_MONDAY.
 	 */
 	private static final String _DATE_MONDAY = "monday";
-
 	/**
 	 * The Constant DATE_TUESDAY.
 	 */
 	private static final String _DATE_TUESDAY = "tuesday";
-
 	/**
 	 * The Constant DATE_WEDNESDAY.
 	 */
 	private static final String _DATE_WEDNESDAY = "wednesday";
-
 	/**
 	 * The Constant DATE_THURSDAY.
 	 */
 	private static final String _DATE_THURSDAY = "thursday";
-
 	/**
 	 * The Constant DATE_FRIDAY.
 	 */
 	private static final String _DATE_FRIDAY= "friday";
-
 	/**
 	 * The Constant DATE_SATURDAY.
 	 */
 	private static final String _DATE_SATURDAY = "saturday";
-
 	/**
 	 * The Constant DATE_SUNDAY.
 	 */
@@ -96,5 +85,11 @@ public class DateHelper {
 			return today.with(TemporalAdjusters.previous(dow));
 
 		return today;
+	}
+
+	public enum TimeDirection {
+		PAST,
+		FUTURE,
+		NOW
 	}
 }

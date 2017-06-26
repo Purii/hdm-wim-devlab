@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
  * Created by ben on 25/06/2017.
  */
 
+
 @WebServlet(
 	name = "MessageRetreiver",
 	value = "/retrieveMessage"
