@@ -51,7 +51,10 @@ public class MessageServer2 {
 
 		SERVER_EXECUTOR.execute(new MessageServer2.SteamingServer(messageQueue));
 
+		//Anlegen beispielhafter Events
+
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+
 		DocumentInformationEvent docinfevt = new DocumentInformationEvent();
 		docinfevt.setId("1");
 		docinfevt.setData("bla");
@@ -78,49 +81,43 @@ public class MessageServer2 {
 
 
 		StayAliveEvent stayAlive = new StayAliveEvent();
-		stayAlive.setId("4");
-		stayAlive.setData("blubb");
 		stayAlive.setPublishTime(timeStamp);
-		stayAlive.setUserId("P.Enis");
+		stayAlive.setUserId("Bachmann");
 
 		StayAliveEvent stayAlive2 = new StayAliveEvent();
-		stayAlive2.setId("5");
-		stayAlive2.setData("blubb");
 		stayAlive2.setPublishTime(timeStamp);
-		stayAlive2.setUserId("V.Agina");
+		stayAlive2.setUserId("Schneider");
+
+		StayAliveEvent stayAlive3 = new StayAliveEvent();
+		stayAlive2.setPublishTime(timeStamp);
+		stayAlive2.setUserId("Krasniqi");
 
 		UserJoinedSessionEvent joinedSessionEvent = new UserJoinedSessionEvent();
 		joinedSessionEvent.setSessionId("12345");
-		joinedSessionEvent.setId("1");
-		joinedSessionEvent.setData("blubb");
 		joinedSessionEvent.setPublishTime(timeStamp);
-		joinedSessionEvent.setUserId("Karl");
+		joinedSessionEvent.setUserId("Bachmann");
 
 		UserJoinedSessionEvent joinedSessionEvent2 = new UserJoinedSessionEvent();
 		joinedSessionEvent2.setSessionId("12345");
-		joinedSessionEvent2.setId("2");
-		joinedSessionEvent2.setData("blubb");
 		joinedSessionEvent2.setPublishTime(timeStamp);
-		joinedSessionEvent2.setUserId("Birgit");
+		joinedSessionEvent2.setUserId("Schneider");
 
 		UserJoinedSessionEvent joinedSessionEvent3 = new UserJoinedSessionEvent();
 		joinedSessionEvent3.setSessionId("12345");
-		joinedSessionEvent3.setId("3");
-		joinedSessionEvent3.setData("blubb");
 		joinedSessionEvent3.setPublishTime(timeStamp);
-		joinedSessionEvent3.setUserId("Otto");
+		joinedSessionEvent3.setUserId("Krasniqi");
 
 		UserLeftSessionEvent leftSessionEvent = new UserLeftSessionEvent();
 		leftSessionEvent.setSessionId("12345");
-		leftSessionEvent.setUserId("Otto");
+		leftSessionEvent.setUserId("Bachmann");
 
 		UserLeftSessionEvent leftSessionEvent2 = new UserLeftSessionEvent();
 		leftSessionEvent2.setSessionId("12345");
-		leftSessionEvent2.setUserId("Karl");
+		leftSessionEvent2.setUserId("Schneider");
 
 		UserLeftSessionEvent leftSessionEvent3 = new UserLeftSessionEvent();
 		leftSessionEvent3.setSessionId("12345");
-		leftSessionEvent3.setUserId("Birgit");
+		leftSessionEvent3.setUserId("Krasniqi");
 
 		UserInformationEvent userInformationEvent1 = new UserInformationEvent();
 		userInformationEvent1.setLastname("Bachmann");
@@ -155,45 +152,42 @@ public class MessageServer2 {
 		successfulFeedbackEvent1.setUserId("user1");
 		successfulFeedbackEvent1.setDocumentId("doc1");
 
-		/*messageQueue.put(gson.toJson(joinedSessionEvent));
-		messageQueue.put(gson.toJson(joinedSessionEvent2));
-		messageQueue.put(gson.toJson(joinedSessionEvent3));*/
+		// Generieren von Messages in die Queue
+		while(true) {
 
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
 
-		/*Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		messageQueue.put(gson.toJson(stayAlive2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent2));
-		//messageQueue.put(gson.toJson(joinedSessionEvent3));
-
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		messageQueue.put(gson.toJson(stayAlive));
-		//messageQueue.put(gson.toJson(leftSessionEvent2));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		//messageQueue.put(gson.toJson(leftSessionEvent));
-		Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-		//messageQueue.put(gson.toJson(leftSessionEvent3));*/
-
-
-		while(true){
+			messageQueue.put(gson.toJson(joinedSessionEvent));
 			messageQueue.put(gson.toJson(userInformationEvent1));
-			messageQueue.put(gson.toJson(userInformationEvent2));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			messageQueue.put(gson.toJson(userInformationEvent3));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
-			messageQueue.put(gson.toJson(userInformationEvent3));
-		}
 
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+			messageQueue.put(gson.toJson(joinedSessionEvent2));
+			messageQueue.put(gson.toJson(userInformationEvent2));
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+			messageQueue.put(gson.toJson(joinedSessionEvent3));
+			messageQueue.put(gson.toJson(userInformationEvent3));
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+			messageQueue.put(gson.toJson(leftSessionEvent));
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+
+			messageQueue.put(gson.toJson(leftSessionEvent2));
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			messageQueue.put(gson.toJson(leftSessionEvent3));
+
+
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+			Thread.sleep(TimeUnit.SECONDS.toMillis(MESSAGE_PERIOD_SECONDS));
+		}
 	}
 
 	private static class SteamingServer implements Runnable {

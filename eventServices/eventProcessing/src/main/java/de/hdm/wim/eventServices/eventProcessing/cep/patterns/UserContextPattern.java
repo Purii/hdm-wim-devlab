@@ -22,7 +22,7 @@ public class UserContextPattern {
 	 * Run.
 	 *
 	 * @param env           the env
-	 * @param psmStream 	the IEvent stream
+	 * @param psmStream 	the UserInformationEvent stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<UserInformationEvent> psmStream) throws Exception {
 		//Test Pattern for false User Feedback
@@ -47,19 +47,18 @@ public class UserContextPattern {
 				String project1 = pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
 				String project2 = pattern.get("second").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
 				String project3 = pattern.get("third").getAttributes().get(Constants.PubSub.AttributeKey.USER_WORKS_ON_PROJECTS);
-				System.out.println(project1+"  "+ project2 + "   "+ project3);
 				if(project1.equals(project2) && project1.equals(project3)){
 					UserContextEvent ucevt = new UserContextEvent();
 					ucevt.setContext(project1);
 					ucevt.setEventSource(Constants.PubSub.EventSource.EVENT);
-					System.out.println("Project " + project1 + " seems to be interesting");
+					System.out.println("Project " + project1 + " seems to be interesting.");
 					return ucevt;
 				}
 				return null;
 			}
 		});
-		PublishHelper ph = new PublishHelper(false);
 		userContextEventDataStream.print();
+		PublishHelper ph = new PublishHelper(false);
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
 	}

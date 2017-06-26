@@ -14,6 +14,22 @@
     background:
     url('../images/logo/Schriftzug 320x200.png') bottom right 15% no-repeat #ff6600;
 }
+#GoogleLogin{
+    position: relative;
+    left: auto;
+    top: auto;
+    background: no-repeat #e0e0e0;
+}
+#GoogleLogo{
+    position: absolute;
+    left:50%;
+    top:50%;
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+    border: 0;
+}
+
 div#KoBoRaBody{
     padding-left: 30px;
     padding-right: 30px;

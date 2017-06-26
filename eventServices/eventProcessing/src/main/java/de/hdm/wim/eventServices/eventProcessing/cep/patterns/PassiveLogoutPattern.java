@@ -23,47 +23,6 @@ public class PassiveLogoutPattern {
 	 * @param env           the env
 	 * @param heartbeats 	the Tuple of user id and count of heartbeats within 15 seconds
 	 */
-/*	public void run(StreamExecutionEnvironment env, DataStream<IEvent> kStream) throws Exception {
-
-		//Test Pattern for false User Feedback
-		//This Pattern triggers when a User clicks on a Feedback mutiple times.
-		Pattern<IEvent, ?> passiveLogout = Pattern
-			.<IEvent>begin("first")
-			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.STAYALIVE))
-			.followedBy("second")
-			.where(evt -> evt.getAttributes().containsValue(Constants.PubSub.EventSource.USER_INTERFACE)
-				&& evt.getAttributes().containsValue(Constants.PubSub.EventType.STAYALIVE ));
-
-
-		PatternStream<IEvent> patternStream = CEP.pattern(kStream, passiveLogout);
-
-		DataStream<Either<UserInactiveEvent, StayAliveEvent>> userInactiveEventDataStream = patternStream.select(
-			new PatternTimeoutFunction<IEvent, UserInactiveEvent>() {
-				@Override
-				public UserInactiveEvent timeout(Map<String, IEvent> pattern, long timeoutTimestamp) throws Exception {
-					UserInactiveEvent uinevt = new UserInactiveEvent();
-					uinevt.setEventSource(Constants.PubSub.EventSource.EVENT);
-					uinevt.setUserId(pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_ID));
-					return uinevt;
-				}
-			},
-			new PatternSelectFunction<IEvent, StayAliveEvent>() {
-				@Override
-				public StayAliveEvent select(Map<String, IEvent> pattern) throws Exception {
-					StayAliveEvent saevt = new StayAliveEvent();
-					saevt.setEventSource(Constants.PubSub.EventSource.EVENT);
-					saevt.setUserId(pattern.get("first").getAttributes().get(Constants.PubSub.AttributeKey.USER_ID));
-					return saevt;
-				}
-			}
-		);
-
-		PublishHelper ph = new PublishHelper(false);
-		//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
-
-	} */
-
 	public void run(StreamExecutionEnvironment env, DataStream<Tuple2<String, Integer>> heartbeats){
 		Pattern<Tuple2<String, Integer>, ?> passiveLogout = Pattern
 			.<Tuple2<String, Integer>>begin("first")
@@ -82,6 +41,5 @@ public class PassiveLogoutPattern {
 				return uinevt;
 			}
 		});
-		UserInactiveEventDataStream.print();
 	}
 }
