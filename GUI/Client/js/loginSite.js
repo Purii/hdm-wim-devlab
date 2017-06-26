@@ -1,4 +1,17 @@
 
+
+
+
+if (document.cookie.indexOf("GoogleID") >= 0) {
+    // They've been here before.
+    //alert("hello again");
+}else {
+
+    window.location.href = 'index.html';
+    //alert("leite zu login weiter");
+}
+
+
 document.getElementById('logoutFromGoogle').onclick = function () {
 
     var ThisSide = window.location.href;

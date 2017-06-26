@@ -23,7 +23,7 @@ public class HighlyRelevantDocumentPattern {
 	 * Run.
 	 *
 	 * @param env           the env
-	 * @param psmStream 	the IEvent stream
+	 * @param psmStream 	the SuccessfulFeedbackEvent stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<SuccessfulFeedbackEvent> psmStream ) throws Exception {
 

@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+      <meta name="google-signin-client_id" content="328840731536-1aqi9f7flo5jptm8l37358otoqj6h5ld.apps.googleusercontent.com">
+      <script src="../js/jquery.min.js"></script>
+      <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+
     <!-- MDL Theme Builder-->
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"/>
   
@@ -22,20 +26,29 @@
     <link rel="stylesheet" href="../css/styleIndex.css"/>
 
       <!--Fancybox Link-->
-    <link rel="stylesheet" type="text/css" href="../fancybox-master/dist/jquery.fancybox.min.css">
+
 
     <style>
-    .navwrap{
-    float:left; 
-    width:auto;
+        .navwrap{
+        float:left;
+        width:auto;
+        }
+        .inReihe{
+        float:left; margin:20px;
+        }
+        .page-content.mdl-grid{
+        width:720px;
+        margin:0px auto;
+            }
+
+
+            .demo-layout-transparent {
+      background: href="/Applications/XAMPP/xamppfiles/htdocs/workspace/hdm-wim-devlab/GUI/Client/images/background/wallpaper-698230_1920.jpg" center / cover;
     }
-    .inReihe{
-    float:left; margin:20px;
+
     }
-    .page-content.mdl-grid{
-    width:720px; 
-    margin:0px auto;
-    }
+
+
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -59,87 +72,33 @@
         <!-- Navigation. We hide it in small screens. -->
           <div class="navwrap">
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <!-- Log Out -->
-          <a class="mdl-navigation__link" id="logoutFromGoogle" style= "color: white" ><i class="material-icons">power_settings_new</i></a>
-          <!-- Change Personal Data -->
-          <!-- <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;"><i class="material-icons">account_circle</i></a>-->
-              <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe"
-                 data-src="changeMyData.html" href="javascript:;">
-                  <i class="material-icons">account_circle</i>
-                  <!-- Help -->
-                  <a class="mdl-navigation__link" id="menu_helpIndex" style="color: white" href="#"><i class="material-icons">info_outline</i></a>
-</nav>
+                <!-- Help -->
+                <a class="mdl-navigation__link" id="menu_helpIndex" style="color: white" href="#"><i class="material-icons">info_outline</i></a>
+            </nav>
          </div>
         
-        <!-- Content for menues-->
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_changeData">
-            <li style= "margin: 10px; font-weight: bold" >Your Data</li>
-            <li style= "margin: 10px" >Department: </li>
-            <li style= "margin: 10px" >Project: </li>
-            <li style= "margin: 10px" >Role/Function: </li>
-            <li class= "mdl-menu__item--full-bleed-divider"></li>
-            <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;">Edit Data </li>
-            <!--<li><button class="mdl-button mdlfancybox-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Button</button></li>-->
-        </ul>
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpIndex">
-            <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr </p><p>Testtext für die nächste Zeile</p></li>
-            <li style= "margin: 10px"><p>Neue Textzeite</p></li>
-        </ul>
+
       </div> 
     </header>
 
     <main class="mdl-layout__content">
-      <div class="page-content mdl-grid">
-          <!-- Your content goes here -->
-          <!-- Square card -->
-          <div>
-          <div class="inReihe">
-              <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                <div id="cardHangouts" class="mdl-card__title mdl-card--expand" >
-                  <h2 class="mdl-card__title-text">Go to Google Hangouts</h2>
+            <!-- Your content goes here -->
+            <div class="page-content">
+              <div align="center">          
+                <div class="demo-card-square mdl-card mdl-shadow--2dp">
+                    <div id="GoogleLogin" class="mdl-card__title mdl-card--expand">
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                    Please log in with your Google Account.
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                       <div id="gSignIn"></div>
+
+                    </div>
                 </div>
-                <div class="mdl-card__supporting-text">
-                  You can start your Google Hangouts Session and invite colleagues to join you.
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="display: block; margin: 0 auto" href="https://hangouts.google.com/" target="_blank">
-                    Start Hangout
-                  </a>
-                  <!--<a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="background-color: #006600" href="https://hangouts.google.com/" target="_blank">
-                    Start Hangout
-                  </a> -->
-                </div>
-              </div>
-          </div>    
-          
-          <div class="inReihe">
-            <div class="demo-card-square mdl-card mdl-shadow--2dp">
-              <div id="cardSession" class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">Start a new Session</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                Click here to start a session with your friends in 'Proud'. <br>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="display: block; margin: 0 auto" href="./startSession.html">
-                  Start Session
-                </a>
-              </div>
+              </div>  
             </div>
-          </div>
-         </div>   
-      </div>
-    
-            <!-- Buttons gehören an andere Stelle     
-                <!--Logout->
-                <a class="mdl-navigation__link" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php">
-                    <!--Button mit ripples und Farbe->
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Logout
-                    </button>
-                </a>
-            -->  
-    </main>
+        </main>
 
   </div>
 
@@ -147,14 +106,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <!-- MDL -->
-    <script src="./material.min.js"></script>
-    <!-- java scrip -->
-    <script language="javascript" type="text/javascript" src="../js/loginSite.js"></script>
 
+   <script src="../js/loginByGoogle.js"></script>
 
+   <link rel="stylesheet" href="../css/styleLogin.css">
 
-    <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script> 
 
 
   </body>

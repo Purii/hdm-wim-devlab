@@ -27,7 +27,14 @@
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+            <![endif]-->
+
+        <style>
+            .demo-list-icon {
+              width: 300px;
+            }
+        </style>
+
     </head>
   
   
@@ -44,7 +51,7 @@
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation">
                     <!-- Back to Landing Page -->
-                    <a class="mdl-navigation__link" style= "color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
+                    <a class="mdl-navigation__link" style= "color: white" href="landingpage.html"><i class="material-icons">arrow_back</i></a>
                     <!-- Who is online -->
                     <a class="mdl-navigation__link" id="menu_online" style= "color: white"><i class="material-icons">info_outline</i></a>
                     <!-- Help -->
@@ -53,17 +60,57 @@
 
                 <!-- Content for menues-->
                 <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_online">
+                    <li style="margin: 15px"><p>Online:<p></li>
+                    <ul class="demo-list-icon mdl-list" id="LoggedInUsers">
+                        <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            Bryan Cranston
+                        </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">person</i>
+                                Aaron Paul
+                            </span>
+                        </li>
+                        <li class="mdl-list__item">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">person</i>
+                                Bob Odenkirk
+                            </span>
+                        </li>
+                    </ul>
+                    <li class="mdl-menu__item--full-bleed-divider"></li>
+                    <li class="mdl-menu__item" data-fancybox data-type="iframe" data-src="toDo" href="javascript:;">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Send Invitation
+                        </button> </li>
+                </ul>
+
+
+
+                <!--Alte Online Liste-->
+               <!-- <ul id="LoggedInUsers" class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_online">
                     <li style= "margin: 10px"><p>Online:<p></li>
                     <li style= "margin: 10px"><p>**wer ist online?**<p></li>
                     <li class= "mdl-menu__item--full-bleed-divider"></li>
-                    <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="toDo" href="javascript:;">Send Invitation </li>
-                </ul>
-                <ul id="log"></ul>
-                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpStart">
-                    <li style= "margin: 10px"><p>Hilfetext Lorem ipsum dolor sit amet, consetetur sadipscing elitr <p></li>
-                    <li style= "margin: 10px"><p>Neue Textzeite<p></li>
-                </ul>
-            </div>
+                    <li class= "mdl-menu__item" data-fancybox data-type="iframe" data-src="toDo" href="javascript:;">Send Invitation </li> </ul> --> 
+
+
+
+
+
+                    <ul id="log"></ul>
+                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="menu_helpStart">
+                        <li style="margin: 10px">
+                            <p style=" -ms-hyphens:auto; -webkit-hyphens: auto; hyphens: auto">
+                                To leave the session and return to the landingpage you can use the logout button in the toolbar.
+                                To start the speech recognition and recommendation function for the current session click the "ENTER SESSION" button.
+                            </p> 
+                       </li>
+                    </ul> 
+</div>
         </header>
 
         <main class="mdl-layout__content">
@@ -78,7 +125,7 @@
                     Please be aware that your audio will be recorded.
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="text-decoration:none;" href="./chartByButton.html">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="enterSession" style="text-decoration:none;" >
                         Enter Session
                     </a>
                     </div>
@@ -95,9 +142,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <!-- MDL -->
-    <script src="./material.min.js"></script>
+
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  
+    <script defer src="../js/startSession.js"></script>
   
     </body>
 </html>
