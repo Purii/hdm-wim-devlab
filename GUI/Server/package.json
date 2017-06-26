@@ -12,10 +12,14 @@
     "url": "https://github.com/markbrown4/websockets/issues"
   },
   "homepage": "https://github.com/markbrown4/websockets#readme",
-  "description": "",
+  "description": "The WebSocket API allows you to to maintain a continuous two-way connection between client and server.\r Messages can be sent and received on both ends.",
   "dependencies": {
     "@google-cloud/pubsub": "^0.13.0",
     "express": "^4.13.4",
     "ws": "^1.1.0"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {}
 }

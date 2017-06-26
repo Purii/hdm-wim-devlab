@@ -9,10 +9,10 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
-import org.apache.log4j.Logger;
 
 /**
- * Created by Chris on 25.06.2017.
+ * @author Christian Schneider
+ * @createdOn 25.06.2017
  */
 public class SessionEndJob {
 

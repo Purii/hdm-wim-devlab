@@ -17,12 +17,18 @@ import de.hdm.wim.sharedLib.events.IEvent;
 import java.util.List;
 
 /**
- * Created by ben on 24/06/2017.
+ * The interface Event repository.
+ *
+ * @author Benedikt Benz
+ * @createdOn 24.06.2017
  */
 public interface EventRepository {
 
 	/**
 	 * Save message to persistent storage.
+	 *
+	 * @param event the event
+	 * @param handlerId the handler id EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_INSIGHT#HANDLER_ID}
 	 */
 	void save(IEvent event, String handlerId);
 
@@ -38,6 +44,7 @@ public interface EventRepository {
 	 * Retrieve most recent stored messages.
 	 *
 	 * @param limit number of messages
+	 * @param topicId the topic id EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_INSIGHT#TOPIC_ID}
 	 * @return list of messages
 	 */
 	List<IEvent> retrieve(int limit, String topicId);

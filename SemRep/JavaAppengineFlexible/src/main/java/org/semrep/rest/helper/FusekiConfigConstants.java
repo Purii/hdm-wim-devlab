@@ -1,7 +1,8 @@
 package org.semrep.rest.helper;
 
 /**
- * Created by mateo_alliaj on 24.06.17.
+ * @author mateo_alliaj
+ * Konstanten für den Fuseki Server mit Select- & Update-Endpoints
  */
 public class FusekiConfigConstants {
 

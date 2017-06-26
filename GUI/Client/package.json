@@ -1,21 +1,44 @@
+
 {
-  "name": "websockets",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC",
+  "name": "GUI",
+  "description": "Simple Hello World Node.js sample for Google App Engine Flexible Environment.",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Google Inc.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markbrown4/websockets.git"
+    "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
   },
-  "bugs": {
-    "url": "https://github.com/markbrown4/websockets/issues"
+  "engines": {
+    "node": ">=4.3.2"
   },
-  "homepage": "https://github.com/markbrown4/websockets#readme",
-  "description": "",
+  "scripts": {
+    "deploy": "gcloud app deploy",
+    "start": "node app.js",
+    "lint": "samples lint",
+    "pretest": "npm run lint",
+    "system-test": "samples test app",
+    "test": "npm run system-test",
+    "e2e-test": "samples test deploy"
+  },
   "dependencies": {
     "@google-cloud/pubsub": "^0.13.0",
-    "express": "^4.13.4",
-    "ws": "^1.1.0"
+    "body-parser": "^1.17.2",
+    "express": "4.15.3",
+    "safe-buffer": "^5.1.1",
+    "ws": "^3.0.0"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "1.4.15"
+  },
+  "cloud-repo-tools": {
+    "test": {
+      "app": {
+        "msg": "Hello, world!"
+      }
+    },
+    "requiresKeyFile": true,
+    "requiresProjectId": true
   }
 }

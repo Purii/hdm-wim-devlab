@@ -164,6 +164,12 @@ function capitalize(s) {
 ** Bei einem Neustart wird das final_transcript bzw. das Resultat geleert.
 */
 
+/*
+window.onload = function (){
+    startButton(event);
+}
+
+*/
 function startButton(event) {
   if (recognizing) {
     recognition.stop();

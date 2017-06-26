@@ -18,7 +18,10 @@ import de.hdm.wim.sharedLib.Constants.PubSub.SubscriptionType;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 04/06/2017.
+ * SubscriptionHelper
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 public class SubscriptionHelper {
 

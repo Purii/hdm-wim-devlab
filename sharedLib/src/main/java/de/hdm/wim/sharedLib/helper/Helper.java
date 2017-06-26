@@ -15,7 +15,10 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 2/06/2017.
+ * Helper class
+ *
+ * @author Benedikt Benz
+ * @createdOn 02.06.2017
  */
 public class Helper {
 
@@ -67,7 +70,7 @@ public class Helper {
 	 * Convert a PubSubMessage to IEvent
 	 *
 	 * @param message the PubsubMessage
-	 * @return IEvent
+	 * @return IEvent event
 	 */
 	public IEvent convertToIEvent(PubsubMessage message) {
 		IEvent event = new Event();
@@ -91,7 +94,7 @@ public class Helper {
 	 * Get event from json string.
 	 *
 	 * @param json the json string of the event
-	 * @return IEvent
+	 * @return IEvent event
 	 */
 	public IEvent convertToIEvent(String json) {
 
@@ -109,6 +112,12 @@ public class Helper {
 		return event;
 	}
 
+	/**
+	 * Convert json to map map.
+	 *
+	 * @param json the json
+	 * @return the map
+	 */
 	public Map<String, String> convertJsonToMap(String json) {
 		Type type = new TypeToken<Map<String, String>>() {
 		}.getType();

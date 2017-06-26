@@ -9,56 +9,115 @@
     <!-- MDL Theme Builder-->
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
     <link type="text/css" rel="stylesheet" href="styleFormular.css" />
+
+    <link rel="stylesheet" href="../css/styleIndex.css"/>
+
+    <style>
+
+          div#absendenButton {
+        width: 230px;
+        margin: auto;
+        margin-top: 30px;
+    }
+
+    </style>
 </head>
 <body>
     <div id="content">
         <h1 id="headline"> Bitte ändern Sie hier Ihre Daten: </h1>
         <form>
-            <table style="width:100%">
-                <tr>
-                    <th>Funktion</th>
-                    <th>Änderung</th>
-                </tr>
-                <tr>
-                    <td>Projekt</td>
-                    <td>
-                        <select>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Projektrolle</td>
-                    <td>
-                        <select>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Abteilung</td>
-                    <td>
-                        <select>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
-                        </select>
-                    </td>
-                </tr>
+           <!--Tabelle mit MDL Tabelle-->
+            <table style="width:100%" class="mdl-data-table mdl-js-data-table">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Funktion</th>
+                        <th class="mdl-data-table__cell--non-numeric">Änderung</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Projekt</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Projektrolle</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Abteilung</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
-        </form>
+            <!-- Tabelle ungestylt-->
+               <!-- <table style="width:100%">
+                    <tr>
+                        <th>Funktion</th>
+                        <th>Änderung</th>
+                    </tr>
+                    <tr>
+                        <td>Projekt</td>
+                        <td>
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Projektrolle</td>
+                        <td>
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Abteilung</td>
+                        <td>
+                            <select>
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table> --> 
+</form>
+        <div id="absendenButton">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="sendButton">
+                Änderungen absenden
+            </button>
+        </div>
 
-        <button id="sendButton">
-            Änderungen absenden
-        </button>
 
     </div>
 </body>

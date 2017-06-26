@@ -8,7 +8,12 @@ import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import de.hdm.wim.sharedLib.pubsub.receiver.ExampleReceiver;
 
 /**
- * Created by ben on 11/06/2017.
+ * TestPush
+ * this class is only for testing purposes!
+ *
+ * @author Benedikt Benz
+ * @createdOn 11.06.2017
+ * @deprecated
  */
 public class TestPush {
 

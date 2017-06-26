@@ -25,42 +25,124 @@ import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
+/**
+ * @author Ivan Kurtovic
+ * The type Ux interface.
+ */
 public class UXInterface {
-	
-	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
+
+	/**
+	 * The constant filePath.
+	 */
+// ### initialisiere globale Jena-Variablen
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
+	/**
+	 * The constant ontologyModel.
+	 */
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+	/**
+	 * The constant resultSet.
+	 */
 	public static ResultSet resultSet;
+	/**
+	 * The constant queryExecution.
+	 */
 	public static QueryExecution queryExecution;
-	// ### initialisiere globale HashMaps
+	/**
+	 * The Dok offer linked hash map.
+	 */
+// ### initialisiere globale HashMaps
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
+	/**
+	 * The Alle dokumente linked hash map.
+	 */
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
+	/**
+	 * The Dok offer hash map.
+	 */
 	public static HashMap<String, String> dokOfferHashMap = null;
+	/**
+	 * The Tmp dok offer hash map.
+	 */
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	/**
+	 * The Fav dok hash map.
+	 */
 	public static HashMap<String, String> favDokHashMap = null;
+	/**
+	 * The Tmp fav dok hash map.
+	 */
 	public static HashMap<String, String> tmpFavDokHashMap = null;
-	// ### time stamp
+	/**
+	 * The constant timestamp.
+	 */
+// ### time stamp
 	public static Timestamp timestamp = null;
-	// ### initialisiere globale Objekte
+	/**
+	 * The constant dokumentvorschlagObj.
+	 */
+// ### initialisiere globale Objekte
 	public static Dokumentvorschlag dokumentvorschlagObj = null;
+	/**
+	 * The constant personObj.
+	 */
 	public static Person personObj = null;
+	/**
+	 * The constant personFavDokObj.
+	 */
 	public static Person personFavDokObj = null;
-	// inputArray
+	/**
+	 * The Input array.
+	 */
+// inputArray
 	public static String[] inputArray = null;
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
-	// Dokument-Objekt bezogen
+	/**
+	 * The constant dok_IDStr.
+	 */
+// Dokument-Objekt bezogen
 	public static String dok_IDStr = "";
 
-	// ### initialisiere globale Variablen
+	/**
+	 * The constant dok_NameStr.
+	 */
+// ### initialisiere globale Variablen
 	public static String dok_NameStr = "";
+	/**
+	 * The constant prioStr.
+	 */
 	public static String prioStr = "";
+	/**
+	 * The constant dok_TypStr.
+	 */
 	public static String dok_TypStr = "";
+	/**
+	 * The constant dok_URLStr.
+	 */
 	public static String dok_URLStr = "";
+	/**
+	 * The constant dok_folder.
+	 */
 	public static String dok_folder = "";
-	//FavoritDok-Objekt bezogen
+	/**
+	 * The constant personVorname_Str.
+	 */
+//FavoritDok-Objekt bezogen
 	public static String personVorname_Str = "";
+	/**
+	 * The constant personNachname_Str.
+	 */
 	public static String personNachname_Str = "";
+	/**
+	 * The constant personName_Str.
+	 */
 	public static String personName_Str = "";
+	/**
+	 * The constant numFavDoks.
+	 */
 	public static int numFavDoks = 0;
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
@@ -69,6 +151,11 @@ public class UXInterface {
 	private static String sessionIDStr = "";
 	private static String timeStampStr = "";
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
@@ -77,7 +164,11 @@ public class UXInterface {
 			e.printStackTrace();
 		}
 	}
-		
+
+	/**
+	 * Sets array demo data.
+	 * Lädt die Input-Parameter in ein Array
+	 */
 	public static void setArrayDemoData() {
 
 		// richToken
@@ -92,7 +183,15 @@ public class UXInterface {
 		sessionIDStr = inputArray[0].toString();
 
 	}
-	
+
+	/**
+	 * Execute sparql.
+	 *
+	 * @param sparql the sparql
+	 *
+	 * Führt die übergebene Sparql-Query aus und initalisiert das ResultSet
+	 *
+	 */
 	public static void executeSparql(String sparql) {
 		// Initialisierung und Ausführung einer SPARQL-Query
 //		Query query = QueryFactory.create(sparql);
@@ -107,7 +206,16 @@ public class UXInterface {
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
 	}
-	
+
+	/**
+	 * Loop through results linked hash map.
+	 *
+	 * @param y the y
+	 * @return the linked hash map
+	 *
+	 * Das initalisierte ResultSet wird mit dieser Methode durchlaufen und je nach eventType die jeweilige HashMap befüllt.
+	 *
+	 */
 	public static void loopThroughResults(int y){
 		
 		// initialisiere Variablen
@@ -253,6 +361,14 @@ public class UXInterface {
 		
 	}
 
+	/**
+	 * Gets document offers.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, dokKontext, keywords (werden über Array-Testdaten geladen)
+	 * Gibt alle Informationen zum dokKontext und den keywords zurück.
+	 */
 	public static void getDocumentOffers() throws Exception {
 		
 		//@Path: /rest/uxInterface/produceOfferEvent
@@ -424,7 +540,15 @@ public class UXInterface {
 		publishHelper.Publish(event, SEMREP_INFORMATION.TOPIC_ID, true);
 
 	}
-	
+
+	/**
+	 * Gets all documents.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle vorhandenen Dokument-Repräsentationen vom Fuseki-Endpoint zurück.
+	 */
 	public static void getAllDocuments() throws Exception {
 		
 		JSONObject jsonObj = new JSONObject();

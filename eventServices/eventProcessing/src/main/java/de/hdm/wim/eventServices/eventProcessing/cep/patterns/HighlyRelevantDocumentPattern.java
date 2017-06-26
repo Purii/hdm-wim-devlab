@@ -2,10 +2,9 @@ package de.hdm.wim.eventServices.eventProcessing.cep.patterns;
 
 import de.hdm.wim.sharedLib.Constants;
 import de.hdm.wim.sharedLib.events.DocumentHighlyRelevantEvent;
-import de.hdm.wim.sharedLib.events.FeedbackEvent;
-import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.SuccessfulFeedbackEvent;
 import de.hdm.wim.sharedLib.pubsub.helper.PublishHelper;
+import java.util.Map;
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
@@ -14,10 +13,9 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 
-import java.util.Map;
-
 /**
- * Created by nilsb on 13.06.2017.
+ * @author Nils Bachmann
+ * @createdOn 13.06.2017
  */
 public class HighlyRelevantDocumentPattern {
 

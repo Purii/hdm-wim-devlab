@@ -6,7 +6,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
- * Created by Ben on 15.01.2017.
+ * @author Benedikt Benz
+ * @createdOn 15.01.2017
+ * @deprecated
  */
 public class ComplexTokenEvent {
 

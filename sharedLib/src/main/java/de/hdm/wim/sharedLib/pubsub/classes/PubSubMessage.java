@@ -9,8 +9,11 @@ import java.time.LocalDateTime;
 import java.util.Hashtable;
 
 /**
- * Created by ben on 2/06/2017.
- * this class is only for testing purposes!
+ * The type Pub sub message.
+ * this  class is only for testing purposes!
+ *
+ * @author Benedikt Benz
+ * @createdOn 02.06.2017
  */
 public class PubSubMessage {
 
@@ -39,9 +42,8 @@ public class PubSubMessage {
 	 *
 	 * @param data the data
 	 * @param id the id
-	 * @return PubSubMessage
+	 * @return PubSubMessage random
 	 */
-
 	public static PubSubMessage getRandom(String data, String id) {
 
 		Helper helper = new Helper();

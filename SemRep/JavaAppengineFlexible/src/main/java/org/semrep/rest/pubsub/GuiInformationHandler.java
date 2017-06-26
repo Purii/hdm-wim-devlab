@@ -6,6 +6,7 @@ import de.hdm.wim.sharedLib.Constants.PubSub.Topic.GUI_INFORMATION;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.SEMREP_OFFERS;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 import de.hdm.wim.sharedLib.events.AdditionalUserInformationEvent;
+import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.helper.Helper;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,6 +19,9 @@ import org.semrep.rest.interfacesPubSub.EventInterface;
 
 /**
  * Created by ben on 22/06/2017.
+ *
+ * Handler für publishen und pullen von Events für GUI-Topic Events
+ * Von der Event-Gruppe bereitgestellt
  */
 @WebServlet(
 	name = "Push with PubSub " + GUI_INFORMATION.HANDLER_ID,
@@ -33,7 +37,7 @@ public class GuiInformationHandler extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 
-		LOGGER.info("Handler: " + SEMREP_OFFERS.HANDLER_ID);
+		LOGGER.info("Handler: " + GUI_INFORMATION.HANDLER_ID);
 
 		String pubsubVerificationToken = Constants.PubSub.Config.SECRET_TOKEN;
 
@@ -42,6 +46,17 @@ public class GuiInformationHandler extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+
+		LOGGER.info(req.toString());
+
+		if (req.getReader() == null || req.getReader().toString() ==  "") {
+			LOGGER.info("ist leer ");
+		}
+
+		if (req.toString() == null || req.toString().toString() ==  "") {
+			LOGGER.info("ist leer 2 ");
+		}
+
 		String requestBody = req.getReader()
 			.lines()
 			.reduce("\n", (accumulator, actual) -> accumulator + actual);
@@ -51,30 +66,28 @@ public class GuiInformationHandler extends HttpServlet {
 
 
 		try {
-			AdditionalUserInformationEvent event = (AdditionalUserInformationEvent) helper
+			IEvent event = helper
 				.convertToIEvent(requestBody);
+			LOGGER.info( "event Cast 1 ");
 
-			EventInterface.insertNewUserInformation(event);
+			LOGGER.info(event.toString() + "event Cast 1.2");
 
-			LOGGER.info("Handler: " + GUI_INFORMATION.HANDLER_ID + " event.getData(): " + event
+
+			AdditionalUserInformationEvent evt = new AdditionalUserInformationEvent();
+			evt.setData(event.getData());
+
+			//AdditionalUserInformationEvent evt = new AdditionalUserInformationEvent();
+			LOGGER.info(evt.toString() + "event Cast 1.3");
+
+			//evt = (AdditionalUserInformationEvent) event;
+
+			LOGGER.info(event + "event Cast 2");
+
+			EventInterface.insertNewUserInformation(evt);
+
+			LOGGER.info("Handler: " + GUI_INFORMATION.HANDLER_ID + " event.getData(): " + evt
 				.getData());
 
-			//Here we serialize the event to a String.
-			//final String output = new Gson().toJson(event);
-
-			// Beispiel für UserInformationEvent
-			// aufruf methode getUserInformation hier: diese kann vom
-			// return type her auch void haben und braucht keine annotations
-
-			// inititalisierung Events:
-//			LearnEvent learnEvent = new LearnEvent();
-//			learnEvent.setData("test");
-//			learnEvent.setDocumentId("");
-//			learnEvent.setEventSource(EventSource.MACHINE_LEARNING);
-//			learnEvent.setProjectId("test project id");
-//			learnEvent.setDocumentAffiliation("false");
-//			learnEvent.setUserId("test user id");
-//			ph.Publish(learnEvent, Topic.TOPIC_1);
 
 
 
@@ -89,6 +102,7 @@ public class GuiInformationHandler extends HttpServlet {
 
 		} catch (Exception e) {
 			// NACK
+			LOGGER.error(e);
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}

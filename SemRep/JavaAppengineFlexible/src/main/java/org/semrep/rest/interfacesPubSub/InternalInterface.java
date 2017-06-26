@@ -14,10 +14,11 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.UUID;
 
-/*
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-*/
 
+/**
+ * @author bjoernZimmermann
+ * The type Internal interface.
+ */
 @Path("/internal")
 public class InternalInterface {
 
@@ -27,8 +28,9 @@ public class InternalInterface {
 	 * Die Methode 'getAllDocCategory' gibt alle Dokumentenkategorien eines Projekts zurück, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt.
 	 * alle Projekte darzustellen.
+	 *
+	 * @return the all doc category
 	 */
-
 	@GET
 	@Produces("application/json")
 	@Path("/getdoccategory")
@@ -95,8 +97,9 @@ public class InternalInterface {
 	 * Die Methode 'getAllProjectStage' gibt alle Projektphasen, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
 	 * alle Projektphasen darzustellen.
+	 *
+	 * @return the all project stage
 	 */
-
 	@GET
 	@Produces("application/json")
 	@Path("/getprojectstage")
@@ -156,11 +159,12 @@ public class InternalInterface {
 	}
 
 
-
 	/**
 	 * Die Methode 'getAllProjekcts' gibt alle Projekte, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
 	 * alle Projekte darzustellen.
+	 *
+	 * @return the projects
 	 */
 	@GET
 	@Produces("application/json")
@@ -224,9 +228,24 @@ public class InternalInterface {
 
 	/**
 	 * Die Methode 'insertMethode' nimmt die Daten via Jason an und fügt diese in die A-Box hinzu
+	 *
+	 * @param doc_version      the doc version
+	 * @param doc_have_context the doc have context
+	 * @param doc_category     the doc category
+	 * @param keywords         the keywords
+	 * @param doc_stage        the doc stage
+	 * @param doc_projectlink  the doc projectlink
+	 * @param doc_id           the doc id
+	 * @param doc_updateTime   the doc update time
+	 * @param doc_url          the doc url
+	 * @param doc_creationTime the doc creation time
+	 * @param doc_rootFolder   the doc root folder
+	 * @param doc_name         the doc name
+	 * @param doc_typ          the doc typ
+	 * @param doc_favorite     the doc favorite
+	 * @param doc_autor        the doc autor
+	 * @return the boolean
 	 */
-
-
 	@POST
 	@Produces("application/json")
 	@Consumes("application/x-www-form-urlencoded")
@@ -277,49 +296,47 @@ public class InternalInterface {
 				//DeleteQuery and InsertQuery
 				try {
 
-				String deleteQuery = "		PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-					+ " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#>"
-					+ " DELETE { "
-					+ "	    a ontology:Dokument, owl:NamedIndividual ;"
-					+ "	    ontology:Dok_Name ' " +doc_name+ "';"
-					+ "		ontology:Dok_ID '" +doc_id+ "';"
-					+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
-					+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
-					+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
-					+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
-					+ "		ontology:Dok_Keywords '"+keywords+"' ;"
-					+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
-					+ "		ontology:Dok_URL '"+doc_url+"' ;"
-					+ "		ontology:Dok_Version '"+doc_version+"' ;"
-					+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
-					+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
-					+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
-					+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
-					+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;"
-					+ " }"
-					+ "INSERT DATA { "
-					+ "     <http://www.semanticweb.org/sem-rep/ontology#>"
-					+ "	    a ontology:Dokument, owl:NamedIndividual ;"
-					+ " 	ontology:Dok_Name ' " +doc_name+ "';"
-					+ "		ontology:Dok_ID '" +doc_id+ "';"
-					+ "		ontology:Dok_Typ '"+doc_typ+"' ;"
-					+ "		ontology:Dok_Erstelldatum '"+doc_creationTime+"' ;"
-					+ "		ontology:Dok_Updatedatum '"+doc_updateTime+"' ;"
-					+ "		ontology:Dok_Kontext '" +doc_have_context+"' ;"
-					+ "		ontology:Dok_Keywords '"+keywords+"' ;"
-					+ "		ontology:Dok_Ordner '"+doc_rootFolder+"' ;"
-					+ "		ontology:Dok_URL '"+doc_url+"' ;"
-					+ "		ontology:Dok_Version '"+doc_version+"' ;"
-					+ "	 	ontology:Dokument_gehoert_zu_Projekt ontology:'"+doc_projectlink+"' ;"
-					+ "		ontology:Dokument_hat_Dokumentenkategorie ontology:'"+doc_category+"' ;"
-					+ "		ontology:Dokument_favorisiert_von_Person ontology:'"+doc_favorite+"' ;"
-					+ "		ontology:Dokument_gehoert_zu_Phase ontology:'"+doc_stage+"' ;"
-					+ "		ontology:Dokument_verfasst_von_Person ontology:'"+doc_autor+"' ;"
-					+ " }"
-					+ " WHERE  "
-					+ " { "
-					+ " ?x <http://www.semanticweb.org/sem-rep/ontology#DokumentenID> '"+doc_id+"' "
-					+ " }";
+					String deleteQuery = " PREFIX owl: <http://www.w3.org/2002/07/owl#> "
+						+ "PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
+						+ "DELETE DATA { "
+						+ "ontology:Meilenstein_Mercedes "
+						+ "a ontology:Dokument, owl:NamedIndividual ; "
+						+ "ontology:Dok_Name 'Meilenstein_Mercedes' ; "
+						+ "ontology:Dok_ID 'aweai1231132' ; "
+						+ "ontology:Dok_Typ 'DocX' ; "
+						+ "ontology:Dok_Erstelldatum 'doc_creationTime' ; "
+						+ "ontology:Dok_Updatedatum 'doc_updateTime' ; "
+						+ "ontology:Dok_Kontext 'doc_have_context' ; "
+						+ "ontology:Dok_Keywords 'keywords' ; "
+						+ "ontology:Dok_Ordner 'doc_rootFolder' ; "
+						+ "ontology:Dok_URL 'doc_url' ; "
+						+ "ontology:Dok_Version 'doc_version' ; "
+						+ "ontology:Dokument_gehoert_zu_Projekt ontology:HighNet ; "
+						+ "ontology:Dokument_hat_Dokumentenkategorie ontology:Sonstiges ; "
+						+ "ontology:Dokument_favorisiert_von_Person ontology:Lisa_Meier ; "
+						+ "ontology:Dokument_gehoert_zu_Phase ontology:Sonstige ; "
+						+ "ontology:Dokument_verfasst_von_Person ontology:Lisa_Meier "
+						+ "} "
+						+ "; "
+						+ "INSERT DATA { "
+						+ "ontology:Meilenstein_Mercedes "
+						+ "a ontology:Dokument, owl:NamedIndividual ; "
+						+ "ontology:Dok_Name 'doc_name' ; "
+						+ "ontology:Dok_ID 'doc_id' ; "
+						+ "ontology:Dok_Typ 'doc_typ' ; "
+						+ "ontology:Dok_Erstelldatum 'doc_creationTime' ; "
+						+ "ontology:Dok_Updatedatum 'doc_updateTime' ; "
+						+ "ontology:Dok_Kontext 'doc_have_context' ; "
+						+ "ontology:Dok_Keywords 'keywords' ; "
+						+ "ontology:Dok_Ordner 'doc_rootFolder' ; "
+						+ "ontology:Dok_URL 'doc_url' ; "
+						+ "ontology:Dok_Version 'doc_version' ; "
+						+ "ontology:Dokument_gehoert_zu_Projekt ontology:HighNet ; "
+						+ "ontology:Dokument_hat_Dokumentenkategorie ontology:Sonstiges ; "
+						+ "ontology:Dokument_favorisiert_von_Person ontology:Lisa_Meier ; "
+						+ "ontology:Dokument_gehoert_zu_Phase ontology:Sonstige ; "
+						+ "ontology:Dokument_verfasst_von_Person ontology:Lisa_Meier "
+						+ "}";
 
 
 					String uuID = UUID.randomUUID().toString();
