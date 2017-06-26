@@ -7,16 +7,16 @@ Die T-Box stellt Schema bereit, während die A-Box die Instanzen representiert.
 
 
  * Entities
- ![Menubar](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/MenuBar.png)
+ ![Entities](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Ontologie/Screenshots/Entities.png)
 
  
  * Data Properties
- ![Menubar](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/MenuBar.png)
+ ![Data Properties](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Ontologie/Screenshots/Dataproperties.png)
 
  
  * Object Properties(Relations)
- ![Menubar](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/MenuBar.png)
+ ![Object Properties]( https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Ontologie/Screenshots/Obejctproperties.png)
 
 
  * Individuals
- ![Menubar](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/MenuBar.png)
+ ![Individuals](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Ontologie/Screenshots/Individuals.png)
