@@ -1,8 +1,12 @@
 var socket = new WebSocket('ws://localhost:8081/');
-var meetingRaumID = window.location.toString().split('=');
-var raumID = meetingRaumID[1].toString().split("?");
-raumID = raumID[0].toString().split('#');
-raumID = raumID[0];
+
+try {
+    var meetingRaumID = window.location.toString().split('=');
+    var raumID = meetingRaumID[1].toString().split("?");
+    raumID = raumID[0].toString().split('#');
+    raumID = raumID[0];
+
+}catch (e){}
 
 //document.getElementById('drawChartButton').onclick =alert("in : " +raumID);
 
@@ -407,8 +411,27 @@ function imAliveEvent(){
     log('Sent: ' + json);
 }
 
+document.getElementById('logoutFromGoogle').onclick = function () {
+
+    var ThisSide = 'http://localhost:63342/hdm-wim-devlab/GUI/Client/html/index.html';
+    window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+ThisSide;
+
+}
+
+document.getElementById('toClipboard').onclick = function () {
+    window.clipboardData.setData("Text", location.href);
+}
+
+
+
 
 setInterval(imAliveEvent, 6000);
 window.addEventListener('beforeunload', function () {
     socket.close();
 });
+
+//alert(window.location.href.toString().indexOf("id"));
+if(window.location.href.toString().indexOf("id") == -1) {
+    var id = Date.now();
+     window.location.href = "chartByButton.html?id=" + id;
+}

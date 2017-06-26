@@ -129,7 +129,7 @@ function editIntakeTime(transcript) {
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
-        url: "http://35.189.253.50/speechtokenizer/rest/token",
+        url: "http://104.199.13.32/speechtokenizer/rest/token",
         dataType: "json",
         data: JSON.stringify(objJson),
         success: function(data, textStatus, jqXHR){
