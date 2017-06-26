@@ -11,13 +11,27 @@ import org.semrep.rest.helper.InitializeArrayData;
 import java.util.UUID;
 
 
+/**
+ * @author Kristjan Alliaj
+ * The type Machine learning interface.
+ *
+ * Insert-Methoden für die Use Cases mit ML
+ */
 public class MachineLearningInterface {
 
 	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 	private static String sessionIDStr = "";
 
-	// Parameter: sessionID, personVorname, personNachname, dokName
+	/**
+	 * Insert new document call.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, personVorname, personNachname, dokName
+	 *
+	 * Fügt einen neuen Dokumentenaufruf in den Fueski-Server ein
+	 */
 	public static void insertNewDocumentCall() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
@@ -65,9 +79,17 @@ public class MachineLearningInterface {
 
 	}
 
-	// Parameter: personVorname, personNachname, dokName
-	// wir kriegen: userID, dokID, favor (true/false) --> Constants
-	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	/**
+	 * Insert new favorite document.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: personVorname, personNachname, dokName
+	 * Umwandlung von: userID, dokID, favor (true/false)
+	 * 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	 *
+	 * Fügt einen neues Favoriten-Dokument in den Fueski-Server ein
+	 */
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;
