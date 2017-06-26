@@ -115,10 +115,19 @@
                
             </div>
                 -->
-
+<div>
+  <button id="start_button" onclick="startButton(event)" style="display: none;">
+    <img id="start_img" src="" alt="Start">start</button>
+</div>
+<div id="results">   
+  <span id="final_span" class="final"></span>
+  <span id="interim_span" class="interim"></span>
+  
         </div>
     </main>
 </div>
+
+
 
 <ul id="log" style="margin:0px"></ul>
 
@@ -126,7 +135,9 @@
     <script type="text/javascript" src="../js/tabsMG.js"></script>
     <!--<script type="text/javascript" src="controlFunctions.js"></script>-->
     <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/JSON.js" charset="utf-8"></script>
+	<script src="../js/speechapi.js" charset="utf-8" async></script>
     <script src="../js/client.js"></script>
 
 

@@ -121,7 +121,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
 function editIntakeTime(transcript) {
 	var objJson = new Object();
-	objJson.timestamp = 1234556;
+	objJson.timestamp = Date.now();
 	objJson.sessionID = "1234Session";
 	objJson.userID = "9832498729879";
 	objJson.textresultat = transcript;
@@ -170,6 +170,8 @@ window.onload = function (){
 }
 
 */
+document.getElementById("start_button").click();
+
 function startButton(event) {
   if (recognizing) {
     recognition.stop();
