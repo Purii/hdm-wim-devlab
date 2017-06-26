@@ -1,3 +1,4 @@
+/**@author Emre Kesiciler, Nermin Hasani, Inci Koekpinar*/
 package controller;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jettison.json.JSONException;
 
 public class GoogleDriveCommunication {
 	final static Logger logger = Logger.getLogger(GoogleDriveCommunication.class);
@@ -69,10 +71,15 @@ public class GoogleDriveCommunication {
         }
     }
 
-    /**
+    /**authorize
+     * 
      * Creates an authorized Credential object.
+     * 
      * @return an authorized Credential object.
-     * @throws Exception 
+     * 
+     * @throws Exception  The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	 *   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+ 	 *   of the method or constructor and propagate outside the method or constructor boundary.
      */
     public static Credential authorize() throws Exception {
         // Load client secrets.
@@ -95,10 +102,14 @@ public class GoogleDriveCommunication {
         return credential;
     }
 
-    /**
+    /**getDriveService
+     * 
      * Build and return an authorized Drive client service.
      * @return an authorized Drive client service
-     * @throws Exception 
+     * 
+     * @throws Exception  The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	 *   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+ 	 *   of the method or constructor and propagate outside the method or constructor boundary.
      */
     public static Drive getDriveService() throws Exception {
         Credential credential = authorize();
@@ -107,10 +118,21 @@ public class GoogleDriveCommunication {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
-
+    
+    
+    /**
+	* saveProtocolOnGoogleDrive 
+	* 
+	* This method will upload the protocol to google drive. 
+	* 
+	* @param protocolName The protocol name which for the protocol which will be uploaded to google drive.
+	* 
+	* @throws Exception 
+	* 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	*   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	*   of the method or constructor and propagate outside the method or constructor boundary.
+	*/
     public static void saveProtocolOnGoogleDrive(String protocolName) throws Exception{
-    	// Build a new authorized API client service.
-        
     	try{
     		Drive service = getDriveService();   
             logger.info("Start writing protocol:" +protocolName);
