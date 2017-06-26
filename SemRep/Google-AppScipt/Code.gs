@@ -13,63 +13,130 @@
 
 function insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, doc_projectlink, doc_keywords) {
 
-       var docKeywords = [];
-
-       var doc_version = "2";
-       var doc_have_context = "GoogleDriveAddonMetadata";
+       var doc_Keywords = "Keywort"
+       var doc_version = "123123adsda2";
+       var doc_have_context = "eccofresh";
        var doc_category = "GoogleDriveAddonMetadata";
        var doc_stage = "GoogleDriveAddonMetadata";
        var doc_projectlink = "https://docs.google.com/document/d/1IzjhOotzvk7OVh7MgBrZchrKspBEpbvk9WFIz5ZTzi0/edit";
 
+
+     //  var doc_Keywords = doc_keywords;
+     //  var doc_version = doc_version;
+     //  var doc_have_context = doc_have_context;
+     //  var doc_category = doc_category;
+     //  var doc_stage = doc_stage;
+     //  var doc_projectlink = doc_projectlink;
+
+   //var documentProperties = PropertiesService.getDocumentProperties();
+
+
+
        var doc_id = getID();
        var doc_updateTime =  getLastUpdated();
        var doc_url = getURL();
-       var doc_creationTime = getDateCreated();
-       var doc_rootFolder =  getCurrentFolderName() ;
-       var doc_name =  getFileName();
-       var doc_typ = getMimeType();
 
-       var doc_favorite = getFileName();
-       var doc_autor = getOwner();
+        var doc_creationTime = getDateCreated();
+        var doc_rootFolder =  getCurrentFolderName() ;
+        var  doc_name =  getFileName();
+        var doc_typ = getMimeType();
+
+        var doc_favorite = getFileName();
+        var doc_autor = getOwner();
+
+     //  var doc_id = "GoogleDriveAddonMetadata";
+     //  var doc_updateTime =  "GoogleDriveAddonMetadata";
+     //  var doc_url = "GoogleDriveAddonMetadata";
+     //  var doc_creationTime = "GoogleDriveAddonMetadata";
+      // var doc_rootFolder =  "GoogleDriveAddonMetadata";
+      // var  doc_name =  "GoogleDriveAddonMetadata";
+      // var doc_typ = "GoogleDriveAddonMetadata";
+
+       //var doc_favorite = "GoogleDriveAddonMetadata";
+       //var doc_autor = "GoogleDriveAddonMetadata";
 
 
-       this.docKeywords = doc_keywords;
+
+       //  this.docKeywords = doc_keywords;
 
 
+       Logger.log(
+         "## docVersion: " + doc_version + "  " +
+         "## docContext: " + doc_have_context  + "  " +
+         "## docCategpry: " + doc_category  + "  " +
+         "## docKeywords: " +   + doc_Keywords + "  " +
+         "## docStage: " + doc_stage + "  " +
+         "## docProjectlink: " +  doc_projectlink   + "  " +
+         "## docID: " + doc_id   + "  " +
+         "## docUpdateTime: " + doc_updateTime  + "  " +
+         "## docUrl: " +  doc_url   + "  " +
+         "## docCreationTime: " + doc_creationTime    + "  " +
+         "## docRootFolder: " + doc_rootFolder  + "  " +
+         "## docName: " + doc_name   + "  " +
+         "## docTyp: " + doc_typ  + "  " +
+         "## docFavoriten: " + doc_favorite  + "  " +
+         "## docAutor: " + doc_autor
+
+
+       );
 
        var payload =
        {
-       "docVersion" : doc_version,
-       "docContext" : doc_have_context,
-       "docCategpry" : doc_category,
-       "docKeywords" : "'nummer1'",
-       "docStage" : doc_stage,
-       "docProjectlink" : doc_projectlink,
+       'docVersion' : doc_version,
+       'docContext' : doc_have_context,
+       'docCategpry' : doc_category,
+       'docKeywords' : doc_Keywords,
+       'docStage' : doc_stage,
+       'docProjectlink' : doc_projectlink,
 
-       "docID" : doc_id,
-       "docUpdateTime" : doc_updateTime,
-       "docUrl" : doc_url,
-       "docCreationTime" : doc_creationTime,
-       "docRootFolder" : doc_rootFolder,
-       "docName" : doc_name,
-       "docTyp" : doc_typ,
-       "docFavoriten" : doc_favorite,
-       "docAutor" : doc_autor,
+       'docID' : doc_id,
+       'docUpdateTime' : doc_updateTime,
+       'docUrl' : doc_url,
+       'docCreationTime' : doc_creationTime,
+       'docRootFolder' : doc_rootFolder,
+       'docName' : doc_name,
+       'docTyp' : doc_typ,
+       'docFavoriten' : doc_favorite,
+       'docAutor' : doc_autor,
        };
+
+
+
 
        var options =
        {
        "method" : "post",
-       "payload" : payload,
+       "payload" : JSON.stringify(payload),
        "followRedirects" : true,
        "muteHttpExceptions": true
-       }
 
-       var ausgabe = UrlFetchApp.fetch("http://35.187.45.171/rest/internal/insertMetadata", options);
+       };
+        var ausgabe = UrlFetchApp.fetch("https://clouddocs-internal.appspot.com/rest/internal/insertMetadata", options);
+
+
+       Logger.log(
+         "2# docVersion: " + doc_version + "  " +
+         "2# docContext: " + doc_have_context  + "  " +
+         "2# docCategpry: " + doc_category  + "  " +
+         "2# docKeywords: " +   + doc_Keywords + "  " +
+         "2# docStage: " + doc_stage + "  " +
+         "2# docProjectlink: " +  doc_projectlink   + "  " +
+         "2# docID: " + doc_id   + "  " +
+         "2# docUpdateTime: " + doc_updateTime  + "  " +
+         "2# docUrl: " +  doc_url   + "  " +
+         "2# docCreationTime: " + doc_creationTime    + "  " +
+         "2# docRootFolder: " + doc_rootFolder  + "  " +
+         "2# docName: " + doc_name   + "  " +
+         "2# docTyp: " + doc_typ  + "  " +
+         "2# docFavoriten: " + doc_favorite  + "  " +
+         "2# docAutor: " + doc_autor
+
+
+       );
 
        //Logger.log(doc_id );
-       Logger.log(doc_id + "  " + doc_updateTime  + "  " + doc_url + "  " + doc_creationTime + " e1 " + doc_rootFolder + " e2 " + doc_name );
-       Logger.log(doc_typ  + " " +doc_favorite+ " " +doc_autor ) ;
+      // Logger.log(doc_id + "  " + doc_updateTime  + "  " + doc_url + "  " + doc_creationTime + " e1 " + doc_rootFolder + " e2 " + doc_name );
+      // Logger.log(doc_typ  + " " +doc_favorite+ " " +doc_autor ) ;
 
   }
 
@@ -90,8 +157,9 @@ function insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, 
                   "muteHttpExceptions": true
                 };
 
-            var response = UrlFetchApp.fetch("https://clouddocs-152111.appspot.com/rest/internal/getprojects",options);
+            var response = UrlFetchApp.fetch("https://clouddocs-internal.appspot.com/rest/internal/getprojects",options);
 
+         //   if (response.getResponseCode()== 200)
             var message = response.getContentText();
             //  var payload = JSON.stringify(response);
             //var payload =  JSON.parse(message);
@@ -120,8 +188,9 @@ function insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, 
                   "muteHttpExceptions": true
                 };
 
-            var response = UrlFetchApp.fetch("https://clouddocs-152111.appspot.com/rest/internal/getprojectstage",options);
+            var response = UrlFetchApp.fetch("https://clouddocs-internal.appspot.com/rest/internal/getprojectstage",options);
             var message = response.getContentText();
+                Logger.log(message);
             return message;
           }
 
@@ -144,12 +213,20 @@ function insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, 
                   "muteHttpExceptions": true
                 };
 
-            var response = UrlFetchApp.fetch("https://clouddocs-152111.appspot.com/rest/internal/getdoccategory",options);
+            var response = UrlFetchApp.fetch("https://clouddocs-internal.appspot.com/rest/internal/getdoccategory",options);
 
             var message = response.getContentText();
+            //  var payload = JSON.stringify(response);
+            //var payload =  JSON.parse(message);
+
             Logger.log(message);
-            return message;
+
+            // Logger.log("REsponse ->      " + response.getContentText()  +  " b   "+ payload);
+
+
+          return message;
           }
+
 
 
 
@@ -197,7 +274,7 @@ function insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, 
 
               function onOpen(e) {
                 DocumentApp.getUi()
-                .createMenu('timing')
+                .createMenu('semRep Addin')
                 .addItem('Manuelle Attributierung', 'metadataUserView')
                 .addSeparator()
                 .addItem('Statische Attributierung', 'metadataStaticView')

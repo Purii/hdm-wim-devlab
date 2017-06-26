@@ -1,88 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <style>
 
-    
-  
-<base target="_top">
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        .staticDataWrap {
+            margin-top:15px;
+            /* background:#f1f1f1;
+            border: 1px solid #ccc; */
+            padding-left:25px;
+            padding-right:25px;
+        }
+
+        #output0 ,   #output1 ,   #output2 ,   #output3 ,   #output4 ,   #output5  ,   #output6  ,   #output7 {
+            margin-bottom: 10px;
+            font-family: 'Open Sans', Arial, sans-serif;
+            font-size: 13px;
+            padding: 5px;
+            background: #f1f1f1;
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        form#metadataForm {
+            margin-left: 25px !Important;
+        }
+    </style>
+
+
+    <base target="_top">
 
     <script>
- 
-   
-      //Response Methoden mit DOM Manipulation durch "innerHTML"-Befehl
-      function showDocumentFileName(fileName) {
-        var div = document.getElementById('output0');
-        div.innerHTML = '<b> Dokumentenname:</b> <br /> ' + fileName  ;
-      }
-      
-      function showCreationDateFileName(dateCreated) {
-        var div = document.getElementById('output1');
-        div.innerHTML = '<b> Erstellungsdatum:</b>  <br />' + dateCreated   ;
-      }
-      
-      function showUpdateDateFileName(lastUpdated) {
-        var div = document.getElementById('output2');
-        div.innerHTML = '<b> Änderungsdatum: </b> <br />' + lastUpdated    ;
-      }
-      
-      function showOwner(owner) {
-        var div = document.getElementById('output3');
-        div.innerHTML = '<b> Autor: </b> <br />' + owner    ;
-      }
 
-      function showFolderName(currentFolder) {
-        var div = document.getElementById('output4');
-        div.innerHTML = '<b> Eltern-Ordner: </b> <br />' + currentFolder    ;
-      }
 
-      function showMimeTyp(mimetype) {
-        var div = document.getElementById('output5');
-        div.innerHTML = '<b> MIME-Typ: </b> <br />' + mimetype    ;
-      }
-      
-       function showDriveUrl(driveUrl) {
-        var div = document.getElementById('output6');
-        div.innerHTML = '<b> Drive-URL: </b> <br />' + driveUrl    ;
-      }
-      
-       function showDriveId(driveId) {
-        var div = document.getElementById('output7');
-        div.innerHTML = '<b> Drive-ID: </b> <br />' + driveId    ;
-      }
-      
-      
-      //Methodenaufruf mit Repsoneobjekt
-      google.script.run.withSuccessHandler(showFolderName).getCurrentFolderName();
-      google.script.run.withSuccessHandler(showMimeTyp).getMimeType();
-      google.script.run.withSuccessHandler(showDocumentFileName).getFileName();
-      google.script.run.withSuccessHandler(showCreationDateFileName).getDateCreated();
-      google.script.run.withSuccessHandler(showUpdateDateFileName).getLastUpdated();
-      google.script.run.withSuccessHandler(showDriveUrl).getURL();
-      google.script.run.withSuccessHandler(showDriveId).getID();
-      google.script.run.withSuccessHandler(showOwner).getOwner();
-      google.script.run.withSuccessHandler(showEditors).getEditors();
-      google.script.run.withSuccessHandler(showDriveUrl).getURL();
-      
-      
+        //Response Methoden mit DOM Manipulation durch "innerHTML"-Befehl
+        function showDocumentFileName(fileName) {
+            var div = document.getElementById('output0');
+            div.innerHTML = '<b> Dokumentenname:</b> <br /> ' + fileName  ;
+        }
+
+        function showCreationDateFileName(dateCreated) {
+            var div = document.getElementById('output1');
+            div.innerHTML = '<b> Erstellungsdatum:</b>  <br />' + dateCreated   ;
+        }
+
+        function showUpdateDateFileName(lastUpdated) {
+            var div = document.getElementById('output2');
+            div.innerHTML = '<b> Änderungsdatum: </b> <br />' + lastUpdated    ;
+        }
+
+        function showOwner(owner) {
+            var div = document.getElementById('output3');
+            div.innerHTML = '<b> Autor: </b> <br />' + owner    ;
+        }
+
+        function showFolderName(currentFolder) {
+            var div = document.getElementById('output4');
+            div.innerHTML = '<b> Eltern-Ordner: </b> <br />' + currentFolder    ;
+        }
+
+        function showMimeTyp(mimetype) {
+            var div = document.getElementById('output5');
+            div.innerHTML = '<b> MIME-Typ: </b> <br />' + mimetype    ;
+        }
+
+        function showDriveUrl(driveUrl) {
+            var div = document.getElementById('output6');
+            div.innerHTML = '<b> Drive-URL: </b> <br />' + driveUrl    ;
+        }
+
+        function showDriveId(driveId) {
+            var div = document.getElementById('output7');
+            div.innerHTML = '<b> Drive-ID: </b> <br />' + driveId    ;
+        }
+
+
+        //Methodenaufruf mit Repsoneobjekt
+        google.script.run.withSuccessHandler(showFolderName).getCurrentFolderName();
+        google.script.run.withSuccessHandler(showMimeTyp).getMimeType();
+        google.script.run.withSuccessHandler(showDocumentFileName).getFileName();
+        google.script.run.withSuccessHandler(showCreationDateFileName).getDateCreated();
+        google.script.run.withSuccessHandler(showUpdateDateFileName).getLastUpdated();
+        google.script.run.withSuccessHandler(showDriveUrl).getURL();
+        google.script.run.withSuccessHandler(showDriveId).getID();
+        google.script.run.withSuccessHandler(showOwner).getOwner();
+        //  google.script.run.withSuccessHandler(showViewer).getViewer();
+        google.script.run.withSuccessHandler(showEditors).getEditors();
+        google.script.run.withSuccessHandler(showDriveUrl).getURL();
+
+
     </script>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  </head>
 
-  <body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-     <div class="staticDataWrap">
-       <h3> Statische Attribute </h3> 
-       <div id="output0"></div>
-       <div id="output1"></div>
-       <div id="output2"></div>
-       <div id="output3"></div>
-       <div id="output4"></div>
-       <div id="output5"></div>
-       <div id="output6"></div>
-       <div id="output7"></div>
-     </div>
 
-  </body>
+</head>
+
+<body>
+<img src ="https://raw.githubusercontent.com/Purii/hdm-wim-devlab/2f9d282261e856a1c1dd5c0f9637ba0ea39bf7fe/SemRep/Google-AppScipt/SemRepGoogleAddinLogo-GUI-Color.png" width="250px" class="logo">
+
+
+<div class="staticDataWrap">
+
+    <h3> Statische Attribute </h3>
+    <div id="output0"></div>
+    <div id="output1"></div>
+    <div id="output2"></div>
+    <div id="output3"></div>
+    <div id="output4"></div>
+    <div id="output5"></div>
+    <div id="output6"></div>
+    <div id="output7"></div>
+
+</div>
+
+
+</body>
 </html>
 
 

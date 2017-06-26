@@ -13,7 +13,6 @@
         .h4, h4 {
             text-align: center !important;
         }
-
         .form-dd {
             background: white;
             margin-left: 18px;
@@ -37,19 +36,16 @@
             color: #000;
             padding-right: 10px;
         }
-
         #metadataForm div {
             font-size: 12px;
             color: #999;
         }
-
         select#selectDD {
             border: 0px #fff;
             border-bottom: 1px solid #ccc;
             border-top: 1px solid #ccc;
         }
-
-        .textInputField {
+        .textInputField  {
             width: 250px;
             height: 37px;
         }
@@ -61,15 +57,17 @@
             padding-right: 11px;
         }
 
+
+
         .staticDataWrap {
-            margin-top: 15px;
+            margin-top:15px;
             /* background:#f1f1f1;
             border: 1px solid #ccc; */
-            padding-left: 25px;
-            padding-right: 25px;
+            padding-left:25px;
+            padding-right:25px;
         }
 
-        #output0, #output1, #output2, #output3, #output4, #output5, #output6, #output7 {
+        #output0 ,   #output1 ,   #output2 ,   #output3 ,   #output4 ,   #output5  ,   #output6  ,   #output7 {
             margin-bottom: 10px;
             font-family: 'Open Sans', Arial, sans-serif;
             font-size: 13px;
@@ -83,9 +81,9 @@
             margin-left: 25px !Important;
         }
 
-        .textInputField {
+        .textInputField{
             width: 250px;
-            height: 30px;
+            height:30px;
         }
 
         .logo {
@@ -105,21 +103,19 @@
             margin-right: 10px;
         }
 
-        .cButton {
-            background-color: #f1f1f1;
+        .cButton {    background-color: #f1f1f1;
             color: #999;
             padding: 7px;
             font-size: 13px;
             margin-top: 12px;
-        }
+        } 
 
-         
-        .form {
-            margin-left: 25px;
-        }
+         .form {
+             margin-left: 25px;
+         }
 
         h3 {
-            margin-top: 25px;
+            margin-top:25px;
         }
 
     </style>
@@ -129,17 +125,21 @@
     <script>
 
 
-        function onSaveAlert() {
 
+        /*
+         * Diese Methode speichert die Werte in den Forumlarfeldern in Variablen.
+         * Folgend wird in der Datei Code.gs die Methode insertMetatadata(),
+         * ausgerufen und es werden die zuvor gespeicherten Varibalen übergeben.
+         * Die eingegebene Daten, werden durch durch GoogleScript-Methode,
+         * insertMetatadata() in die A-Box auf dem Fuseki Server durch ein Insert Statement
+         * eingefügt.
+         *
+         */
 
+        function onSaveAlert( ) {
             var selectedKeyword = document.getElementById("selectDD");
-
-
             alert("Werte wurden gespeichert");
-
             //  var documentProperties = PropertiesService.getDocumentProperties().getProperty('driveDocumentID');
-
-
             var doc_keywords = [];
             // var doc_version = PropertiesService.getDocumentProperties().getProperty("doc_Version");
             var doc_version = "GoogleDriveAddonMetadata";
@@ -148,92 +148,85 @@
             var doc_stage = "GoogleDriveAddonMetadata";
             var doc_projectlink = "GoogleDriveAddonMetadata";
 
-
-            for (var i = 1; i < selectedKeyword.length; i++) {
-                doc_keywords.push("'" + doc_keywords.options[i].text + "'");
+            for (var i = 1; i < selectedKeyword.length; i++)
+            {
+                doc_keywords.push("'"+doc_keywords.options[i].text+"'");
             }
             google.script.run.insertMetadata(doc_version, doc_have_context, doc_category, doc_stage, doc_projectlink, doc_keywords);
-
         }
 
+
+        /*
+         * Die Methode showProjects() nimmt einen Request von der GoogleScript-Methode getProjectsFromEndpoint() entgegen.
+         * Der Request-String wird bearbeitet. Bei jedem Komma wird der String abgechnitten. Weiter wird das erste und letze Zeichen dens String abgeschnitten,
+         * Da der übergebene JASON-Sting Klammern enthält. Letztlich werden die bearbeiteten Werte dem Dropdown Menü 'selectProjekt' hinzugefügt und in der
+         * Gui angezeigt.
+         */
 
         function showProjects(projects) {
-            alert("projekt   " + projects);
+            alert("projekt   " + projects  );
+            var sliceString = projects.slice(1,-1);
+            var list = sliceString.split(/\s*,\s*/);
 
-
-            var list = projects.split(/\s*,\s*/);
             var dd = document.getElementById("selectProjekt");
-            for (var i = 0; i < list.length; i++) {
-                dd.innerHTML += '<option value="' + list[i] + '">' + list[i] + '</option>';
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
             }
-
-
         }
 
 
-        //Die Methode gibt einen Alert aus
+        /*
+         * Die Methode showDocCategory() nimmt einen Request von der GoogleScript-Methode getDocCategoryFromEndpoint() entgegen.
+         * Der Request-String wird bearbeitet. Bei jedem Komma wird der String abgechnitten. Weiter wird das erste und letze Zeichen dens String abgeschnitten,
+         * Da der übergebene JASON-Sting Klammern enthält. Letztlich werden die bearbeiteten Werte dem Dropdown Menü 'selectCat' hinzugefügt und in der
+         * Gui angezeigt.
+         */
+        function showDocCategory(projects) {
+            alert("projekt   " + projects  );
+            var sliceString = projects.slice(1,-1);
+            var list = sliceString.split(/\s*,\s*/);
 
-
-        function showDocCategory(docCat) {
-            alert("a   " + docCat);
-
-
-            var list = docCat.split(/\s*,\s*/);
             var dd = document.getElementById("selectCat");
-            for (var i = 0; i < list.length; i++) {
-                dd.innerHTML += '<option value="' + list[i] + '">' + list[i] + '</option>';
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
             }
         }
 
 
-        function showProjectStage(prostage) {
-            alert("a   " + prostage);
+        /*
+         * Die Methode showProjectStage() nimmt einen Request von der GoogleScript-Methode getProjectStagesFromEndpoint() entgegen.
+         * Der Request-String wird bearbeitet. Bei jedem Komma wird der String abgechnitten. Weiter wird das erste und letze Zeichen dens String abgeschnitten,
+         * Da der übergebene JASON-Sting Klammern enthält. Letztlich werden die bearbeiteten Werte dem Dropdown Menü 'selectPhase' hinzugefügt und in der
+         * Gui angezeigt.
+         */
 
-            var list = prostage.split(/\s*,\s*/);
+        function showProjectStage(projects) {
+            alert("projekt   " + projects  );
+            var sliceString = projects.slice(1,-1);
+            var list = sliceString.split(/\s*,\s*/);
+
             var dd = document.getElementById("selectPhase");
-            for (var i = 0; i < list.length; i++) {
-                dd.innerHTML += '<option value="' + list[i] + '">'
-                list[i] + '</option>';
-            }
-        }
+            for(var i = 0; i< list.length; i++){
+                dd.innerHTML += '<option value="'+list[i]+'">'+list[i]+'</option>';
+            }}
 
 
-        //Response Methoden mit DOM Manipulation durch "innerHTML"-Befehl
-        function showDocumentFileName(fileName) {
-            var div = document.getElementById('output0');
-            div.innerHTML = '<b> Dokumentenname:</b> <br /> ' + fileName;
-        }
 
-        function showCreationDateFileName(dateCreated) {
-            var div = document.getElementById('output1');
-            div.innerHTML = '<b> Erstellungsdatum:</b>  <br />' + dateCreated;
-        }
+        /*
+         * Durch die google.script.run.withSuccessHandler werden die URL-Fetch Methoden in der Datei Code.gs aufgerufen,
+         * um alle Projekte, Dokumentenkategorien und Projektphasen zu übergeben. Die Methoden showProjects(), showDocCategory() und
+         * showProjectStage() nehmen den Request entgegen.
+         */
 
-
-        function showUpdateDateFileName(lastUpdated) {
-            var div = document.getElementById('output2');
-            div.innerHTML = '<b> Änderungsdatum: </b> <br />' + lastUpdated;
-        }
+        google.script.run.withSuccessHandler(showProjects).getProjectsFromEndpoint();
+        google.script.run.withSuccessHandler(showDocCategory).getDocCategoryFromEndpoint();
+        google.script.run.withSuccessHandler(showProjectStage).getProjectStagesFromEndpoint();
 
 
-        function showOwner(owner) {
-            var div = document.getElementById('output3');
-            div.innerHTML = '<b> Autor: </b> <br />' + owner;
-        }
-
-
-        function showDriveUrl(driveUrl) {
-            var div = document.getElementById('output6');
-            div.innerHTML = '<b> Drive-URL: </b> <br />' + driveUrl;
-        }
-
-
-        function showDriveId(driveId) {
-            var div = document.getElementById('output7');
-            div.innerHTML = '<b> Drive-ID: </b> <br />' + driveId;
-        }
-
-
+        /*
+         * Die Methode deleteKeyToSelectedList() löscht ein Keywort aus der Dropdownliste 'SelectDD',
+         * welches zuvor durch den save-btn hinzugefügt wurde.
+         */
         function deleteKeyToSelectedList(el) {
 
             var e = document.getElementById(el);
@@ -242,14 +235,15 @@
             //return e.removeChild(e.selectedIndex);
 
 
-            if (e.selectedIndex != 0) {
+            if(e.selectedIndex!=0){
                 e.remove(e.selectedIndex);
-                document.getElementById("listKeywords").innerHTML = "";
-                for (i = 1; i < e.length; i++) {
-                    if (i == (e.length - 1)) {
+                document.getElementById("listKeywords").innerHTML="";
+                for (i = 1; i < e.length; i++)
+                {
+                    if(i==(e.length-1)){
                         document.getElementById("listKeywords").innerHTML += e.options[i].text;
                     } else {
-                        document.getElementById("listKeywords").innerHTML += e.options[i].text + ", ";
+                        document.getElementById("listKeywords").innerHTML += e.options[i].text+", ";
                     }
                 }
             }
@@ -263,10 +257,15 @@
         }
 
 
+        /*
+         * Die Methode addKeyToSelectedList() fügt ein Keywort  der Dropdownliste 'SelectDD',
+         * welches zuvor durch den save-btn hinzugefügt wurde, hinzu. Die Methode prüft bevor
+         * das Keywort an die Dropdownliste übergeben wurde, ob dieses bereits vorhanden ist.
+         * Fall ja wird dies dem Benutzer mit einer Bildschirmeldung mittgeteilt.
+         */
+
+
         function addKeyToSelectedList() {
-
-            //Property
-
 
             //  document.getElementById("edit-btn").disabled = true;
             document.getElementById("delete-btn").disabled = true;
@@ -276,8 +275,8 @@
 
 
             var kElement = document.getElementById("keywordElement").value;
-            var dD = document.getElementById("selectDD");
-            if (kElement.length == 0) {
+            var  dD = document.getElementById("selectDD");
+            if(kElement.length == 0) {
 
                 alert("Text ist leer");
                 return;
@@ -286,9 +285,12 @@
 
             alert("Keyword:  " + kElement + " " + dD.length);
 
-            for (i = 1; i < dD.length; i++) {
+            for (i = 1; i < dD.length; i++)
+            {
 
-                if (kElement == dD.options[i].value) {
+                if(kElement==dD.options[i].value)
+
+                {
                     alert("match");
 
                     duplicateKeywordCheck = true;
@@ -299,36 +301,42 @@
             if (duplicateKeywordCheck == true) {
                 alert("Das Keyword wurde schon hinzugefügt");
                 return;
-            } else {
+            }else {
                 var para = document.createElement("OPTION");
                 var t = document.createTextNode(kElement);
                 para.appendChild(t);
                 dD.appendChild(para);
                 document.getElementById("keywordElement").value = "";
                 //var val = document.getElementById("selectDD").lastChild.innerHTML;
-                dD.lastChild.selected = true
+                dD.lastChild.selected=true
 
                 // Property dD.lastChild.selectd save property
 
-                alert("Werte wurden gespeichert" + $('#selectDD option:last').text());
+                alert("Werte wurden gespeichert" +   $('#selectDD option:last').text());
 
                 //}
-            }
-        }
+            }}
 
+        /*
+         * Die Methode selectDDonClick() deaktiviert und aktiviert die Buttons: edit-btn und delete-btn.
+         * Wenn kein Keywort aus der Dropdownliste 'SelectDD' nicht angeklickt wurde, so werden die Buttons edit-btn
+         * und delete-btn deaktivert. Wenn ein Element in der Dropdownliste 'SelectDD' angeklickt wurde werden diese
+         * aktiviert.
+         */
 
-        function selectDDonClick() {
+        function selectDDonClick(){
 
             var isSel = document.getElementById("selectDD").selected = true;
 
 
             if (isSel == true) {
-                document.getElementById("edit-btn").disabled = false;
-                document.getElementById("delete-btn").disabled = false;
+                document.getElementById("edit-btn").disabled=false;
+                document.getElementById("delete-btn").disabled=false;
             }
-            document.getElementById("selectDD").onClick = function () {
-                document.getElementById("edit-btn").disabled = false;
-                document.getElementById("delete-btn").disabled = false;
+            document.getElementById("selectDD").onClick=function()
+            {
+                document.getElementById("edit-btn").disabled=false;
+                document.getElementById("delete-btn").disabled=false;
             }
 
         }
@@ -349,15 +357,15 @@
 
             speichernBtn.disable;
 
-            speichernBtn.onclick = function () {
+            speichernBtn.onclick = function(){
                 if (e.value == txtbox.value) {
                     alert("gleicher Wert");
-                } else {
-                    addKeyToSelectedList();
+                }else {
+                    addKeyToSelectedList( );
                 }
             }
 
-            txtbox.value == e.value.value + this.value; //to appened
+            txtbox.value == e.value.value  + this.value; //to appened
             txtbox.innerHTML = this.value;
         }
 
@@ -367,26 +375,19 @@
          * aus der Dropdownliste "SelectDD" in die "textinputbox" eingesetzt. Durch die Buttonbar, mit den Buttons:
          * "add-btn", "edit-btn" und "delete-btn" kann das gesetzte Keywort manipuliert werden.
          */
-        function editKeywords() {
-            //Propertyservice
 
 
-            var textinputbox = document.getElementById('keywordElement');
-            var dropdown = document.getElementById('selectDD');
 
-            dropdown.onchange = function () {
-                textinputbox.value = textinputbox.value + this.value; //to appened
-                textinputbox.innerHTML = this.value;
-            }
+
+
+        var textinputbox = document.getElementById('keywordElement');
+        var dropdown = document.getElementById('selectDD');
+
+        dropdown.onchange = function(){
+            textinputbox.value = textinputbox.value  + this.value; //to appened
+            textinputbox.innerHTML = this.value;
         }
-
-
-        //google.script.run.withSuccessHandler(showProjects).getProjectsFromEndpoint2();
-
-        google.script.run.withSuccessHandler(showProjects).getProjectsFromEndpoint();
-        google.script.run.withSuccessHandler(showDocCategory).getDocCategoryFromEndpoint();
-        google.script.run.withSuccessHandler(showProjectStage).getProjectStagesFromEndpoint();
-
+        }
 
     </script>
 
@@ -399,53 +400,46 @@
 
 
 <!-- Logo --->
-<img
-    src="https://raw.githubusercontent.com/Purii/hdm-wim-devlab/2f9d282261e856a1c1dd5c0f9637ba0ea39bf7fe/SemRep/Google-AppScipt/SemRepGoogleAddinLogo-GUI-Color.png"
-    width="250px" class="logo">
+<img src ="https://raw.githubusercontent.com/Purii/hdm-wim-devlab/2f9d282261e856a1c1dd5c0f9637ba0ea39bf7fe/SemRep/Google-AppScipt/SemRepGoogleAddinLogo-GUI-Color.png" width="250px" class="logo">
 
 <!-- HTML Forumlar --->
 <form style="padding:31px;">
-    <input placeholder="Keywort hier eingeben" style="height: 25px;width: 234px; margin-left: 2px; margin-bottom: 3px;"
-           name="keywordfield" size="10" type="text" id="keywordElement"/><br/>
-    <button style="" type="submit" id="add-btn" onclick="addKeyToSelectedList()" form="form1" value="Submit">Speichern
-    </button>
-    <button id="edit-btn" disabled style="" type="submit" onclick="loadKeyFromSelectedList('selectDD')" form="form1"
-            value="Submit">Bearbeiten
-    </button>
-    <button id="delete-btn" disabled style="" type="submit" onclick="deleteKeyToSelectedList('selectDD')" form="form1"
-            value="Submit">Löschen
-    </button>
+    <input placeholder="Keywort hier eingeben"   style="height: 25px;width: 234px; margin-left: 2px; margin-bottom: 3px;"  name="keywordfield" size="10" type="text" id="keywordElement"/><br/>
+    <button style="" type="submit" id="add-btn" onclick="addKeyToSelectedList()" form="form1" value="Submit">Speichern</button>
+    <button id="edit-btn" disabled  style="" type="submit" onclick="loadKeyFromSelectedList('selectDD')" form="form1" value="Submit">Bearbeiten</button>
+    <button id="delete-btn"  disabled style="" type="submit" onclick="deleteKeyToSelectedList('selectDD')" form="form1" value="Submit">Löschen</button>
 </form>
 
 <!-- Sektion: hinzugefügte Keywords --->
 <h4 style="    font-size: 12px; text-align: center; color: #999;"> hinzugefügte Keywords </h4>
 <div class="block form-group">
-    <select id="selectDD" size="10" onclick="selectDDonClick()">
-        <option>nix drin</option>
+    <select id="selectDD" size="10"   onclick="selectDDonClick()">
+        <option>bitte Keyword auswählen</option>
     </select>
 
 </div>
 
 
+
 <!-- Dropdown-Liste mit Projekten, die aus A-Box geladen werden --->
 <h4 style="font-size: 12px; text-align: left; color: #999;"> Projektzugehörigkeit</h4>
-<div class="form-dd"><select id="selectProjekt" size="1" onclick="">
-    <option>nix drin</option>
+<div class="form-dd">  <select id="selectProjekt" size="1"    onclick="">
+    <option>bitte auswählen</option>
 </select>
 </div>
 
 <!-- Dropdown-Liste mit Projektphasen, die aus A-Box geladen werden --->
 <h4 style="font-size: 12px; text-align: left; color: #999;"> Projektphase</h4>
-<div class="form-dd"><select id="selectPhase" size="1" onclick="">
-    <option>nix drin</option>
+<div class="form-dd">  <select id="selectPhase" size="1"     onclick="">
+    <option>bitte auswählen</option>
 </select>
 </div>
 
 <!-- Dropdown-Liste mit Dokumentenkategorien, die aus A-Box geladen werden --->
 <h4 style="font-size: 12px; text-align: left; color: #999;"> Dokumentenkategorie</h4>
 <div class="form-dd">
-    <select id="selectCat" size="1" onclick="">
-        <option>nix drin</option>
+    <select id="selectCat" size="1"   onclick="">
+        <option>bitte auswählen</option>
     </select>
 
 </div>
@@ -466,28 +460,29 @@ var metadata = PropertiesService.getDocumentProperties()
 ?>
 
 
+
+
 <!-- HTML-Form mit Propertyservice--->
 <div class="form" style="margin-left:25 !Important;">
     <form id='metadataForm'>
 
         <!-- Set Formelement für jedes definiertes metadataItem -->
         <? for (var i = 0; i < metadataItems.length; i++) { ?>
-        <br/>
-        <div><?= metadataItems[i][0] ?>:
+        <br />  <div><?= metadataItems[i][0] ?>:
 
-            <input class="textInputField" type="text" name="<?= metadataItems[i][1] ?>"
-            <? val=''
-        if (metadataItems[i].length>2) val= metadataItems[i][2] ?>
-            value= "<?= metadata.getProperty(metadataItems[i][1]) ? metadata.getProperty(metadataItems[i][1])  : val  ?>
-            "
-            />
-        </div>
+        <input class="textInputField" type="text" name = "<?= metadataItems[i][1] ?>"
+        <? val=''
+        if (metadataItems[i].length>2) val= metadataItems[i][2]  ?>
+        value= "<?= metadata.getProperty(metadataItems[i][1]) ? metadata.getProperty(metadataItems[i][1])  : val  ?>"
+        />
+    </div>
 
         <? } ?>
     </form>
 </div>
 
 <div>
+
 
 
     <!-- Buttons zum Speichern und schließen des Addons -->
@@ -508,6 +503,7 @@ var metadata = PropertiesService.getDocumentProperties()
     />
 
 </div>
+
 
 
 </body>
