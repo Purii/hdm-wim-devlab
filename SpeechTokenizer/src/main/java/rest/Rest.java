@@ -1,12 +1,15 @@
+/**@author Emre Kesiciler, Nermin Hasani, Inci Kökpinar*/
 package rest;
 
 import com.google.gson.Gson;
 import controller.CustomKeywordFilter;
-import controller.DriveTest;
 import controller.ElasticsearchCommunication;
 import controller.GoogleDriveCommunication;
 import controller.Protocol;
 import de.hdm.wim.sharedLib.Constants.PubSub.Config;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_SESSIONINSIGHTS;
+import de.hdm.wim.sharedLib.Constants.PubSub.Topic.GUI_FEEDBACK;
 import de.hdm.wim.sharedLib.Constants.PubSub.Topic.ST_TOKEN;
 import de.hdm.wim.sharedLib.events.IEvent;
 import de.hdm.wim.sharedLib.events.TokenEvent;
@@ -25,13 +28,11 @@ import models.KeywordFilter;
 import models.TextInformation;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 
 @Path("/rest")
 public class Rest {
 	final static Logger logger = Logger.getLogger(Rest.class);
-	private static String sesseionType = "";
+	private static String sessionType = "";
 	private static ArrayList<TextInformation> listTextinformations;
 	private final Helper helper = new Helper();
 	private ElasticsearchCommunication elasticsearchCommunication = new ElasticsearchCommunication();
@@ -39,53 +40,32 @@ public class Rest {
 	private Protocol protocol = new Protocol();
 	private ArrayList<String> listEvent = null;
 	
-
-	@GET @Path("test")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response findByName() throws Exception {
-		
-		DriveTest driveTest = new DriveTest();
-		driveTest.ausgabe();
-		String protocolName = protocol.createProtocol(listTextinformations);
-		
-		return Response.status(200).entity("test").build();
-	}
-
+	/**
+	* receiveCEPSessionInsightsPush 
+	* 
+	* Receive SessionStopEvent form the Complex-Event-Processing team. 
+	* 
+	* @param json JSON which we will receive from CEP.
+	*
+	* @return A Response-Object with the response-status 200 for success and 500 for no success.
+	*  
+	* @throws Exception 
+	* 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	*   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	*   of the method or constructor and propagate outside the method or constructor boundary.
+	*/
 	@POST
-	@Path(Config.PUSH_ENDPOINT_PREFIX + ST_TOKEN.HANDLER_ID)
+	@Path(Config.PUSH_ENDPOINT_PREFIX + CEP_SESSIONINSIGHTS.HANDLER_ID)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response receivePush(String json) throws Exception {
-
-		/*
-		Use this json for testing with SoapUI:
-		{
-			"message":
-				{
-					"data":"dGVzdA==",
-					"attributes":
-					{
-						"EventType":"token"
-					},
-					"messageId":"91010751788941",
-					"publishTime":"2017-04-05T23:16:42.302Z"
-				}
-			}
-		 */
-
-
+	public Response receiveCEPSessionInsightsPush(String json) throws Exception {
 		// TODO: change to TokenEvent in production
 		IEvent event = helper.convertToIEvent(json);
-		System.out.println(event.getEventType());
-		if(event.getEventType().equals("SessionStartEvent")){
-			sesseionType = "start";
-			listTextinformations = new ArrayList<TextInformation>();
-			
-		} else if(event.getEventType().equals("SessionEndEvent")){
-			sesseionType = "end";
+
+		if(event.getEventType().equals("session-end")){
+			sessionType = "end";
 			String protocolName = protocol.createProtocol(listTextinformations);		
 			GoogleDriveCommunication.saveProtocolOnGoogleDrive(protocolName);
-			
 		}
 		
 		// just to display converted event in response
@@ -100,12 +80,71 @@ public class Rest {
 			return Response.status(500).entity(eventJson).build();
 		}
 	}
+	
 
+	/**
+	* receiveGUISessionInsightsPush 
+	* 
+	* Receive SessionStartEvent form the GUI-Team. 
+	* 
+	* @param json JSON which we will receive from GUI.
+	*
+	* @return A Response-Object with the response-status 200 for success and 500 for no success.
+	* 
+	* @throws Exception 
+	* 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	*   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	*   of the method or constructor and propagate outside the method or constructor boundary.
+	* 
+	*/
+	@POST
+	@Path(Config.PUSH_ENDPOINT_PREFIX + GUI_FEEDBACK.HANDLER_ID)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response receiveGUISessionInsightsPush(String json) throws Exception {
+		// TODO: change to TokenEvent in production
+		IEvent event = helper.convertToIEvent(json);
+		
+		if(event.getEventType().equals("session-start")){
+			sessionType = "start";
+			listTextinformations = new ArrayList<TextInformation>();
+		} 
+		
+		// just to display converted event in response
+		String eventJson = new Gson().toJson(event);
+
+		// statuscode 200 to ACK messages, so pubsub knows they arrived and it does not have to re-send them
+		if(true){
+			return Response.status(200).entity(eventJson).build();
+		}
+		// statuscode 500 to NACK messages, so pubsub know sth. went wrong and the message has to be re-sent
+		else{
+			return Response.status(500).entity(eventJson).build();
+		}
+	}
+	
+
+	 /**
+	 * receiveToken
+	 * 
+	 * This method is used to receive tokens and to start the tokenization
+	 * 
+	 * @param objToken
+	 * 	A Token-Object with all tokeninformation. 
+	 *
+	 * @return A Response-Object with the token send status.
+	 * 
+	 * @throws Exception 
+	 * 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	 *   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	 *   of the method or constructor and propagate outside the method or constructor boundary.
+	 * 
+	 */
 	@POST @Path("token")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response receiveToken(Object objToken) throws Exception {
-		if(sesseionType=="start"){			
+		if(sessionType=="start"){			
 			ObjectMapper mapper = new ObjectMapper();
 			ElasticsearchResult elasticsearch = new ElasticsearchResult();
 			ArrayList<String> listKontexte = new ArrayList<String>();
@@ -138,7 +177,7 @@ public class Rest {
 					TokenEvent tokenEvent 	= startTokenaziation(elasticsearch, token);
 					String tokenEventString =  new Gson().toJson(tokenEvent);
 					
-					//ph.Publish(tokenEvent, Topic.TOPIC_1, true);
+					ph.Publish(tokenEvent, Topic.ST_TOKEN.TOPIC_ID, true);
 
 					return Response.status(200).entity(tokenEventString).build();
 				} else {
@@ -148,9 +187,8 @@ public class Rest {
 					TokenEvent tokenEvent 	= startTokenaziation(elasticsearch, token);
 					String tokenEventString =  new Gson().toJson(tokenEvent);
 
-					//ph.Publish(tokenEvent, Topic.TOPIC_1, true);
-					
-				
+					ph.Publish(tokenEvent, Topic.ST_TOKEN.TOPIC_ID, true);
+			
 					return Response.status(200).entity(tokenEventString).build();
 				}
 			}
@@ -158,12 +196,30 @@ public class Rest {
 				return Response.status(500).entity(e.toString()).build();
 			}
 			
-		} else if(sesseionType == "end"){
+		} else if(sessionType == "end"){
 			Response.status(500).entity("session is ended").build();
 		} 
 		return Response.status(500).entity("no session found").build(); 
 	}
 
+	/**
+	* startTokenaziation 
+	* 
+	* This method will start the tokenization with the elasticsearch-service and will check the custom keyword filter list.
+	* Then custom filter list will delete keywords which are in filter from the textresult. After that elasticsearch will set
+	* the tokenlist in an array.   
+	*
+	* @param elasticsearch	A ElasticsearchResult-Object with all tokeninformation which will be send to elasticsearch. 
+	* 
+	* @param token	A TextInformation-Object with all tokeninformation which will . 
+	* 
+	* @return A TextInformation-Object with all the informations which we received from GUI.
+	*  
+	* @throws Exception 
+	* 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	*   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	*   of the method or constructor and propagate outside the method or constructor boundary.
+	*/
 	public TokenEvent startTokenaziation(ElasticsearchResult elasticsearch, TextInformation token) throws Exception{
 		TokenEvent tokenevent = new TokenEvent();
 
@@ -181,22 +237,26 @@ public class Rest {
 		}
 		return tokenevent;
 	}
-
-
-	public JSONObject createJSONObjectForResponse(ElasticsearchResult elasticsearch, ArrayList<String> listTokens) throws JSONException{
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("sessionID", elasticsearch.getSessionID());
-		jsonObject.put("userID", elasticsearch.getUserID());
-		jsonObject.put("timestamp", elasticsearch.getTimestamp());
-		jsonObject.put("kontexts", elasticsearch.getListKontexte());
-		jsonObject.put("tokens", listTokens);
-		return jsonObject;
-	}
+	
+	/**
+	* createTokenEventForResponse 
+	* 
+	* This method 
+	*
+	* @param elasticsearch	A ElasticsearchResult-Object with all tokeninformation which will be send to elasticsearch. 
+	* 
+	* @param listTokens	A list with all tokeninformation. 
+	* 
+	* @return A TokenEvent-Object with all the informations which will be responsed.
+	*  
+	* @throws Exception 
+	* 	The class Exception and any subclasses that are not also subclasses of RuntimeException are checked exceptions. 
+	*   Checked exceptions need to be declared in a method or constructor's throws clause if they can be thrown by the execution 
+	*   of the method or constructor and propagate outside the method or constructor boundary.
+	*/
 
 	public TokenEvent createTokenEventForResponse(ElasticsearchResult elasticsearch, ArrayList<String> listTokens) throws Exception{
-
 		TokenEvent tokenevent = new TokenEvent();
-
 		tokenevent.setData("test123");
 		tokenevent.setSessionId(elasticsearch.getSessionID());
 		tokenevent.setUserId(elasticsearch.getUserID());

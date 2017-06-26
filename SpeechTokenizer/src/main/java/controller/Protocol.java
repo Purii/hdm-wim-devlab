@@ -1,3 +1,4 @@
+/**@author Emre Kesiciler, Nermin Hasani, Inci Kökpinar*/
 package controller;
 
 import java.io.BufferedWriter;
@@ -23,6 +24,17 @@ import rest.Rest;
 
 public class Protocol {
 	final static Logger logger = Logger.getLogger(Protocol.class);
+	
+    /**
+	* createProtocol 
+	* 
+	* This method will create the protocol.
+	* 
+	* @return The protocolname of the created protocol.
+	* 
+	* @param listTokens An ArrayList with an TextInformation-Object.
+	* 
+	*/
 	public String createProtocol(ArrayList<TextInformation> listTokens){
 		ArrayList<String> listParticipants = new ArrayList<String>();
 		
@@ -102,6 +114,17 @@ public class Protocol {
 		   }
 		return protocolname;
 	}
+	
+    /**
+	* parseToAMAndPM 
+	* 
+	* This method will change the hoursform to am or pm.
+	* 
+	* @return The hoursform.
+	* 
+	* @param date an Date-Object.
+	* 
+	*/
 	private String parseToAMAndPM(Date date) {
 		String hoursform = "";   
 		if(date.getHours()<=12) {
@@ -113,7 +136,17 @@ public class Protocol {
 		}
 		return hoursform; 
 	}
-	
+
+    /**
+	* parseDate 
+	* 
+	* This method will parse unix time to normal date.
+	* 
+	* @return The convertedtime from the unix time.
+	* 
+	* @param unixTime The unix time.
+	* 
+	*/
 	private String parseDate(int unixTime) {
 		Date newdate = new Date(unixTime*1000L); 
 		SimpleDateFormat protocolDate = new SimpleDateFormat("MM.dd.yyyy hh:mm");  
