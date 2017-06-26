@@ -264,7 +264,7 @@ socket.onmessage = function (event) {
                 upgradeArrays( name, folder ,'StarCars', prio + 1, prio + 1, DokuTyp, link, DokumentenID ) ;
             }
 
-           //    log("name " + name + " Link " + link);
+              log("name " + name + " Link " + link);
             //    log("*****************************************************************");
 
 

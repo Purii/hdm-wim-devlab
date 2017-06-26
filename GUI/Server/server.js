@@ -3,7 +3,8 @@ var http = require('http');
 var express = require('express');
 var WSS = require('ws').Server;
 var pubsub = require('@google-cloud/pubsub');
-
+//const bodyParser = require('body-parser');
+//const Buffer = require('safe-buffer').Buffer;
 
 
 var pubsubClient = require('@google-cloud/pubsub')({
@@ -11,27 +12,29 @@ var pubsubClient = require('@google-cloud/pubsub')({
   keyFilename: 'keyfile.json'
 });
 
-// Reference a topic that has been previously created. 
+var pubsubClient = require('@google-cloud/pubsub')({
+    projectId: 'hdm-wim-devlab',
+    keyFilename: 'keyfile.json'
+});
+
+// Reference a topic that has been previously created.
 var topic = pubsubClient.topic('topic-1');
- 
 
 
-// Publish a message to the topic. 
-topic.publish('Hallo Bene von FLo und MArkus', 'wie kommt es an? ', function(err) {});
-topic.publish( {data : 'wie kommt es an? ', attributes: {"test":"Bene2"} }, function(err) {});
-//var message ='{"message":{"data":"_DocumentName_Dokument16_didClicked_true_Client_GoogleID_100002025373871437436_FirstName_Mar_LastName_kus_mail_markus.goetz91%40gmail.com_SessionID_1_TimeStamp_1498147808919"","attributes":	{"EventType":"hasClicked" },	"messageId":"91010751788941",	"publishTime":"2017-04-05T23:16:42.302Z"	}}';
-
+// Publish a message to the topic.
 
 var message = {
-      data: "testBeneTest"
-      ,
-      attributes: {
+    data: "testBeneTest"
+    ,
+    attributes: {
         key: "value",
         hello: "world"
-      }
     }
+}
 
-  topic.publish( message,function(err) {});
+topic.publish( message,function(err) {
+    console.log("Sended")
+});
 
 /*
 // BETTER 
@@ -159,10 +162,38 @@ setInterval(broadcast, 6000);
 var counter = 0;
 
 
-/*quelle: https://github.com/sitepoint-editors/websocket-demo
-Installation Steps
+/*
+
+ // [START push]
+ const formBodyParser = bodyParser.urlencoded({ extended: false });
+ const jsonBodyParser = bodyParser.json();
+
+ app.set('view engine', 'pug');
+
+ app.post('/test', jsonBodyParser, (req, res) => {
+ console.log(res);
+ if (req.query.token !== PUBSUB_VERIFICATION_TOKEN) {
+ res.status(400).send()
+ console.log(PUBSUB_VERIFICATION_TOKEN);
+ return;
+ } else {
+ console.log("Error");
+ }
+
+ // The message is a unicode string encoded in base64.
+ const message = Buffer.from(req.body.message.data, 'base64').toString('utf-8');
+
+ messages.push(message);
+
+ res.status(200).send();
+ });
+ // [END push]
+
+
+ Installation Steps
 
 npm install
 npm start
 open http://localhost:8080/
-*/
+
+ */
