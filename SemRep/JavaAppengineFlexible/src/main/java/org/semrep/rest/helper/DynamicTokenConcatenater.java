@@ -25,7 +25,7 @@ public class DynamicTokenConcatenater {
 //		+ inputArray[4].toString() + " ' && '" + inputArray[5].toString()
 // + "' || " + "?Dok_Keywords = '"
 // + inputArray[5].toString() + " ' && '" + inputArray[4].toString()
-//	+ "' || " + "?Dok_Keywords = '"
+//	+ "' || " + "e?Dok_Keywords = '"
 // + inputArray[3].toString() + " ' && '" + inputArray[5].toString()
 // + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
 //						+ " ' && '" + inputArray[3].toString()
