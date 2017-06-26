@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.interfaces.without.pubsub;
+package main.java.org.semrep.rest.interfaces.without.pubsub;
 
 import main.java.org.semrep.rest.helper.Constants;
 

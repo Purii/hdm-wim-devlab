@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.businessObjects;
+package main.java.org.semrep.rest.businessObjects;
 
 import main.java.org.semrep.rest.helper.Constants;
 

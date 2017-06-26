@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.interfaces.without.pubsub;
+package main.java.org.semrep.rest.interfaces.without.pubsub;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,10 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
- import main.java.org.semprep.rest.businessObjects.Abteilung;
-import main.java.org.semprep.rest.businessObjects.Dokument;
-import main.java.org.semprep.rest.businessObjects.Person;
-import main.java.org.semprep.rest.businessObjects.Projekt;
+ import main.java.org.semrep.rest.businessObjects.Abteilung;
+import main.java.org.semrep.rest.businessObjects.Dokument;
+import main.java.org.semrep.rest.businessObjects.Person;
+import main.java.org.semrep.rest.businessObjects.Projekt;
 import main.java.org.semrep.rest.helper.Constants;
 import main.java.org.semrep.rest.helper.FusekiConfigConstants;
 
@@ -58,7 +58,7 @@ public class TokenizerInterface {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getTokenizerEvent")
-	public static void TokenizerInterfaceMain() {
+	public static Response TokenizerInterfaceMain() {
 		//Path
 //		/tokenizerInterface/getTokenizerInterfaceEvents
 		setArrayData();
@@ -67,6 +67,14 @@ public class TokenizerInterface {
 		getDepartmentInformation();
 		getProjectInformation();
 		goThoughDocumentInstances();
+
+		JSONObject jsonObj = new JSONObject();
+
+		jsonObj.put("TokenEvent", richTokenHashMap.toString());
+		return Response.status(200).entity(jsonObj.toString()).build();
+
+
+
 
 	}
 
@@ -74,12 +82,6 @@ public class TokenizerInterface {
 
 		//Path
 //		/tokenizerInterface/getTokenizerInterfaceEvents
-		setArrayData();
-		getMetaData();
-		getUserInformation();
-		getDepartmentInformation();
-		getProjectInformation();
-		goThoughDocumentInstances();
 
 	}
 
@@ -87,8 +89,8 @@ public class TokenizerInterface {
 	// produce
 	// consume
 	// produce ProjectInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	private static Response getProjectInformation() {
+	//@Produces(MediaType.APPLICATION_JSON)
+	private static void getProjectInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -104,13 +106,13 @@ public class TokenizerInterface {
 
 		}
 		// return projectInformationEventObject.toStringProjektObjekt();
-		jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		//jsonObj.put("ProjectInformationEvent", projectInformationEventObject.toStringProjektObjekt());
+	//	return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 
-	@Produces(MediaType.APPLICATION_JSON)
-	private static void goThoughDocumentInstances() {
+
+ 	private static void goThoughDocumentInstances() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -118,16 +120,16 @@ public class TokenizerInterface {
 			getDocumentInformation(goThoughNumDoks);
 		}
 
-//		jsonObj.put("DocumentInformationEvent", richTokenHashMap.toString());
-//		return Response.status(200).entity(jsonObj.toString()).build();
+ 	//	jsonObj.put("DocumentInformationEvent", richTokenHashMap.toString());
+ 	//	return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 
 	// produce
 	// consume
 	// produce DocumentInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	private static Response getDocumentInformation(int dokIndex) {
+	//@Produces(MediaType.APPLICATION_JSON)
+	private static void getDocumentInformation(int dokIndex) {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -145,16 +147,16 @@ public class TokenizerInterface {
 
 		}
 		// return documentInformationEventObject.toStringDokumentObjekt();
-		jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+	//	jsonObj.put("DocumentInformationEvent", documentInformationEventObject.toStringDokumentObjekt());
+	//	return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 
 	// produce
 	// consume
 	// produce DepartmentInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	public static Response getDepartmentInformation() {
+	//@Produces(MediaType.APPLICATION_JSON)
+	public static void getDepartmentInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -170,16 +172,16 @@ public class TokenizerInterface {
 
 		}
 		// return departmentInformationEventObject.toStringAbteilungsObjekt();
-		jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		//jsonObj.put("DepartmentInformationEvent", departmentInformationEventObject.toStringAbteilungsObjekt());
+		//return Response.status(200).entity(jsonObj.toString()).build();
 
 	}
 
 	// produce
 	// consume
 	// produce UserInformationEvent
-	@Produces(MediaType.APPLICATION_JSON)
-	public static Response getUserInformation() {
+	//@Produces(MediaType.APPLICATION_JSON)
+	public static void getUserInformation() {
 
 		JSONObject jsonObj = new JSONObject();
 
@@ -195,8 +197,8 @@ public class TokenizerInterface {
 			}
 
 		}
-		jsonObj.put("UserInformationEvent", userInformationEventObject.toStringPersonObjekt());
-		return Response.status(200).entity(jsonObj.toString()).build();
+		//jsonObj.put("UserInformationEvent", userInformationEventObject.toStringPersonObjekt());
+		//return Response.status(200).entity(jsonObj.toString()).build();
 	}
 
 	public static void setArrayData() {

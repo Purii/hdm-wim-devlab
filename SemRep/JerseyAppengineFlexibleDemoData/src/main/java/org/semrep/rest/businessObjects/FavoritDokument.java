@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.businessObjects;
+package main.java.org.semrep.rest.businessObjects;
 
 public class FavoritDokument {
 	

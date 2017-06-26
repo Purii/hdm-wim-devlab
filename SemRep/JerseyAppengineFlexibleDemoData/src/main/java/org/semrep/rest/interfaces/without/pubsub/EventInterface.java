@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.interfaces.without.pubsub;
+package main.java.org.semrep.rest.interfaces.without.pubsub;
 
 import java.io.File;
 import java.io.FileReader;
@@ -35,12 +35,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 */
 
-import main.java.org.semprep.rest.businessObjects.Abteilung;
-import main.java.org.semprep.rest.businessObjects.Dokument;
-import main.java.org.semprep.rest.businessObjects.Person;
-import main.java.org.semprep.rest.businessObjects.Projekt;
-import main.java.org.semprep.rest.businessObjects.Projektrolle;
-import main.java.org.semprep.rest.businessObjects.Unternehmen;
+import main.java.org.semrep.rest.businessObjects.Abteilung;
+import main.java.org.semrep.rest.businessObjects.Dokument;
+import main.java.org.semrep.rest.businessObjects.Person;
+import main.java.org.semrep.rest.businessObjects.Projekt;
+import main.java.org.semrep.rest.businessObjects.Projektrolle;
+import main.java.org.semrep.rest.businessObjects.Unternehmen;
 import main.java.org.semrep.rest.helper.*;
  
  

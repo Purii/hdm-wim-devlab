@@ -1,4 +1,4 @@
-package main.java.org.semprep.rest.interfaces.without.pubsub;
+package main.java.org.semrep.rest.interfaces.without.pubsub;
 
 import java.io.File;
 import java.io.FileReader;
@@ -28,8 +28,8 @@ import org.json.simple.JSONObject;
 
 import java.sql.Timestamp;
 
-import main.java.org.semprep.rest.businessObjects.Dokumentvorschlag;
-import main.java.org.semprep.rest.businessObjects.Person;
+import main.java.org.semrep.rest.businessObjects.Dokumentvorschlag;
+import main.java.org.semrep.rest.businessObjects.Person;
 import main.java.org.semrep.rest.helper.Constants;
 import main.java.org.semrep.rest.helper.FusekiConfigConstants;
 
