@@ -1,3 +1,4 @@
+/**@author Emre Kesiciler, Nermin Hasani, Inci Koekpinar*/
 package controller;
 
 import java.io.BufferedReader;
@@ -28,7 +29,20 @@ import rest.Rest;
 public class ElasticsearchCommunication {
 	final static Logger logger = Logger.getLogger(Rest.class);
 	
-	//send Token to Elasticsearch to analyze
+	/**
+	* sendToElasticSearch 
+	* 
+	* This method will send tokeninformation to elasticsearch. 
+	* 
+	* @param token All the tokeninformation will be send to elasticsearch.
+	*
+	* @return An ArrayList with all the tokens will be responsed.
+	* 
+	* @throws JSONException JsonException indicates that some exception happened during JSON processing.
+	*  
+	* @throws IOException Signals that an I/O exception of some sort has occurred. 
+	*   This class is the general class of exceptions produced by failed or interrupted I/O operations.
+	*/
 	public ArrayList<String> sendToElasticSearch(String token) throws JSONException, IOException{
 		ArrayList<String> listTokens = new ArrayList<String>();
 		try{
@@ -82,9 +96,18 @@ public class ElasticsearchCommunication {
 		return listTokens;	
 	}
 	
-	/*
-	 * Checking if the filter custom exists. If the filter did not exists than a new filter will be created
-	 */
+	/**
+	* checkExistingFilter 
+	* 
+	* Check if the custom filter exists. If the custom filter exists then use keywords from custom filter list.
+	*
+	* @return If custom filter exists then this method will return true otherwise it will return false.
+	* 
+	* @throws JSONException JsonException indicates that some exception happened during JSON processing.
+	*  
+	* @throws IOException Signals that an I/O exception of some sort has occurred. 
+	*   This class is the general class of exceptions produced by failed or interrupted I/O operations.
+	*/
 	public static Boolean checkExistingFilter() throws IOException, JSONException{	
 		try{
 			URL url = new URL( "http://localhost:9200/custom" );
@@ -113,6 +136,17 @@ public class ElasticsearchCommunication {
 		}
 	}
 	
+	/**
+	* createCustomFilter 
+	* 
+	* This method will create the filters we decided to use from elasticsearch. The filters, which will be used are as follows:
+	* Stopword, synonym, lowercase and stemmer. 
+	* 
+	* @throws JSONException JsonException indicates that some exception happened during JSON processing.
+	*  
+	* @throws IOException Signals that an I/O exception of some sort has occurred. 
+	*   This class is the general class of exceptions produced by failed or interrupted I/O operations.
+	*/
 	public static void createCustomFilter() throws JSONException, IOException{	
 		Synonym synonym = new Synonym();
 		Filter filter = new Filter();
