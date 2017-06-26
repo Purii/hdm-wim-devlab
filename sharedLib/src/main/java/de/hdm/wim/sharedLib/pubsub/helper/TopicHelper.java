@@ -10,7 +10,10 @@ import com.google.pubsub.v1.TopicName;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 24/05/2017.
+ * TopicHelper
+ *
+ * @author Benedikt Benz
+ * @createdOn 24.06.2017
  */
 public class TopicHelper {
 
@@ -44,7 +47,7 @@ public class TopicHelper {
 	 * Create a topic with the given name for a specific project, if topic exists it
 	 * returns the existing topic.
 	 *
-	 * @param topicId the topic id, eg. "my-topic-id"
+	 * @param topicId the topic id, eg. "my-topic-id" EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_SESSIONINSIGHTS#TOPIC_ID}
 	 * @return the topic
 	 * @throws Exception the exception
 	 */

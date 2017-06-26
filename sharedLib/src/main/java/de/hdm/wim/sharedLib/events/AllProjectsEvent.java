@@ -6,10 +6,13 @@ import de.hdm.wim.sharedLib.Constants.PubSub.EventType;
 
 
 /**
- * @author Chris
+ * The type All projects event.
+ *
+ * @author Christian Schneider
  * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#allprojectsevent">AllProjectsEvent</a>
  */
 public class AllProjectsEvent extends IEvent {
+
 	/**
 	 * Constructor
 	 * set initial Attributes
@@ -19,8 +22,9 @@ public class AllProjectsEvent extends IEvent {
 	}
 
 	/**
+	 * Get session id string.
 	 *
-	 * @return SessionId
+	 * @return SessionId string
 	 */
 	public String getSessionId(){
 		return attributes.get(Constants.PubSub.AttributeKey.SESSION_ID).toString();
@@ -28,13 +32,15 @@ public class AllProjectsEvent extends IEvent {
 
 	/**
 	 * Set SessionId
-	 * @param SessionId
+	 *
+	 * @param SessionId the session id
 	 */
 	public void setSessionId(String SessionId){
 		this.attributes.put(Constants.PubSub.AttributeKey.SESSION_ID, SessionId);
 	}
 
 	/**
+	 * Get project names string.
 	 *
 	 * @return ProjectNames as commaseparated string
 	 */
@@ -43,6 +49,7 @@ public class AllProjectsEvent extends IEvent {
 	}
 
 	/**
+	 * Sets project names.
 	 *
 	 * @param projectNames as commaseparated string
 	 */

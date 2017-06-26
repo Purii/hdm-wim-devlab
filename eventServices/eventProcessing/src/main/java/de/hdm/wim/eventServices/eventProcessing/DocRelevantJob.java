@@ -8,23 +8,27 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
-import org.apache.log4j.Logger;
 
 /**
- * Created by Chris on 25.06.2017.
+ * @author Christian Schneider
+ * @createdOn 25.06.2017
  */
 public class DocRelevantJob {
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment();
 		env.setParallelism(1);
 
-
 		DataStream<SuccessfulFeedbackEvent> feedbackStream = env
 			.socketTextStream("localhost", 9999)
 			.flatMap(new DocRelevantSplitter());
-
 
 		HighlyRelevantDocumentPattern highlyRelevantPattern = new HighlyRelevantDocumentPattern();
 		highlyRelevantPattern.run(env, feedbackStream);
@@ -32,6 +36,9 @@ public class DocRelevantJob {
 		env.execute("CEP chat stream job");
 	}
 
+	/**
+	 * The type Doc relevant splitter.
+	 */
 	public static class DocRelevantSplitter implements FlatMapFunction<String, SuccessfulFeedbackEvent> {
 
 		@Override

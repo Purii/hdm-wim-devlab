@@ -1,30 +1,27 @@
 package de.hdm.wim.eventServices.eventProcessing;
 
 import com.google.gson.GsonBuilder;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.DocumentContextPattern;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.HighlyRelevantDocumentPattern;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.PassiveLogoutPattern;
-import de.hdm.wim.eventServices.eventProcessing.cep.patterns.SessionEndPattern;
-import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.*;
-import de.hdm.wim.sharedLib.helper.Helper;
 import com.google.pubsub.v1.PubsubMessage;
-import jdk.nashorn.internal.parser.Token;
+import de.hdm.wim.eventServices.eventProcessing.cep.patterns.PassiveLogoutPattern;
+import de.hdm.wim.sharedLib.Constants;
+import de.hdm.wim.sharedLib.events.IEvent;
+import de.hdm.wim.sharedLib.events.StayAliveEvent;
+import de.hdm.wim.sharedLib.events.SuccessfulFeedbackEvent;
+import de.hdm.wim.sharedLib.events.UserJoinedSessionEvent;
+import de.hdm.wim.sharedLib.helper.Helper;
 import org.apache.flink.api.common.functions.FlatMapFunction;
-import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
-import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
-import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 import org.apache.log4j.Logger;
 
 /**
- * Created by Ben on 30.05.2017.
+ * The type Run flink.
+ *
+ * @author Benedikt Benz
+ * @createdOn 30.05.2017
  */
 public class RunFlink {
 
@@ -32,12 +29,12 @@ public class RunFlink {
 
 
 	/**
-         * The entry point of application.
-         *
-         * @param args the input arguments
-         * @throws Exception the exception
-         */
-        public static void main(String[] args) throws Exception {
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
+	public static void main(String[] args) throws Exception {
 
             final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment();
             env.setParallelism(1); // set Parallelism to 1 Task, to get chat order right
@@ -164,14 +161,24 @@ public class RunFlink {
 
             env.execute("CEP chat stream job");
 		}
+
+	/**
+	 * The type Splitter.
+	 */
 	public static class Splitter implements FlatMapFunction<String, PubsubMessage> {
+
 		@Override
 		public void flatMap(String value, Collector<PubsubMessage> out) throws Exception {
 			PubsubMessage evt = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
 			out.collect(evt);
 		}
 	}
+
+	/**
+	 * The type Event splitter.
+	 */
 	public static class EventSplitter implements FlatMapFunction<String, IEvent> {
+
 		@Override
 		public void flatMap(String value, Collector<IEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
@@ -180,64 +187,69 @@ public class RunFlink {
 
 			switch(evt.getEventType()) {
 				case Constants.PubSub.EventType.ADDITIONAL_USER_INFO:
-					out.collect((AdditionalUserInformationEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.ALL_COMPANIES:
-					out.collect((AllCompaniesEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.ALL_DEPARTMENTS:
-					out.collect((AllDepartmentsEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.ALL_PROJECTROLES:
-					out.collect((AllProjectRolesEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.ALL_PROJECTS:
-					out.collect((AllProjectsEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.DEPARTMENT_INFO:
-					out.collect((DepartmentInformationEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.DOCUMENT_CALL:
-					out.collect((DocumentCallEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.DOCUMENT_CONTEXT:
-					out.collect((DocumentCallEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.DOCUMENT_HIGHLY_RELEVANT:
-					out.collect((DocumentHighlyRelevantEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.DOCUMENT_INFO:
-					out.collect((DocumentInformationEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.FEEDBACK:
-					out.collect((FeedbackEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.INFO_TOALL_DOCUMENTS:
-					out.collect((InformationToAllDocumentsEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.LEARN:
-					out.collect((LearnEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.OFFER:
-					out.collect((OfferEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.PROJECT_INFO:
-					out.collect((ProjectInformationEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.SESSION_END:
-					out.collect((SessionEndEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.SESSION_START:
-					out.collect((SessionStartEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.STAYALIVE:
-					out.collect((StayAliveEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK:
-					out.collect((SuccessfulFeedbackEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.TOKEN:
-					out.collect((TokenEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_CONTEXT:
-					out.collect((UserContextEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_INACTIVE:
-					out.collect((UserInactiveEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_INFO:
-					out.collect((UserInformationEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_JOINED_SESSION:
-					out.collect((UserJoinedSessionEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_LEFT_SESSION:
-					out.collect((UserLeftSessionEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_LOGIN:
-					out.collect((UserLoginEvent) evt);
+					out.collect(evt);
 				case Constants.PubSub.EventType.USER_START:
-					out.collect((UserStartEvent) evt);
+					out.collect(evt);
 				default: out.collect(evt);
 			}
 		}
 	}
+
+	/**
+	 * The type Stay alive event splitter.
+	 */
 	public static class StayAliveEventSplitter implements FlatMapFunction<String, StayAliveEvent> {
+
 		@Override
 		public void flatMap(String value, Collector<StayAliveEvent> out) throws Exception {
 			PubsubMessage msg = new GsonBuilder().create().fromJson(value, PubsubMessage.class);
@@ -247,6 +259,9 @@ public class RunFlink {
 		}
 	}
 
+	/**
+	 * The type Some splitter.
+	 */
 	public static class SomeSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
 		@Override
@@ -259,6 +274,9 @@ public class RunFlink {
 		}
 	}
 
+	/**
+	 * The type Doc relevant splitter.
+	 */
 	public static class DocRelevantSplitter implements FlatMapFunction<String, SuccessfulFeedbackEvent> {
 
 		@Override
@@ -269,6 +287,10 @@ public class RunFlink {
 			}
 		}
 	}
+
+	/**
+	 * The type User per session splitter.
+	 */
 	public static class UserPerSessionSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
 		@Override

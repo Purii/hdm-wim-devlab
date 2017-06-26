@@ -31,11 +31,9 @@ import org.apache.log4j.Logger;
 
 /**
  * Storage for Message objects using Cloud Datastore.
- * Created by ben on 24/06/2017.
- */
-
-/**
- * Storage for Message objects using Cloud Datastore.
+ *
+ * @author Benedikt Benz
+ * @createdOn 24.06.2017
  */
 public class EventRepositoryImpl implements EventRepository {
 
@@ -47,7 +45,11 @@ public class EventRepositoryImpl implements EventRepository {
 	private EventRepositoryImpl() {
 	}
 
-	// retrieve a singleton instance
+	/**
+	 * retrieve a singleton instance
+	 *
+	 * @return the instance
+	 */
 	public static synchronized EventRepositoryImpl getInstance() {
 		if (instance == null) {
 			instance = new EventRepositoryImpl();

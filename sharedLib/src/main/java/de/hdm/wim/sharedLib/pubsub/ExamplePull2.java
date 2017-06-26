@@ -8,11 +8,19 @@ import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import de.hdm.wim.sharedLib.pubsub.receiver.ExampleReceiver;
 
 /**
- * Created by ben on 11/06/2017.
  * Example to demonstrate a second subscription to the given topic
+ *
+ * @author Benedikt Benz
+ * @createdOn 11.06.2017
  */
 public class ExamplePull2 {
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		MessageReceiver receiver = new ExampleReceiver();

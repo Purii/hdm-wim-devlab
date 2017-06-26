@@ -8,7 +8,12 @@ import de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_2;
 import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 
 /**
- * Created by ben on 16/06/2017.
+ * TestCreateSubscription
+ * this class is only for testing purposes!
+ *
+ * @author Benedikt Benz
+ * @createdOn 16.06.2017
+ * @deprecated
  */
 public class TestCreateSubscription {
 

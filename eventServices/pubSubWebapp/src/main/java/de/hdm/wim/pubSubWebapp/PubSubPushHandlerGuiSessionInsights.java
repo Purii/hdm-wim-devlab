@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 4/06/2017.
+ * Handler for {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.GUI_SESSIONINSIGHTS#TOPIC_ID}
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 @WebServlet(
 	name = "Push with PubSub " + GUI_SESSIONINSIGHTS.HANDLER_ID,

@@ -13,20 +13,44 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 24/06/2017.
+ * The type PubSubPushHandler as abstract class, still WIP!
+ *
+ * @author Benedikt Benz
+ * @createdOn 24.06.2017
  */
 public abstract class PubSubPushHandlerTest extends HttpServlet {
 
+	/**
+	 * The constant LOGGER.
+	 */
 	protected static final Logger LOGGER = Logger.getLogger(PubSubPushHandlerTest.class);
+	/**
+	 * The constant HELPER.
+	 */
 	protected static Helper HELPER = new Helper();
+	/**
+	 * The constant EVENTREPOSITORY.
+	 */
 	protected static EventRepository EVENTREPOSITORY;
+	/**
+	 * The constant HANDLER.
+	 */
 	protected static String HANDLER;
 
+	/**
+	 * Instantiates a new Pub sub push handler test.
+	 *
+	 * @param eventRepository the event repository
+	 * @param handlerId the handler id
+	 */
 	protected PubSubPushHandlerTest(EventRepository eventRepository, String handlerId) {
 		EVENTREPOSITORY = eventRepository;
 		HANDLER = handlerId;
 	}
 
+	/**
+	 * Instantiates a new Pub sub push handler test.
+	 */
 	protected PubSubPushHandlerTest() {
 		EVENTREPOSITORY = EventRepositoryImpl.getInstance();
 		HANDLER = getClass().getAnnotation(WebServlet.class).value().toString();
@@ -38,6 +62,14 @@ public abstract class PubSubPushHandlerTest extends HttpServlet {
 		process(req, resp);
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param req the req
+	 * @param resp the resp
+	 * @throws IOException the io exception
+	 * @throws ServletException the servlet exception
+	 */
 	protected void process(HttpServletRequest req, HttpServletResponse resp)
 		throws IOException, ServletException {
 

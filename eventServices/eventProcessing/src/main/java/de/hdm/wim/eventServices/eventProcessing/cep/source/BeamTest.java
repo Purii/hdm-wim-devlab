@@ -17,7 +17,10 @@ import org.apache.beam.sdk.values.PCollection;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 17/06/2017.
+ * The type Beam test.
+ *
+ * @author Benedikt Benz
+ * @createdOn 17.06.2017
  */
 public class BeamTest {
 
@@ -25,6 +28,12 @@ public class BeamTest {
 	private static Helper helper = new Helper();
 	private static Gson gson = new Gson();
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception {
 
 		String subscription = "projects/hdm-wim-devlab/subscriptions/subscription-pull-topic-1";
@@ -43,7 +52,7 @@ public class BeamTest {
 						.readMessagesWithAttributes()
 						.fromTopic(topic)
 				)
-				//.setCoder(StringUtf8Coder.of())
+			//.setCoder(StringUtf8Coder.of())
 			;
 
 		streamData.apply(
@@ -57,6 +66,9 @@ public class BeamTest {
 		return new String(BaseEncoding.base64().decode(data));
 	}
 
+	/**
+	 * The type Show messages.
+	 */
 	public static class ShowMessages extends PTransform<PCollection<PubsubMessage>,
 		PCollection<IEvent>> {
 
@@ -71,6 +83,13 @@ public class BeamTest {
 	}
 
 	private static class test extends DoFn<PubsubMessage, IEvent> {
+
+		/**
+		 * Process element.
+		 *
+		 * @param c the c
+		 * @throws Exception the exception
+		 */
 		@ProcessElement
 		public void processElement(ProcessContext c) throws Exception {
 
