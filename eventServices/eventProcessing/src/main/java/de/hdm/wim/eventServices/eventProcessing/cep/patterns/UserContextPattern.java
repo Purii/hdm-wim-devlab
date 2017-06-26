@@ -57,6 +57,7 @@ public class UserContextPattern {
 				return null;
 			}
 		});
+		userContextEventDataStream.print();
 		PublishHelper ph = new PublishHelper(false);
 		//	ph.Publish((IEvent) documentContextEventDataStream, Constants.PubSub.Topic.INSIGHTS);
 
