@@ -418,10 +418,6 @@ document.getElementById('logoutFromGoogle').onclick = function () {
 
 }
 
-document.getElementById('toClipboard').onclick = function () {
-    window.clipboardData.setData("Text", location.href);
-}
-
 
 
 
