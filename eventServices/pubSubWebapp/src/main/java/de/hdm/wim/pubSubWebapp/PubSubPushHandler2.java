@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by ben on 4/06/2017.
+ * Handler for Handler for {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.TOPIC_2#TOPIC_ID}
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 @WebServlet(
 	name = "Push with PubSub " + TOPIC_2.HANDLER_ID,
@@ -19,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 )
 public class PubSubPushHandler2 extends HttpServlet {
 
+	/**
+	 * Instatiate a new PubSubPushHandler
+	 */
 	PubSubPushHandler psh = new PubSubPushHandler();
 
 	@Override

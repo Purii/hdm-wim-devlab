@@ -18,6 +18,9 @@ import java.io.IOException;
 
 /**
  * Created by ben on 22/06/2017.
+ *
+ * Handler für publishen und pullen von Events für LearnEvents
+ * Von der Event-Gruppe bereitgestellt
  */
 @WebServlet(
 	name = "Push with PubSub " + GUI_INFORMATION.HANDLER_ID,

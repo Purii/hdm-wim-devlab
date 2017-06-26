@@ -93,7 +93,7 @@ function addTab(name) {
     var link = chartData[6];
 //alert(link);
     // tab body erzeugen
-    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="'+link+'" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="'+link+'"></iframe> </div>';
+    document.getElementById('contentForTabs').innerHTML +=  '<div id='+ nameAndTimeStampID +"Body"+' class="tabcontent"> <span class="closeButtons" onclick="closeTab(this, \''+nameAndTimeStampID+'\')">Close tab x</span> <h3>'+name+'</h3>  <a href="'+link+'" class="openinBrowserTab" target="_blank">Open Document in a new Browser Tab</a> <br><br><br><br> <iframe class="displayedDocs" src="'+link+'" style="margin: auto;"></iframe> </div>';
 
     // Buttons erzeugen und in tabList schreiben
     var codeForButton = "<button class=\"tablinks\" id="+nameAndTimeStampID+"TAB onclick=\"openTab(event, "+ "'"+ nameAndTimeStampID + "'"+")\"> " + name + "</button>"

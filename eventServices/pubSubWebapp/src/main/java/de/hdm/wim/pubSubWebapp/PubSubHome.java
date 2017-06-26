@@ -8,7 +8,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 4/06/2017.
+ * The type Pub sub home.
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 public class PubSubHome {
 
@@ -34,6 +37,7 @@ public class PubSubHome {
 	/**
 	 * Retrieve received messages in html.
 	 *
+	 * @param topic the topic EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_INSIGHT#TOPIC_ID}
 	 * @return html representation of messages (one per row)
 	 */
 	public static String getReceivedMessages(String topic) {
@@ -43,9 +47,9 @@ public class PubSubHome {
 	}
 
 	/**
-	 * Get list of topics string.
+	 * Get list of topics as html option.
 	 *
-	 * @return the string
+	 * @return the html option tag string
 	 */
 	public static String getListOfTopics(){
 		List<String> topics = Topic.list;

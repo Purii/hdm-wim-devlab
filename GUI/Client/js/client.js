@@ -1,8 +1,12 @@
 var socket = new WebSocket('ws://localhost:8081/');
-var meetingRaumID = window.location.toString().split('=');
-var raumID = meetingRaumID[1].toString().split("?");
-raumID = raumID[0].toString().split('#');
-raumID = raumID[0];
+
+try {
+    var meetingRaumID = window.location.toString().split('=');
+    var raumID = meetingRaumID[1].toString().split("?");
+    raumID = raumID[0].toString().split('#');
+    raumID = raumID[0];
+
+}catch (e){}
 
 //document.getElementById('drawChartButton').onclick =alert("in : " +raumID);
 
@@ -238,11 +242,14 @@ socket.onmessage = function (event) {
                 }
             }
         //    log("<br><br><br><br> jetzt key: ");
-         //   log(key.toString());
+
 
             var suggestionINSIDE = JSON.parse(obj[key]);
 
+            log(suggestionINSIDE['name']);
             var SessionID = suggestionINSIDE['SessionID'];
+            SessionID = SessionID.replace('"}', '');
+            log("session : " + SessionID + '   ' + raumID.toString());
             if (SessionID == raumID.toString()) {
                 var name = suggestionINSIDE['name'];                          // name der angezeigt wird
                 var link = suggestionINSIDE['link'];                         // Link der im neuen tab gezeigt wird
@@ -264,7 +271,7 @@ socket.onmessage = function (event) {
                 upgradeArrays( name, folder ,'StarCars', prio + 1, prio + 1, DokuTyp, link, DokumentenID ) ;
             }
 
-           //    log("name " + name + " Link " + link);
+              log("name " + name + " Link " + link);
             //    log("*****************************************************************");
 
 
@@ -383,7 +390,7 @@ socket.onclose = function (event) {
 function log(text) {
     var li = document.createElement('li');
     li.innerHTML = text;
-    document.getElementById('log').appendChild(li);
+   // document.getElementById('log').appendChild(li);
 }
 
 /*
@@ -404,8 +411,23 @@ function imAliveEvent(){
     log('Sent: ' + json);
 }
 
+document.getElementById('logoutFromGoogle').onclick = function () {
+
+    var ThisSide = 'http://localhost:63342/hdm-wim-devlab/GUI/Client/html/index.html';
+    window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue="+ThisSide;
+
+}
+
+
+
 
 setInterval(imAliveEvent, 6000);
 window.addEventListener('beforeunload', function () {
     socket.close();
 });
+
+//alert(window.location.href.toString().indexOf("id"));
+if(window.location.href.toString().indexOf("id") == -1) {
+    var id = Date.now();
+     window.location.href = "chartByButton.html?id=" + id;
+}

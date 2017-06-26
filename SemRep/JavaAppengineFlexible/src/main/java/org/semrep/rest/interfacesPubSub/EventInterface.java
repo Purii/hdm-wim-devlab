@@ -43,28 +43,79 @@ import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
 
-/*
-import com.google.appengine.labs.repackaged.org.json.JSONException;
-*/
 
+/**
+ * The type Event interface.
+ * @author mateo_alliaj
+ * Alle Events sind in dieser Klasse implementiert.
+ * Get-Methoden müssen einen Übergabeparameter erhalten und geben dann jeweils Informationen zurück.
+ */
 public class EventInterface {
 
-	// ### initialisiere globale Jena-Variablen
+	/**
+	 * The constant filePath.
+	 */
+// ### initialisiere globale Jena-Variablen
 	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
+	/**
+	 * The constant ontologyModel.
+	 */
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+	/**
+	 * The constant resultSet.
+	 */
 	public static ResultSet resultSet;
+	/**
+	 * The constant queryExecution.
+	 */
 	public static QueryExecution queryExecution;
+	/**
+	 * The Dok offer linked hash map.
+	 */
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
+	/**
+	 * The Alle dokumente linked hash map.
+	 */
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
+	/**
+	 * The Dok offer hash map.
+	 */
 	public static HashMap<String, String> dokOfferHashMap = null;
+	/**
+	 * The Tmp dok offer hash map.
+	 */
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	/**
+	 * The Fav dok hash map.
+	 */
 	public static HashMap<String, String> favDokHashMap = null;
+	/**
+	 * The Tmp fav dok hash map.
+	 */
 	public static HashMap<String, String> tmpFavDokHashMap = null;
+	/**
+	 * The constant personFavDokObj.
+	 */
 	public static Person personFavDokObj = null;
+	/**
+	 * The constant dokumentObj.
+	 */
 	public static Dokument dokumentObj = null;
+	/**
+	 * The constant projektObj.
+	 */
 	public static Projekt projektObj = null;
+	/**
+	 * The constant abteilungObj.
+	 */
 	public static Abteilung abteilungObj = null;
+	/**
+	 * The constant unternehmenObj.
+	 */
 	public static Unternehmen unternehmenObj = null;
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(EventInterface.class.getName());
@@ -140,6 +191,11 @@ public class EventInterface {
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
@@ -149,6 +205,14 @@ public class EventInterface {
 		}
 	}
 
+	/**
+	 * Execute sparql.
+	 *
+	 * @param sparql the sparql
+	 *
+	 * Führt die übergebene Sparql-Query aus und initalisiert das ResultSet
+	 *
+	 */
 	public static void executeSparql(String sparql) {
 		// Initialisierung und Ausführung einer SPARQL-Query
 		// Query query = QueryFactory.create(sparql);
@@ -164,6 +228,16 @@ public class EventInterface {
 		resultSet = queryExecution.execSelect();
 	}
 
+	/**
+	 * Loop through results linked hash map.
+	 *
+	 * @param y         the y
+	 * @param eventType the event type
+	 * @return the linked hash map
+	 *
+	 * Das initalisierte ResultSet wird mit dieser Methode durchlaufen und je nach eventType die jeweilige HashMap befüllt.
+	 *
+	 */
 	public static LinkedHashMap<String, String> loopThroughResults(int y, String eventType) {
 
 		// initialisiere Variablen
@@ -843,6 +917,15 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets user information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, userID (wird über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten UserID zurück.
+	 *
+	 */
 	public static void getUserInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getUserInformation
@@ -949,7 +1032,14 @@ public class EventInterface {
 
 	}
 
-	// Input-Parameter: sessionID, dokumentID
+	/**
+	 * Gets document information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, dokumentID (werden über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten dokumentID zurück.
+	 */
 	public static void getDocumentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getDocumentInformation
@@ -1057,7 +1147,14 @@ public class EventInterface {
 
 	}
 
-	// Input-Parameter:
+	/**
+	 * Gets project information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, projectID (wird über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten projectID zurück.
+	 */
 	public static void getProjectInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1165,6 +1262,14 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets department information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, abteilungsID (wird über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten abteilungsID zurück.
+	 */
 	public static void getDepartmentInformation() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1273,6 +1378,14 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all projects.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Abteilungen zurück.
+	 */
 	public static void getAllProjects() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1362,6 +1475,14 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all project roles.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Projektrollen zurück.
+	 */
 	public static void getAllProjectRoles() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1450,6 +1571,14 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all departments.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Abteilungen zurück.
+	 */
 	public static void getAllDepartments() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1538,6 +1667,14 @@ public class EventInterface {
 
 	}
 
+	/**
+	 * Gets all companies.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID
+	 * Gibt alle Unternehmen zurück.
+	 */
 	public static void getAllCompanies() throws Exception {
 
 		// @Path: /rest/eventInterface/getProjectInformation
@@ -1625,8 +1762,17 @@ public class EventInterface {
 
 	}
 
-	// Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
-	// abteilungStr, projektStr, projektrolleStr
+	/**
+	 * Insert new user information.
+	 *
+	 * @param event the event
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionIDStr, idStr, vornameStr, nachnameStr, mailStr,
+	 * abteilungStr, projektStr, projektrolleStr
+	 *
+	 * Fügt einen neuen User in den Fueski-Server ein
+	 */
 	public static void insertNewUserInformation(AdditionalUserInformationEvent event)
 		throws Exception {
 
@@ -1704,7 +1850,15 @@ public class EventInterface {
 
 	}
 
-	// Parameter: dokName, dokKontext
+	/**
+	 * Insert new document context.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: dokName, dokKontext
+	 *
+	 * Fügt einen neuen Kontext an ein Dokumentent in den Fueski-Server ein
+	 */
 	public static void insertNewDocumentContext() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CONTEXT_EVENT;
@@ -1753,7 +1907,15 @@ public class EventInterface {
 
 	}
 
-	// Parameter: sessionID, personVorname, personNachname, dokName
+	/**
+	 * Insert new document call.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: sessionID, personVorname, personNachname, dokName
+	 *
+	 * Fügt einen neuen Dokumentenaufruf in den Fueski-Server ein
+	 */
 	public static void insertNewDocumentCall() throws Exception {
 
 		String eventTypeStr = EventNameConstants.DOCUMENT_CALL_EVENT;
@@ -1820,9 +1982,17 @@ public class EventInterface {
 
 	}
 
-	// Parameter: personVorname, personNachname, dokName
-	// wir kriegen: userID, dokID, favor (true/false) --> Constants
-	// 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	/**
+	 * Insert new favorite document.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Input-Parameter: personVorname, personNachname, dokName
+	 * Umwandlung von: userID, dokID, favor (true/false)
+	 * 2 select statements für userID & dokID (für Vor- & Nachname & DokName)
+	 *
+	 * Fügt einen neues Favoriten-Dokument in den Fueski-Server ein
+	 */
 	public static void insertNewFavoriteDocument() throws Exception {
 
 		String eventTypeStr = EventNameConstants.LEARN_EVENT;

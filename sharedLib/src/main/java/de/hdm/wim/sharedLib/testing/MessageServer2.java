@@ -2,22 +2,31 @@ package de.hdm.wim.sharedLib.testing;
 
 import com.google.gson.Gson;
 import de.hdm.wim.sharedLib.Constants;
-import de.hdm.wim.sharedLib.events.*;
+import de.hdm.wim.sharedLib.events.DocumentInformationEvent;
+import de.hdm.wim.sharedLib.events.StayAliveEvent;
+import de.hdm.wim.sharedLib.events.SuccessfulFeedbackEvent;
+import de.hdm.wim.sharedLib.events.UserInformationEvent;
+import de.hdm.wim.sharedLib.events.UserJoinedSessionEvent;
+import de.hdm.wim.sharedLib.events.UserLeftSessionEvent;
 import de.hdm.wim.sharedLib.pubsub.classes.PubSubMessage;
-import org.apache.log4j.Logger;
-import org.apache.tomcat.jni.Time;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import org.apache.log4j.Logger;
 
 /**
- * Created by nilsb on 24.06.2017.
+ * The type Message server 2.
+ *
+ * @author Nils Bachmann
+ * @createdOn 24.06.2017
  */
 public class MessageServer2 {
 

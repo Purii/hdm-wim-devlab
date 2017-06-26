@@ -8,7 +8,11 @@ import de.hdm.wim.sharedLib.pubsub.helper.SubscriptionHelper;
 import de.hdm.wim.sharedLib.pubsub.receiver.ExampleReceiver;
 
 /**
- * Created by ben on 11/06/2017.
+ * Example to get events via push, DOES NOT WORK :/
+ *
+ * @author Benedikt Benz
+ * @createdOn 11.06.2017
+ * @deprecated
  */
 public class ExamplePush {
 

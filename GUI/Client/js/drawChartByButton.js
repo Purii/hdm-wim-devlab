@@ -71,7 +71,7 @@ function parameterFunction() {
                 maxColor: '#FCB303',
                 headerHeight: 0,
                 fontColor: 'black',
-                showScale: true,
+                showScale: false,
                 generateTooltip: showFullTooltip
             });
             deleteOldDivs();

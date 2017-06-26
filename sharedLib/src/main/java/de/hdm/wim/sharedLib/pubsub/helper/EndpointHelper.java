@@ -4,7 +4,10 @@ import de.hdm.wim.sharedLib.Constants.PubSub.Config;
 import de.hdm.wim.sharedLib.Constants.RequestParameters;
 
 /**
- * Created by ben on 14/06/2017.
+ * EndPoint Helper to construct the endpoints
+ *
+ * @author Benedikt Benz
+ * @createdOn 14.06.2017
  */
 public class EndpointHelper {
 
@@ -12,7 +15,7 @@ public class EndpointHelper {
 	 * Get push endpoint string.
 	 *
 	 * @param isLocal the is local
-	 * @param handler the handler
+	 * @param handler the handler EXAMPLE: {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_SESSIONINSIGHTS#HANDLER_ID}
 	 * @return the string
 	 */
 	public static String GetPushEndpoint(boolean isLocal, String handler){
@@ -30,7 +33,7 @@ public class EndpointHelper {
 	 * Get publish endpoint string.
 	 *
 	 * @param isLocal the is local
-	 * @return the string
+	 * @return the endpoint as String
 	 */
 	public static String GetPublishEndpoint(boolean isLocal){
 		String endpoint;

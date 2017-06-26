@@ -9,7 +9,7 @@ import java.util.Hashtable;
 /**
  * The type Event.
  *
- * @author ben
+ * @author Benedikt Benz
  * @see <a href="https://github.com/Purii/hdm-wim-devlab/blob/master/docs/Events.md#event">Event</a>
  */
 public class Event extends IEvent {

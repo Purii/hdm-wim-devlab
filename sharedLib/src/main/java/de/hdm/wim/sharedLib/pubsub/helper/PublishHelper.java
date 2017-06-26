@@ -23,7 +23,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
- * Created by ben on 11/06/2017.
+ * PublishHelper
+ *
+ * @author Benedikt Benz
+ * @createdOn 11.06.2017
  */
 public class PublishHelper {
 

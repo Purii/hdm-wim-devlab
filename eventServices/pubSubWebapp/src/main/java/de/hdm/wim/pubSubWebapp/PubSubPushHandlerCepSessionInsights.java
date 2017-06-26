@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by ben on 4/06/2017.
+ * Handler for {@link de.hdm.wim.sharedLib.Constants.PubSub.Topic.CEP_SESSIONINSIGHTS#TOPIC_ID}
+ *
+ * @author Benedikt Benz
+ * @createdOn 04.06.2017
  */
 @WebServlet(
 	name = "Push with PubSub " + CEP_SESSIONINSIGHTS.HANDLER_ID,
@@ -19,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 )
 public class PubSubPushHandlerCepSessionInsights extends HttpServlet {
 
+	/**
+	 * Instatiate a new PubSubPushHandler
+	 */
 	PubSubPushHandler psh = new PubSubPushHandler();
 
 	@Override

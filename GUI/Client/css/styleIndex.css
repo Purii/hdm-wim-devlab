@@ -19,3 +19,9 @@ div#KoBoRaBody{
     padding-right: 30px;
     padding-bottom: 30px;
 }
+
+div#absendenButton {
+    width: 170px;
+    margin: auto;
+    margin-top: 30px;
+}
