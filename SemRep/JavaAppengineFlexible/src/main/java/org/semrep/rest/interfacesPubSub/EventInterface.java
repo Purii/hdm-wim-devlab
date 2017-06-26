@@ -1038,6 +1038,7 @@ public class EventInterface {
 	 * @throws Exception the exception
 	 *
 	 * Input-Parameter: sessionID, dokumentID (werden über Array-Testdaten geladen)
+	 * Gibt alle Informationen zu einer angefragten dokumentID zurück.
 	 */
 	public static void getDocumentInformation() throws Exception {
 
