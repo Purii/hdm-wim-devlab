@@ -29,12 +29,23 @@ import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 
 
+/**
+ * The type Get document offers event.
+ *
+ * Handler für publishen und pullen von DocumentOfferEvents
+ * Von der Event-Gruppe bereitgestellt
+ */
 @Path("/main")
 public class GetDocumentOffersEvent {
 
 	private static JSONObject jsonObj;	 
 	private static Logger loggger = Logger.getLogger(GetDocumentOffersEvent.class.getName() );
-	
+
+	/**
+	 * Gets document offers.
+	 *
+	 * @return the document offers
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDocumentOffers") 
