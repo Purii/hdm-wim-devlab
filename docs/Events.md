@@ -62,7 +62,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_DEPARTMENTS</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.PROJECT_ROLE: String</code></li><li><code>constants.AttributeKey.PROJECT_NAME: String</code></li><li><code>constants.AttributeKey.DEPARTMENT_NAME: String</code></li><li><code>constants.AttributeKey.USER_ID: String</code></li><li><code>constants.AttributeKey.EMAIL: String</code></li><li><code>constants.AttributeKey.LAST_NAME: String</code></li><li><code>constants.AttributeKey.FIRST_NAME: String</code></li><li><code>constants.AttributeKey.USER_ID: String</code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.ALL_DEPARTMENTS</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { All departments } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
@@ -278,7 +278,7 @@ String names = gson.fromJson(jsonString, String.class);
 
 | Feld | Datentyp | Wert |
 | :---- | :---- | :---- |
-| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_AFFILIATION: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.FEEDBACK</code></li></ul> |
+| `attributes` | `map (key: string, value: string)` | <ul><li><code>constants.AttributeKey.USER_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_ID: \<String\></code></li><li><code>constants.AttributeKey.DOCUMENT_AFFILIATION: \<String\></code></li><li><code>constants.AttributeKey.EVENT_SOURCE: Constants.PubSub.EventSource.USER_INTERFACE</code></li><li><code>constants.AttributeKey.EVENT_TYPE: Constants.PubSub.EventType.SUCCESSFUL_FEEDBACK</code></li></ul> |
 | `data` | `string (bytes format)` | ``` { User clicked on an offer } ``` |
 | `messageId` | `string` | *wird von PubSub gesetzt* |
 | `publishTime` | `string (Timestamp in RFC3339)` | *wird von PubSub gesetzt* |
