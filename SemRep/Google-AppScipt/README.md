@@ -36,16 +36,20 @@ in eine hinterlegte Ontologie zu speichern. Dazu gibt es, wie bereits erwähnt,
 drei Menüpunkte. 
 
 
+ * Menubar
+ ![Menubar](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/MenuBar.png)
+
  
 * Manuelle Attributierung
-![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe1.PNG)
+![Manuelle Attributierung 1](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/Manuelle%20Attributierung%201.png)
+![Manuelle Attributierung 2](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/Manuelle%20Attributierung%202.png)
 
  
 * Statische Attributierung 
-![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe1.PNG)
+![Statische Attributierung ](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/Statische%20Attributierung.png)
 
 
 * Hilfe
-![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe1.PNG)
+![Hilfe](https://github.com/Purii/hdm-wim-devlab/blob/master/SemRep/Google-AppScipt/UI%20Screenshots/Hilfe.png)
 
 
