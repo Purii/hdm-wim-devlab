@@ -1,45 +1,20 @@
 package org.semrep.rest.helper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
+ * The type Dynamic token concatenater.
+ * @author Kristjan Alliaj
+ *
+ * Verarbeitet eine variierende Anzahl von Keywords.
+ * Alle Keywords werden miteinander verkettet und so ein Zusatz
+ * für die Sparql für die Methode getDocumentOffers() erzeugt.
  *
  */
 public class DynamicTokenConcatenater {
-
-	// 1 - n ( || )
-//		"FILTER ( "
-//		+ "?Dok_Keywords = '" + inputArray[3].toString() + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ "' || "
-//
-		// 1 - 1+1 ( && )
-	// ( || )
-// + "?Dok_Keywords = '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[3].toString()
-//						+ " ' && '" + inputArray[4].toString()
-// + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + " ' && '" + inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '"
-// + inputArray[5].toString() + " ' && '" + inputArray[4].toString()
-//	+ "' || " + "?Dok_Keywords = '"
-// + inputArray[3].toString() + " ' && '" + inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ " ' && '" + inputArray[3].toString()
-
-	// 1 - n ( && )
-// + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[4].toString() + " ' && '" + inputArray[3].toString() + " ' && '"
-//		+ inputArray[5].toString()
-// + "' || " + "?Dok_Keywords = '" + inputArray[4].toString()
-//						+ " ' && '" + inputArray[5].toString() + " ' && '" + inputArray[3].toString() + "' || "
-//		+ "?Dok_Keywords = '" + inputArray[3].toString() + " ' && '" + inputArray[4].toString()
-//						+ " ' && '" + inputArray[5].toString() + "' || " + "?Dok_Keywords = '"
-//		+ inputArray[3].toString() + " ' && '" + inputArray[5].toString() + " ' && '"
-//		+ inputArray[4].toString() + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-//						+ " ' && '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString() + "' || "
-//		+ "?Dok_Keywords = '" + inputArray[5].toString() + " ' && '" + inputArray[3].toString()
-//						+ " ' && '" + inputArray[4].toString() + "' " + ") " + "}" + "ORDER BY ?Dok_Name";
 
 	private static String sparqlKeyword = "?Dok_Keywords = '";
 	private static String orStr = "' || ";
@@ -49,6 +24,15 @@ public class DynamicTokenConcatenater {
 	private static String toHandOverString = "";
 
 
+	/**
+	 * Concatenate token string.
+	 *
+	 * @param inputArray the input array
+	 * @return the string
+	 *
+	 * Verkettung der Keywords.
+	 *
+	 */
 	public static String concatenateToken(String[] inputArray){
 
 
@@ -70,19 +54,7 @@ public class DynamicTokenConcatenater {
 			toHandOverString = filter;
 			filter = "";
 
-			// 1 - 1+1 ( && )
-			// ( || )
-			// + "?Dok_Keywords = '" + inputArray[4].toString() + " ' && '" + inputArray[3].toString()
-			// + "' || " + "?Dok_Keywords = '" + inputArray[3].toString()
-			//						+ " ' && '" + inputArray[4].toString()
-			// + "' || " + "?Dok_Keywords = '"
-			//		+ inputArray[4].toString() + " ' && '" + inputArray[5].toString()
-			// + "' || " + "?Dok_Keywords = '"
-			// + inputArray[5].toString() + " ' && '" + inputArray[4].toString()
-			//	+ "' || " + "?Dok_Keywords = '"
-			// + inputArray[3].toString() + " ' && '" + inputArray[5].toString()
-			// + "' || " + "?Dok_Keywords = '" + inputArray[5].toString()
-			//						+ " ' && '" + inputArray[3].toString()
+			ArrayList<String> rememberDokNameArrList = new ArrayList<String>();
 
 			// min 2 keywords
 			if (inputArray.length >= 5) {
@@ -126,25 +98,55 @@ public class DynamicTokenConcatenater {
 				sparqlKeyword = "?Dok_Keywords = '";
 
 				Random random = new Random();
+				// ersten drei inputs sind keine keywords
 				int min = 3;
 				int max = inputArray.length - 1;
-				int anzahlKeywords = (int) Math.pow((inputArray.length - min), 3);
+				int anzahlKeywords = inputArray.length - min;
+				//berechne die Fakultät der Keywords für die Kombinationen
+				long fakultaet = 1;
+				if (anzahlKeywords >= 2) {
+					for (int i = 1; i <= anzahlKeywords; i++) {
+						fakultaet = fakultaet * i;
+					}
+				}
 				int randomNumber = 0;
 
-				// verkette zufällig keywords
-				for (int z = 3; z < inputArray.length; z++){
+				String tmpFilter = " '";
 
-					randomNumber = random.nextInt(max + 1 - min) + min;
+				for (int y = 0; y < fakultaet; y++) {
 
-					// kommt noch ein weiteres Keyword?
-					if (z + 1 == inputArray.length){
-						filter = filter + sparqlKeyword + inputArray[randomNumber] + "' ";
-					} else {
-						filter = filter + sparqlKeyword + inputArray[randomNumber] + andStr;
+					// verkette zufällig keywords
+					for (int z = 3; z < inputArray.length; z++){
+
+						randomNumber = random.nextInt(max + 1 - min) + min;
+
+						// kommt noch ein weiteres Keyword?
+						if (z + 1 == inputArray.length){
+							tmpFilter = tmpFilter  + inputArray[randomNumber] + "' ";
+							//filter = filter + sparqlKeyword + inputArray[randomNumber] + "' ";
+						} else {
+							tmpFilter = tmpFilter + inputArray[randomNumber] + andStr;
+							//filter = filter + sparqlKeyword + inputArray[randomNumber] + andStr;
+						}
+
+						sparqlKeyword = "";
+
 					}
 
-					sparqlKeyword = "";
+					if (!(rememberDokNameArrList.contains(tmpFilter))){
+						rememberDokNameArrList.add(tmpFilter);
+					}
 
+					tmpFilter = " '";
+
+				}
+
+				for (int x = 0; x < rememberDokNameArrList.size(); x++) {
+					if (x + 1 != rememberDokNameArrList.size()) {
+						filter = filter + rememberDokNameArrList.get(x) + endORStr;
+					} else {
+						filter = filter + rememberDokNameArrList.get(x);
+					}
 				}
 
 				toHandOverString = toHandOverString + filter;
@@ -163,16 +165,5 @@ public class DynamicTokenConcatenater {
 
 		return toHandOverString;
 	}
-
-	public static void main(String[] args) {
-
-		try {
-			System.out.print(concatenateToken(TokenDemoData.simulateTokenData(6, EventNameConstants.TOKEN_EVENT)));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 
 }

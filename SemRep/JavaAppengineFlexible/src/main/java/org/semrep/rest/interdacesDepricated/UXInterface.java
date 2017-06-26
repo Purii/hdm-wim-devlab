@@ -1,7 +1,5 @@
-package org.semrep.rest.interfaces;
+package org.semrep.rest.interdacesDepricated;
 
-import java.io.File;
-import java.io.FileReader;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +30,9 @@ import org.semrep.rest.businessObjects.Dokumentvorschlag;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.helper.FusekiConfigConstants;
 
+/**
+ * The type Ux interface.
+ */
 @Path("/uxInterface")
 public class UXInterface {
 	
@@ -39,52 +40,135 @@ public class UXInterface {
 	private static Logger loggger = Logger.getLogger(UXInterface.class.getName());
 
 
-	// ### initialisiere globale Jena-Variablen
-	public static String filePath = "src/semRepServices/interfaces/Ontology.owl";
+	/**
+	 * The constant filePath.
+	 */
+// ### initialisiere globale Jena-Variablen
+	public static String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
+	/**
+	 * The constant ontologyModel.
+	 */
 	public static OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+	/**
+	 * The constant resultSet.
+	 */
 	public static ResultSet resultSet;
+	/**
+	 * The constant queryExecution.
+	 */
 	public static QueryExecution queryExecution;
-	
-	// ### initialisiere globale HashMaps
+
+	/**
+	 * The Dok offer linked hash map.
+	 */
+// ### initialisiere globale HashMaps
 	public static LinkedHashMap<String, String> dokOfferLinkedHashMap = null;
+	/**
+	 * The Alle dokumente linked hash map.
+	 */
 	public static LinkedHashMap<String, String> alleDokumenteLinkedHashMap = null;
+	/**
+	 * The Dok offer hash map.
+	 */
 	public static HashMap<String, String> dokOfferHashMap = null;
+	/**
+	 * The Tmp dok offer hash map.
+	 */
 	public static HashMap<String, String> tmpDokOfferHashMap = null;
+	/**
+	 * The Fav dok hash map.
+	 */
 	public static HashMap<String, String> favDokHashMap = null;
+	/**
+	 * The Tmp fav dok hash map.
+	 */
 	public static HashMap<String, String> tmpFavDokHashMap = null;
 
-	// ### time stamp
+	/**
+	 * The constant timestamp.
+	 */
+// ### time stamp
 	public static Timestamp timestamp = null;
 	private static long timestampLong;
 
-	// ### initialisiere globale Objekte
+	/**
+	 * The constant dokumentvorschlagObj.
+	 */
+// ### initialisiere globale Objekte
 	public static Dokumentvorschlag dokumentvorschlagObj = null;
+	/**
+	 * The constant personObj.
+	 */
 	public static Person personObj = null;
+	/**
+	 * The constant personFavDokObj.
+	 */
 	public static Person personFavDokObj = null;
 	
 	// ### initialisiere globale Variablen
 
-	// inputArray
+	/**
+	 * The Input array.
+	 */
+// inputArray
 	public static String[] inputArray = null;
 
 	// Standard Variablen
 	private static String sessionIDStr = "";
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
 	private static String timeStampStr = "";
 
-	// Dokument-Objekt bezogen
+	/**
+	 * The constant dok_IDStr.
+	 */
+// Dokument-Objekt bezogen
 	public static String dok_IDStr = "";
+	/**
+	 * The constant dok_NameStr.
+	 */
 	public static String dok_NameStr = "";
+	/**
+	 * The constant prioStr.
+	 */
 	public static String prioStr = "";
+	/**
+	 * The constant dok_TypStr.
+	 */
 	public static String dok_TypStr = "";
+	/**
+	 * The constant dok_URLStr.
+	 */
 	public static String dok_URLStr = "";
+	/**
+	 * The constant dok_folder.
+	 */
 	public static String dok_folder = "";
-	//FavoritDok-Objekt bezogen
+	/**
+	 * The constant personVorname_Str.
+	 */
+//FavoritDok-Objekt bezogen
 	public static String personVorname_Str = "";
+	/**
+	 * The constant personNachname_Str.
+	 */
 	public static String personNachname_Str = "";
+	/**
+	 * The constant personName_Str.
+	 */
 	public static String personName_Str = "";
+	/**
+	 * The constant numFavDoks.
+	 */
 	public static int numFavDoks = 0;
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 		// produceUserInformationEvent();
 		try {
@@ -93,7 +177,10 @@ public class UXInterface {
 			e.printStackTrace();
 		}
 	}
-		
+
+	/**
+	 * Sets array demo data.
+	 */
 	public static void setArrayDemoData() {
 
 		// richToken
@@ -108,7 +195,12 @@ public class UXInterface {
 		sessionIDStr = inputArray[0].toString();
 
 	}
-	
+
+	/**
+	 * Execute sparql.
+	 *
+	 * @param sparql the sparql
+	 */
 	public static void executeSparql(String sparql){
 		// Initialisierung und Ausführung einer SPARQL-Query
 //		Query query = QueryFactory.create(sparql);
@@ -123,7 +215,12 @@ public class UXInterface {
 		// Initialisierung von Resultset für Ergebniswerte der SPARQL-Query
 		resultSet = queryExecution.execSelect();
 	}
-	
+
+	/**
+	 * Loop through results.
+	 *
+	 * @param y the y
+	 */
 	public static void loopThroughResults(int y){
 		
 		// initialisiere Variablen
@@ -268,8 +365,13 @@ public class UXInterface {
 		queryExecution.close();
 		
 	}
-	
 
+
+	/**
+	 * Gets document offers.
+	 *
+	 * @return the document offers
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getDocumentOffers")
@@ -433,7 +535,12 @@ public class UXInterface {
 
 
 	}
-	
+
+	/**
+	 * Gets all documents.
+	 *
+	 * @return the all documents
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getAllDocuments")

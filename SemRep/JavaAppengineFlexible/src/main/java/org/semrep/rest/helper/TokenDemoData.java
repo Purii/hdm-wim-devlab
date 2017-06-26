@@ -1,18 +1,28 @@
 package org.semrep.rest.helper;
 
 /**
- * Created by mateo_alliaj on 25.06.17.
+ * The type Token demo data.
+ *
+ * @author bjoernZimmermann  Token Demo Daten zum Testen der Klasse DynamicTokenConcatenater
  */
 public class TokenDemoData {
 
 	public static String[] inputArray;
 
+
+	/**
+	 * Simulate token data string [ ].
+	 *
+	 * @param arrayLength the array length
+	 * @param eventType   the event type
+	 * @return the string [ ]
+	 *
+	 */
 	public static String[] simulateTokenData(int arrayLength, String eventType) {
 
 		// 0 Tokens
 		if (arrayLength == 3 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[3];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -21,20 +31,17 @@ public class TokenDemoData {
 			// 1 Token
 		} if (arrayLength == 4 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[4];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
 			inputArray[2] = "Videokonferenz"; // context
 			inputArray[3] = "milestone"; // keyword
 
-
 		}
 
 		// 2 Token
 		if (arrayLength == 5 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[5];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -42,11 +49,9 @@ public class TokenDemoData {
 			inputArray[3] = "milestone"; // keyword
 			inputArray[4] = "tasks"; // keyword
 
-
 			// 3 Token
 		} if (arrayLength == 6 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[6];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -58,7 +63,6 @@ public class TokenDemoData {
 			// 6 Token
 		} if (arrayLength == 8 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[9];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -73,7 +77,6 @@ public class TokenDemoData {
 			// 9 Token
 		} if (arrayLength == 11 && eventType == EventNameConstants.TOKEN_EVENT){
 
-			// richToken
 			inputArray = new String[12];
 			inputArray[0] = "1"; // sessionID
 			inputArray[1] = "6"; // userID
@@ -90,10 +93,8 @@ public class TokenDemoData {
 
 		}
 
-
 		return inputArray;
 
 	}
-
 
 }

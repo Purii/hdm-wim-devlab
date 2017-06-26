@@ -27,28 +27,77 @@ import org.semrep.rest.businessObjects.Abteilung;
 import org.semrep.rest.businessObjects.Dokument;
 import org.semrep.rest.businessObjects.Person;
 import org.semrep.rest.businessObjects.Projekt;
+import org.semrep.rest.helper.DynamicTokenConcatenater;
 import org.semrep.rest.helper.EventNameConstants;
 import org.semrep.rest.helper.FusekiConfigConstants;
 import org.semrep.rest.helper.InitializeArrayData;
 
+
+/**
+ * The type Tokenizer interface.
+ *
+ * @author mateo_alliaj The type Tokenizer interface.
+ * Aufgrund von Tokens werden verschiedene Events erzeugt:
+ * - UserInformation
+ * - DepartmentInformation
+ * - ProjectInformation
+ * - DocumentInformation
+ * Hierzu werden die Testdaten in ein Array gefüllt und anschließend verschiedene
+ * Sparql-Abfragen zu verschiedenen Objekt-Repräsentationen auf den Fuseki-Endpoint geschickt.
+ * Diese Metadaten werden anschließend in die jeweiligen Event-Methoden geladen.
+ */
 public class TokenizerInterface {
 
+	/**
+	 * The Input array.
+	 */
 	public static String[] inputArray = null;
+	/**
+	 * The Person array list.
+	 */
 	public static ArrayList<String> personArrayList = null;
+	/**
+	 * The Rich token hash map.
+	 */
 	public static LinkedHashMap<String, String> richTokenHashMap = null;
+	/**
+	 * The Dokument hash map.
+	 */
 	public static LinkedHashMap<String, String> dokumentHashMap = null;
-	// Standard Variablen
+	/**
+	 * The constant eventSessionID.
+	 */
+// Standard Variablen
 	public static String eventSessionID = "";
+	/**
+	 * The constant eventUniqueID.
+	 */
 	public static String eventUniqueID = "'null'";
+	/**
+	 * The constant anzahlDokumente.
+	 */
 	public static int anzahlDokumente = 0;
 	private static JSONObject jsonObj;
 	private static Logger loggger = Logger.getLogger(TokenizerInterface.class);
 	// ### time stamp
 	private static Timestamp timestamp = null;
 	private static long timestampLong;
+	/**
+	 * The constant queryExecution.
+	 */
+	public static QueryExecution queryExecution;
+	/**
+	 * The constant resultSet.
+	 */
+	public static ResultSet resultSet;
 
 	private static InitializeArrayData initializeArrayData = new InitializeArrayData();
 
+	/**
+	 * Tokenizer interface main.
+	 *
+	 * @throws Exception the exception Main-Methode zur Befüllung der Event-Methoden
+	 */
 	public static void TokenizerInterfaceMain() throws Exception {
 
 		setArrayData();
@@ -60,6 +109,11 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
 	public static void main(String[] args) {
 
 		try {
@@ -70,6 +124,11 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Sets array data.
+	 * <p>
+	 * Lädt die Input-Parameter in ein Array
+	 */
 	public static void setArrayData() {
 
 //		String eventTypeStr = EventNameConstants.LEARN_EVENT;
@@ -90,6 +149,13 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets project information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Füllt die Projektinfromationen in eine HashMap und initalisiert ein ProjectInformationEvent
+	 */
 	private static void getProjectInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
@@ -120,6 +186,12 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Durchläuft alle gefundenen Dokument-Instanzen dynamisch
+	 */
 	private static void goThoughDocumentInstances() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
@@ -130,6 +202,13 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets document information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Füllt die Dokumentinformationen in eine HashMap und initalisiert ein DocumentInformationEvent
+	 */
 	private static void getDocumentInformation(int dokIndex) throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
@@ -166,6 +245,13 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets department information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Füllt die Abteilungsinformationen in eine HashMap und initalisiert ein DepartmentInformationEvent
+	 */
 	public static void getDepartmentInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
@@ -196,6 +282,13 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets user information.
+	 *
+	 * @throws Exception the exception
+	 *
+	 * Füllt die Personinformationen in eine HashMap und initalisiert ein UserInformationEvent
+	 */
 	public static void getUserInformation() throws Exception {
 
 		JSONObject jsonObj = new JSONObject();
@@ -230,9 +323,17 @@ public class TokenizerInterface {
 
 	}
 
+	/**
+	 * Gets meta data.
+	 *
+	 * @return the meta data
+	 *
+	 * Aufgrund der Token-Keywords werden Metadaten gesucht und anschließend in die jeweiligen Event-Methoden geladen.
+	 * Hierzu wird eine große HashMap geladen und den darüberliegenden Methoden übergeben.
+	 */
 	public static LinkedHashMap<String, String> getMetaData() {
 
-		// String filePath = "src/semRepServices/interfaces/Ontology.owl";
+		// String filePath = "src/semRepServices/interdacesDepricated/Ontology.owl";
 		// OntModel ontologyModel =
 		// ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
 
@@ -359,6 +460,8 @@ public class TokenizerInterface {
 				// Kontext & Keyword
 				if (y == 3 && y < inputArray.length) {
 
+					//String filterAddition = DynamicTokenConcatenater.concatenateToken(inputArray);
+
 					sparql = " PREFIX ontology: <http://www.semanticweb.org/sem-rep/ontology#> "
 						+ "SELECT DISTINCT ?Dok_Name ?Kontext ?Dok_Keywords ?Dokument ?Verfasser "
 						+ "?Projekt ?Dok_ID ?Dok_URL ?Erstelldatum "
@@ -471,12 +574,16 @@ public class TokenizerInterface {
 					Query query = QueryFactory.create(sparql);
 					// queryExecution = QueryExecutionFactory.create(query,
 					// ontologyModel);
-					QueryExecution queryExecution = QueryExecutionFactory
+//					QueryExecution queryExecution = QueryExecutionFactory
+//						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
+
+					queryExecution = QueryExecutionFactory
 						.sparqlService(FusekiConfigConstants.FUSEKI_ADDRESS, query);
 
 					// Initialisierung von Resultset für Ergebniswerte der
 					// SPARQL-Query
-					ResultSet resultSet = queryExecution.execSelect();
+					//ResultSet resultSet = queryExecution.execSelect();
+					resultSet = queryExecution.execSelect();
 
 					// initialisiere Variablen
 					String splitResult = "";

@@ -1,9 +1,22 @@
 package org.semrep.rest.helper;
 
+/**
+ * @author Kristjan Alliaj
+ * Intitalisiert String Arrays mit Testdaten für die Methoden-Tests
+ */
 public class InitializeArrayData {
-	
+
+	/**
+	 * The Input array.
+	 */
 	public String[] inputArray;
-	
+
+	/**
+	 * Initialize array demo data string [ ].
+	 *
+	 * @param eventType the event type
+	 * @return the string [ ]
+	 */
 	public String[] initializeArrayDemoData(String eventType) {
 
 		if (eventType == EventNameConstants.OFFER_EVENT){

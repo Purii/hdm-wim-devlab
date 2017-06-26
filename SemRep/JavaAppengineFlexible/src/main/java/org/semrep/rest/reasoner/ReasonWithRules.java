@@ -16,11 +16,23 @@ package org.semrep.rest.reasoner;
 //import com.hp.hpl.jena.rdf.model.Statement;
 import java.net.MalformedURLException;
 
+
+/**
+ *
+ * @author mateo_alliaj
+ * The type Reason with rules.
+ *
+ * Reasoner für neue Instanzen in der Ontologie
+ * Inferiert neue Zusammenhänge anhand von festgelegten Rules
+ *
+ */
 public class ReasonWithRules {
 
 	/**
-	 * @param args
-	 * @throws MalformedURLException
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 * @throws MalformedURLException the malformed url exception
 	 */
 	public static void main(String[] args) throws MalformedURLException {
 		// TODO Auto-generated method stub

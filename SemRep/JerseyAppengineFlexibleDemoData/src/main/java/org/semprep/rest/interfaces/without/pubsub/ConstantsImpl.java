@@ -1,6 +1,6 @@
-package org.semrep.rest.interfaces;
+package main.java.org.semprep.rest.interfaces.without.pubsub;
 
-import de.hdm.wim.sharedLib.Constants;
+import main.java.org.semrep.rest.helper.Constants;
 
 /**
  * Created by mateo_alliaj on 23.06.17.

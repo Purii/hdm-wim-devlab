@@ -1,4 +1,4 @@
-package org.semrep.rest.interfaces;
+package main.java.org.semprep.rest.interfaces.without.pubsub;
 
 import javax.ws.rs.Path;
 
