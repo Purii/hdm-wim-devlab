@@ -22,7 +22,7 @@ public class DocumentContextPattern {
 	 * Run.
 	 *
 	 * @param env           the env
-	 * @param psmStream 	the IEvent stream
+	 * @param psmStream 	the DocumentInformationEvent stream
 	 */
 	public void run(StreamExecutionEnvironment env, DataStream<DocumentInformationEvent> psmStream) throws Exception {
 		//Test Pattern for false User Feedback

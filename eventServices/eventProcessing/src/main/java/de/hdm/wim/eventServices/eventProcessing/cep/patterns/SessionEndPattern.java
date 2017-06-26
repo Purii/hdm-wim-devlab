@@ -15,8 +15,17 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 /**
  * @author Nils Bachmann
  * @createdOn 24.06.2017
+ *
  */
-public class SessionEndPattern {public void run(StreamExecutionEnvironment env, DataStream<Tuple2<String, Integer>> userCountStream) throws Exception {
+public class SessionEndPattern {
+
+	/**
+	 * Run.
+	 *
+	 * @param env           	the env
+	 * @param userCountStream 	the Tuple of session id and count of users in that session
+	 */
+	public void run(StreamExecutionEnvironment env, DataStream<Tuple2<String, Integer>> userCountStream) throws Exception {
 
 	//Test Pattern for false User Feedback
 	//This Pattern triggers when a User clicks on a Feedback mutiple times.
@@ -37,6 +46,7 @@ public class SessionEndPattern {public void run(StreamExecutionEnvironment env, 
 			return ssEndEvt;
 		}
 	});
+	SessionEndEventDataStream.print();
 	PublishHelper ph = new PublishHelper(false);
 	//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
 
