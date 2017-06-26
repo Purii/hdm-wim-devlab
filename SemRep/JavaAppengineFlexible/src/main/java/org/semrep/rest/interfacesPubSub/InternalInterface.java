@@ -14,10 +14,11 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.UUID;
 
-/*
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-*/
 
+/**
+ * @author bjoernZimmermann
+ * The type Internal interface.
+ */
 @Path("/internal")
 public class InternalInterface {
 
@@ -27,8 +28,9 @@ public class InternalInterface {
 	 * Die Methode 'getAllDocCategory' gibt alle Dokumentenkategorien eines Projekts zurück, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt.
 	 * alle Projekte darzustellen.
+	 *
+	 * @return the all doc category
 	 */
-
 	@GET
 	@Produces("application/json")
 	@Path("/getdoccategory")
@@ -95,8 +97,9 @@ public class InternalInterface {
 	 * Die Methode 'getAllProjectStage' gibt alle Projektphasen, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
 	 * alle Projektphasen darzustellen.
+	 *
+	 * @return the all project stage
 	 */
-
 	@GET
 	@Produces("application/json")
 	@Path("/getprojectstage")
@@ -156,11 +159,12 @@ public class InternalInterface {
 	}
 
 
-
 	/**
 	 * Die Methode 'getAllProjekcts' gibt alle Projekte, die in der A-Box vorhanden sind, zurück.
 	 * Aufgerufen wird die Methode durch das Google App Scipt, um in der GUI des Google Plugins
 	 * alle Projekte darzustellen.
+	 *
+	 * @return the projects
 	 */
 	@GET
 	@Produces("application/json")
@@ -224,9 +228,24 @@ public class InternalInterface {
 
 	/**
 	 * Die Methode 'insertMethode' nimmt die Daten via Jason an und fügt diese in die A-Box hinzu
+	 *
+	 * @param doc_version      the doc version
+	 * @param doc_have_context the doc have context
+	 * @param doc_category     the doc category
+	 * @param keywords         the keywords
+	 * @param doc_stage        the doc stage
+	 * @param doc_projectlink  the doc projectlink
+	 * @param doc_id           the doc id
+	 * @param doc_updateTime   the doc update time
+	 * @param doc_url          the doc url
+	 * @param doc_creationTime the doc creation time
+	 * @param doc_rootFolder   the doc root folder
+	 * @param doc_name         the doc name
+	 * @param doc_typ          the doc typ
+	 * @param doc_favorite     the doc favorite
+	 * @param doc_autor        the doc autor
+	 * @return the boolean
 	 */
-
-
 	@POST
 	@Produces("application/json")
 	@Consumes("application/x-www-form-urlencoded")
