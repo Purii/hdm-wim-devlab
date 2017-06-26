@@ -21,11 +21,10 @@
 
     <!--MDL Google Icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
+
 <body>
 <!-- Always shows a header, even in smaller screens. -->
-
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
@@ -37,18 +36,18 @@
             <nav class="mdl-navigation">
                 <!-- Navigation back to Landing Page -->
                 <a class="mdl-navigation__link" style="color: white" href="./index.html"><i class="material-icons">arrow_back</i></a>
-                <!-- Who is online -->
-                <a class="mdl-navigation__link" id="menu_online" style="color: white"><i class="material-icons">info_outline</i></a>
                 <!-- Google Drive -->
                 <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe" data-src="https://drive.google.com/embeddedfolderview?id=0BwEtHqofNV5DMkVtM0c3Q2hoS1E#list" href="javascript:;">
                     <img src="../images/logo/drive_logo.png" alt="drive_logo"></a>
                 <!-- Google Calendar -->
                 <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe" data-src="https://calendar.google.com/calendar/render?hl=de" href="javascript:;">
                     <img src="../images/logo/calendar_logo.png" alt="calendar_logo"></a>    
+                <!-- Who is online -->
+                <a class="mdl-navigation__link" id="menu_online" style="color: white"><i class="material-icons">info_outline</i></a>
                 <!-- Help -->
                 <a class="mdl-navigation__link" id="menu_help" style="color: white"><i class="material-icons">help_outline</i></a>
                 <!-- Log Out -->
-                <a class="mdl-navigation__link" id="logoutFromGoogle" style= "color: white" ><i class="material-icons">power_settings_new</i></a>
+                <!-- <a class="mdl-navigation__link" id="logoutFromGoogle" style= "color: white" ><i class="material-icons">power_settings_new</i></a> -->
             </nav>
 
             <!-- Content for menues-->
@@ -74,7 +73,6 @@
             <div class="tab" id="tabList">
                 <button class="tablinks" onclick="openTab(event, 'KoBoRa')" id="defaultOpen">Recommendations</button>
             </div>
-
             <div id="contentForTabs">
                 <div id="KoBoRaBody" class="tabcontent">
                     <!--<h3>KoBoRa System</h3>-->
@@ -97,13 +95,12 @@
     </main>
 </div>
 
-<ul id="log"></ul>
+<ul id="log" style="margin:0px"></ul>
 
     <script type="text/javascript" src="../js/drawChartByButton.js"></script>
     <script type="text/javascript" src="../js/tabsMG.js"></script>
     <!--<script type="text/javascript" src="controlFunctions.js"></script>-->
     <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
-
 
     <script src="../js/client.js"></script>
 
