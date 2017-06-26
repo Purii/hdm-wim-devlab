@@ -37,7 +37,7 @@ Betrachtet die `Messages` als eine Art Kapsel für ein `Event` bzw. Synonym zuei
 ![Publish Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Publish.PNG)
 
 * Subscribe Workflow
-![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe.PNG)
+![Subscribe Workflow](https://github.com/Purii/hdm-wim-devlab/blob/master/assets/Subscribe1.PNG)
 
 * **AppEngine:** PaaS. Publisher und Subscriber werden automatisch erstellt (wird durch Event-Gruppe zur Verfügung gestellt), Publisher kreieren eine PubSubMessage und versenden diese über PubSub im angegebenen Topic.
 * **PubSub:** verteilt PubSubMessages durch die Topics.
