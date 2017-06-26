@@ -55,9 +55,6 @@ public class HighlyRelevantDocumentPattern {
 				return null;
 			}
 		});
-
-		highlyRelevantDoc.print();
-
 		PublishHelper ph = new PublishHelper(false);
 	//	ph.Publish((IEvent) highlyRelevantDoc, Constants.PubSub.Topic.INSIGHTS);
 
