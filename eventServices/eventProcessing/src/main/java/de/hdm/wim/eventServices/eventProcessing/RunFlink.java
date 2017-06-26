@@ -39,7 +39,7 @@ public class RunFlink {
          */
         public static void main(String[] args) throws Exception {
 
-            final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment();
+            final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
             env.setParallelism(1); // set Parallelism to 1 Task, to get chat order right
 /*
             MessageEventSource evtSrc 	= new MessageEventSource();
