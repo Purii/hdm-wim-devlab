@@ -18,8 +18,12 @@
     <!-- MDL Theme Builder-->
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"/>
   
-    <!-- CSS styleIndex -->
+      <!-- CSS styleIndex -->
     <link rel="stylesheet" href="../css/styleIndex.css"/>
+
+      <!--Fancybox Link-->
+    <link rel="stylesheet" type="text/css" href="../fancybox-master/dist/jquery.fancybox.min.css">
+
     <style>
     .navwrap{
     float:left; 
@@ -59,10 +63,12 @@
           <a class="mdl-navigation__link" style= "color: white" href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/cloud/GUI/php/logout.php"><i class="material-icons">power_settings_new</i></a>
           <!-- Change Personal Data -->
           <!-- <a class="mdl-navigation__link" style= "color: white" data-fancybox data-type="iframe" data-src="changeMyData.html" href="javascript:;"><i class="material-icons">account_circle</i></a>-->
-          <a class="mdl-navigation__link" id= "menu_changeData" style= "color: white" href="#"><i class="material-icons">account_circle</i></a>
-          <!-- Help -->
-          <a class="mdl-navigation__link" id= "menu_helpIndex" style= "color: white" href="#"><i class="material-icons">info_outline</i></a>
-          </nav>
+              <a class="mdl-navigation__link" style="color: white" data-fancybox data-type="iframe"
+                 data-src="changeMyData.html" href="javascript:;">
+                  <i class="material-icons">account_circle</i>
+                  <!-- Help -->
+                  <a class="mdl-navigation__link" id="menu_helpIndex" style="color: white" href="#"><i class="material-icons">info_outline</i></a>
+</nav>
          </div>
         
         <!-- Content for menues-->
@@ -148,7 +154,7 @@
     <script type="text/javascript" src="drawChartByButton.js"></script>
     <script type="text/javascript" src="tabs.js"></script>
     <script type="text/javascript" src="controlFunctions.js"></script>
-    <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script>
+    <script src="../fancybox-master/dist/jquery.fancybox.min.js"></script> 
     <script src="../js/client.js"></script>
 
   </body>
